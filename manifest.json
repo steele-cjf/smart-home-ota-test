@@ -10,7 +10,9 @@
         "usingComponents" : true,
         "compilerVersion" : 3,
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+            "Maps" : {}
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -46,29 +48,28 @@
             "ios" : {},
             /* SDK配置 */
             "sdkConfigs" : {
-                "ad" : {}
+                "ad" : {},
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "f136effcbaee75390f1d23b5b51326c5",
+                        "appkey_android" : "f136effcbaee75390f1d23b5b51326c5"
+                    }
+                }
             }
         },
         "nativePlugins" : {
-            "HG-GaoDeNav" : {
-                "apikey" : "f136effcbaee75390f1d23b5b51326c5",
+            "DCloud-RichAlert" : {
                 "__plugin_info__" : {
-                    "name" : "HG-GaoDeNav",
-                    "description" : "高德导航",
-                    "platforms" : "Android",
+                    "name" : "RichAlert",
+                    "description" : "示例插件",
+                    "platforms" : "Android,iOS",
                     "url" : "",
                     "android_package_name" : "",
                     "ios_bundle_id" : "",
                     "isCloud" : false,
                     "bought" : -1,
                     "pid" : "",
-                    "parameters" : {
-                        "apikey" : {
-                            "des" : "",
-                            "key" : "com.amap.api.v2.apikey",
-                            "value" : ""
-                        }
-                    }
+                    "parameters" : {}
                 }
             },
             "RealPersonAuth" : {

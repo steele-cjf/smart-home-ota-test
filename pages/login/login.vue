@@ -31,6 +31,8 @@
 	import md5 from 'js-md5'
 	const RealPersonAuth = uni.requireNativePlugin('RealPersonAuth');
 	const dcGaoDeNav = uni.requireNativePlugin('HG-GaoDeNav');
+	const modal = uni.requireNativePlugin('modal');
+	const dcRichAlert = uni.requireNativePlugin('DCloud-RichAlert')
 	export default {
 		data() {
 			return {
@@ -40,7 +42,7 @@
 		},
 		methods: {
 			test() {
-				console.log(999, RealPersonAuth, dcGaoDeNav)
+				console.log(dcRichAlert,999, RealPersonAuth, dcGaoDeNav, 11, modal)
 			},
 			bindLogin() {
 				if (this.username.length < 5) {
