@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<button @click="test()">測試實人認證</button>
 		<view class="content flex flex-column">
 		  <image class="logo" src="/static/logo.png"></image>
 		  <view class=".uni-center">
@@ -25,10 +26,10 @@
 </template>
 
 <script>
-  import _Request from '@/common/lib/request.js'
-  import _Util from '@/common/lib/util.js'
+	import _Request from '@/common/lib/request.js'
+	import _Util from '@/common/lib/util.js'
 	import md5 from 'js-md5'
-
+	const RealPersonAuth = uni.requireNativePlugin('RealPersonAuth');
 	export default {
 		data() {
 			return {
@@ -37,6 +38,9 @@
 			}
 		},
 		methods: {
+			test() {
+				console.log(999, RealPersonAuth)
+			},
 			bindLogin() {
 				if (this.username.length < 5) {
 					uni.showToast({
