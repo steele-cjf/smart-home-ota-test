@@ -30,6 +30,7 @@
 	import _Util from '@/common/lib/util.js'
 	import md5 from 'js-md5'
 	const RealPersonAuth = uni.requireNativePlugin('RealPersonAuth');
+	const dcGaoDeNav = uni.requireNativePlugin('HG-GaoDeNav');
 	export default {
 		data() {
 			return {
@@ -39,7 +40,7 @@
 		},
 		methods: {
 			test() {
-				console.log(999, RealPersonAuth)
+				console.log(999, RealPersonAuth, dcGaoDeNav)
 			},
 			bindLogin() {
 				if (this.username.length < 5) {

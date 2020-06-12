@@ -70,6 +70,8 @@
                         }
                     }
                 }
+            }
+                }
             },
             "RealPersonAuth" : {
                 "__plugin_info__" : {
