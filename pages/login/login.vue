@@ -1,6 +1,5 @@
 <template>
-	<view>
-		<button @click="test()">測試實人認證</button>
+	<!-- <view>
 		<view class="content flex flex-column">
 		  <image class="logo" src="/static/logo.png"></image>
 		  <view class=".uni-center">
@@ -22,6 +21,14 @@
 			<text class="text-light-muted font">|</text>
 			<navigator class="text-light-muted font p-2" url="../pwd/pwd">忘记密码</navigator>
 		</view>
+	</view> -->
+	<view style="padding: 10px; padding-top: 50px">
+		<input type="text" class="font border-bottom" placeholder="请输入有效token" style="height: 100rpx;" v-model="token"/>
+		<button @click="test(1)">做活体+拍摄身份证</button>
+		<button @click="test(2)">输入姓名和身份证号+做活体</button>
+		<button @click="test(3)">做活体+拍摄身份证</button>
+		<button @click="test(4)">做活体验证</button>
+		<button @click="test(5)">做验证</button>
 	</view>
 </template>
 
@@ -29,20 +36,54 @@
 	import _Request from '@/common/lib/request.js'
 	import _Util from '@/common/lib/util.js'
 	import md5 from 'js-md5'
-	const RealPersonAuth = uni.requireNativePlugin('RealPersonAuth');
-	const dcGaoDeNav = uni.requireNativePlugin('HG-GaoDeNav');
-	const modal = uni.requireNativePlugin('modal');
-	const dcRichAlert = uni.requireNativePlugin('DCloud-RichAlert')
+	// const RichAlert = uni.requireNativePlugin('DCloud-RichAlert');
+	const plug=uni.requireNativePlugin("Html5app-AliyunFaceVerify");
 	export default {
 		data() {
 			return {
 				username: '',
 				password: '',
+				token: ''
 			}
 		},
 		methods: {
-			test() {
-				console.log(dcRichAlert,999, RealPersonAuth, dcGaoDeNav, 11, modal)
+			test(type) {
+				let code = this.token || "3"
+				
+				switch(type) {
+					case 1:
+						plug.RPBasic({"verifyToken":code},ret=>{
+							this.toast(ret)
+						});
+						break;
+					case 2:
+						plug.RPManual({"verifyToken":code},ret=>{
+							this.toast(ret)
+						});
+						break;
+					case 3:
+						plug.RPBioID({"verifyToken":code},ret=>{
+							this.toast(ret)
+						});
+						break;
+					case 4:
+						plug.RPBioOnly({"verifyToken":code},ret=>{
+							this.toast(ret)
+						});
+						break;
+					case 5:
+						plug.FDBioOnly({"verifyToken":code},ret=>{
+							this.toast(ret)
+						});
+						break;
+				}
+			},
+			toast(ret) {
+				let text = ret.text
+				uni.showToast({
+					title: text,
+					icon: 'none'
+				})
 			},
 			bindLogin() {
 				if (this.username.length < 5) {

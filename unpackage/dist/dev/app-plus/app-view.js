@@ -476,131 +476,82 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-view",
-    { attrs: { _i: 0 } },
+    {
+      staticStyle: { padding: "10px", "padding-top": "50px" },
+      attrs: { _i: 0 }
+    },
     [
+      _c("v-uni-input", {
+        staticClass: _vm._$g(1, "sc"),
+        staticStyle: { height: "100rpx" },
+        attrs: { type: "text", placeholder: "请输入有效token", _i: 1 },
+        model: {
+          value: _vm._$g(1, "v-model"),
+          callback: function($$v) {
+            _vm.$handleVModelEvent(1, $$v)
+          },
+          expression: "token"
+        }
+      }),
       _c(
         "v-uni-button",
         {
-          attrs: { _i: 1 },
+          attrs: { _i: 2 },
           on: {
             click: function($event) {
               return _vm.$handleViewEvent($event)
             }
           }
         },
-        [_vm._v("測試實人認證")]
+        [_vm._v("做活体+拍摄身份证")]
       ),
       _c(
-        "v-uni-view",
-        { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
-        [
-          _c("v-uni-image", {
-            staticClass: _vm._$g(3, "sc"),
-            attrs: { src: "/static/logo.png", _i: 3 }
-          }),
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(4, "sc"), attrs: { _i: 4 } },
-            [
-              _c(
-                "v-uni-text",
-                { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } },
-                [_vm._v("SMART HOME")]
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _c(
-        "v-uni-view",
-        { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
-        [
-          _c("v-uni-input", {
-            staticClass: _vm._$g(7, "sc"),
-            staticStyle: { height: "100rpx" },
-            attrs: { type: "text", placeholder: "用户名", _i: 7 },
-            model: {
-              value: _vm._$g(7, "v-model"),
-              callback: function($$v) {
-                _vm.$handleVModelEvent(7, $$v)
-              },
-              expression: "username"
+        "v-uni-button",
+        {
+          attrs: { _i: 3 },
+          on: {
+            click: function($event) {
+              return _vm.$handleViewEvent($event)
             }
-          }),
-          _c("v-uni-input", {
-            staticClass: _vm._$g(8, "sc"),
-            staticStyle: { height: "100rpx" },
-            attrs: { type: "password", placeholder: "密码", _i: 8 },
-            model: {
-              value: _vm._$g(8, "v-model"),
-              callback: function($$v) {
-                _vm.$handleVModelEvent(8, $$v)
-              },
-              expression: "password"
-            }
-          }),
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
-            [
-              _c(
-                "v-uni-view",
-                {
-                  staticClass: _vm._$g(10, "sc"),
-                  attrs: { "hover-class": "main-bg-hover-color", _i: 10 }
-                },
-                [
-                  _c(
-                    "v-uni-text",
-                    {
-                      staticClass: _vm._$g(11, "sc"),
-                      attrs: { _i: 11 },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
-                    },
-                    [_vm._v("登 录")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
+          }
+        },
+        [_vm._v("输入姓名和身份证号+做活体")]
       ),
       _c(
-        "v-uni-view",
-        { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
-        [
-          _c(
-            "v-uni-navigator",
-            {
-              staticClass: _vm._$g(13, "sc"),
-              attrs: { url: "../reg/reg", _i: 13 }
-            },
-            [_vm._v("注册账号")]
-          ),
-          _c(
-            "v-uni-text",
-            { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
-            [_vm._v("|")]
-          ),
-          _c(
-            "v-uni-navigator",
-            {
-              staticClass: _vm._$g(15, "sc"),
-              attrs: { url: "../pwd/pwd", _i: 15 }
-            },
-            [_vm._v("忘记密码")]
-          )
-        ],
-        1
+        "v-uni-button",
+        {
+          attrs: { _i: 4 },
+          on: {
+            click: function($event) {
+              return _vm.$handleViewEvent($event)
+            }
+          }
+        },
+        [_vm._v("做活体+拍摄身份证")]
+      ),
+      _c(
+        "v-uni-button",
+        {
+          attrs: { _i: 5 },
+          on: {
+            click: function($event) {
+              return _vm.$handleViewEvent($event)
+            }
+          }
+        },
+        [_vm._v("做活体验证")]
+      ),
+      _c(
+        "v-uni-button",
+        {
+          attrs: { _i: 6 },
+          on: {
+            click: function($event) {
+              return _vm.$handleViewEvent($event)
+            }
+          }
+        },
+        [_vm._v("做验证")]
       )
     ],
     1

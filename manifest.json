@@ -58,31 +58,17 @@
             }
         },
         "nativePlugins" : {
-            "DCloud-RichAlert" : {
+            "Html5app-AliyunFaceVerify" : {
                 "__plugin_info__" : {
-                    "name" : "RichAlert",
-                    "description" : "示例插件",
+                    "name" : "阿里云 Android 和 IOS 实人 实名 身份验证插件 - [试用版，仅用于自定义调试基座]",
+                    "description" : "阿里云 android 和 ios 实人验证 QQ交流群：891416757",
                     "platforms" : "Android,iOS",
-                    "url" : "",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=1290",
                     "android_package_name" : "",
                     "ios_bundle_id" : "",
-                    "isCloud" : false,
-                    "bought" : -1,
-                    "pid" : "",
-                    "parameters" : {}
-                }
-            },
-            "RealPersonAuth" : {
-                "__plugin_info__" : {
-                    "name" : "RealPersonAuth",
-                    "description" : "实人认证插件",
-                    "platforms" : "Android",
-                    "url" : "",
-                    "android_package_name" : "",
-                    "ios_bundle_id" : "",
-                    "isCloud" : false,
-                    "bought" : -1,
-                    "pid" : "",
+                    "isCloud" : true,
+                    "bought" : 0,
+                    "pid" : "1290",
                     "parameters" : {}
                 }
             }
