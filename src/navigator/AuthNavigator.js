@@ -7,21 +7,26 @@ import {AppRoute} from './AppRoutes';
 
 const Stack = createStackNavigator();
 
-const AuthNavigator = () => {
-  return (
-    <Stack.Navigator headerMode="none">
-      <Stack.Screen
-        name={AppRoute.LOGIN}
-        component={LoginPage}
-        options={{headerTitle: '登陆'}}
-      />
-      <Stack.Screen
-        name={AppRoute.REGISTER}
-        component={RegisterPage}
-        options={{headerTitle: '注册'}}
-      />
-    </Stack.Navigator>
-  );
-};
+class AuthNavigator extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen
+          name={AppRoute.LOGIN}
+          component={LoginPage}
+          options={{headerTitle: '登陆'}}
+        />
+        <Stack.Screen
+          name={AppRoute.REGISTER}
+          component={RegisterPage}
+          options={{headerTitle: '注册'}}
+        />
+      </Stack.Navigator>
+    )
+  }
+}
 
 export default AuthNavigator;
