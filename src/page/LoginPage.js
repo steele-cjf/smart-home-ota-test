@@ -2,7 +2,6 @@ import React, {useState, useRef} from 'react';
 import {View, StyleSheet} from 'react-native';
 // import Icon from 'react-native-vector-icons';
 import {Input, Button} from 'react-native-elements';
-import fetch from '../util/fetch';
 import md5 from 'md5';
 
 export const LoginPage = ({navigation, dispatch}) => {
@@ -34,8 +33,7 @@ export const LoginPage = ({navigation, dispatch}) => {
       password: md5(password),
     };
     if (['userName', 'password'].every(validateField)) {
-      fetch
-        .post('/auth/login', data)
+      http.post('/auth/login', data)
         .then(res => {
           console.log(res);
         })
