@@ -1,0 +1,4 @@
+#Wed Jun 24 18:01:30 CST 2020
+base.0=/Users/potter/Documents/vita/SmartHome/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
