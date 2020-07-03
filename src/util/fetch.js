@@ -30,19 +30,19 @@ export const httpService = (url, options) => {
 };
 
 export const get = (url, getParams) => {
-  return httpService(formatURL(url, getParams), {methods: 'GET'});
+  return httpService(formatURL(url, getParams), {method: 'GET'});
 };
 
 export const post = (url, data) => {
-  return httpService(url, {methods: 'POST', body: JSON.stringify(data)});
+  return httpService(url, {method: 'POST', body: JSON.stringify(data)});
 };
 
 export const put = (url, data) => {
-  return httpService(url, {methods: 'PUT', body: JSON.stringify(data)});
+  return httpService(url, {method: 'PUT', body: JSON.stringify(data)});
 };
 
 export const remove = (url, data) => {
-  return httpService(url, {methods: 'DELETE', body: JSON.stringify(data)});
+  return httpService(url, {method: 'DELETE', body: JSON.stringify(data)});
 };
 
 export default {
