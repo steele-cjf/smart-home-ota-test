@@ -2,7 +2,9 @@ import React, {useState, useRef} from 'react';
 import {View, StyleSheet} from 'react-native';
 // import Icon from 'react-native-vector-icons';
 import {Input, Button} from 'react-native-elements';
+import {AppRoute} from '../navigator/AppRoutes';
 import md5 from 'md5';
+import showToast from '../util/toast';
 
 export const LoginPage = ({navigation, dispatch}) => {
   function validateField(field) {
@@ -28,14 +30,20 @@ export const LoginPage = ({navigation, dispatch}) => {
     }
   }
   function handleSubmit() {
+    // console.log(navigation.navigate(AppRoute.HOME));
     const data = {
       username: userName,
       password: md5(password),
     };
     if (['userName', 'password'].every(validateField)) {
-      http.post('/auth/login', data)
+      http
+        .post('/auth/login', data)
         .then(res => {
-          console.log(res);
+          if (!res.code) {
+            navigation.navigate(AppRoute.HOME);
+          } else {
+            showToast(res.message);
+          }
         })
         .catch(error => {
           console.log(error);

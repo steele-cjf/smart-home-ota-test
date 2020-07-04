@@ -13,7 +13,7 @@ export default () => {
       <SafeAreaProvider>
         <NavigationContainer>
           <AppNavigator
-            initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.LOGIN}
+            initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.REGISTER}
           />
         </NavigationContainer>
       </SafeAreaProvider>
