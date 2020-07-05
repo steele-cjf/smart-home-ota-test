@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, NativeModules, findNodeHandle} from 'react-native';
 // import Icon from 'react-native-vector-icons';
 import {Input, Button} from 'react-native-elements';
 import {AppRoute} from '../navigator/AppRoutes';
@@ -65,6 +65,12 @@ export const RegisterPage = ({navigation, dispatch}) => {
         });
     }
   }
+  function authReal () {
+    console.log(8888, findNodeHandle(rootRef.current))
+    const RealPersonAuth = NativeModules.RealPersonAuth
+    RealPersonAuth.addEvent(findNodeHandle(rootRef.current), this.state.token || 'token')
+  }
+
   function handleGetCode() {
     setSendStatus(ifSend => (ifSend = true));
     const data = {
@@ -88,6 +94,7 @@ export const RegisterPage = ({navigation, dispatch}) => {
   }
   const [ifSend, setSendStatus] = useState(true);
 
+  const rootRef = useRef(null);
   const refUserName = useRef(null);
   const refPassword = useRef(null);
   const refPassword1 = useRef(null);
@@ -102,7 +109,7 @@ export const RegisterPage = ({navigation, dispatch}) => {
   const [registerCodeError, setRegisterCodeError] = useState(null);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} ref='xxx' ref={rootRef}>
       <Input
         ref={refUserName}
         keyboardType="numeric"
@@ -149,6 +156,7 @@ export const RegisterPage = ({navigation, dispatch}) => {
         onChangeText={setPassword1}
       />
       <Button style={styles.logBtn} title="注册" onPress={handleSubmit} />
+      <Button style={styles.logBtn} title="ios-实人认证" onPress={authReal} />
     </View>
   );
 };
