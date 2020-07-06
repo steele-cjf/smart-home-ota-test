@@ -65,11 +65,11 @@ export const RegisterPage = ({navigation, dispatch}) => {
         });
     }
   }
-  function authReal () {
-    console.log(8888, findNodeHandle(rootRef.current))
-    const RealPersonAuth = NativeModules.RealPersonAuth
-    RealPersonAuth.addEvent(findNodeHandle(rootRef.current), this.state.token || 'token')
-  }
+  // function authReal () {
+  //   const RealPersonAuth = NativeModules.RealPersonAuth
+  //   console.log(23432432111111, RealPersonAuth, findNodeHandle(rootRef.current))
+  //   RealPersonAuth.addEvent(findNodeHandle(rootRef.current), userName || 'e13b9733b38e48099049609ae10a792f')
+  // }
 
   function handleGetCode() {
     setSendStatus(ifSend => (ifSend = true));
@@ -110,6 +110,7 @@ export const RegisterPage = ({navigation, dispatch}) => {
 
   return (
     <View style={styles.container} ref='xxx' ref={rootRef}>
+      {/* <Button style={styles.logBtn} title="ios-实人认证" onPress={() => authReal()} /> */}
       <Input
         ref={refUserName}
         keyboardType="numeric"
@@ -156,7 +157,6 @@ export const RegisterPage = ({navigation, dispatch}) => {
         onChangeText={setPassword1}
       />
       <Button style={styles.logBtn} title="注册" onPress={handleSubmit} />
-      <Button style={styles.logBtn} title="ios-实人认证" onPress={authReal} />
     </View>
   );
 };

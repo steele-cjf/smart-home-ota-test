@@ -8,8 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SmartHomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SmartHomeTests.m */; };
+		077E319024B2BB8600370524 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E318F24B2BB8500370524 /* PDFKit.framework */; };
+		077E319224B2BBBE00370524 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E319124B2BBBE00370524 /* CoreMotion.framework */; };
+		077E31A024B2BBF600370524 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E319F24B2BBF600370524 /* CoreTelephony.framework */; };
+		077E31A224B2BC0500370524 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31A124B2BC0500370524 /* libc++.tbd */; };
+		077E31A424B2BC1000370524 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31A324B2BC1000370524 /* libresolv.tbd */; };
+		077E31A624B2BC1700370524 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31A524B2BC1700370524 /* libz.tbd */; };
+		077E31A824B2BC4900370524 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31A724B2BC4900370524 /* SystemConfiguration.framework */; };
+		077E31AA24B2BC6800370524 /* yw_1222_0769.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 077E31A924B2BC6700370524 /* yw_1222_0769.jpg */; };
+		077E31AB24B2BC7300370524 /* yw_1222_0769.jpg in Sources */ = {isa = PBXBuildFile; fileRef = 077E31A924B2BC6700370524 /* yw_1222_0769.jpg */; };
+		077E31AE24B2BCE400370524 /* RealPersonAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 077E31AD24B2BCE400370524 /* RealPersonAuth.m */; };
+		077E31B124B2BE6D00370524 /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B024B2BE6D00370524 /* AliyunOSSiOS.framework */; };
+		077E31B724B2BEBF00370524 /* RPSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 077E31B224B2BEBF00370524 /* RPSDK.bundle */; };
+		077E31B824B2BEBF00370524 /* SGMain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B324B2BEBF00370524 /* SGMain.framework */; };
+		077E31B924B2BEBF00370524 /* RPSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B424B2BEBF00370524 /* RPSDK.framework */; };
+		077E31BA24B2BEBF00370524 /* SecurityGuardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B524B2BEBF00370524 /* SecurityGuardSDK.framework */; };
+		077E31BB24B2BEBF00370524 /* SGSecurityBody.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B624B2BEBF00370524 /* SGSecurityBody.framework */; };
 		08D88A41956B47DDE9623167 /* libPods-SmartHome-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B4B53A7B2A0F88A77D0F863 /* libPods-SmartHome-tvOS.a */; };
-		09A30064DE417B1D9E3A130B /* libPods-SmartHome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 653880007C4B0705D32D6235 /* libPods-SmartHome.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -44,6 +59,23 @@
 		00E356EE1AD99517003FC87E /* SmartHomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartHomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SmartHomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartHomeTests.m; sourceTree = "<group>"; };
+		077E318F24B2BB8500370524 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
+		077E319124B2BBBE00370524 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		077E319F24B2BBF600370524 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		077E31A124B2BC0500370524 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		077E31A324B2BC1000370524 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		077E31A524B2BC1700370524 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		077E31A724B2BC4900370524 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		077E31A924B2BC6700370524 /* yw_1222_0769.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222_0769.jpg; sourceTree = "<group>"; };
+		077E31AD24B2BCE400370524 /* RealPersonAuth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RealPersonAuth.m; sourceTree = "<group>"; };
+		077E31AF24B2BCF100370524 /* RealPersonAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealPersonAuth.h; sourceTree = "<group>"; };
+		077E31B024B2BE6D00370524 /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AliyunOSSiOS.framework; path = "../../../Downloads/阿里云认证SDK-IOS/client/AliyunOSSiOS.framework"; sourceTree = "<group>"; };
+		077E31B224B2BEBF00370524 /* RPSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RPSDK.bundle; path = "../../../Downloads/阿里云认证SDK-IOS/client/RPSDK.bundle"; sourceTree = "<group>"; };
+		077E31B324B2BEBF00370524 /* SGMain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SGMain.framework; path = "../../../Downloads/阿里云认证SDK-IOS/client/SGMain.framework"; sourceTree = "<group>"; };
+		077E31B424B2BEBF00370524 /* RPSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RPSDK.framework; path = "../../../Downloads/阿里云认证SDK-IOS/client/RPSDK.framework"; sourceTree = "<group>"; };
+		077E31B524B2BEBF00370524 /* SecurityGuardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityGuardSDK.framework; path = "../../../Downloads/阿里云认证SDK-IOS/client/SecurityGuardSDK.framework"; sourceTree = "<group>"; };
+		077E31B624B2BEBF00370524 /* SGSecurityBody.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SGSecurityBody.framework; path = "../../../Downloads/阿里云认证SDK-IOS/client/SGSecurityBody.framework"; sourceTree = "<group>"; };
+		077E31BC24B2C75300370524 /* SmartHome.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = SmartHome.entitlements; path = SmartHome/SmartHome.entitlements; sourceTree = "<group>"; };
 		0D64DAA788BC325ED96C97F5 /* Pods-SmartHome-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartHome-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-SmartHome-tvOS/Pods-SmartHome-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* SmartHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SmartHome/AppDelegate.h; sourceTree = "<group>"; };
@@ -82,7 +114,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09A30064DE417B1D9E3A130B /* libPods-SmartHome.a in Frameworks */,
+				077E31B124B2BE6D00370524 /* AliyunOSSiOS.framework in Frameworks */,
+				077E319224B2BBBE00370524 /* CoreMotion.framework in Frameworks */,
+				077E31A024B2BBF600370524 /* CoreTelephony.framework in Frameworks */,
+				077E31A624B2BC1700370524 /* libz.tbd in Frameworks */,
+				077E31A424B2BC1000370524 /* libresolv.tbd in Frameworks */,
+				077E31B924B2BEBF00370524 /* RPSDK.framework in Frameworks */,
+				077E31BA24B2BEBF00370524 /* SecurityGuardSDK.framework in Frameworks */,
+				077E31A224B2BC0500370524 /* libc++.tbd in Frameworks */,
+				077E31BB24B2BEBF00370524 /* SGSecurityBody.framework in Frameworks */,
+				077E31B824B2BEBF00370524 /* SGMain.framework in Frameworks */,
+				077E319024B2BB8600370524 /* PDFKit.framework in Frameworks */,
+				077E31A824B2BC4900370524 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +168,7 @@
 		13B07FAE1A68108700A75B9A /* SmartHome */ = {
 			isa = PBXGroup;
 			children = (
+				077E31BC24B2C75300370524 /* SmartHome.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -132,6 +176,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				077E31AD24B2BCE400370524 /* RealPersonAuth.m */,
+				077E31AF24B2BCF100370524 /* RealPersonAuth.h */,
 			);
 			name = SmartHome;
 			sourceTree = "<group>";
@@ -139,6 +185,13 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				077E31A724B2BC4900370524 /* SystemConfiguration.framework */,
+				077E31A524B2BC1700370524 /* libz.tbd */,
+				077E31A324B2BC1000370524 /* libresolv.tbd */,
+				077E31A124B2BC0500370524 /* libc++.tbd */,
+				077E319F24B2BBF600370524 /* CoreTelephony.framework */,
+				077E319124B2BBBE00370524 /* CoreMotion.framework */,
+				077E318F24B2BB8500370524 /* PDFKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				653880007C4B0705D32D6235 /* libPods-SmartHome.a */,
@@ -154,7 +207,6 @@
 			children = (
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -167,6 +219,13 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				077E31B224B2BEBF00370524 /* RPSDK.bundle */,
+				077E31B424B2BEBF00370524 /* RPSDK.framework */,
+				077E31B524B2BEBF00370524 /* SecurityGuardSDK.framework */,
+				077E31B324B2BEBF00370524 /* SGMain.framework */,
+				077E31B624B2BEBF00370524 /* SGSecurityBody.framework */,
+				077E31B024B2BE6D00370524 /* AliyunOSSiOS.framework */,
+				077E31A924B2BC6700370524 /* yw_1222_0769.jpg */,
 				13B07FAE1A68108700A75B9A /* SmartHome */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SmartHomeTests */,
@@ -203,7 +262,6 @@
 				F852BF4FBB3AD34B0F56B3BD /* Pods-SmartHome-tvOSTests.debug.xcconfig */,
 				5B46644BDED04A55101DBEF3 /* Pods-SmartHome-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -303,6 +361,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = WPSPASKNG4;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -349,8 +408,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077E31B724B2BEBF00370524 /* RPSDK.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				077E31AA24B2BC6800370524 /* yw_1222_0769.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +698,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077E31AB24B2BC7300370524 /* yw_1222_0769.jpg in Sources */,
+				077E31AE24B2BCE400370524 /* RealPersonAuth.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -736,8 +799,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SmartHome/SmartHome.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WPSPASKNG4;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
@@ -749,7 +818,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jianfeng.project;
 				PRODUCT_NAME = SmartHome;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -763,7 +832,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SmartHome/SmartHome.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WPSPASKNG4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SmartHome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -771,7 +846,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jianfeng.project;
 				PRODUCT_NAME = SmartHome;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
