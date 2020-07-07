@@ -5,7 +5,7 @@ import {AppNavigator} from './src/navigator/AppNavigator';
 import {AppRoute} from './src/navigator/AppRoutes';
 
 export default () => {
-  // This value is used to determine the initial screen
+  // This value is used to determine the initial screen1
   const isAuthorized = false;
 
   return (
