@@ -1,12 +1,13 @@
-import React, {useState, useRef} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useState, useRef, useEffect, useCallback} from 'react';
+import {View, StyleSheet, Text} from 'react-native';
+
 // import Icon from 'react-native-vector-icons';
 import {Input, Button} from 'react-native-elements';
-import {AppRoute} from '../navigator/AppRoutes';
+import {AppRoute} from '../../navigator/AppRoutes';
 import md5 from 'md5';
-import showToast from '../util/toast';
+import showToast from '../../util/toast';
 
-export const LoginPage = ({navigation, dispatch}) => {
+function LoginPage (props) {
   function validateField(field) {
     let phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
     let passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[^]{6,16}$/;
@@ -30,7 +31,6 @@ export const LoginPage = ({navigation, dispatch}) => {
     }
   }
   function handleSubmit() {
-    // console.log(navigation.navigate(AppRoute.HOME));
     const data = {
       username: userName,
       password: md5(password),
@@ -40,7 +40,7 @@ export const LoginPage = ({navigation, dispatch}) => {
         .post('/auth/login', data)
         .then(res => {
           if (!res.code) {
-            navigation.navigate(AppRoute.HOME);
+            props.navigation.navigate(AppRoute.HOME);
           } else {
             showToast(res.message);
           }
@@ -50,7 +50,16 @@ export const LoginPage = ({navigation, dispatch}) => {
         });
     }
   }
-
+  // get store
+  useEffect(() => {
+    console.log(9999, props.userToken)
+  }, [props.userToken])
+  // action
+  function getHttp () {
+    props.getUserToken((res) => {
+      console.log('end', res)
+    })
+  }
   const refUserName = useRef(null);
   const refPassword = useRef(null);
   const [userName, setUserName] = useState(null);
@@ -79,6 +88,7 @@ export const LoginPage = ({navigation, dispatch}) => {
         onChangeText={setPassword}
       />
       <Button style={styles.logBtn} title="登录" onPress={handleSubmit} />
+      <Button style={styles.logBtn} title="redux-store测试" onPress={() => getHttp()} />
     </View>
   );
 };
@@ -97,3 +107,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
+export default LoginPage 

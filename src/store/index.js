@@ -1,17 +1,9 @@
-import {appleMiddleware, createStore} from 'redux';
+import {applyMiddleware, createStore, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
-import reducers from './reducers';
+import {userToken} from './login/index'
 
-export function createReducer(initialState, handlers) {
-  return function reducer(state = initialState, action) {
-    if (handlers.hasOwnProperty(action.type)) {
-      return handlers[action.type](state, action);
-    } else {
-      return state;
-    }
-  };
-}
-
-const createStoreWithMW = appleMiddleware(thunk)(createStore);
-const store = createStoreWithMW(reducers);
+const allReducers= combineReducers({
+  userToken
+});
+const store = createStore(allReducers, applyMiddleware (thunk));
 export default store;

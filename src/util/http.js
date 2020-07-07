@@ -1,6 +1,22 @@
 import {stringify} from 'query-string';
 import {appApi} from '../config';
 import {showToast} from './toast';
+// 默认配置
+const DEFAULT_CONFIG = {
+  method: 'GET',
+  body: null,
+  queryData: {},
+  actionType: '',
+  extendData: {},
+  actionDataKey: 'data',
+  successConfig: null,
+  failConfig: null,
+  includeCredentials: true,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
+}
 
 // 构造参数
 export const formatURL = (url, params) => {
@@ -14,35 +30,52 @@ export const formatURL = (url, params) => {
 };
 
 // 请求参数
-export const httpService = (url, options) => {
-  const defaultOptions = {
-    includeCredentials: true,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
-  return fetch(appApi + url, Object.assign(defaultOptions, options))
-    .then(response => response.json())
-    .catch(error => {
-      showToast('networkError');
-    });
+export const httpService = (url, config) => {
+  if(config.body) {
+    config.body = config.body && JSON.stringify(config.body)
+  }
+  return (dispatch) => {
+    config = Object.assign({}, DEFAULT_CONFIG, config)
+    return fetch(appApi + url, config)
+      .then(response => response.json())
+      .then(response => {
+        let data = JSON.stringify(response)
+        if (config.actionType) {
+          dispatch({
+            type: config.actionType,
+            [config.actionDataKey]: data
+          })
+        }
+        if (config.successConfig && config.successConfig.callback) {
+          config.successConfig.callback(data)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+
+        showToast('networkError');
+      });
+  }
 };
 
-export const get = (url, getParams) => {
-  return httpService(formatURL(url, getParams), {method: 'GET'});
+export const get = (url, config) => {
+  config.method = 'GET'
+  url = formatURL(url, config.queryData)
+  return httpService(url, config)
 };
 
-export const post = (url, data) => {
-  return httpService(url, {method: 'POST', body: JSON.stringify(data)});
+export const post = (url, config) => {
+  config.method = 'POST'
+  return httpService(url, config)
+};
+export const put = (url, config) => {
+  config.method = 'PUT'
+  return httpService(url, config)
 };
 
-export const put = (url, data) => {
-  return httpService(url, {method: 'PUT', body: JSON.stringify(data)});
-};
-
-export const remove = (url, data) => {
-  return httpService(url, {method: 'DELETE', body: JSON.stringify(data)});
+export const remove = (url, config) => {
+  config.method = 'DELETE'
+  return httpService(url, config)
 };
 
 export default {
