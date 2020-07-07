@@ -25,7 +25,7 @@ public class AliyunVerify extends ReactContextBaseJavaModule implements Lifecycl
     }
 
     @ReactMethod
-    public void show(String s, final Callback jsCallback) {
+    public void show(String s, Callback jsCallback) {
         
         CloudRealIdentityTrigger.start(reactContext, s, getALRealIdentityCallback(jsCallback));
     }
@@ -49,7 +49,7 @@ public class AliyunVerify extends ReactContextBaseJavaModule implements Lifecycl
      *
      * @return
      */
-    private ALRealIdentityCallback getALRealIdentityCallback(final Callback jsCallback) {
+    private ALRealIdentityCallback getALRealIdentityCallback(Callback jsCallback) {
 
         return new ALRealIdentityCallback() {
             @Override
@@ -83,21 +83,45 @@ public class AliyunVerify extends ReactContextBaseJavaModule implements Lifecycl
      *
      * @return
      */
-    private ALRealIdentityCallbackExt getALRealIdentityCallbackEX() {
+    private ALRealIdentityCallbackExt getALRealIdentityCallbackEX(Callback jsCallback) {
         return new ALRealIdentityCallbackExt() {
             @Override
             public void onBiometricsStart() {
                 //活体页面开始
+                JSONObject result = new JSONObject();
+                    result.put("result", "success");
+                    jsCallback.invoke(result);
+                    System.out.println("活体检测通过");
             }
 
             @Override
             public void onBiometricsStop(boolean isBiometricsSuc) {//
                 //活体页面结束 参数表示是否检测成功
+                if (isBiometricsSuc == true) {
+                    JSONObject result = new JSONObject();
+                    result.put("result", "success");
+                    jsCallback.invoke(result);
+                    System.out.println("活体检测通过");
+                }
             }
 
             @Override
             public void onAuditResult(ALRealIdentityResult alRealIdentityResult, String s) {
                 //DO your things
+                if (alRealIdentityResult == ALRealIdentityResult.AUDIT_PASS) {
+                    // 认证通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理。
+                    // do something
+                    JSONObject result = new JSONObject();
+                    result.put("result", "success");
+                    jsCallback.invoke(result);
+                    System.out.println("认证通过");
+                } else if (alRealIdentityResult == ALRealIdentityResult.AUDIT_FAIL) {
+                    // 认证不通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理。
+                    // do something
+                    JSONObject result = new JSONObject();
+                    result.put("result", "fail");
+                    jsCallback.invoke(result);
+                }
             }
         };
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {HomePage} from '../page/HomePage';
 import DynamicPage from '../page/DynamicPage';
 import MyPage from '../page/MyPage';
@@ -24,7 +24,7 @@ const BottomTabScreen = () => {
           }
 
           // You can return any component that you like here!
-          // return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
       tabBarOptions={{

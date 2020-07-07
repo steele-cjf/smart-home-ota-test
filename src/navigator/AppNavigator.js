@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 export const AppNavigator = props => (
   <Stack.Navigator {...props} headerMode="none">
-    <Stack.Screen name={AppRoute.REGISTER} component={AuthNavigator} />
+    <Stack.Screen name={AppRoute.LOGIN} component={AuthNavigator} />
     <Stack.Screen name={AppRoute.HOME} component={TabNavigator} />
   </Stack.Navigator>
 );

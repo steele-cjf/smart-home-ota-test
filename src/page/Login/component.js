@@ -39,6 +39,7 @@ function LoginPage (props) {
       http
         .post('/auth/login', data)
         .then(res => {
+          console.log('ddd', res.code);
           if (!res.code) {
             props.navigation.navigate(AppRoute.HOME);
           } else {
