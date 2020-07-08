@@ -14,8 +14,8 @@ const BottomTabScreen = () => {
     <Tab.Navigator
       initialRouteName={AppRoute.HOME}
       tabBarOptions={{
-        activeTintColor: 'blue',
-        inactiveTintColor: 'black',
+        activeTintColor: '#0d86ff',
+        inactiveTintColor: '#555',
       }}>
       <Tab.Screen
         name={AppRoute.HOME}
@@ -23,7 +23,7 @@ const BottomTabScreen = () => {
         options={{
           title: '首页',
           tabBarIcon: ({focused, color}) => (
-            <Ionicons name={'ios-home'} color={color} size={26} />
+            <Ionicons name={'ios-home'} color={color} size={24} />
           ),
         }}
       />
@@ -33,7 +33,7 @@ const BottomTabScreen = () => {
         options={{
           title: '动态',
           tabBarIcon: ({focused, color}) => (
-            <Ionicons name={'ios-bonfire'} color={color} size={26} />
+            <Ionicons name={'ios-bonfire'} color={color} size={24} />
           ),
         }}
       />
@@ -43,7 +43,7 @@ const BottomTabScreen = () => {
         options={{
           title: '我的',
           tabBarIcon: ({focused, color}) => (
-            <FontAwesome name={'user'} color={color} size={26} />
+            <FontAwesome name={'user'} color={color} size={24} />
           ),
         }}
       />
