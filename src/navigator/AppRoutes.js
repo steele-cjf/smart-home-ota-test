@@ -1,7 +1,7 @@
 export const AppRoute = {
   // AUTH: 'Auth',
   LOGIN: 'LoginPage',
-  REGISTER: 'RegisterPage',
+  // REGISTER: 'RegisterPage',
   HOME: 'HomePage',
   DYNAMIC: 'DynamicPage',
   MY: 'MyPage',

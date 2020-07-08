@@ -7,7 +7,7 @@ import {AppRoute} from '../../navigator/AppRoutes';
 import md5 from 'md5';
 import showToast from '../../util/toast';
 
-function LoginPage (props) {
+function LoginPage(props) {
   function validateField(field) {
     let phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
     let passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[^]{6,16}$/;
@@ -53,13 +53,13 @@ function LoginPage (props) {
   }
   // get store
   useEffect(() => {
-    console.log(9999, props.userToken)
-  }, [props.userToken])
+    console.log(9999, props.userToken);
+  }, [props.userToken]);
   // action
-  function getHttp () {
-    props.getUserToken((res) => {
-      console.log('end', res)
-    })
+  function getHttp() {
+    props.getUserToken(res => {
+      console.log('end', res);
+    });
   }
   const refUserName = useRef(null);
   const refPassword = useRef(null);
@@ -89,10 +89,14 @@ function LoginPage (props) {
         onChangeText={setPassword}
       />
       <Button style={styles.logBtn} title="登录" onPress={handleSubmit} />
-      <Button style={styles.logBtn} title="redux-store测试" onPress={() => getHttp()} />
+      <Button
+        style={styles.logBtn}
+        title="redux-store测试"
+        onPress={() => getHttp()}
+      />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -108,4 +112,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
-export default LoginPage 
+export default LoginPage;

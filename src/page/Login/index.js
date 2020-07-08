@@ -1,16 +1,19 @@
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import Component from './component'
-import { getUserToken } from '../../store/login/index';
+import Component from './component';
+import {getUserToken} from '../../store/login/index';
 
 // reducer获取
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
-    userToken: state.userToken
+    userToken: state.userToken,
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserToken }, dispatch)
+  return bindActionCreators({getUserToken}, dispatch);
 }
-export default connect(mapStateToProps, matchDispatchToProps)(Component);
+export default connect(
+  mapStateToProps,
+  matchDispatchToProps,
+)(Component);

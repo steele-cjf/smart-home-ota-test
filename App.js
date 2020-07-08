@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import store from './src/store';
 export default () => {
   // This value is used to determine the initial screen1
-  const isAuthorized = true;
+  const isAuthorized = false;
 
   return (
     <React.Fragment>
@@ -15,9 +15,7 @@ export default () => {
         <Provider store={store}>
           <NavigationContainer>
             <AppNavigator
-              initialRouteName={
-                isAuthorized ? AppRoute.HOME : AppRoute.REGISTER
-              }
+              initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.LOGIN}
             />
           </NavigationContainer>
         </Provider>

@@ -8,7 +8,6 @@ global.$post = post;
 global.$remove = remove;
 global.$put = put;
 
-
 global.showToast = showToast;
 global.Theme = Theme;
 global.screen = screen;

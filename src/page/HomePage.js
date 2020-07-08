@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, NativeModules} from 'react-native';
-import {Button} from 'react-native-elements';
+import {Button, Icon} from 'react-native-elements';
 import http from '../util/http';
 
 export const HomePage = ({navigation, dispatch}) => {
@@ -48,6 +48,7 @@ export const HomePage = ({navigation, dispatch}) => {
     <View style={{marginTop: 150}}>
       <Text>您还未实名认证，</Text>
       <Button title="去实名" onPress={handlerVerify} />
+      <Icon name="rowing" />
     </View>
   );
 };
