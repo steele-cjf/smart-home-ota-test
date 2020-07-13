@@ -1,6 +1,9 @@
 import {stringify} from 'query-string';
 import {appApi} from '../config';
 import {showToast} from './toast';
+// import {AppRoute} from '../navigator/AppRoutes';
+import storage from './storage';
+
 // 默认配置
 const DEFAULT_CONFIG = {
   method: 'GET',
@@ -15,8 +18,8 @@ const DEFAULT_CONFIG = {
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-  }
-}
+  },
+};
 
 // 构造参数
 export const formatURL = (url, params) => {
@@ -31,51 +34,66 @@ export const formatURL = (url, params) => {
 
 // 请求参数
 export const httpService = (url, config) => {
-  if(config.body) {
-    config.body = config.body && JSON.stringify(config.body)
+  // const accessToken = await storage.get('token');
+  // if (accessToken) {
+  //   DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken;
+  // }
+  storage
+    .get('token')
+    .then(
+      accessToken =>
+        (DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken),
+    );
+  if (config.body) {
+    config.body = config.body && JSON.stringify(config.body);
   }
-  return (dispatch) => {
-    config = Object.assign({}, DEFAULT_CONFIG, config)
+  return dispatch => {
+    config = Object.assign({}, DEFAULT_CONFIG, config);
+    console.log('config', config);
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {
-        let data = JSON.stringify(response)
+        // let data = JSON.stringify(response);
+        if (response.code === 401) {
+          console.log('login');
+          // navigate(AppRoute.LOGIN);
+        }
         if (config.actionType) {
           dispatch({
             type: config.actionType,
-            [config.actionDataKey]: data
-          })
+            [config.actionDataKey]: response,
+          });
         }
         if (config.successConfig && config.successConfig.callback) {
-          config.successConfig.callback(data)
+          config.successConfig.callback(response);
         }
       })
       .catch(error => {
-        console.log(error)
+        console.log(error);
 
         showToast('networkError');
       });
-  }
+  };
 };
 
 export const get = (url, config) => {
-  config.method = 'GET'
-  url = formatURL(url, config.queryData)
-  return httpService(url, config)
+  config.method = 'GET';
+  url = formatURL(url, config.queryData);
+  return httpService(url, config);
 };
 
 export const post = (url, config) => {
-  config.method = 'POST'
-  return httpService(url, config)
+  config.method = 'POST';
+  return httpService(url, config);
 };
 export const put = (url, config) => {
-  config.method = 'PUT'
-  return httpService(url, config)
+  config.method = 'PUT';
+  return httpService(url, config);
 };
 
 export const remove = (url, config) => {
-  config.method = 'DELETE'
-  return httpService(url, config)
+  config.method = 'DELETE';
+  return httpService(url, config);
 };
 
 export default {

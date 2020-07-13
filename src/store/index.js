@@ -1,9 +1,8 @@
 import {applyMiddleware, createStore, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
-import {userToken} from './login/index'
-
-const allReducers= combineReducers({
-  userToken
+import {userInfo} from './home/index';
+const allReducers = combineReducers({
+  userInfo,
 });
-const store = createStore(allReducers, applyMiddleware (thunk));
+const store = createStore(allReducers, applyMiddleware(thunk));
 export default store;

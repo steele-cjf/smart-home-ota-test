@@ -3,8 +3,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AuthNavigator from './AuthNavigator';
 import TabNavigator from './TabNavigator';
 import {AppRoute} from './AppRoutes';
-// import {LoginPage} from '../page/LoginPage';
-// import HomePage from '../page/HomePage';
 
 const Stack = createStackNavigator();
 

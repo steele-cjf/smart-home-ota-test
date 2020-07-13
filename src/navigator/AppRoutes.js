@@ -1,8 +1,8 @@
 export const AppRoute = {
   // AUTH: 'Auth',
   LOGIN: 'LoginPage',
-  // REGISTER: 'RegisterPage',
   HOME: 'HomePage',
+  AUTHENTICATION: 'AuthenticationPage',
   DYNAMIC: 'DynamicPage',
   MY: 'MyPage',
 };
