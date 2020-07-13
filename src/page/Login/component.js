@@ -54,8 +54,11 @@ function LoginPage(props) {
       mobile: mobile,
     };
     props.getVerifyCode(data, res => {
+      console.log('code', res);
       if (!res.code) {
         showToast('验证码已发送，请注意查收！');
+      } else {
+        showToast(res.message);
       }
     });
   }

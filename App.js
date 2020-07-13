@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import store from './src/store';
 export default () => {
   // This value is used to determine the initial screen1
-  const isAuthorized = false;
+  const isAuthorized = true;
 
   return (
     <SafeAreaView style={{flex: 1}}>

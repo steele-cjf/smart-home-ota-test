@@ -1,63 +1,43 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {View, Text, NativeModules} from 'react-native';
-import {Button, Icon} from 'react-native-elements';
-import { getUserInfo } from '../../store/home/index';
+import {View, Text, StyleSheet} from 'react-native';
+import {Button} from 'react-native-elements';
+import {getUserInfo} from '../../store/home/index';
+import {AppRoute} from '../../navigator/AppRoutes';
 
 function HomePage(props) {
-  function getVerifyResult() {
-    const data = {
-      bizId: tokenObj.bizId,
-    };
-    console.log('tokenObj', tokenObj);
-    http
-      .get('/rp/verifyResult', data)
-      .then(res => {
-        if (!res.code) {
-          showToast('认证成功');
-        } else {
-          showToast(res.message);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  async function handlerVerify() {
-    // const response = await http.get('/rp/verifyToken');
-    // // const tokenObj = ;
-    // if (!response.code) {
-    //   console.log('response', response);
-    //   await setTokenObj(tokenObj => (tokenObj = response.data));
-    // } else {
-    //   showToast(response.message);
-    //   return;
-    // }
-    // NativeModules.AliyunVerify.show(tokenObj.verifyToken, ret => {
-    //   showToast(ret.result);
-    //   console.log(ret.result);
-    //   if (ret.result === 'success') {
-    //     getVerifyResult;
-    //   }
-    // });
-  }
-
-  const [tokenObj, setTokenObj] = useState({});
-
+  // const getInfo = useCallback(props.getUserInfo);
+  // const INFO = props.userInfo.data;
   // get store
   useEffect(() => {
     !props.userInfo && props.getUserInfo();
-    console.log(9999, props.userInfo)
   }, [props, props.userInfo]);
 
+  // return (
+  //   <View style={{marginTop: 150}}>
+  //     <Text>您还未，</Text>
+  //     <Button title="实名认证" onPress={handlerVerify} />
+  //     <Button title="身份证人工验证" onPress={() => {props.navigation.navigate('IdCardVertifyPage');}} />
+  //     <Button title="护照人工验证" onPress={() => {props.navigation.navigate('PassportVertifyPage');}} />
+
   return (
-    <View style={{marginTop: 150}}>
-      <Text>您还未，</Text>
-      <Button title="实名认证" onPress={handlerVerify} />
-      <Button title="身份证人工验证" onPress={() => {props.navigation.navigate('IdCardVertifyPage');}} />
-      <Button title="护照人工验证" onPress={() => {props.navigation.navigate('PassportVertifyPage');}} />
+    <View style={styles.container}>
+      <Text style={styles.textFont}>
+        <Text>您还未</Text>
+        <Text
+          style={styles.buttonTextStyle}
+          onPress={() => props.navigation.navigate(AppRoute.AUTHENTICATION)}>
+          实名认证
+        </Text>
+      </Text>
+      <Text style={styles.secondaryText}>更多操作需要实名认证</Text>
+      {/* <View v-else>
+        <Text>您还没有添加任何门锁</Text>
+        <Text>需要添加后才能执行开锁操作</Text>
+        <Button title="登记房源" />
+        <Button title="申请电子钥匙" />
+      </View> */}
     </View>
   );
 }
@@ -69,9 +49,28 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserInfo }, dispatch);
+  return bindActionCreators({getUserInfo}, dispatch);
 }
 export default connect(
   mapStateToProps,
   matchDispatchToProps,
 )(HomePage);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textFont: {
+    fontSize: 20,
+  },
+  buttonTextStyle: {
+    color: Theme.primary,
+  },
+  secondaryText: {
+    fontSize: 16,
+    marginTop: 10,
+    color: Theme.textSecondary,
+  },
+});

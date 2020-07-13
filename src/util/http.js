@@ -1,7 +1,6 @@
 import {stringify} from 'query-string';
 import {appApi} from '../config';
 import {showToast} from './toast';
-// import {AppRoute} from '../navigator/AppRoutes';
 import storage from './storage';
 
 // 默认配置
@@ -49,15 +48,11 @@ export const httpService = (url, config) => {
   }
   return dispatch => {
     config = Object.assign({}, DEFAULT_CONFIG, config);
-    console.log('config', config);
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {
+        console.log('config', response);
         // let data = JSON.stringify(response);
-        if (response.code === 401) {
-          console.log('login');
-          // navigate(AppRoute.LOGIN);
-        }
         if (config.actionType) {
           dispatch({
             type: config.actionType,
