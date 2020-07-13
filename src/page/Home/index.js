@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {View, Text, NativeModules} from 'react-native';
 import {Button, Icon} from 'react-native-elements';
-import * as HomeAction from '../../store/home/index';
+import { getUserInfo } from '../../store/home/index';
 
 function HomePage(props) {
   function getVerifyResult() {
@@ -48,15 +48,16 @@ function HomePage(props) {
 
   // get store
   useEffect(() => {
-    props.getUserInfo(res => {
-      console.log('end', res);
-    });
+    !props.userInfo && props.getUserInfo();
+    console.log(9999, props.userInfo)
   }, [props, props.userInfo]);
 
   return (
     <View style={{marginTop: 150}}>
       <Text>您还未，</Text>
       <Button title="实名认证" onPress={handlerVerify} />
+      <Button title="身份证人工验证" onPress={() => {props.navigation.navigate('IdCardVertifyPage');}} />
+      <Button title="护照人工验证" onPress={() => {props.navigation.navigate('PassportVertifyPage');}} />
     </View>
   );
 }
@@ -68,7 +69,7 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators(HomeAction, dispatch);
+  return bindActionCreators({ getUserInfo }, dispatch);
 }
 export default connect(
   mapStateToProps,

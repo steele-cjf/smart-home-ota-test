@@ -5,6 +5,8 @@ export const AppRoute = {
   AUTHENTICATION: 'AuthenticationPage',
   DYNAMIC: 'DynamicPage',
   MY: 'MyPage',
+  IDCARDVERTIFY: 'IdCardVertifyPage',
+  PASSPORTVERTIFY: 'PassportVertifyPage'
 };
 
 Object.freeze(AppRoute);
