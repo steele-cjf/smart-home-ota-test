@@ -16,14 +16,26 @@ export const HomeStackComponent = () => {
       <HomeStack.Screen
         name={AppRoute.AUTHENTICATION}
         component={AuthenticationPage}
+        options={{
+          title: '实名认证',
+          headerBackTitle: '返回',
+        }}
       />
       <HomeStack.Screen
         name={AppRoute.IDCARDVERTIFY}
         component={IdCardVertify}
+        options={{
+          title: '实名认证',
+          headerBackTitle: '返回',
+        }}
       />
       <HomeStack.Screen
         name={AppRoute.PASSPORTVERTIFY}
         component={PassportVertify}
+        options={{
+          title: '实名认证',
+          headerBackTitle: '返回',
+        }}
       />
     </HomeStack.Navigator>
   );

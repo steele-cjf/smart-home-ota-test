@@ -33,10 +33,6 @@ export const formatURL = (url, params) => {
 
 // 请求参数
 export const httpService = (url, config) => {
-  // const accessToken = await storage.get('token');
-  // if (accessToken) {
-  //   DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken;
-  // }
   storage
     .get('token')
     .then(

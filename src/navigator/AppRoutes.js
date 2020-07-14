@@ -6,7 +6,7 @@ export const AppRoute = {
   DYNAMIC: 'DynamicPage',
   MY: 'MyPage',
   IDCARDVERTIFY: 'IdCardVertifyPage',
-  PASSPORTVERTIFY: 'PassportVertifyPage'
+  PASSPORTVERTIFY: 'PassportVertifyPage',
 };
 
 Object.freeze(AppRoute);

@@ -2,16 +2,25 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {View, Text, StyleSheet} from 'react-native';
-import {Button} from 'react-native-elements';
 import {getUserInfo} from '../../store/home/index';
 import {AppRoute} from '../../navigator/AppRoutes';
+import showToast from '../../util/toast';
 
 function HomePage(props) {
-  // const getInfo = useCallback(props.getUserInfo);
-  // const INFO = props.userInfo.data;
-  // get store
   useEffect(() => {
-    !props.userInfo && props.getUserInfo();
+    if (!props.userInfo) {
+      async () => {
+        await props.getUserInfo();
+        const Info = props.userInfo;
+        if (!Info.code) {
+          console.log('Info', Info);
+          storage.set('info', Info.data);
+        } else {
+          showToast(Info.message);
+          props.navigation.navigate(AppRoute.LOGIN);
+        }
+      };
+    }
   }, [props, props.userInfo]);
 
   // return (
@@ -27,10 +36,11 @@ function HomePage(props) {
         <Text>您还未</Text>
         <Text
           style={styles.buttonTextStyle}
-          onPress={() => props.navigation.navigate(AppRoute.PASSPORTVERTIFY)}>
+          onPress={() => props.navigation.navigate(AppRoute.AUTHENTICATION)}>
           实名认证
         </Text>
       </Text>
+      {/* <Text style={styles.textFont}>您的实名信息正在审核中</Text> */}
       <Text style={styles.secondaryText}>更多操作需要实名认证</Text>
       {/* <View v-else>
         <Text>您还没有添加任何门锁</Text>

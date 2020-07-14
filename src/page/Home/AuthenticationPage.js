@@ -1,113 +1,130 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {View, Text, StyleSheet, NativeModules} from 'react-native';
-import {Button, Card} from 'react-native-elements';
-import * as HomeAction from '../../store/home/index';
+import {
+  View,
+  Text,
+  StyleSheet,
+  NativeModules,
+  TouchableOpacity,
+} from 'react-native';
+import {Button} from 'react-native-elements';
+import {AppRoute} from '../../navigator/AppRoutes';
+import {getVerifyToken} from '../../store/home/index';
 import Theme from '../../style/colors';
+import storage from '../../util/storage';
 
 function AuthenticationPage(props) {
-  function changeSelect(index) {
-    const newList = [...AuthList];
-    console.log(newList);
-    // const List = newList.map((u, i) => {
-    //   console.log('u', u);
-    //   // if (i === index) {
-    //   //   u.selected = true;
-    //   // } else {
-    //   //   u.selected = false;
-    //   // }
-    // });
-    // setAuthList((newList[index].selected = false));
+  function changeSelect(i) {
+    setSelectIndex(selectIndex => (selectIndex = i));
   }
   function getVerifyResult() {
-    const data = {
-      bizId: tokenObj.bizId,
-    };
-    console.log('tokenObj', tokenObj);
-    http
-      .get('/rp/verifyResult', data)
-      .then(res => {
-        if (!res.code) {
-          showToast('认证成功');
-        } else {
-          showToast(res.message);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // const data = {
+    //   bizId: tokenObj.bizId,
+    // };
+    // console.log('tokenObj', tokenObj);
+    // http
+    //   .get('/rp/verifyResult', data)
+    //   .then(res => {
+    //     if (!res.code) {
+    //       showToast('认证成功');
+    //     } else {
+    //       showToast(res.message);
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   }
 
-  async function handlerVerify() {
-    props.navigation.navigate(AppRoute.AUTHENTICATION);
-    const response = await http.get('/rp/verifyToken');
-    if (!response.code) {
-      console.log('response', response);
-      await setTokenObj(tokenObj => (tokenObj = response.data));
-    } else {
-      showToast(response.message);
-      return;
-    }
-    NativeModules.AliyunVerify.show(tokenObj.verifyToken, ret => {
-      showToast(ret.result);
-      console.log(ret.result);
-      if (ret.result === 'success') {
-        getVerifyResult;
+  function personalVerify() {
+    console.log('ddd');
+    console.log('userId', userId);
+    props.getVerifyToken({userId: userId}, res => {
+      if (res.code) {
+        showToast(res.message);
+        return;
       }
+      NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
+        if (ret.result === 'success') {
+          getVerifyResult;
+        }
+      });
     });
   }
-  const [AuthList, setAuthList] = useState([
+
+  function handlerVerify() {
+    if (selectIndex === 0) {
+      personalVerify();
+    } else if (selectIndex === 1) {
+      props.navigation.navigate(AppRoute.IDCARDVERTIFY);
+    } else {
+      props.navigation.navigate(AppRoute.PASSPORTVERTIFY);
+    }
+  }
+
+  useEffect(() => {
+    storage.get('info').then(info => {
+      setUserId(info.id);
+      console.log('id', userId);
+    });
+  });
+
+  const [AuthList] = useState([
     {
       name: '人脸识别',
       type: '自动识别',
       description: '适合中国公民，5分钟内验证完毕',
       id: 1,
-      selected: true,
     },
     {
       name: '身份证认证',
       type: '人工审核',
       description: '适合中国老人小孩或者人脸识别失败的用户，两个工作日内完成',
       id: 2,
-      selected: false,
     },
     {
       name: '护照认证',
       type: '人工审核',
       description: '适合持有护照的非中国公民，两个工作日内完成',
       id: 3,
-      selected: false,
     },
   ]);
-
+  const [selectIndex, setSelectIndex] = useState(0);
+  const [userId, setUserId] = useState(0);
   return (
     <View style={styles.container}>
       <Text style={{fontSize: 18}}>请选择认证方式：</Text>
       {AuthList.map((u, i) => {
         return (
-          <View
-            style={u.selected ? styles.selectedStyle : styles.authListStyle}
+          <TouchableOpacity
+            style={
+              i === selectIndex ? styles.selectedStyle : styles.authListStyle
+            }
             key={i}
-            onPress={changeSelect(i)}>
+            onPress={() => changeSelect(i)}>
             <Text>
-              <Text style={u.selected ? styles.SelectName : styles.name}>
+              <Text style={i === selectIndex ? styles.SelectName : styles.name}>
                 {u.name}{' '}
               </Text>
               <Text
                 style={
-                  u.selected ? styles.selectSecondaryText : styles.secondaryText
+                  i === selectIndex
+                    ? styles.selectSecondaryText
+                    : styles.secondaryText
                 }>
                 {u.type}
               </Text>
             </Text>
             <Text
               style={
-                u.selected ? styles.selectSecondaryText : styles.secondaryText
+                i === selectIndex
+                  ? styles.selectSecondaryText
+                  : styles.secondaryText
               }>
               {u.description}
             </Text>
-          </View>
+          </TouchableOpacity>
         );
       })}
       <Button
@@ -122,11 +139,11 @@ function AuthenticationPage(props) {
 // reducer获取
 function mapStateToProps(state) {
   return {
-    // userInfo: state.userInfo,
+    userInfo: state.userInfo,
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators(HomeAction, dispatch);
+  return bindActionCreators({getVerifyToken}, dispatch);
 }
 export default connect(
   mapStateToProps,

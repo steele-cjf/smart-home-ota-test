@@ -6,7 +6,7 @@ export const showToast = (message, options) => {
     Object.assign(
       {
         delay: 0,
-        duration: 300,
+        duration: 2000,
         position: -70,
         shadow: false,
         animation: true,
