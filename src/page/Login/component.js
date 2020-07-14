@@ -71,7 +71,6 @@ function LoginPage(props) {
   const [verifyCode, setVerifyCode] = useState(324378);
   const [mobileError, setMobileError] = useState(null);
   const [verifyCodeError, setVerifyCodeError] = useState(null);
-  
   return (
     <View style={styles.container}>
       <Input

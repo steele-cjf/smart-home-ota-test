@@ -27,8 +27,8 @@ const BottomTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name={AppRoute.MY}
-        component={MyPage}
+        name={AppRoute.DYNAMIC}
+        component={DynamicPage}
         options={{
           title: '动态',
           tabBarIcon: ({focused, color}) => (
@@ -37,8 +37,8 @@ const BottomTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name={AppRoute.DYNAMIC}
-        component={DynamicPage}
+        name={AppRoute.MY}
+        component={MyPage}
         options={{
           title: '我的',
           tabBarIcon: ({focused, color}) => (

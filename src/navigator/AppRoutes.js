@@ -7,6 +7,8 @@ export const AppRoute = {
   MY: 'MyPage',
   IDCARDVERTIFY: 'IdCardVertifyPage',
   PASSPORTVERTIFY: 'PassportVertifyPage',
+  UNRECORD: 'UnrecordedHouse',
+  RECORD: 'RecordHouse',
 };
 
 Object.freeze(AppRoute);
