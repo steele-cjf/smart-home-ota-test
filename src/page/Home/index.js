@@ -27,7 +27,7 @@ function HomePage(props) {
         <Text>您还未</Text>
         <Text
           style={styles.buttonTextStyle}
-          onPress={() => props.navigation.navigate(AppRoute.AUTHENTICATION)}>
+          onPress={() => props.navigation.navigate(AppRoute.PASSPORTVERTIFY)}>
           实名认证
         </Text>
       </Text>
