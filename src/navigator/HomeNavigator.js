@@ -25,7 +25,7 @@ export const HomeStackComponent = () => {
         name={AppRoute.IDCARDVERTIFY}
         component={IdCardVertify}
         options={{
-          title: '实名认证',
+          title: '身份证人工验证',
           headerBackTitle: '返回',
         }}
       />
@@ -33,7 +33,7 @@ export const HomeStackComponent = () => {
         name={AppRoute.PASSPORTVERTIFY}
         component={PassportVertify}
         options={{
-          title: '实名认证',
+          title: '护照人工认证',
           headerBackTitle: '返回',
         }}
       />

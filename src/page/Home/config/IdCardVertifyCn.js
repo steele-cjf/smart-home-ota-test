@@ -15,10 +15,10 @@ const vertifyCn = [{
     placeholder: '请选择性别',
     key: 'sex',
     type: 'RADIO',
-    initial: 0,
+    initial: 1,
     selectOptions: [
-        { label: '男', value: 0 },
-        { label: '女', value: 1 }
+        { label: '男', value: 1 },
+        { label: '女', value: 2 }
     ]
 }, {
     name: '民族',
@@ -29,6 +29,11 @@ const vertifyCn = [{
     name: '出生日期',
     placeholder: '请选择出生日期',
     key: 'birth',
+    type: 'DATE'
+}, {
+    name: '出生日期2',
+    placeholder: '请选择出生日期',
+    key: 'birth2',
     type: 'DATE'
 }, {
     name: '身份证地址',

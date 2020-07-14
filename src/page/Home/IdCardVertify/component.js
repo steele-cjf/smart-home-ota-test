@@ -9,11 +9,11 @@ export default function IdCardVertifyPage(props) {
         <ScrollView style={styles.container}>
             <Text style={styles.font18}>基本资料</Text>
             <Form config={vertifyCn} class={styles.formBox}></Form>
-            <Text style={[styles.font18, styles.title]}>照片上传2</Text>
+            <Text style={[styles.font18, styles.title]}>照片上传</Text>
             <View style={styles.ImageUploadBox}>
-                <ImageUpload />
-                <ImageUpload />
-                <ImageUpload />
+                <ImageUpload title='身份证正面' />
+                <ImageUpload title='身份证反面' />
+                <ImageUpload title='手持身份证' />
             </View>
         </ScrollView>
     );
@@ -21,7 +21,8 @@ export default function IdCardVertifyPage(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingVertical: 30,
+        paddingTop: 30,
+        paddingBottom: 90,
         paddingHorizontal: 20,
         fontSize: 18
     },
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingTop: 15,
         paddingBottom: 0,
-        marginTop: 20
+        marginTop: 10
     },
     ImageUploadBox: {
         flex: 1,
