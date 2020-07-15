@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
@@ -7,6 +7,8 @@ import {
   StyleSheet,
   NativeModules,
   TouchableOpacity,
+  findNodeHandle,
+  Platform,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {AppRoute} from '../../navigator/AppRoutes';
@@ -38,14 +40,21 @@ function AuthenticationPage(props) {
   }
 
   function personalVerify() {
-    console.log('ddd');
+    console.log('ddd', Platform.OS);
     console.log('userId', userId);
-    props.getVerifyToken({userId: userId}, res => {
+    props.getVerifyToken({userId: '480077089862602752'}, res => {
       if (res.code) {
         showToast(res.message);
         return;
       }
-      NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
+      let token = res.data.verifyToken
+      if (Platform.OS === 'ios') {
+        let domId = findNodeHandle(AliyunVerify.current)
+        NativeModules.RealPersonAuth.addEvent(domId, token)
+        return
+      }
+      // 
+      NativeModules.AliyunVerify.show(token, ret => {
         if (ret.result === 'success') {
           getVerifyResult;
         }
@@ -92,8 +101,9 @@ function AuthenticationPage(props) {
   ]);
   const [selectIndex, setSelectIndex] = useState(0);
   const [userId, setUserId] = useState(0);
+  const AliyunVerify = useRef()
   return (
-    <View style={styles.container}>
+    <View style={styles.container} ref={AliyunVerify}>
       <Text style={{fontSize: 18}}>请选择认证方式：</Text>
       {AuthList.map((u, i) => {
         return (
