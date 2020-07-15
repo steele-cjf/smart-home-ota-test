@@ -31,11 +31,6 @@ const vertifyCn = [{
     key: 'birth',
     type: 'DATE'
 }, {
-    name: '出生日期2',
-    placeholder: '请选择出生日期',
-    key: 'birth2',
-    type: 'DATE'
-}, {
     name: '身份证地址',
     placeholder: '请输入身份证地址',
     key: 'address',

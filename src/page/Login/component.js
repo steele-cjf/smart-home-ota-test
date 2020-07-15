@@ -8,7 +8,7 @@ import storage from '../../util/storage';
 
 function LoginPage(props) {
   function validateField(field) {
-    let phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    let phoneReg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
     switch (field) {
       case 'mobile':
         const userMsg = phoneReg.test(mobile);
@@ -67,8 +67,8 @@ function LoginPage(props) {
 
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(18218025628);
-  const [verifyCode, setVerifyCode] = useState(324378);
+  const [mobile, setMobile] = useState(19925465701);
+  const [verifyCode, setVerifyCode] = useState(177667);
   const [mobileError, setMobileError] = useState(null);
   const [verifyCodeError, setVerifyCodeError] = useState(null);
   return (

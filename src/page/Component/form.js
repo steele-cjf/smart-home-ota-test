@@ -6,27 +6,35 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'reac
 
 export default function Form(props) {
     const [config] = useState(props.config)
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState({});
     // 展示date时触发
-    const showDatePicker = () => {
-        setDatePickerVisibility(true);
+    const showDatePicker = (key) => {
+        let cache = Object.assign({}, isDatePickerVisible)
+        cache[key] = true
+        setDatePickerVisibility(cache);
     };
     // date点击触发
-    const hideDatePicker = () => {
-        setDatePickerVisibility(false);
+    const hideDatePicker = (key) => {
+        let cache = Object.assign({}, isDatePickerVisible)
+        cache[key] = false
+        setDatePickerVisibility(cache);
     };
     // date提交触发
-    const handleConfirm = (date) => {
-        console.warn("A date has been picked: ", date);
-        hideDatePicker();
+    const handleConfirm = (date, key) => {
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        hideDatePicker(key);
+        setData(key, year + '-' + month + '-' + day)
     };
     // form表单变化触发
     const setData = (key, value) => {
         let data = Object.assign({}, obj)
         data[key] = value
         setObj(data)
+        // 父类回调
+        props.changeForm && props.changeForm(data)
     }
-    // const [optionCache, setOptionCache] = useState(1)
     const [obj, setObj] = useState({})
     return (
         <View style={props.class}>
@@ -45,15 +53,25 @@ export default function Form(props) {
                                     } />)
                         case 'DATE':
                             return (
-                                <Input key={index}
-                                    disabled
-                                    value={obj[key]}
-                                    onTouchStart={() => { showDatePicker() }}
-                                    placeholder={placeholder} leftIcon={
-                                        <Text style={styles.label}>{name}</Text>
-                                    } />
+                                <View>
+                                    <Input key={index}
+                                        disabled
+                                        value={obj[key]}
+                                        onTouchStart={() => { showDatePicker(key) }}
+                                        placeholder={placeholder} leftIcon={
+                                            <Text style={styles.label}>{name}</Text>
+                                        } />
+                                    <DateTimePickerModal
+                                        isVisible={isDatePickerVisible[key] || false}
+                                        mode="date"
+                                        locale="en_GB"
+                                        onConfirm={(date) => { handleConfirm(date, key) }}
+                                        onCancel={() => { hideDatePicker(key) }}
+                                    />
+                                </View>
                             )
                         case 'RADIO':
+                            obj[key]  = obj[key] || initial;
                             return (
                                 <View style={styles.radioBox}>
                                     <Text style={styles.radioLabel}>{name}</Text>
@@ -69,11 +87,11 @@ export default function Form(props) {
                                                     <RadioButtonInput
                                                         obj={option}
                                                         index={"radioButton" + i}
-                                                        isSelected={option.value == (obj[key] || initial)}
+                                                        isSelected={option.value == obj[key]}
                                                         borderWidth={1}
                                                         onPress={(value) => { setData(key, value) }}
                                                         buttonInnerColor={'#2196f3'}
-                                                        buttonOuterColor={option.value == (obj[key] || initial) ? '#2196f3' : '#000'}
+                                                        buttonOuterColor={option.value == obj[key] ? '#2196f3' : '#000'}
                                                         buttonWrapStyle={{ marginLeft: 20 }}
                                                     />
                                                     <RadioButtonLabel
@@ -93,12 +111,6 @@ export default function Form(props) {
                     }
                 })
             }
-            <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-            />
         </View>
     );
 }
