@@ -9,32 +9,36 @@ import showToast from '../../util/toast';
 function HomePage(props) {
   useEffect(() => {
     if (!props.userInfo) {
-      async () => {
-        await props.getUserInfo();
-        const Info = props.userInfo;
-        if (!Info.code) {
-          console.log('Info', Info);
-          storage.set('info', Info.data);
-          props.navigation.navigate(AppRoute.UNRECORD);
-        } else {
-          showToast(Info.message);
-          props.navigation.navigate(AppRoute.LOGIN);
-        }
-      };
+      props.getUserInfo();
+      return;
+    }
+    const Info = props.userInfo;
+    if (!Info.code) {
+      storage.set('info', Info.data);
+      setUserInfo(Info.data);
+      // props.navigation.navigate(AppRoute.RECORD);
+    } else {
+      showToast(Info.message);
+      props.navigation.navigate(AppRoute.LOGIN);
     }
   }, [props, props.userInfo]);
 
+  const [userInfo, setUserInfo] = useState({});
+
   return (
     <View style={styles.container}>
-      <Text style={styles.textFont}>
-        <Text>您还未</Text>
-        <Text
-          style={styles.buttonTextStyle}
-          onPress={() => props.navigation.navigate(AppRoute.AUTHENTICATION)}>
-          实名认证
+      {!userInfo.verifyStatus ? (
+        <Text style={styles.textFont}>
+          <Text>您还未</Text>
+          <Text
+            style={styles.buttonTextStyle}
+            onPress={() => props.navigation.navigate(AppRoute.AUTHENTICATION)}>
+            实名认证
+          </Text>
         </Text>
-      </Text>
-      {/* <Text style={styles.textFont}>您的实名信息正在审核中</Text> */}
+      ) : (
+        <Text style={styles.textFont}>您的实名信息正在审核中</Text>
+      )}
       <Text style={styles.secondaryText}>更多操作需要实名认证</Text>
       <Text onPress={() => props.navigation.navigate(AppRoute.UNRECORD)}>
         房源登记

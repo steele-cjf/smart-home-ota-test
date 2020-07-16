@@ -12,7 +12,7 @@ function LoginPage(props) {
     switch (field) {
       case 'mobile':
         const userMsg = phoneReg.test(mobile);
-        setMobileError(mobile ? null : '请输入正确的手机号');
+        setMobileError(userMsg ? null : '请输入正确的手机号');
         if (!mobile) {
           refMobile.current.shake();
         }

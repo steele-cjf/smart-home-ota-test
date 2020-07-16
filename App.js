@@ -1,22 +1,36 @@
-import React from 'react';
-import {SafeAreaView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 // import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {AppNavigator} from './src/navigator/AppNavigator';
 import {AppRoute} from './src/navigator/AppRoutes';
 import {Provider} from 'react-redux';
 import store from './src/store';
+import storage from './src/util/storage';
 export default () => {
   // This value is used to determine the initial screen1
-  const isAuthorized = false;
+  const [loading, setLoading] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const info = await storage.get('info');
+      info ? setIsAuthorized(true) : false;
+      setLoading(false);
+    })();
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <Provider store={store}>
         <NavigationContainer>
-          <AppNavigator
-            initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.LOGIN}
-          />
+          {loading ? (
+            <Text>Loading.....</Text>
+          ) : (
+            <AppNavigator
+              initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.LOGIN}
+            />
+          )}
         </NavigationContainer>
       </Provider>
     </SafeAreaView>
