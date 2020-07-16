@@ -67,8 +67,8 @@ function LoginPage(props) {
 
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(19925465701);
-  const [verifyCode, setVerifyCode] = useState(177667);
+  const [mobile, setMobile] = useState(13661992793);
+  const [verifyCode, setVerifyCode] = useState(607181);
   const [mobileError, setMobileError] = useState(null);
   const [verifyCodeError, setVerifyCodeError] = useState(null);
   return (

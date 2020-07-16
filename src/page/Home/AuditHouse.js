@@ -1,38 +1,41 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {getUserInfo} from '../../store/home/index';
 import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 
-function HomePage(props) {
+function AuditHouse(props) {
   // useEffect(() => {
   //   if (!props.userInfo) {
-  //     async () => {
-  //       await props.getUserInfo();
-  //       const Info = props.userInfo;
-  //       if (!Info.code) {
-  //         storage.set('info', Info.data);
-  //       } else {
-  //         showToast(Info.message);
-  //         props.navigation.navigate(AppRoute.LOGIN);
-  //       }
-  //     };
+  //     props.getUserInfo();
+  //     return;
+  //   }
+  //   const Info = props.userInfo;
+  //   if (!Info.code) {
+  //     storage.set('info', Info.data);
+  //     setUserInfo(Info.data);
+  //     // props.navigation.navigate(AppRoute.RECORD);
+  //   } else {
+  //     showToast(Info.message);
+  //     props.navigation.navigate(AppRoute.LOGIN);
   //   }
   // }, [props, props.userInfo]);
 
+  // const [userInfo, setUserInfo] = useState({});
+
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.textFont}>您还没有添加任何门锁</Text>
-        <Text style={styles.secondaryText}>需要添加后才能执行开锁操作</Text>
-        <Button
-          title="登记房源"
-          onPress={() => props.navigation.navigate(AppRoute.RECORD)}
-        />
-        <Button title="申请电子钥匙" />
-      </View>
+      <Text style={styles.textFont}>
+        <Text>当前房源</Text>
+        <Text
+          style={styles.buttonTextStyle}
+          onPress={() => props.navigation.navigate(AppRoute.HOUSEDETAIL)}>
+          审核中，
+        </Text>
+        <Text style={styles.textFont}>请耐心等待</Text>
+      </Text>
     </View>
   );
 }
@@ -49,7 +52,7 @@ function matchDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   matchDispatchToProps,
-)(HomePage);
+)(AuditHouse);
 
 const styles = StyleSheet.create({
   container: {

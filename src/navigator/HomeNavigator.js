@@ -6,6 +6,8 @@ import IdCardVertify from '../page/Home/IdCardVertify';
 import PassportVertify from '../page/Home/PassportVertify';
 import UnrecordedHouse from '../page/Home/UnrecordedHouse';
 import RecordHouse from '../page/Home/RecordHouse';
+import AuditHouse from '../page/Home/AuditHouse';
+import HouseDetail from '../page/Home/HouseDetail';
 
 import {AppRoute} from './AppRoutes';
 
@@ -53,10 +55,25 @@ export const HomeStackComponent = () => {
         }}
       />
       <HomeStack.Screen
+        name={AppRoute.AUDIT}
+        component={AuditHouse}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
         name={AppRoute.RECORD}
         component={RecordHouse}
         options={{
           title: '添加房源',
+          headerBackTitle: '返回',
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.HOUSEDETAIL}
+        component={HouseDetail}
+        options={{
+          title: '查看房源',
           headerBackTitle: '返回',
         }}
       />

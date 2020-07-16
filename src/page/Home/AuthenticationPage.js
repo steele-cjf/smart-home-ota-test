@@ -20,24 +20,24 @@ function AuthenticationPage(props) {
   function changeSelect(i) {
     setSelectIndex(selectIndex => (selectIndex = i));
   }
-  function getVerifyResult() {
-    // const data = {
-    //   bizId: tokenObj.bizId,
-    // };
-    // console.log('tokenObj', tokenObj);
-    // http
-    //   .get('/rp/verifyResult', data)
-    //   .then(res => {
-    //     if (!res.code) {
-    //       showToast('认证成功');
-    //     } else {
-    //       showToast(res.message);
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
-  }
+  // function getVerifyResult() {
+  //   const data = {
+  //     bizId: tokenObj.bizId,
+  //   };
+  //   console.log('tokenObj', tokenObj);
+  //   http
+  //     .get('/rp/verifyResult', data)
+  //     .then(res => {
+  //       if (!res.code) {
+  //         showToast('认证成功');
+  //       } else {
+  //         showToast(res.message);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
 
   function personalVerify() {
     console.log('ddd', Platform.OS);
@@ -47,16 +47,15 @@ function AuthenticationPage(props) {
         showToast(res.message);
         return;
       }
-      let token = res.data.verifyToken
+      let token = res.data.verifyToken;
       if (Platform.OS === 'ios') {
-        let domId = findNodeHandle(AliyunVerify.current)
-        NativeModules.RealPersonAuth.addEvent(domId, token)
-        return
+        let domId = findNodeHandle(AliyunVerify.current);
+        NativeModules.RealPersonAuth.addEvent(domId, token);
+        return;
       }
-      // 
-      NativeModules.AliyunVerify.show(token, ret => {
+      // props.navigation.navigate(AppRoute.UNRECORD);
+      NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
         if (ret.result === 'success') {
-          getVerifyResult;
         }
       });
     });
@@ -101,7 +100,7 @@ function AuthenticationPage(props) {
   ]);
   const [selectIndex, setSelectIndex] = useState(0);
   const [userId, setUserId] = useState(0);
-  const AliyunVerify = useRef()
+  const AliyunVerify = useRef();
   return (
     <View style={styles.container} ref={AliyunVerify}>
       <Text style={{fontSize: 18}}>请选择认证方式：</Text>

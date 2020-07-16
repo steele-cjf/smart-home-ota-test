@@ -40,9 +40,9 @@ function HomePage(props) {
         <Text style={styles.textFont}>您的实名信息正在审核中</Text>
       )}
       <Text style={styles.secondaryText}>更多操作需要实名认证</Text>
-      <Text onPress={() => props.navigation.navigate(AppRoute.UNRECORD)}>
+      {/* <Text onPress={() => props.navigation.navigate(AppRoute.UNRECORD)}>
         房源登记
-      </Text>
+      </Text> */}
       {/* <View v-else>
         <Text>您还没有添加任何门锁</Text>
         <Text>需要添加后才能执行开锁操作</Text>

@@ -9,6 +9,8 @@ export const AppRoute = {
   PASSPORTVERTIFY: 'PassportVertifyPage',
   UNRECORD: 'UnrecordedHouse',
   RECORD: 'RecordHouse',
+  AUDIT: 'AuditHouse',
+  HOUSEDETAIL: 'HouseDetail',
 };
 
 Object.freeze(AppRoute);
