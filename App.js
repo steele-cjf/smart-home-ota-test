@@ -13,13 +13,14 @@ export default () => {
   const [isAuthorized, setIsAuthorized] = useState(null);
 
   useEffect(() => {
+    console.log(999999);
     (async () => {
       const info = await storage.get('info');
       info ? setIsAuthorized(true) : false;
       setLoading(false);
     })();
   }, []);
-
+  
   return (
     <SafeAreaView style={{flex: 1}}>
       <Provider store={store}>

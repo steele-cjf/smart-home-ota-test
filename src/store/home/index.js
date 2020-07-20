@@ -14,6 +14,19 @@ export function getVerifyToken(data, callback) {
     },
   });
 }
+
+
+export function verifyIdCard(data, callback) {
+  return $post('/rp/manualAudit', {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    body: data,
+    successConfig: {
+      callback
+    }
+  });
+}
 // user info
 export function userInfo(state = null, action) {
   if (action.type === 'USER_INFO') {

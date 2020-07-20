@@ -1,21 +1,24 @@
 const vertifyCn = [{
     name: '真实姓名',
     placeholder: '请输入真实姓名',
-    key: 'userName',
+    key: 'name',
     type: 'INPUT',
-    errorMsg: ['真实姓名输入有误']
+    required: true,
+    errorMsg: ['请输入真实姓名']
 }, {
     name: '身份证号',
     placeholder: '请输入身份证号',
-    key: 'ID card',
+    key: 'identificationNo',
     type: 'INPUT',
-    errorMsg: ['身份证号输入有误']
+    required: true,
+    errorMsg: ['请输入身份证号']
 }, {
     name: '性别',
     placeholder: '请选择性别',
-    key: 'sex',
+    key: 'gender',
     type: 'RADIO',
     initial: 1,
+    required: true,
     selectOptions: [
         { label: '男', value: 1 },
         { label: '女', value: 2 }
@@ -24,17 +27,23 @@ const vertifyCn = [{
     name: '民族',
     placeholder: '请输入民族',
     key: 'nation',
-    type: 'INPUT'
+    required: true,
+    type: 'INPUT',
+    errorMsg: ['请输入民族']
 }, {
     name: '出生日期',
+    required: true,
     placeholder: '请选择出生日期',
-    key: 'birth',
-    type: 'DATE'
+    key: 'birthDate',
+    type: 'DATE',
+    errorMsg: ['请选择出生日期']
 }, {
     name: '身份证地址',
+    required: true,
     placeholder: '请输入身份证地址',
-    key: 'address',
-    type: 'INPUT'
+    key: 'identificationAddress',
+    type: 'INPUT',
+    errorMsg: ['请输入身份证地址']
 }]
 
 export default vertifyCn

@@ -64,9 +64,8 @@ export default function Form(props) {
               );
             case 'DATE':
               return (
-                <View>
+                <View key={index}>
                   <Input
-                    key={index}
                     disabled
                     value={obj[key]}
                     onTouchStart={() => {
@@ -91,7 +90,7 @@ export default function Form(props) {
             case 'RADIO':
               obj[key] = obj[key] || initial;
               return (
-                <View style={styles.radioBox}>
+                <View style={styles.radioBox}key={index}>
                   <Text style={styles.radioLabel}>{name}</Text>
                   <RadioForm
                     style={styles.radioForm}
