@@ -25,9 +25,9 @@ public class AliyunVerify extends ReactContextBaseJavaModule implements Lifecycl
     }
 
     @ReactMethod
-    public void show(String s, Callback jsCallback) {
-        
-        CloudRealIdentityTrigger.start(reactContext, s, getALRealIdentityCallback(jsCallback));
+    public void show(String token, Callback jsCallback) {
+
+        CloudRealIdentityTrigger.start(reactContext, token, getALRealIdentityCallback(jsCallback));
     }
 
 
@@ -51,28 +51,27 @@ public class AliyunVerify extends ReactContextBaseJavaModule implements Lifecycl
      */
     private ALRealIdentityCallback getALRealIdentityCallback(Callback jsCallback) {
 
+        Log.i("cjfpersonal", "start");
         return new ALRealIdentityCallback() {
             @Override
             public void onAuditResult(ALRealIdentityResult alRealIdentityResult, String s) {
                 //DO your things
-                Log.i("aa", "add");
 
                 if (alRealIdentityResult == ALRealIdentityResult.AUDIT_PASS) {
                     // 认证通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理。
                     // do something
-                    JSONObject result = new JSONObject();
-                    result.put("result", "success");
-                    jsCallback.invoke(result);
+                    jsCallback.invoke("success");
                     System.out.println("认证通过");
                 } else if (alRealIdentityResult == ALRealIdentityResult.AUDIT_FAIL) {
                     // 认证不通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理。
                     // do something
-                    JSONObject result = new JSONObject();
-                    result.put("result", "fail");
-                    jsCallback.invoke(result);
+                    jsCallback.invoke("fail");
                 } else if (alRealIdentityResult == ALRealIdentityResult.AUDIT_NOT) {
                     // 未认证，具体原因可通过code来区分（code取值参见下方表格），通常是用户主动退出或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程。
                     // do something
+                    jsCallback.invoke("fail");
+                } else {
+                    jsCallback.invoke("fail");
                 }
             }
         };

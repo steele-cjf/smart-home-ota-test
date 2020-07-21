@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {AppRoute} from '../../navigator/AppRoutes';
-import {getVerifyToken} from '../../store/home/index';
+import {getVerifyToken, getVerifyResult} from '../../store/home/index';
 import Theme from '../../style/colors';
 import storage from '../../util/storage';
 
@@ -40,22 +40,24 @@ function AuthenticationPage(props) {
   // }
 
   function personalVerify() {
-    console.log('ddd', Platform.OS);
-    console.log('userId', userId);
-    props.getVerifyToken({userId: '480077089862602752'}, res => {
+    props.getVerifyToken({userId}, res => {
       if (res.code) {
         showToast(res.message);
         return;
       }
-      let token = res.data.verifyToken;
+      let { token, bizId } = res.data
       if (Platform.OS === 'ios') {
         let domId = findNodeHandle(AliyunVerify.current);
         NativeModules.RealPersonAuth.addEvent(domId, token);
         return;
       }
-      // props.navigation.navigate(AppRoute.UNRECORD);
+      // 安卓活体认证
       NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
         if (ret.result === 'success') {
+          // 认证结果返回
+          props.getVerifyResult({bizId})
+        } else {
+          showToast('认证失败');
         }
       });
     });
@@ -74,9 +76,11 @@ function AuthenticationPage(props) {
   useEffect(() => {
     storage.get('info').then(info => {
       setUserId(info.id);
-      console.log('id', userId);
     });
   });
+  useEffect(() => {
+    console.log(9999, props.verfityResult)
+  }, [props.verfityResult]);
 
   const [AuthList] = useState([
     {
@@ -149,10 +153,11 @@ function AuthenticationPage(props) {
 function mapStateToProps(state) {
   return {
     userInfo: state.userInfo,
+    verfityResult: state.verfityResult
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getVerifyToken}, dispatch);
+  return bindActionCreators({getVerifyToken, getVerifyResult}, dispatch);
 }
 export default connect(
   mapStateToProps,

@@ -15,6 +15,14 @@ export function getVerifyToken(data, callback) {
   });
 }
 
+// 获取验证结果
+export function getVerifyResult(data) {
+  return $get('/rp/verifyResult', {
+    queryData: data,
+    actionType: 'VERIFY_RESULT'
+  })
+}
+
 
 export function verifyIdCard(data, callback) {
   return $post('/rp/manualAudit', {
@@ -35,6 +43,15 @@ export function userInfo(state = null, action) {
   return state;
 }
 
+// verfity result 
+export function verfityResult(state = null, action) {
+  if (action.type === 'VERIFY_RESULT') {
+    return action.data || null;
+  }
+  return state;
+}
+
 export default {
   userInfo,
+  verfityResult
 };

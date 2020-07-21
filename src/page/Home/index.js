@@ -19,7 +19,7 @@ function HomePage(props) {
       // props.navigation.navigate(AppRoute.RECORD);
     } else {
       showToast(Info.message);
-      props.navigation.navigate(AppRoute.LOGIN);
+      // props.navigation.navigate(AppRoute.LOGIN);
     }
   }, [props, props.userInfo]);
 
