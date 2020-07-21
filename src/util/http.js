@@ -17,7 +17,7 @@ const DEFAULT_CONFIG = {
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-  }
+  },
 };
 
 // 构造参数
@@ -36,15 +36,21 @@ export const httpService = (url, config) => {
   storage
     .get('token')
     .then(
-      (accessToken) =>
+      accessToken =>
         (DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken),
     );
+  console.log(9999);;
   return dispatch => {
     config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
     config = Object.assign({}, DEFAULT_CONFIG, config);
-    if (config.body && config.headers && config.headers['Content-Type'] == 'application/json') {
+    if (
+      config.body &&
+      config.headers &&
+      config.headers['Content-Type'] == 'application/json'
+    ) {
       config.body = config.body && JSON.stringify(config.body);
     }
+    console.log('config', config);
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {

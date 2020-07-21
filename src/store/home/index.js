@@ -19,20 +19,38 @@ export function getVerifyToken(data, callback) {
 export function getVerifyResult(data) {
   return $get('/rp/verifyResult', {
     queryData: data,
-    actionType: 'VERIFY_RESULT'
-  })
+    actionType: 'VERIFY_RESULT',
+  });
 }
-
 
 export function verifyIdCard(data, callback) {
   return $post('/rp/manualAudit', {
     headers: {
-      'Content-Type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data',
     },
     body: data,
     successConfig: {
-      callback
-    }
+      callback,
+    },
+  });
+}
+// 获取区域列表
+export function getCityList(data, callback) {
+  return $get('/region/list', {
+    queryData: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
+
+// 房源审核
+export function addHouse(data, callback) {
+  return $post('/house', {
+    queryData: data,
+    successConfig: {
+      callback,
+    },
   });
 }
 // user info
@@ -43,7 +61,7 @@ export function userInfo(state = null, action) {
   return state;
 }
 
-// verfity result 
+// verfity result
 export function verfityResult(state = null, action) {
   if (action.type === 'VERIFY_RESULT') {
     return action.data || null;
@@ -53,5 +71,5 @@ export function verfityResult(state = null, action) {
 
 export default {
   userInfo,
-  verfityResult
+  verfityResult,
 };

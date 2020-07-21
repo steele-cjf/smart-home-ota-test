@@ -16,10 +16,11 @@ function HomePage(props) {
     if (!Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data);
-      // props.navigation.navigate(AppRoute.RECORD);
+      props.navigation.navigate(AppRoute.RECORD);
     } else {
       showToast(Info.message);
-      // props.navigation.navigate(AppRoute.LOGIN);
+      // props.navigation.navigate(AppRoute.RECORD);
+      props.navigation.navigate(AppRoute.LOGIN);
     }
   }, [props, props.userInfo]);
 
@@ -40,15 +41,6 @@ function HomePage(props) {
         <Text style={styles.textFont}>您的实名信息正在审核中</Text>
       )}
       <Text style={styles.secondaryText}>更多操作需要实名认证</Text>
-      {/* <Text onPress={() => props.navigation.navigate(AppRoute.UNRECORD)}>
-        房源登记
-      </Text> */}
-      {/* <View v-else>
-        <Text>您还没有添加任何门锁</Text>
-        <Text>需要添加后才能执行开锁操作</Text>
-        <Button title="登记房源" />
-        <Button title="申请电子钥匙" />
-      </View> */}
     </View>
   );
 }
