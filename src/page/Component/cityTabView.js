@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,43 +7,12 @@ import ScrollAbleTabView from 'react-native-scrollable-tab-view';
 import {getCityList} from '../../store/home/index';
 import showToast from '../../util/toast';
 
-// function Tab(props) {
-
-//   const {activeColor, switchTabs, activeTab} = props;
-
-// }
-
-const tabStyles = StyleSheet.create({
-  container: {
-    height: 40,
-    borderBottomColor: '#EEE',
-    borderBottomWidth: 1,
-    position: 'relative',
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  tabJoke: {
-    // height: 40,
-    marginHorizontal: 16,
-  },
-  line: {
-    position: 'absolute',
-    height: 2,
-    bottom: 0,
-  },
-  text: {
-    fontSize: 14,
-    color: '#252426',
-  },
-});
-
 function TabView(props) {
   const [activeColor] = useState('#e4393c');
   const [page, setPage] = useState(0);
   const [address, setAddress] = useState([]);
   const [tag, setTag] = useState();
-  const [tabs, setTabs] = useState([{name: '请选择', id: 0}]);
+  const [tabs, setTabs] = useState(props.tabs);
 
   useEffect(() => {
     props.getCityList({pid: 0}, res => {
@@ -81,7 +50,6 @@ function TabView(props) {
         {tabs.map((tab, i) => {
           return (
             <TouchableOpacity
-              // ref={ref => (this.touchRefs[i] = ref)}
               style={tabStyles.tabJoke}
               activeOpacity={0.9}
               key={tab.id}
@@ -99,11 +67,19 @@ function TabView(props) {
   }
 
   function _select(item, index) {
+    // setTag(index);
     props.getCityList({pid: item.id}, res => {
       if (!res.code) {
+        if (page && tabs.length > 1) {
+          tabs.splice(page + 1);
+          tabs[page].name = item.name;
+          setTag(null);
+        } else {
+          tabs[tabs.length - 1].name = item.name;
+        }
         setAddress(res.data);
-        tabs[tabs.length - 1].name = item.name;
         setTabs([...tabs, {name: '请选择', id: item.id}]);
+        console.log('tab', tabs);
       } else {
         showToast(res.message);
       }
@@ -140,8 +116,6 @@ function TabView(props) {
   }
 
   function _onChangeIndex(index) {
-    console.log('dfdf');
-    console.log('index', index);
     setPage(index);
   }
 
@@ -160,6 +134,30 @@ function TabView(props) {
   );
 }
 
+const tabStyles = StyleSheet.create({
+  container: {
+    height: 40,
+    borderBottomColor: '#EEE',
+    borderBottomWidth: 1,
+    position: 'relative',
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  tabJoke: {
+    // height: 40,
+    marginHorizontal: 16,
+  },
+  line: {
+    position: 'absolute',
+    height: 2,
+    bottom: 0,
+  },
+  text: {
+    fontSize: 14,
+    color: '#252426',
+  },
+});
 const styles = StyleSheet.create({
   container: {
     flex: 1,

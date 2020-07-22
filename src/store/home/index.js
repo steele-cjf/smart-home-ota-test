@@ -47,7 +47,10 @@ export function getCityList(data, callback) {
 // 房源审核
 export function addHouse(data, callback) {
   return $post('/house', {
-    queryData: data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    body: data,
     successConfig: {
       callback,
     },

@@ -1,25 +1,69 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef, useEffect} from 'react';
-import {View, StyleSheet, ScrollView, Switch, Modal} from 'react-native';
-import {Button, Input, Text, CheckBox, Icon} from 'react-native-elements';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {Button, Input, Text, CheckBox} from 'react-native-elements';
 import ImageUpload from '../../Component/imageUpload';
 import {AppRoute} from '../../../navigator/AppRoutes';
 import RegionPicker from '../../Component/citySelect';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function RecordHouse(props) {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const [selectedValue, setSelectedValue] = useState('0');
+  const [isSelf, setIsSelf] = useState(true);
+  const [hasElevator, setHasElevator] = useState(false);
+  const toggleSwitch = () => setHasElevator(previousState => !previousState);
+  const toggleSelfSwitch = () => setIsSelf(previousState => !previousState);
 
   const [address, setAddress] = useState('');
   const [houseHolder, setHouseHolder] = useState({});
   const [houseLayout, setHouseLayout] = useState({});
-  const [
-    housePropertyCertificateImageUrl,
-    setHousePropertyCertificateImageUrl,
-  ] = useState('');
-  const [regionId, setRegionId] = useState('');
+  // const [
+  //   housePropertyCertificateImageUrl,
+  //   setHousePropertyCertificateImageUrl,
+  // ] = useState('');
+  const [formImage, setFormImage] = useState([]);
+  const [tabs, setTabs] = useState([{name: '请选择', id: 0}]);
+  const [regionId, setRegionId] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+
+  function handleFunc(flag, data) {
+    console.log('tasss');
+    console.log(flag, data);
+    setModalVisible(flag);
+    setRegionId(data);
+  }
+
+  function handlerAudit() {
+    console.log(houseHolder);
+    console.log(houseLayout);
+    console.log(regionId);
+    let result = new FormData();
+    result.append('housePropertyCertificateImageUrl', formImage[0]);
+    result.append('houseLayout', houseLayout);
+    result.append('regionId', regionId);
+    result.append('address', address);
+
+    console.log('result', result);
+
+    props.addHouse(result, res => {
+      console.log('res', res);
+    });
+  }
+
+  const setImageForm = (type, obj) => {
+    let data = Object.assign([], formImage);
+    data[type] = obj;
+    console.log('data', data);
+    setFormImage(data);
+  };
+
+  // 表单变化触发
+  const setData = (key, value) => {
+    let data = Object.assign({}, houseHolder);
+    let houseData = Object.assign({}, houseLayout);
+    data[key] = value;
+    setHouseHolder(data);
+    setHouseLayout(houseData);
+  };
 
   return (
     <View style={styles.container}>
@@ -28,86 +72,167 @@ function RecordHouse(props) {
         {/* <Input label="所在地区" placeholder="请选择地址" /> */}
         <TouchableOpacity
           onPress={() => {
-            setModalVisible(!modalVisible);
+            setModalVisible(true);
           }}>
           <Input
             placeholder="请选择地址"
-            disabled="true"
+            value={regionId}
+            disabled={true}
+            inputStyle={styles.input_content}
+            onChangeText={setRegionId}
             leftIcon={<Text style={styles.label}>所在地区</Text>}
           />
         </TouchableOpacity>
-        {/* <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <View style={styles.modal_content}>
-            <Button
-              icon={<Icon name="close" size={25} color="blank" />}
-              type="clear"
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            />
-            <RegionPicker />
-          </View>
-        </Modal> */}
         <RegionPicker
-          titleStyle={{
-            content: {borderTopLeftRadius: 22, borderTopRightRadius: 22},
-          }}
-          contentStyle={{backgroundColor: '#F1F1F1'}}
-          listStyle={{
-            content: {},
-            text: {color: '#666', fontSize: 28},
-          }}
-          activeColor="red"
+          visible={modalVisible}
+          tabs={tabs}
+          close={(flag, data) => handleFunc(flag, data)}
         />
         <Input
           value={address}
           placeholder="街道、小区、楼与门牌号"
+          inputStyle={styles.input_content}
           leftIcon={<Text style={styles.label}>详细地址</Text>}
           onChangeText={setAddress}
         />
-        {/* <Picker
-          selectedValue={selectedValue}
-          style={{height: 50, width: 150}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
-          <Picker.Item label="本人" value="0" />
-          <Picker.Item label="非本人" value="1" />
-        </Picker> */}
-        <Input leftIcon={<Text style={styles.label}>房屋所有者</Text>} />
+        <View style={styles.flex_box}>
+          <View>
+            <Text style={styles.label}>房屋所有者</Text>
+          </View>
+          <View>
+            <CheckBox
+              center
+              title="是否本人"
+              containerStyle={styles.checkbox_style}
+              checked={isSelf}
+              onPress={toggleSelfSwitch}
+            />
+          </View>
+        </View>
+        <View style={isSelf ? {display: 'none'} : ''}>
+          <Input
+            value={houseHolder.holderName}
+            placeholder="请输入所有者姓名"
+            inputStyle={styles.input_content}
+            // onChangeText={setHouseHolder}
+            onChange={e => {
+              setData('holderName', e.nativeEvent.text);
+            }}
+            leftIcon={<Text style={styles.label}>姓名</Text>}
+          />
+          <Input
+            value={houseHolder.holderIdCardNumber}
+            placeholder="请输入所有者身份证号"
+            inputStyle={styles.input_content}
+            // onChangeText={setHouseHolder}
+            onChange={e => {
+              setData('holderIdCardNumber', e.nativeEvent.text);
+            }}
+            leftIcon={<Text style={styles.label}>身份证号(护照)</Text>}
+          />
+          <Text style={styles.title}>授权文件</Text>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+            }}>
+            <ImageUpload />
+            <ImageUpload />
+          </View>
+        </View>
         <Text style={styles.title}>房产证照片</Text>
-        <ImageUpload />
+        <ImageUpload setImageForm={obj => setImageForm(0, obj)} />
         <Text style={styles.title}>建筑信息</Text>
         <Input
           value={houseLayout.area}
-          label="建筑面积"
           placeholder="㎡"
-          onChangeText={setHouseLayout}
+          inputStyle={styles.input_content}
+          leftIcon={<Text style={styles.label}>建筑面积</Text>}
+          // onChangeText={setHouseLayout}
+          onChange={e => {
+            setData('area', e.nativeEvent.text);
+          }}
         />
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-          <Input
-            style={{flex: 1}}
-            value={houseLayout.floor}
-            placeholder="第几层"
-            leftIcon={<Text style={styles.label}>楼层</Text>}
-            onChangeText={setHouseLayout}
-          />
+        <View style={styles.flex_box}>
+          <Text style={styles.label}>楼层</Text>
+          <View style={{width: 100}}>
+            <Input
+              value={houseLayout.floor}
+              placeholder="第几层"
+              inputStyle={styles.input_content}
+              onChange={e => {
+                setData('floor', e.nativeEvent.text);
+              }}
+            />
+          </View>
+          <View style={{width: 100}}>
+            <Input
+              value={houseLayout.floorCount}
+              placeholder="共几层"
+              inputStyle={styles.input_content}
+              onChange={e => {
+                setData('floorCount', e.nativeEvent.text);
+              }}
+            />
+          </View>
+          <View>
+            <CheckBox
+              center
+              title="电梯"
+              containerStyle={styles.checkbox_style}
+              checked={hasElevator}
+              onPress={toggleSwitch}
+            />
+          </View>
         </View>
-        <Input
-          style={{flex: 1}}
-          value={houseLayout.floor}
-          placeholder="共几层"
-          onChangeText={setHouseLayout}
-        />
-        <CheckBox
-          center
-          title="电梯"
-          checked={isEnabled}
-          onPress={toggleSwitch}
-        />
-        <Input label="户型" placeholder="几室几厅几卫" />
+        <View style={styles.flex_box}>
+          <Text style={styles.label}>户型</Text>
+          <View style={{width: 70}}>
+            <Input
+              value={houseLayout.roomCount}
+              placeholder="几室"
+              inputStyle={styles.input_content}
+              onChange={e => {
+                setData('roomCount', e.nativeEvent.text);
+              }}
+            />
+          </View>
+          <View style={{width: 70}}>
+            <Input
+              value={houseLayout.hallCount}
+              placeholder="几厅"
+              inputStyle={styles.input_content}
+              onChange={e => {
+                setData('hallCount', e.nativeEvent.text);
+              }}
+            />
+          </View>
+          <View style={{width: 70}}>
+            <Input
+              value={houseLayout.toiletCount}
+              placeholder="几卫"
+              inputStyle={styles.input_content}
+              onChange={e => {
+                setData('toiletCount', e.nativeEvent.text);
+              }}
+            />
+          </View>
+          <View style={{width: 70}}>
+            <Input
+              value={houseLayout.direction}
+              placeholder="朝向"
+              inputStyle={styles.input_content}
+              onChange={e => {
+                setData('direction', e.nativeEvent.text);
+              }}
+            />
+          </View>
+        </View>
         <Button
           title="提交审核"
           style={{paddingVertical: 20}}
-          onPress={() => props.navigation.navigate(AppRoute.AUDIT)}
+          onPress={() => handlerAudit()}
         />
       </ScrollView>
     </View>
@@ -120,6 +245,14 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+  flex_box: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#86939e',
+    marginHorizontal: 10,
+  },
   title: {
     fontSize: 16,
     marginTop: 30,
@@ -127,7 +260,15 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    color: '#555',
+    paddingRight: 20,
+  },
+  input_content: {
+    fontSize: 14,
+    minHeight: 30,
+  },
+  checkbox_style: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
   },
   modal_content: {
     backgroundColor: '#fff',

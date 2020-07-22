@@ -13,30 +13,21 @@ import {Icon} from 'react-native-elements';
 import TabView from './cityTabView';
 
 export default function RegionPicker(props) {
-  const [visible, setVisible] = useState(true);
-
-  const {
-    titleStyle,
-    contentStyle,
-    listStyle,
-    tabStyle,
-    activeColor,
-    loading,
-  } = props;
-
+  const {visible, tabs} = props;
+  const [regionId, setRegionId] = useState(0);
   return (
     <Modal
       animationType="none"
       transparent={true}
       visible={visible}
-      onRequestClose={() => onBackClicked.bind(this)}
+      onRequestClose={() => close()}
       style={styles.container}>
       <TouchableWithoutFeedback onPress={() => close()}>
         <View style={[styles.mask]} />
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.content]}>
-        <View style={[styles.titleMain, titleStyle.content]}>
-          <Text style={[styles.title, titleStyle.text]}>所在地区</Text>
+        <View style={[styles.titleMain]}>
+          <Text style={[styles.title]}>所在地区</Text>
           <TouchableOpacity
             style={styles.icons}
             activeOpacity={0.8}
@@ -44,28 +35,17 @@ export default function RegionPicker(props) {
             <Icon name="close" size={25} style={styles.close} color="blank" />
           </TouchableOpacity>
         </View>
-        <TabView
-          style={[styles.tabView, contentStyle]}
-          // ref={ref => (tabView = ref)}
-          listStyle={listStyle}
-          tabStyle={tabStyle}
-          activeColor={activeColor}
-          loading={loading}
-        />
+        <TabView style={[styles.tabView]} tabs={tabs} getRegion={getRegion} />
       </Animated.View>
     </Modal>
   );
 
-  function onBackClicked() {
-    this.close();
-  }
-
-  function open() {
-    setVisible(true);
+  function getRegion(data) {
+    setRegionId(data);
   }
 
   function close() {
-    setVisible(false);
+    props.close(false, regionId);
   }
 }
 
@@ -91,7 +71,8 @@ const styles = StyleSheet.create({
     height: parseInt((screenHeight * 4) / 6),
   },
   tabView: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
+    backgroundColor: '#F1F1F1',
   },
   tabViewLoad: {
     flex: 1,
@@ -108,6 +89,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#EEE',
     borderBottomWidth: 1,
     position: 'relative',
+
+    borderTopLeftRadius: 22,
+    borderTopRightRadius: 22,
   },
   title: {
     position: 'absolute',
