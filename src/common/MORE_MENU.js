@@ -24,4 +24,10 @@ export const MORE_MENU = {
   Privacy_Policy: {name: '隐私政策', Icons: Ionicons, icon: 'ios-bookmarks'},
   Feedback: {name: '意见反馈', Icons: MaterialIcons, icon: 'feedback'},
   About: {name: '关于APP', Icons: Ionicons, icon: 'logo-github'},
+
+  HouseDetail: {name: '房屋详情', Icons: Ionicons, icon: 'ios-bookmarks'},
+  TemporaryKey: {name: '临时钥匙', Icons: Ionicons, icon: 'logo-github'},
+  Member: {name: '家庭成员', Icons: Ionicons, icon: 'md-checkbox-outline'},
+  Record: {name: '开门记录', Icons: Ionicons, icon: 'logo-github'},
+  Declare: {name: '门锁配置和故障申报', Icons: Ionicons, icon: 'feedback'},
 };

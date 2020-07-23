@@ -1,39 +1,75 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef, useEffect} from 'react';
-import {View, StyleSheet, ScrollView, Switch} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import {Button, Text} from 'react-native-elements';
-import ImageUpload from '../../Component/imageUpload';
+import HouseBaseInfo from '../../Component/houseBaseInfo';
 import {AppRoute} from '../../../navigator/AppRoutes';
 
 function HouseDetail(props) {
-  const [houseDetail, setHouseDetail] = useState([
-    {title: '房源状态', content: '系统审核中', type: 'button'},
-    {title: '房产证照片', content: '查看', type: 'button'},
-    {title: '出租类型', content: '合租/整租', type: 'text'},
-    {title: '户型', content: '三室一厅', type: 'text'},
-    {title: '房屋所有者', content: '张三', type: 'text'},
-  ]);
-
+  const [houseInfo, setHouseInfo] = useState({
+    status: '审核通过',
+    rentStatus: '未出租',
+    self: '本人',
+    houseLayout: {},
+    hasElevator: '电梯',
+  });
+  useEffect(() => {
+    props.getHouseDetail('483710797791371264', res => {
+      console.log('res', res);
+      if (!res.code) {
+        if (res.data) {
+          setHouseInfo(res.data);
+        }
+      }
+    });
+  }, [props]);
   return (
     <View style={styles.container}>
       <ScrollView>
-        {houseDetail.map((result, index) => {
-          return (
-            <View style={styles.item_content}>
-              <Text style={styles.text_style}>{result.title}</Text>
-              <Text
-                style={
-                  result.type === 'button' ? styles.blue : styles.text_style
-                }>
-                {result.content}
-              </Text>
-            </View>
-          );
-        })}
-        <Button
-          title="修改"
-          style={{paddingTop: 30}}
-          onPress={() => props.navigation.navigate(AppRoute.RECORD)}
-        />
+        <View style={[styles.bg_white, styles.padding]}>
+          <HouseBaseInfo detail={houseInfo} />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            backgroundColor: '#fff',
+            marginTop: 15,
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+          }}>
+          <View>
+            <Text style={{fontSize: 16, color: '#666'}}>发布情况</Text>
+          </View>
+          <View>
+            <Button
+              type="clear"
+              titleStyle={{fontSize: 16}}
+              title={houseInfo.publishStatus}
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            paddingTop: 40,
+          }}>
+          <View>
+            <Button
+              title="住户"
+              onPress={() => props.navigation.navigate(AppRoute.ADDTENANT)}
+            />
+          </View>
+          <View>
+            <Button
+              title="发布"
+              onPress={() => props.navigation.navigate(AppRoute.PUBLISH)}
+            />
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -41,10 +77,16 @@ function HouseDetail(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
+    // paddingLeft: 10,
+    // paddingRight: 10,
+  },
+  padding: {
+    padding: 10,
+  },
+  bg_white: {
+    backgroundColor: '#fff',
   },
   item_content: {
     padding: 10,

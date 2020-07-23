@@ -16,7 +16,7 @@ function HomePage(props) {
     if (!Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data);
-      props.navigation.navigate(AppRoute.RECORD);
+      // props.navigation.navigate(AppRoute.RECORD);
     } else {
       showToast(Info.message);
       // props.navigation.navigate(AppRoute.RECORD);
