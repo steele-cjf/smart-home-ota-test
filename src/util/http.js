@@ -39,7 +39,6 @@ export const httpService = (url, config) => {
       accessToken =>
         (DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken),
     );
-  console.log(9999);;
   return dispatch => {
     config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
     config = Object.assign({}, DEFAULT_CONFIG, config);
@@ -50,7 +49,7 @@ export const httpService = (url, config) => {
     ) {
       config.body = config.body && JSON.stringify(config.body);
     }
-    console.log('config', config);
+    // console.log('config', config);
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
 import { Button } from 'react-native-elements';
 import Form from '../../Component/form';
 import ImageUpload from '../../Component/imageUpload';
-// import {AppRoute} from '../../../navigator/AppRoutes';
+import {AppRoute} from '../../../navigator/AppRoutes';
 
 import vertifyCn from '../config/IdCardVertifyCn';
 export default function IdCardVertifyPage(props) {

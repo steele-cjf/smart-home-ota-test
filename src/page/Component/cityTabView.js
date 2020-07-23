@@ -1,10 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ScrollAbleTabView from 'react-native-scrollable-tab-view';
-import {getCityList} from '../../store/home/index';
+import { getCityList } from '../../store/home/index';
 import showToast from '../../util/toast';
 
 function TabView(props) {
@@ -15,11 +15,10 @@ function TabView(props) {
   const [tabs, setTabs] = useState(props.tabs);
 
   useEffect(() => {
-    props.getCityList({pid: 0}, res => {
-      console.log('1111', res);
+    props.getCityList({ pid: 0 }, res => {
       if (!res.code) {
         const list = res.data;
-        list.map((item, index) => {});
+        list.map((item, index) => { });
         setAddress(res.data);
       } else {
         showToast(res.message);
@@ -28,7 +27,7 @@ function TabView(props) {
   }, [props]);
 
   function tabOnPress(tab, i) {
-    props.getCityList({pid: tab.id}, res => {
+    props.getCityList({ pid: tab.id }, res => {
       if (!res.code) {
         const list = res.data;
         list.map((val, index) => {
@@ -56,7 +55,7 @@ function TabView(props) {
               onPress={() => tabOnPress(tab, i)}
               removeClippedSubviews={false}>
               <Text
-                style={[tabStyles.text, page === i && {color: activeColor}]}>
+                style={[tabStyles.text, page === i && { color: activeColor }]}>
                 {tab.name}
               </Text>
             </TouchableOpacity>
@@ -67,8 +66,9 @@ function TabView(props) {
   }
 
   function _select(item, index) {
+    console.log('_select', item, index)
     // setTag(index);
-    props.getCityList({pid: item.id}, res => {
+    props.getCityList({ pid: item.id }, res => {
       if (!res.code) {
         if (page && tabs.length > 1) {
           tabs.splice(page + 1);
@@ -78,7 +78,7 @@ function TabView(props) {
           tabs[tabs.length - 1].name = item.name;
         }
         setAddress(res.data);
-        setTabs([...tabs, {name: '请选择', id: item.id}]);
+        setTabs([...tabs, { name: '请选择', id: item.id }]);
         console.log('tab', tabs);
       } else {
         showToast(res.message);
@@ -86,7 +86,13 @@ function TabView(props) {
     });
   }
 
-  const _renderItem = ({item, index}) => {
+  function _onChangeIndex(index) {
+    console.log('_onChangeIndex', index)
+    setPage(index);
+  }
+
+  const { style } = props;
+  const _renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
@@ -103,23 +109,6 @@ function TabView(props) {
       </TouchableOpacity>
     );
   };
-
-  function _renderTabView() {
-    return (
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={address}
-        renderItem={_renderItem}
-        keyExtractor={(_, index) => index.toString()}
-      />
-    );
-  }
-
-  function _onChangeIndex(index) {
-    setPage(index);
-  }
-
-  const {style} = props;
   return (
     <View style={[styles.container, style]}>
       <ScrollAbleTabView
@@ -127,8 +116,13 @@ function TabView(props) {
         locked
         renderTabBar={() => <Tab />}
         page={page}
-        onChangeTab={({i}) => _onChangeIndex(i)}>
-        {_renderTabView()}
+        onChangeTab={({ i }) => _onChangeIndex(i)}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={address}
+          renderItem={_renderItem}
+          keyExtractor={(_, index) => index.toString()}
+        />
       </ScrollAbleTabView>
     </View>
   );
@@ -181,9 +175,11 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {};
 }
+
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getCityList}, dispatch);
+  return bindActionCreators({ getCityList }, dispatch);
 }
+
 export default connect(
   mapStateToProps,
   matchDispatchToProps,

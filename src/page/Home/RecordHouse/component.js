@@ -26,8 +26,8 @@ function RecordHouse(props) {
   const [modalVisible, setModalVisible] = useState(false);
 
   function handleFunc(flag, data) {
-    console.log('tasss');
-    console.log(flag, data);
+    // console.log('tasss');
+    // console.log(flag, data);
     setModalVisible(flag);
     setRegionId(data);
   }

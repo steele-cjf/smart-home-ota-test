@@ -98,7 +98,6 @@ export default function Form(props) {
                     animation={true}>
                     {data.selectOptions &&
                       data.selectOptions.map((option, i) => (
-                        // let check = (option.value === (obj[data.key] || data.selectOptions[0].value)) || false
                         <RadioButton labelHorizontal={true} key={'radio' + i}>
                           <RadioButtonInput
                             obj={option}

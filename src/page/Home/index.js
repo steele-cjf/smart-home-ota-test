@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
 import {getUserInfo} from '../../store/home/index';
 import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
@@ -20,7 +20,7 @@ function HomePage(props) {
     } else {
       showToast(Info.message);
       // props.navigation.navigate(AppRoute.RECORD);
-      props.navigation.navigate(AppRoute.LOGIN);
+      // props.navigation.navigate(AppRoute.LOGIN);
     }
   }, [props, props.userInfo]);
 
@@ -28,6 +28,7 @@ function HomePage(props) {
 
   return (
     <View style={styles.container}>
+      <Button title="进入房源登记" onPress={()=>props.navigation.navigate(AppRoute.RECORD)}/>
       {!userInfo.verifyStatus ? (
         <Text style={styles.textFont}>
           <Text>您还未</Text>

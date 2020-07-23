@@ -53,7 +53,8 @@ function AuthenticationPage(props) {
       }
       // 安卓活体认证
       NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
-        if (ret.result === 'success') {
+        console.log(99999, ret)
+        if (ret === 'success') {
           // 认证结果返回
           props.getVerifyResult({bizId})
         } else {

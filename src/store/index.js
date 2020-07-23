@@ -1,6 +1,6 @@
 import {applyMiddleware, createStore, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
-import {userInfo, verfityResult} from './home/index';
+import {userInfo, verfityResult } from './home/index';
 const allReducers = combineReducers({
   userInfo,
   verfityResult
