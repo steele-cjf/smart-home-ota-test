@@ -3,7 +3,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {HomeStackComponent} from './HomeNavigator';
-import DynamicPage from '../page/DynamicPage';
+import {FeatureStackComponent} from './FeatureNavigator';
+
+// import DynamicPage from '../page/DynamicPage';
 import MyPage from '../page/MyPage';
 import {AppRoute} from './AppRoutes';
 
@@ -27,10 +29,10 @@ const BottomTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name={AppRoute.DYNAMIC}
-        component={DynamicPage}
+        name={AppRoute.FEATURE}
+        component={FeatureStackComponent}
         options={{
-          title: '动态',
+          title: '功能',
           tabBarIcon: ({focused, color}) => (
             <Ionicons name={'ios-bonfire'} color={color} size={24} />
           ),

@@ -39,7 +39,7 @@ export const httpService = (url, config) => {
       accessToken =>
         (DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken),
     );
-  console.log(9999);;
+  console.log(9999, url);
   return dispatch => {
     config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
     config = Object.assign({}, DEFAULT_CONFIG, config);

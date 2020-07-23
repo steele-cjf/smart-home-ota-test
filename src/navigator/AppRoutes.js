@@ -3,7 +3,7 @@ export const AppRoute = {
   LOGIN: 'LoginPage',
   HOME: 'HomePage',
   AUTHENTICATION: 'AuthenticationPage',
-  DYNAMIC: 'DynamicPage',
+  FEATURE: 'FeaturePage',
   MY: 'MyPage',
   IDCARDVERTIFY: 'IdCardVertifyPage',
   PASSPORTVERTIFY: 'PassportVertifyPage',
@@ -11,6 +11,7 @@ export const AppRoute = {
   RECORD: 'RecordHouse',
   AUDIT: 'AuditHouse',
   HOUSEDETAIL: 'HouseDetail',
+  PUBLISH: 'PublishHouse',
+  ADDTENANT: 'AddTenant',
 };
-
 Object.freeze(AppRoute);

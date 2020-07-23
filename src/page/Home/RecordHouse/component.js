@@ -46,6 +46,7 @@ function RecordHouse(props) {
 
     props.addHouse(result, res => {
       console.log('res', res);
+      props.navigation.navigate(AppRoute.AUDIT);
     });
   }
 
