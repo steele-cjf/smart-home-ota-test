@@ -40,8 +40,9 @@ export default function RegionPicker(props) {
     </Modal>
   );
 
-  function getRegion(data) {
+  function getRegion(data, tabsList) {
     setRegionId(data);
+    props.setTabs(tabsList)
   }
 
   function close() {

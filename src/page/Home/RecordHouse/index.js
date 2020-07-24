@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addHouse} from '../../../store/home/index';
+import {addHouse} from '../../../store/house/index';
 
 import Component from './component';
 // reducer获取

@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useRef, useEffect} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
-import {Button, Input, Text, CheckBox} from 'react-native-elements';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Button, Input, Text, CheckBox } from 'react-native-elements';
 import ImageUpload from '../../Component/imageUpload';
-import {AppRoute} from '../../../navigator/AppRoutes';
+import { AppRoute } from '../../../navigator/AppRoutes';
 import RegionPicker from '../../Component/citySelect';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function RecordHouse(props) {
   const [isSelf, setIsSelf] = useState(true);
@@ -16,54 +16,76 @@ function RecordHouse(props) {
   const [address, setAddress] = useState('');
   const [houseHolder, setHouseHolder] = useState({});
   const [houseLayout, setHouseLayout] = useState({});
-  // const [
-  //   housePropertyCertificateImageUrl,
-  //   setHousePropertyCertificateImageUrl,
-  // ] = useState('');
-  const [formImage, setFormImage] = useState([]);
-  const [tabs, setTabs] = useState([{name: '请选择', id: 0}]);
+  const [housePropertyCertificateImage, setHousePropertyCertificateImage] = useState([]);
+  const [certificateFilesImg, setCertificateFilesImg] = useState([]);
+  const [tabs, setTabs] = useState([{ name: '请选择', id: 0 }]);
+  const [regionName, setRegionName] = useState('');
   const [regionId, setRegionId] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
   function handleFunc(flag, data) {
-    // console.log('tasss');
-    // console.log(flag, data);
     setModalVisible(flag);
     setRegionId(data);
+    let name = tabs.map((item) => {
+      if (item.id) {
+        return item.name
+      }
+    })
+    setRegionName(name.join(''))
   }
 
   function handlerAudit() {
-    console.log(houseHolder);
-    console.log(houseLayout);
-    console.log(regionId);
     let result = new FormData();
-    result.append('housePropertyCertificateImageUrl', formImage[0]);
-    result.append('houseLayout', houseLayout);
+
+    objToFormData('houseHolder', houseHolder, result)
+    // 是否为本人 isSelf
+    result.append('houseHolder.self', isSelf);
+    objToFormData('houseLayout', houseLayout, result)
+    // 是否有电梯 hasElevator
+    result.append('houseLayout.hasElevator', hasElevator);
+    for (let c = 0; c < certificateFilesImg.length; c++) {
+      result.append('houseHolder.certificateFiles', certificateFilesImg[c])
+    }
+    result.append('housePropertyCertificateImage', housePropertyCertificateImage[0])
+    
     result.append('regionId', regionId);
     result.append('address', address);
-
-    console.log('result', result);
-
     props.addHouse(result, res => {
       console.log('res', res);
       props.navigation.navigate(AppRoute.AUDIT);
     });
   }
 
-  const setImageForm = (type, obj) => {
-    let data = Object.assign([], formImage);
-    data[type] = obj;
-    console.log('data', data);
-    setFormImage(data);
+  const objToFormData = (key, data, result) => {
+    for (let d in data) {
+      result.append(key + '.' + d, data[d])
+    }
+  }
+
+  const setImageForm = (key, obj, type) => {
+    let data
+    if (type === 'cert') {
+      data = Object.assign([], housePropertyCertificateImage);
+      setHousePropertyCertificateImage(data);
+      data[key] = obj;
+    } else {
+      data = Object.assign([], certificateFilesImg);
+      data[key] = obj;
+      setCertificateFilesImg(data);
+    }
   };
 
   // 表单变化触发
-  const setData = (key, value) => {
-    let data = Object.assign({}, houseHolder);
-    let houseData = Object.assign({}, houseLayout);
-    data[key] = value;
-    setHouseHolder(data);
-    setHouseLayout(houseData);
+  const setData = (key, value, type) => {
+    if (type === 'houseHolder') {
+      let data = Object.assign({}, houseHolder);
+      data[key] = value;
+      setHouseHolder(data);
+    } else {
+      let data = Object.assign({}, houseLayout);
+      data[key] = value;
+      setHouseLayout(data);
+    }
   };
 
   return (
@@ -77,7 +99,7 @@ function RecordHouse(props) {
           }}>
           <Input
             placeholder="请选择地址"
-            value={regionId}
+            value={regionName}
             disabled={true}
             inputStyle={styles.input_content}
             onChangeText={setRegionId}
@@ -87,6 +109,7 @@ function RecordHouse(props) {
         <RegionPicker
           visible={modalVisible}
           tabs={tabs}
+          setTabs={(data) => setTabs(data)}
           close={(flag, data) => handleFunc(flag, data)}
         />
         <Input
@@ -110,14 +133,14 @@ function RecordHouse(props) {
             />
           </View>
         </View>
-        <View style={isSelf ? {display: 'none'} : ''}>
+        <View style={isSelf ? { display: 'none' } : ''}>
           <Input
             value={houseHolder.holderName}
             placeholder="请输入所有者姓名"
             inputStyle={styles.input_content}
             // onChangeText={setHouseHolder}
             onChange={e => {
-              setData('holderName', e.nativeEvent.text);
+              setData('holderName', e.nativeEvent.text, 'houseHolder');
             }}
             leftIcon={<Text style={styles.label}>姓名</Text>}
           />
@@ -127,7 +150,7 @@ function RecordHouse(props) {
             inputStyle={styles.input_content}
             // onChangeText={setHouseHolder}
             onChange={e => {
-              setData('holderIdCardNumber', e.nativeEvent.text);
+              setData('holderIdCardNumber', e.nativeEvent.text, 'houseHolder');
             }}
             leftIcon={<Text style={styles.label}>身份证号(护照)</Text>}
           />
@@ -138,12 +161,12 @@ function RecordHouse(props) {
               flexDirection: 'row',
               justifyContent: 'space-around',
             }}>
-            <ImageUpload />
-            <ImageUpload />
+            <ImageUpload setImageForm={obj => setImageForm(0, obj, 'files')} />
+            <ImageUpload setImageForm={obj => setImageForm(1, obj, 'files')} />
           </View>
         </View>
         <Text style={styles.title}>房产证照片</Text>
-        <ImageUpload setImageForm={obj => setImageForm(0, obj)} />
+        <ImageUpload setImageForm={obj => setImageForm(0, obj, 'cert')} />
         <Text style={styles.title}>建筑信息</Text>
         <Input
           value={houseLayout.area}
@@ -152,28 +175,28 @@ function RecordHouse(props) {
           leftIcon={<Text style={styles.label}>建筑面积</Text>}
           // onChangeText={setHouseLayout}
           onChange={e => {
-            setData('area', e.nativeEvent.text);
+            setData('area', e.nativeEvent.text, 'houseLayout');
           }}
         />
         <View style={styles.flex_box}>
           <Text style={styles.label}>楼层</Text>
-          <View style={{width: 100}}>
+          <View style={{ width: 100 }}>
             <Input
               value={houseLayout.floor}
               placeholder="第几层"
               inputStyle={styles.input_content}
               onChange={e => {
-                setData('floor', e.nativeEvent.text);
+                setData('floor', e.nativeEvent.text, 'houseLayout');
               }}
             />
           </View>
-          <View style={{width: 100}}>
+          <View style={{ width: 100 }}>
             <Input
               value={houseLayout.floorCount}
               placeholder="共几层"
               inputStyle={styles.input_content}
               onChange={e => {
-                setData('floorCount', e.nativeEvent.text);
+                setData('floorCount', e.nativeEvent.text, 'houseLayout');
               }}
             />
           </View>
@@ -189,50 +212,50 @@ function RecordHouse(props) {
         </View>
         <View style={styles.flex_box}>
           <Text style={styles.label}>户型</Text>
-          <View style={{width: 70}}>
+          <View style={{ width: 70 }}>
             <Input
               value={houseLayout.roomCount}
               placeholder="几室"
               inputStyle={styles.input_content}
               onChange={e => {
-                setData('roomCount', e.nativeEvent.text);
+                setData('roomCount', e.nativeEvent.text, 'houseLayout');
               }}
             />
           </View>
-          <View style={{width: 70}}>
+          <View style={{ width: 70 }}>
             <Input
               value={houseLayout.hallCount}
               placeholder="几厅"
               inputStyle={styles.input_content}
               onChange={e => {
-                setData('hallCount', e.nativeEvent.text);
+                setData('hallCount', e.nativeEvent.text, 'houseLayout');
               }}
             />
           </View>
-          <View style={{width: 70}}>
+          <View style={{ width: 70 }}>
             <Input
               value={houseLayout.toiletCount}
               placeholder="几卫"
               inputStyle={styles.input_content}
               onChange={e => {
-                setData('toiletCount', e.nativeEvent.text);
+                setData('toiletCount', e.nativeEvent.text, 'houseLayout');
               }}
             />
           </View>
-          <View style={{width: 70}}>
+          <View style={{ width: 70 }}>
             <Input
               value={houseLayout.direction}
               placeholder="朝向"
               inputStyle={styles.input_content}
               onChange={e => {
-                setData('direction', e.nativeEvent.text);
+                setData('direction', e.nativeEvent.text, 'houseLayout');
               }}
             />
           </View>
         </View>
         <Button
           title="提交审核"
-          style={{paddingVertical: 20}}
+          style={{ paddingVertical: 20 }}
           onPress={() => handlerAudit()}
         />
       </ScrollView>
