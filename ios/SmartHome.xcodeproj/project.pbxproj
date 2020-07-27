@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SmartHomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SmartHomeTests.m */; };
+		075D6B2624CEE265004B6859 /* libGoogleAPIClientForREST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B2524CEE265004B6859 /* libGoogleAPIClientForREST.a */; };
+		075D6B2824CEE265004B6859 /* libGoogleDataTransport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B2724CEE265004B6859 /* libGoogleDataTransport.a */; };
+		075D6B2A24CEE265004B6859 /* libGoogleToolboxForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B2924CEE265004B6859 /* libGoogleToolboxForMac.a */; };
+		075D6B2C24CEE265004B6859 /* libGoogleUtilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B2B24CEE265004B6859 /* libGoogleUtilities.a */; };
+		075D6B2E24CEE27E004B6859 /* libFirebaseCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B2D24CEE27E004B6859 /* libFirebaseCore.a */; };
+		075D6B3024CEE411004B6859 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 075D6B2F24CEE411004B6859 /* GoogleService-Info.plist */; };
 		077E319024B2BB8600370524 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E318F24B2BB8500370524 /* PDFKit.framework */; };
 		077E319224B2BBBE00370524 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E319124B2BBBE00370524 /* CoreMotion.framework */; };
 		077E31A024B2BBF600370524 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E319F24B2BBF600370524 /* CoreTelephony.framework */; };
@@ -60,6 +66,12 @@
 		00E356EE1AD99517003FC87E /* SmartHomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartHomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SmartHomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartHomeTests.m; sourceTree = "<group>"; };
+		075D6B2524CEE265004B6859 /* libGoogleAPIClientForREST.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleAPIClientForREST.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		075D6B2724CEE265004B6859 /* libGoogleDataTransport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleDataTransport.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		075D6B2924CEE265004B6859 /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		075D6B2B24CEE265004B6859 /* libGoogleUtilities.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleUtilities.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		075D6B2D24CEE27E004B6859 /* libFirebaseCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		075D6B2F24CEE411004B6859 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		077E318F24B2BB8500370524 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
 		077E319124B2BBBE00370524 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		077E319F24B2BBF600370524 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -131,6 +143,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				075D6B2E24CEE27E004B6859 /* libFirebaseCore.a in Frameworks */,
+				075D6B2624CEE265004B6859 /* libGoogleAPIClientForREST.a in Frameworks */,
+				075D6B2824CEE265004B6859 /* libGoogleDataTransport.a in Frameworks */,
+				075D6B2A24CEE265004B6859 /* libGoogleToolboxForMac.a in Frameworks */,
+				075D6B2C24CEE265004B6859 /* libGoogleUtilities.a in Frameworks */,
 				077E31B124B2BE6D00370524 /* AliyunOSSiOS.framework in Frameworks */,
 				077E319224B2BBBE00370524 /* CoreMotion.framework in Frameworks */,
 				077E31A024B2BBF600370524 /* CoreTelephony.framework in Frameworks */,
@@ -186,6 +203,7 @@
 		13B07FAE1A68108700A75B9A /* SmartHome */ = {
 			isa = PBXGroup;
 			children = (
+				075D6B2F24CEE411004B6859 /* GoogleService-Info.plist */,
 				697CE42724B464ED00BED2FA /* Fonts */,
 				077E31BC24B2C75300370524 /* SmartHome.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -204,6 +222,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				075D6B2D24CEE27E004B6859 /* libFirebaseCore.a */,
+				075D6B2524CEE265004B6859 /* libGoogleAPIClientForREST.a */,
+				075D6B2724CEE265004B6859 /* libGoogleDataTransport.a */,
+				075D6B2924CEE265004B6859 /* libGoogleToolboxForMac.a */,
+				075D6B2B24CEE265004B6859 /* libGoogleUtilities.a */,
 				077E31A724B2BC4900370524 /* SystemConfiguration.framework */,
 				077E31A524B2BC1700370524 /* libz.tbd */,
 				077E31A324B2BC1000370524 /* libresolv.tbd */,
@@ -452,6 +475,7 @@
 			files = (
 				077E31B724B2BEBF00370524 /* RPSDK.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				075D6B3024CEE411004B6859 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				077E31AA24B2BC6800370524 /* yw_1222_0769.jpg in Resources */,
 			);
@@ -801,6 +825,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SmartHomeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -821,6 +846,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SmartHomeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -853,6 +879,7 @@
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SmartHome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -881,6 +908,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SmartHome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -908,6 +936,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "SmartHome-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -936,6 +965,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "SmartHome-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -963,6 +993,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "SmartHome-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -990,6 +1021,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "SmartHome-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
