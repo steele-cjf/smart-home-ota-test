@@ -30,7 +30,16 @@ function LoginPage(props) {
         return true;
     }
   }
-
+  function storageDataDictionary() {
+    props.getAllData(res => {
+      console.log('resss', res.data);
+      let result = {};
+      res.data.forEach(item => {
+        result[item.name] = item.dictionaries;
+      });
+      storage.set('code', result);
+    });
+  }
   // action
   function handleSubmit() {
     const data = {
@@ -41,6 +50,7 @@ function LoginPage(props) {
       props.handleLogin(data, res => {
         if (!res.code) {
           storage.set('token', res.data.accessToken);
+          storageDataDictionary();
           props.navigation.navigate(AppRoute.HOME);
         } else {
           showToast(res.message);
@@ -67,8 +77,8 @@ function LoginPage(props) {
 
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(18218025628);
-  const [verifyCode, setVerifyCode] = useState(520710);
+  const [mobile, setMobile] = useState(13661992793);
+  const [verifyCode, setVerifyCode] = useState(605933);
   const [mobileError, setMobileError] = useState(null);
   const [verifyCodeError, setVerifyCodeError] = useState(null);
   return (

@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import TabView from './test';
+import TabView from './cityTabView';
 
 export default function RegionPicker(props) {
   const {visible, tabs} = props;
