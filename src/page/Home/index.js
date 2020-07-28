@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { getUserInfo } from '../../store/home/index';
-import { AppRoute } from '../../navigator/AppRoutes';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {View, Text, StyleSheet, Button} from 'react-native';
+import {getUserInfo} from '../../store/home/index';
+import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 
 function HomePage(props) {
@@ -16,7 +16,7 @@ function HomePage(props) {
     if (!Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data);
-      // props.navigation.navigate(AppRoute.RECORD);
+      // props.navigation.navigate(AppRoute.HOUSELIST);
     } else {
       showToast(Info.message);
       // props.navigation.navigate(AppRoute.RECORD);
@@ -28,12 +28,15 @@ function HomePage(props) {
 
   return (
     <View style={styles.container}>
-      <Button title="进入房源登记" onPress={() => props.navigation.navigate(AppRoute.RECORD)} />
+      <Button
+        title="进入房源登记"
+        onPress={() => props.navigation.navigate(AppRoute.RECORD)}
+      />
       <Text
         style={styles.buttonTextStyle}
         onPress={() => props.navigation.navigate(AppRoute.AUTHENTICATION)}>
         实名认证
-          </Text>
+      </Text>
       {!userInfo.verifyStatus ? (
         <Text style={styles.textFont}>
           <Text>您还未</Text>
@@ -44,8 +47,8 @@ function HomePage(props) {
           </Text>
         </Text>
       ) : (
-          <Text style={styles.textFont}>您的实名信息正在审核中</Text>
-        )}
+        <Text style={styles.textFont}>您的实名信息正在审核中</Text>
+      )}
       <Text style={styles.secondaryText}>更多操作需要实名认证</Text>
     </View>
   );
@@ -58,7 +61,7 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserInfo }, dispatch);
+  return bindActionCreators({getUserInfo}, dispatch);
 }
 export default connect(
   mapStateToProps,

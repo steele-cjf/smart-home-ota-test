@@ -13,5 +13,6 @@ export const AppRoute = {
   HOUSEDETAIL: 'HouseDetail',
   PUBLISH: 'PublishHouse',
   ADDTENANT: 'AddTenant',
+  HOUSELIST: 'HouseList',
 };
 Object.freeze(AppRoute);

@@ -45,7 +45,8 @@ function AuthenticationPage(props) {
         showToast(res.message);
         return;
       }
-      let { token, bizId } = res.data
+      console.log('ddddd', res.data);
+      let {token, bizId} = res.data;
       if (Platform.OS === 'ios') {
         let domId = findNodeHandle(AliyunVerify.current);
         NativeModules.RealPersonAuth.addEvent(domId, token);
@@ -53,10 +54,10 @@ function AuthenticationPage(props) {
       }
       // 安卓活体认证
       NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
-        console.log(99999, ret)
+        console.log(99999, ret);
         if (ret === 'success') {
           // 认证结果返回
-          props.getVerifyResult({bizId})
+          props.getVerifyResult({bizId});
         } else {
           showToast('认证失败');
         }
@@ -80,7 +81,7 @@ function AuthenticationPage(props) {
     });
   });
   useEffect(() => {
-    console.log(9999, props.verfityResult)
+    console.log(9999, props.verfityResult);
   }, [props.verfityResult]);
 
   const [AuthList] = useState([
@@ -154,7 +155,7 @@ function AuthenticationPage(props) {
 function mapStateToProps(state) {
   return {
     userInfo: state.userInfo,
-    verfityResult: state.verfityResult
+    verfityResult: state.verfityResult,
   };
 }
 function matchDispatchToProps(dispatch) {

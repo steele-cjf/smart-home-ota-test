@@ -34,6 +34,15 @@ export function verifyIdCard(data, callback) {
     },
   });
 }
+// 获取发布房源列表
+export function getHousingList(data, callback) {
+  return $get('/publish/list', {
+    queryData: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
 // 获取区域列表
 export function getCityList(data, callback) {
   return $get('/region/list', {
@@ -79,8 +88,7 @@ export function verfityResult(state = null, action) {
   return state;
 }
 
-
 export default {
   userInfo,
-  verfityResult
+  verfityResult,
 };
