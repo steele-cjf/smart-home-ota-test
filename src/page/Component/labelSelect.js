@@ -18,7 +18,7 @@ export default function LabelSelect(props) {
             ]}
             onPress={() => handleSelect(item, i)}>
             <Text style={[item.selected ? styles.selected_color : '']}>
-              {item.value}
+              {item.value} {item.name}
             </Text>
           </TouchableOpacity>
         );
