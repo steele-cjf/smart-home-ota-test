@@ -7,6 +7,7 @@ import PassportVertify from '../page/Home/PassportVertify';
 import UnrecordedHouse from '../page/Home/UnrecordedHouse';
 import RecordHouse from '../page/Home/RecordHouse';
 import AuditHouse from '../page/Home/AuditHouse';
+import HouseList from '../page/Home/HouseList';
 import HouseDetail from '../page/Home/HouseDetail';
 
 import {AppRoute} from './AppRoutes';
@@ -67,6 +68,13 @@ export const HomeStackComponent = () => {
         options={{
           title: '添加房源',
           headerBackTitle: '返回',
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.HOUSELIST}
+        component={HouseList}
+        options={{
+          title: '房源列表',
         }}
       />
       <HomeStack.Screen
