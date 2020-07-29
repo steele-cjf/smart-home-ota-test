@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import {getUserInfo} from '../../store/home/index';
-import {AppRoute} from '../../navigator/AppRoutes';
+
+import { Avatar } from 'react-native-elements'
+import { AppRoute } from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 
 function HomePage(props) {
@@ -25,6 +27,8 @@ function HomePage(props) {
   }, [props, props.userInfo]);
 
   const [userInfo, setUserInfo] = useState({});
+  const [source, setSource] = useState({});
+
 
   return (
     <View style={styles.container}>
@@ -47,8 +51,8 @@ function HomePage(props) {
           </Text>
         </Text>
       ) : (
-        <Text style={styles.textFont}>您的实名信息正在审核中</Text>
-      )}
+          <Text style={styles.textFont}>您的实名信息正在审核中</Text>
+        )}
       <Text style={styles.secondaryText}>更多操作需要实名认证</Text>
     </View>
   );
@@ -61,7 +65,7 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getUserInfo}, dispatch);
+  return bindActionCreators({ getUserInfo }, dispatch);
 }
 export default connect(
   mapStateToProps,

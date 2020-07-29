@@ -1,6 +1,6 @@
-import {stringify} from 'query-string';
-import {appApi} from '../config';
-import {showToast} from './toast';
+import { stringify } from 'query-string';
+import { appApi } from '../config';
+import { showToast } from './toast';
 import storage from './storage';
 
 // 默认配置
@@ -49,7 +49,7 @@ export const httpService = (url, config) => {
     ) {
       config.body = config.body && JSON.stringify(config.body);
     }
-    // console.log('config', config);
+    console.log('config', config.headers);
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {
@@ -89,10 +89,29 @@ export const remove = (url, config) => {
   config.method = 'DELETE';
   return httpService(url, config);
 };
+export const getImage = (url, callback) => {
+  storage
+    .get('token')
+    .then(
+      accessToken => {
+        fetch(appApi + url, {
+          headers: {
+            "Authorization": "Bearer " + accessToken
+          }
+        }).then(response => response.blob()).then(blod => {
+          let url = URL.createObjectURL(blod);
+          callback(url)
+        }).catch(err => {
+          callback(err)
+        })
+      }
+    );
+};
 
 export default {
   get,
   post,
   put,
   remove,
+  getImage
 };
