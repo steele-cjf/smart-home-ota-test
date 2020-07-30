@@ -1,6 +1,9 @@
-export function publishHouse(id, data, callback) {
-  return $put(`/house/${id}/publish`, {
+export function publishHouse(data, callback) {
+  return $post('/publish', {
     body: data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
     successConfig: {
       callback,
     },
