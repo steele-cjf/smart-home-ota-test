@@ -1,9 +1,11 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 import { ButtonGroup, Icon, Button, Input } from 'react-native-elements';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import Camera from '../../Component/Camera';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+
 export default function AddTenant(props) {
   const buttons = ['扫一扫添加住户', '手动添加住户'];
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -11,22 +13,20 @@ export default function AddTenant(props) {
   const [cameraContent, setCameraContext] = useState(null)
 
   const getCode = (result) => {
-    console.log(result, '11111111111')
     setCamera(false)
     setCameraContext(result)
   }
   function updateIndex(index) {
-    console.log(index);
     setSelectedIndex(index);
   }
   const renderCameraContent = () => {
     if (cameraContent) {
       return (
-        <TouchableOpacity onPress={() => { console.log(9999); setCamera(true) }}>
+        <TouchableOpacity onPress={() => { setCamera(true) }}>
           <Text> {cameraContent.data}</Text>
         </TouchableOpacity>)
     }
-    return (<Icon name="done" size={100} color="green" onPress={() => { console.log(9999); setCamera(true) }} />)
+    return (<Icon name="done" size={100} color="green" onPress={() => { setCamera(true) }} />)
   }
   return (
     <View style={styles.container}>

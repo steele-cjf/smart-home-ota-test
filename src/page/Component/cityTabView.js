@@ -10,15 +10,15 @@ import CitySelect from './cityTabView/select';
 import CityTab from './cityTabView/tab';
 
 function TabView(props) {
-  const [selectIndex, setSelectIndex] = useState(0);
+  const [selectIndex, setSelectIndex] = useState(props.tabs.length - 1);
   const [tabs, setTabs] = useState(props.tabs);
   const [address, setAddress] = useState([]);
-
   const {style} = props;
 
   useEffect(() => {
     let index = selectIndex - 1;
     let id = index < 0 ? 0 : tabs[index].id;
+    props.getRegion(id, tabs);
     props.getCityList({pid: id}, res => {
       setAddress(res.data);
     });

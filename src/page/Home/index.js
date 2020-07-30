@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import {getUserInfo} from '../../store/home/index';
+
+import {Avatar} from 'react-native-elements';;
 import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 
@@ -16,7 +18,7 @@ function HomePage(props) {
     if (!Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data);
-      // props.navigation.navigate(AppRoute.HOUSELIST);
+      props.navigation.navigate(AppRoute.HOUSELIST);
     } else {
       showToast(Info.message);
       // props.navigation.navigate(AppRoute.RECORD);

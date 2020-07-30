@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef } from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import {Input, Button} from 'react-native-elements';
@@ -32,7 +32,7 @@ function LoginPage(props) {
   }
   function storageDataDictionary() {
     props.getAllData(res => {
-      console.log('resss', res.data);
+      // console.log('resss', res.data);
       let result = {};
       res.data.forEach(item => {
         result[item.name] = item.dictionaries;
@@ -48,6 +48,7 @@ function LoginPage(props) {
     };
     if (['mobile', 'verifyCode'].every(validateField)) {
       props.handleLogin(data, res => {
+        console.log(res);
         if (!res.code) {
           storage.set('token', res.data.accessToken);
           storageDataDictionary();
@@ -78,7 +79,7 @@ function LoginPage(props) {
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(13661992793);
-  const [verifyCode, setVerifyCode] = useState(605933);
+  const [verifyCode, setVerifyCode] = useState(698526);
   const [mobileError, setMobileError] = useState(null);
   const [verifyCodeError, setVerifyCodeError] = useState(null);
   return (

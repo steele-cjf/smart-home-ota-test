@@ -4,6 +4,7 @@ import FeaturePage from '../page/Feature/index';
 import HouseDetail from '../page/Home/HouseDetail';
 import PublishHouse from '../page/Feature/publishHouse';
 import AddTenant from '../page/Feature/addTenant';
+import ComponentTest from '../page/ComponentTest/index'
 import {AppRoute} from './AppRoutes';
 
 const HomeStack = createStackNavigator();
@@ -40,6 +41,14 @@ export const FeatureStackComponent = () => {
         component={AddTenant}
         options={{
           title: '添加住户',
+          headerBackTitle: '返回',
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.COMPONENTTEST}
+        component={ComponentTest}
+        options={{
+          title: 'ComponentTest',
           headerBackTitle: '返回',
         }}
       />

@@ -1000,10 +1000,20 @@
     eslint-plugin-react-native "3.6.0"
     prettier "1.16.4"
 
+"@react-native-community/geolocation@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.npm.taobao.org/@react-native-community/geolocation/download/@react-native-community/geolocation-2.0.2.tgz#ba8b40f560ead8d014740d1cdea970b33f19312e"
+  integrity sha1-uotA9WDq2NAUdA0c3qlwsz8ZMS4=
+
 "@react-native-community/masked-view@^0.1.10":
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
+
+"@react-native-community/netinfo@^5.9.5":
+  version "5.9.5"
+  resolved "https://registry.npm.taobao.org/@react-native-community/netinfo/download/@react-native-community/netinfo-5.9.5.tgz?cache=0&sync_timestamp=1594900153588&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40react-native-community%2Fnetinfo%2Fdownload%2F%40react-native-community%2Fnetinfo-5.9.5.tgz#3bad0d855d2e813be085ec305139d4175c512ccc"
+  integrity sha1-O60NhV0ugTvghewwUTnUF1xRLMw=
 
 "@react-native-community/toolbar-android@^0.1.0-rc.2":
   version "0.1.0-rc.2"
@@ -5185,12 +5195,22 @@ react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
 
+react-native-linking-settings@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/react-native-linking-settings/download/react-native-linking-settings-1.1.0.tgz#ba213ea19be09a996675f3aff52d49d4348fdcb6"
+  integrity sha1-uiE+oZvgmplmdfOv9S1J1DSP3LY=
+
 react-native-modal-datetime-picker@^8.7.1:
   version "8.7.1"
   resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-8.7.1.tgz#9769492f3e61d48bad06817f8986cb8be4a46acc"
   integrity sha512-wcP8WRe9uDqWF9KdScItkDSfJ3w/xi4fGAe8Q9xvU15+7sWWCHDJzXMlRv2Jeeu7MIlHS6XBisTprvqBcqjwtA==
   dependencies:
     prop-types "^15.7.2"
+
+react-native-network-info@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.npm.taobao.org/react-native-network-info/download/react-native-network-info-5.2.1.tgz#b701f10d4ed1aeadcfe77b197328d1ae846f6d3a"
+  integrity sha1-twHxDU7Rrq3P53sZcyjRroRvbTo=
 
 react-native-ratings@^7.2.0:
   version "7.2.0"

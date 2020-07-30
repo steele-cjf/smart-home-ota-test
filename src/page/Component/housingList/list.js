@@ -12,38 +12,19 @@ import {IS_IOS} from '../../../config';
 function HouseListComponent(props) {
   const nav = props.nav;
   const listElement = React.createRef();
-  const [houses, setHouses] = useState([
-    {
-      id: 1,
-      title: 'fangyuan1',
-      imgUrl: '',
-      hallCount: 1,
-      rentPrice: 2,
-      roomCount: 2,
-      toiletCount: 3,
-    },
-    {
-      id: 2,
-      title: 'fangyuan2',
-      imgUrl: '',
-      hallCount: 3,
-      rentPrice: 3,
-      roomCount: 2,
-      toiletCount: 3,
-    },
-  ]);
+  const [houses, setHouses] = useState([]);
   // const [params, setParams] = useState({});
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // fetchHouseList();
+    fetchHouseList();
   }, [fetchHouseList]);
 
   const scrollToListTop = () => {
-    const listElement = listElement.current;
+    const listElementCur = listElement.current;
     if (houseListData.length) {
-      listElement && listElement.scrollToIndex({index: 0, viewOffset: 0});
+      listElementCur && listElementCur.scrollToIndex({index: 0, viewOffset: 0});
     }
   };
 
@@ -65,7 +46,7 @@ function HouseListComponent(props) {
       total: resultData.total,
     };
     setPagination(page);
-    if (pagination.pageNum > 1) {
+    if (resultData.pageNum > 1) {
       let list = houseListData;
       list.push(...data);
       setHouses(list);
@@ -77,7 +58,10 @@ function HouseListComponent(props) {
   const fetchHouseList = useCallback((page = 1) => {
     updateLoadingState(true);
     props.getHousingList({pageNum: page}, res => {
-      console.log('house', res.data);
+      console.log('houseList', res.data);
+      // $getImage(res.data.list[0].imgUrl, res => {
+      //   console.log('img', res);
+      // });
       updateResultData(res.data);
     });
   });

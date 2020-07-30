@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Button, Input, Text, CheckBox } from 'react-native-elements';
+import React, {useState, useRef, useEffect} from 'react';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {Button, Input, Text, CheckBox} from 'react-native-elements';
 import ImageUpload from '../../Component/imageUpload';
-import { AppRoute } from '../../../navigator/AppRoutes';
+import {AppRoute} from '../../../navigator/AppRoutes';
 import RegionPicker from '../../Component/citySelect';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function RecordHouse(props) {
   const [isSelf, setIsSelf] = useState(true);
@@ -16,9 +16,12 @@ function RecordHouse(props) {
   const [address, setAddress] = useState('');
   const [houseHolder, setHouseHolder] = useState({});
   const [houseLayout, setHouseLayout] = useState({});
-  const [housePropertyCertificateImage, setHousePropertyCertificateImage] = useState([]);
+  const [
+    housePropertyCertificateImage,
+    setHousePropertyCertificateImage,
+  ] = useState([]);
   const [certificateFilesImg, setCertificateFilesImg] = useState([]);
-  const [tabs, setTabs] = useState([{ name: '请选择', id: 0 }]);
+  const [tabs, setTabs] = useState([{name: '请选择', id: 0}]);
   const [regionName, setRegionName] = useState('');
   const [regionId, setRegionId] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,28 +29,31 @@ function RecordHouse(props) {
   function handleFunc(flag, data) {
     setModalVisible(flag);
     setRegionId(data);
-    let name = tabs.map((item) => {
+    let name = tabs.map(item => {
       if (item.id) {
-        return item.name
+        return item.name;
       }
-    })
-    setRegionName(name.join(''))
+    });
+    setRegionName(name.join(''));
   }
 
   function handlerAudit() {
     let result = new FormData();
 
-    objToFormData('houseHolder', houseHolder, result)
+    objToFormData('houseHolder', houseHolder, result);
     // 是否为本人 isSelf
-    result.append('houseHolder.self', isSelf);
-    objToFormData('houseLayout', houseLayout, result)
+    result.append('houseHolder.self', isSelf ? 'self' : 'others');
+    objToFormData('houseLayout', houseLayout, result);
     // 是否有电梯 hasElevator
     result.append('houseLayout.hasElevator', hasElevator);
     for (let c = 0; c < certificateFilesImg.length; c++) {
-      result.append('houseHolder.certificateFiles', certificateFilesImg[c])
+      result.append('houseHolder.certificateFiles', certificateFilesImg[c]);
     }
-    result.append('housePropertyCertificateImage', housePropertyCertificateImage[0])
-    
+    result.append(
+      'housePropertyCertificateImage',
+      housePropertyCertificateImage[0],
+    );
+
     result.append('regionId', regionId);
     result.append('address', address);
     props.addHouse(result, res => {
@@ -58,12 +64,12 @@ function RecordHouse(props) {
 
   const objToFormData = (key, data, result) => {
     for (let d in data) {
-      result.append(key + '.' + d, data[d])
+      result.append(key + '.' + d, data[d]);
     }
-  }
+  };
 
   const setImageForm = (key, obj, type) => {
-    let data
+    let data;
     if (type === 'cert') {
       data = Object.assign([], housePropertyCertificateImage);
       setHousePropertyCertificateImage(data);
@@ -92,7 +98,6 @@ function RecordHouse(props) {
     <View style={styles.container}>
       <ScrollView>
         <Text style={styles.title}>房源资料</Text>
-        {/* <Input label="所在地区" placeholder="请选择地址" /> */}
         <TouchableOpacity
           onPress={() => {
             setModalVisible(true);
@@ -109,7 +114,7 @@ function RecordHouse(props) {
         <RegionPicker
           visible={modalVisible}
           tabs={tabs}
-          setTabs={(data) => setTabs(data)}
+          setTabs={data => setTabs(data)}
           close={(flag, data) => handleFunc(flag, data)}
         />
         <Input
@@ -133,7 +138,7 @@ function RecordHouse(props) {
             />
           </View>
         </View>
-        <View style={isSelf ? { display: 'none' } : ''}>
+        <View style={isSelf ? {display: 'none'} : ''}>
           <Input
             value={houseHolder.holderName}
             placeholder="请输入所有者姓名"
@@ -180,7 +185,7 @@ function RecordHouse(props) {
         />
         <View style={styles.flex_box}>
           <Text style={styles.label}>楼层</Text>
-          <View style={{ width: 100 }}>
+          <View style={{width: 100}}>
             <Input
               value={houseLayout.floor}
               placeholder="第几层"
@@ -190,7 +195,7 @@ function RecordHouse(props) {
               }}
             />
           </View>
-          <View style={{ width: 100 }}>
+          <View style={{width: 100}}>
             <Input
               value={houseLayout.floorCount}
               placeholder="共几层"
@@ -212,7 +217,7 @@ function RecordHouse(props) {
         </View>
         <View style={styles.flex_box}>
           <Text style={styles.label}>户型</Text>
-          <View style={{ width: 70 }}>
+          <View style={{width: 70}}>
             <Input
               value={houseLayout.roomCount}
               placeholder="几室"
@@ -222,7 +227,7 @@ function RecordHouse(props) {
               }}
             />
           </View>
-          <View style={{ width: 70 }}>
+          <View style={{width: 70}}>
             <Input
               value={houseLayout.hallCount}
               placeholder="几厅"
@@ -232,7 +237,7 @@ function RecordHouse(props) {
               }}
             />
           </View>
-          <View style={{ width: 70 }}>
+          <View style={{width: 70}}>
             <Input
               value={houseLayout.toiletCount}
               placeholder="几卫"
@@ -242,7 +247,7 @@ function RecordHouse(props) {
               }}
             />
           </View>
-          <View style={{ width: 70 }}>
+          <View style={{width: 70}}>
             <Input
               value={houseLayout.direction}
               placeholder="朝向"
@@ -255,7 +260,7 @@ function RecordHouse(props) {
         </View>
         <Button
           title="提交审核"
-          style={{ paddingVertical: 20 }}
+          style={{paddingVertical: 20}}
           onPress={() => handlerAudit()}
         />
       </ScrollView>
