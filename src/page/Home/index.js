@@ -27,7 +27,6 @@ function HomePage(props) {
   }, [props, props.userInfo]);
 
   const [userInfo, setUserInfo] = useState({});
-  const [source, setSource] = useState({});
 
 
   return (

@@ -26,6 +26,10 @@ function FeaturePage(props) {
       case MORE_MENU.Declare:
         RouteName = 'Declare';
         break;
+      case MORE_MENU.ComponentTest:
+        RouteName = 'ComponentTest';
+        props.navigation.navigate(AppRoute.COMPONENTTEST);
+        break;
     }
   }
   function getItem(menu) {
@@ -44,6 +48,8 @@ function FeaturePage(props) {
         {getItem(MORE_MENU.Record)}
         <View style={styles.line} />
         {getItem(MORE_MENU.Feedback)}
+        <View style={styles.line} />
+        {getItem(MORE_MENU.ComponentTest)}
         <View style={styles.line} />
       </ScrollView>
     </View>

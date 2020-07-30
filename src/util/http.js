@@ -49,7 +49,6 @@ export const httpService = (url, config) => {
     ) {
       config.body = config.body && JSON.stringify(config.body);
     }
-    console.log('config', config.headers);
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {
@@ -89,6 +88,7 @@ export const remove = (url, config) => {
   config.method = 'DELETE';
   return httpService(url, config);
 };
+// image如果需要token时的处理
 export const getImage = (url, callback) => {
   storage
     .get('token')

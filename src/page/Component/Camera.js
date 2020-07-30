@@ -7,7 +7,6 @@ export default function Camera(props) {
     var camera = useRef(null)
 
     const scanCode = (result) => {
-        console.log(8888)
         props.getCode && props.getCode(result)
         return
     }
@@ -49,7 +48,7 @@ export default function Camera(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         position: 'absolute',
         width: '100%',
         height: '100%',
