@@ -1,6 +1,6 @@
-import { stringify } from 'query-string';
-import { appApi } from '../config';
-import { showToast } from './toast';
+import {stringify} from 'query-string';
+import {appApi} from '../config';
+import {showToast} from './toast';
 import storage from './storage';
 
 // 默认配置
@@ -90,22 +90,21 @@ export const remove = (url, config) => {
 };
 // image如果需要token时的处理
 export const getImage = (url, callback) => {
-  storage
-    .get('token')
-    .then(
-      accessToken => {
-        fetch(appApi + url, {
-          headers: {
-            "Authorization": "Bearer " + accessToken
-          }
-        }).then(response => response.blob()).then(blod => {
-          let url = URL.createObjectURL(blod);
-          callback(url)
-        }).catch(err => {
-          callback(err)
-        })
-      }
-    );
+  storage.get('token').then(accessToken => {
+    fetch(url, {
+      headers: {
+        Authorization: 'Bearer ' + accessToken,
+      },
+    })
+      .then(response => response.blob())
+      .then(blod => {
+        let url = URL.createObjectURL(blod);
+        callback(url);
+      })
+      .catch(err => {
+        callback(err);
+      });
+  });
 };
 
 export default {
@@ -113,5 +112,5 @@ export default {
   post,
   put,
   remove,
-  getImage
+  getImage,
 };

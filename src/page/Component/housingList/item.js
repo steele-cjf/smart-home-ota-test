@@ -10,7 +10,13 @@ export default function HouseItem(props) {
       onPress={() => props.onPress(houseInfo)}
       style={styles.container}>
       <View style={{flex: 20}}>
-        <Image source={houseInfo.imgUrl} style={styles.linkImage} />
+        <Image
+          source={{
+            uri:
+              'blob:CF57F991-A050-4ED4-A8B0-4C7FB817663A?offset=0&size=221112',
+          }}
+          style={styles.linkImage}
+        />
       </View>
       <View style={styles.rightContainer}>
         <Text>{houseInfo.title}</Text>

@@ -5,23 +5,16 @@ import {Button, Text} from 'react-native-elements';
 import HouseListComponent from '../../Component/housingList/list';
 
 function HouseList(props) {
-  const [houseInfo, setHouseInfo] = useState({
-    status: '审核通过',
-    rentStatus: '未出租',
-    self: '本人',
-    houseLayout: {},
-    hasElevator: '电梯',
-  });
-  useEffect(() => {
-    props.getHouseDetail('483710797791371264', res => {
-      console.log('res', res);
-      if (!res.code) {
-        if (res.data) {
-          setHouseInfo(res.data);
-        }
-      }
-    });
-  }, [props]);
+  // useEffect(() => {
+  //   props.getHouseDetail('483710797791371264', res => {
+  //     console.log('houselist', res);
+  //     if (!res.code) {
+  //       if (res.data) {
+  //         setHouseInfo(res.data);
+  //       }
+  //     }
+  //   });
+  // }, [props]);
   return (
     <View style={styles.container}>
       <HouseListComponent nav={props.navigation} />
