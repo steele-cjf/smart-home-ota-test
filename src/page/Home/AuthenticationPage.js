@@ -49,7 +49,24 @@ function AuthenticationPage(props) {
       let {token, bizId} = res.data;
       if (Platform.OS === 'ios') {
         let domId = findNodeHandle(AliyunVerify.current);
-        NativeModules.RealPersonAuth.addEvent(domId, token);
+
+        NativeModules.RealPersonAuth.addEvent(domId, token, (state, errorCode, message) => {
+          //返回结果
+          console.log(1111, state);
+          console.log(2222, errorCode);
+          console.log(3333, message);  
+           
+          if (state === 'RPStatePass') {
+             showToast("认证返回成功");
+             props.getVerifyResult({bizId});
+          } else if (state === 'RPStateFail') {
+             showToast("认证不通过");
+          } else if (state === 'RPStateNotVerify') {
+             showToast("未认证");
+          }
+        });
+
+        //NativeModules.RealPersonAuth.addEvent(domId, token);
         return;
       }
       // 安卓活体认证

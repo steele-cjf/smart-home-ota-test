@@ -13,8 +13,20 @@
 //  [RPSDK setup];
 //  return self;
 //};
+
 RCT_EXPORT_MODULE();
-RCT_EXPORT_METHOD(addEvent:(nonnull NSNumber *)reactTag token:(NSString *)token) {
+RCT_EXPORT_METHOD(addEvent:(nonnull NSNumber *)reactTag token:(NSString *)token callback:(RCTResponseSenderBlock)callback)
+{
+  if (!reactTag) {
+    callback(@[@"RPStateNotVerify", @"自定义10001", @"参数reactTag为空"]);
+    return;
+  } else if (!token) {
+    callback(@[@"RPStateNotVerify", @"自定义10002", @"参数token为空"]);
+    return;
+  }
+  
+  [RPSDK setup];
+  
   RCTUIManager *uiManager = self.bridge.uiManager;
   dispatch_async(uiManager.methodQueue, ^{
     [uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
@@ -22,15 +34,47 @@ RCT_EXPORT_METHOD(addEvent:(nonnull NSNumber *)reactTag token:(NSString *)token)
       NSLog(@"start111111");
       UIViewController *viewController = (UIViewController *)view.reactViewController;
       NSLog(@"222222222");
+      
       [RPSDK startWithVerifyToken:token
                    viewController:viewController
                        completion:^(RPResult * _Nonnull result) {
         NSLog(@"实人认证结果：%@", result);
+        
+        NSString *stateString = @"";
+        NSString *errorCode = result.errorCode;
+        NSString *message = result.message;
+        
+        switch (result.state) {
+          case RPStatePass:
+            // 认证通过。
+            stateString = @"RPStatePass";
+            break;
+          case RPStateFail:
+            // 认证不通过。
+            stateString = @"RPStateFail";
+            break;
+          case RPStateNotVerify:
+            // 未认证。
+            // 通常是用户主动退出或者姓名身份证号实名校验不匹配等原因导致。
+            // 具体原因可通过result.errorCode来区分（详见文末错误码说明表格）。
+            stateString = @"RPStateNotVerify";
+            break;
+          default:
+            stateString = @"Other";
+            break;
+        }
+        
+        NSArray *arr = [NSArray arrayWithObjects:stateString, errorCode, message, nil];
+        NSLog(@"传递数组：%@", arr);
+        callback(arr);
+        
       }];
     }];
   });
 }
 @end
+
+
 //RCT_EXPORT_METHOD(addEvent:(NSString *)token (nonnull NSNumber *)reactTag)） {
 //  NSLog(@"start 111111111111111111");
 //  [RPSDK setup];
