@@ -12,7 +12,24 @@ import {IS_IOS} from '../../../config';
 function HouseListComponent(props) {
   const nav = props.nav;
   const listElement = React.createRef();
-  const [houses, setHouses] = useState([]);
+  const [houses, setHouses] = useState([
+    {
+      id: 1,
+      title: '深圳市市南区沿山社区网谷科技大厦501',
+      roomCount: 2,
+      hallCount: 1,
+      toiletCount: 1,
+      rentPrice: 1000,
+    },
+    {
+      id: 2,
+      title: '深圳市市南区沿山社区网谷科技大厦501',
+      roomCount: 2,
+      hallCount: 1,
+      toiletCount: 1,
+      rentPrice: 1500,
+    },
+  ]);
   // const [params, setParams] = useState({});
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

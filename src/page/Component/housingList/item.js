@@ -19,15 +19,27 @@ export default function HouseItem(props) {
         />
       </View>
       <View style={styles.rightContainer}>
-        <Text>{houseInfo.title}</Text>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text>
+        <Text style={styles.houseName} numberOfLines={1}>
+          {houseInfo.title}
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 8,
+          }}>
+          <Text style={styles.houseInfo}>
             {houseInfo.roomCount}室{houseInfo.hallCount}厅
             {houseInfo.toiletCount}
           </Text>
           <Text>{houseInfo.houseType}</Text>
         </View>
-        <Text>{houseInfo.rentPrice}/月</Text>
+        <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+          <Text style={[styles.rentPrice, styles.highColor]}>
+            {houseInfo.rentPrice}
+          </Text>
+          <Text style={[styles.highColor, styles.miniSize]}>元/月</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -35,22 +47,42 @@ export default function HouseItem(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 80,
     borderBottomWidth: 0.5,
     borderColor: 'darkgray',
     marginLeft: 10,
     marginRight: 10,
+    paddingVertical: 15,
   },
   linkImage: {
-    width: 70,
-    height: 70,
+    width: 75,
+    height: 75,
     resizeMode: 'cover',
     backgroundColor: '#f4f4f4',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
+  houseName: {
+    fontSize: 16,
+    color: '#282828',
+  },
+  houseInfo: {
+    fontSize: 12,
+    color: '#7c7c7c',
+  },
+  rentPrice: {
+    fontSize: 20,
+  },
+  miniSize: {
+    fontSize: 12,
+  },
+  highColor: {
+    color: '#5C8BFF',
   },
   rightContainer: {
     flex: 80,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    padding: 5,
+    paddingLeft: 15,
   },
 });

@@ -45,7 +45,7 @@ export const httpService = (url, config) => {
     if (
       config.body &&
       config.headers &&
-      config.headers['Content-Type'] == 'application/json'
+      config.headers['Content-Type'] === 'application/json'
     ) {
       config.body = config.body && JSON.stringify(config.body);
     }

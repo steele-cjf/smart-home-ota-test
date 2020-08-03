@@ -81,6 +81,7 @@ export default function RoomPage(props) {
 
 const styles = StyleSheet.create({
   room_wrapper: {
+    backgroundColor: '#fff',
     padding: 10,
     paddingTop: 0,
     flex: 1,
