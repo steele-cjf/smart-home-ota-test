@@ -59,7 +59,7 @@ function LoginPage(props) {
         }
       });
     }
-  }
+  }             
   function handleGetCode() {
     setSendStatus(ifSend => (ifSend = true));
     const data = {
