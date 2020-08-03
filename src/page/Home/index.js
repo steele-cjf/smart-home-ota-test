@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import {getUserInfo} from '../../store/home/index';
 
-import {Avatar} from 'react-native-elements';;
+import {Avatar} from 'react-native-elements';
 import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 

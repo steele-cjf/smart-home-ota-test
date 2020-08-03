@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, {useState, useRef} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import {Input, Button} from 'react-native-elements';
@@ -42,22 +42,23 @@ function LoginPage(props) {
   }
   // action
   function handleSubmit() {
-    const data = {
-      mobile: mobile,
-      verifyCode: verifyCode,
-    };
-    if (['mobile', 'verifyCode'].every(validateField)) {
-      props.handleLogin(data, res => {
-        console.log(res);
-        if (!res.code) {
-          storage.set('token', res.data.accessToken);
-          storageDataDictionary();
-          props.navigation.navigate(AppRoute.HOME);
-        } else {
-          showToast(res.message);
-        }
-      });
-    }
+    props.navigation.navigate(AppRoute.HOME);
+    // const data = {
+    //   mobile: mobile,
+    //   verifyCode: verifyCode,
+    // };
+    // if (['mobile', 'verifyCode'].every(validateField)) {
+    //   props.handleLogin(data, res => {
+    //     console.log(res);
+    //     if (!res.code) {
+    //       storage.set('token', res.data.accessToken);
+    //       storageDataDictionary();
+    //       props.navigation.navigate(AppRoute.HOME);
+    //     } else {
+    //       showToast(res.message);
+    //     }
+    //   });
+    // }
   }
   function handleGetCode() {
     setSendStatus(ifSend => (ifSend = true));

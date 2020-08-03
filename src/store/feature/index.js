@@ -17,3 +17,21 @@ export function getAllData(callback) {
     },
   });
 }
+// 添加房间
+export function addRoom(data, callback) {
+  return $post('/room', {
+    body: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
+// 更新房间名
+export function updateRoomName(id, data, callback) {
+  return $put(`/room/${id}`, {
+    body: data,
+    successConfig: {
+      callback,
+    },
+  });
+}

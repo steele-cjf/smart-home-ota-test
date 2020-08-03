@@ -12,7 +12,7 @@ function FeaturePage(props) {
     let RouteName;
     switch (menu) {
       case MORE_MENU.HouseDetail:
-        props.navigation.navigate(AppRoute.HOUSEDETAIL);
+        props.navigation.navigate(AppRoute.ROOM);
         break;
       case MORE_MENU.TemporaryKey:
         RouteName = 'TemporaryKey';
