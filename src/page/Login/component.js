@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {View, StyleSheet} from 'react-native';
 
-import {Input, Button} from 'react-native-elements';
+import {Text, Input, Button} from 'react-native-elements';
 import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
@@ -85,6 +85,8 @@ function LoginPage(props) {
   const [verifyCodeError, setVerifyCodeError] = useState(null);
   return (
     <View style={styles.container}>
+      <Text style={styles.loginTitle}>登录</Text>
+      <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
       <Input
         ref={refMobile}
         keyboardType="numeric"
@@ -113,6 +115,7 @@ function LoginPage(props) {
         />
       </View>
       <Button style={styles.logBtn} title="登录" onPress={handleSubmit} />
+      <Text style={styles.title}>若手机号未注册将自动注册为新用户</Text>
     </View>
   );
 }
@@ -120,9 +123,32 @@ function LoginPage(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 160,
+    paddingLeft: 32, //10
+    paddingRight: 32, //10
+    paddingTop: 128, //160
+    //backgroundColor: 'red'
+  },
+  loginTitle: {
+    fontSize: 32,
+    color: '#527BDF',
+    // marginTop: 30,
+    // marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#7C7C7C',
+    marginTop: 14,
+    marginBottom: 82,    
+    //backgroundColor: 'red',
+  },
+  title: {
+    fontSize: 16,
+    marginTop: 30,
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    paddingRight: 20,
   },
   logBtn: {
     marginVertical: 15,
