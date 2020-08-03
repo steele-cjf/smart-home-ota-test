@@ -17,7 +17,7 @@ export const Theme = {
 
   textDefault: '#282828', // 默认文本
   textSecondary: '#7C7C7C', // 次要文本
-  // textMuted: '#eee', // 禁用文本
+  textMuted: '#C7C7C7', // 禁用文本
 
   textTitle: '#282828', // 标题文本
   textLink: '#5C8BFF', // 链接文本

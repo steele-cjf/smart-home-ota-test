@@ -49,9 +49,12 @@ export const FeatureStackComponent = () => {
         name={AppRoute.ROOM}
         component={RoomPage}
         options={{
-          title: '房间管理',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
+        // options={{
+        //   title: '房间管理',
+        //   headerBackTitle: '返回',
+        // }}
       />
       <HomeStack.Screen
         name={AppRoute.COMPONENTTEST}

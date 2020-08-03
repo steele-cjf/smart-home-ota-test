@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import Theme from '../../style/colors';
 
 export default function LabelSelect(props) {
   const list = props.labelList;
@@ -13,11 +14,15 @@ export default function LabelSelect(props) {
         return (
           <TouchableOpacity
             style={[
-              styles.label_style,
+              styles.labelBox,
               item.selected ? styles.selected_bgColor : '',
             ]}
             onPress={() => handleSelect(item, i)}>
-            <Text style={[item.selected ? styles.selected_color : '']}>
+            <Text
+              style={[
+                item.selected ? styles.selected_color : styles.default_color,
+                styles.label_style,
+              ]}>
               {item.value} {item.name}
             </Text>
           </TouchableOpacity>
@@ -34,23 +39,24 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
   },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-    color: '#333',
-    paddingLeft: 15,
-    paddingTop: 15,
-  },
-  label_style: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    backgroundColor: '#ddd',
+  labelBox: {
+    borderWidth: 0.5,
+    borderColor: Theme.border,
+    borderRadius: 4,
     marginRight: 10,
     marginBottom: 10,
-    borderRadius: 3,
+  },
+  label_style: {
+    width: 82,
+    height: 32,
+    textAlign: 'center',
+    lineHeight: 32,
+  },
+  default_color: {
+    color: Theme.textSecondary,
   },
   selected_bgColor: {
-    backgroundColor: 'green',
+    backgroundColor: Theme.primary,
   },
   selected_color: {
     color: '#fff',

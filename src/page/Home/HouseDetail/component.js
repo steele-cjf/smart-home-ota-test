@@ -69,6 +69,12 @@ function HouseDetail(props) {
               onPress={() => props.navigation.navigate(AppRoute.PUBLISH)}
             />
           </View>
+          <View>
+            <Button
+              title="房间管理"
+              onPress={() => props.navigation.navigate(AppRoute.ROOM)}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -107,7 +113,6 @@ const styles = StyleSheet.create({
   },
   blue: {
     fontSize: 16,
-    color: '#555',
     color: '#0d86ff',
   },
   title: {

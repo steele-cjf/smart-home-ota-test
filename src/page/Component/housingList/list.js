@@ -34,9 +34,9 @@ function HouseListComponent(props) {
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    fetchHouseList();
-  }, [fetchHouseList]);
+  // useEffect(() => {
+  //   fetchHouseList();
+  // }, [fetchHouseList]);
 
   const scrollToListTop = () => {
     const listElementCur = listElement.current;

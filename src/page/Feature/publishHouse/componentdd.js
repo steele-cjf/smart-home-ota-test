@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
+// import {Button, Text, Input} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   Form,
@@ -10,13 +11,15 @@ import {
   Text,
   Button,
   Picker,
-  Textarea,
+  Icon,
 } from 'native-base';
+import RadioForm from 'react-native-simple-radio-button';
 import ImageUpload from '../../Component/imageUpload';
+// import {AppRoute} from '../../../navigator/AppRoutes';
+import {TextInput} from 'react-native-gesture-handler';
 import LabelSelect from '../../Component/labelSelect';
 import storage from '../../../util/storage';
 import Theme from '../../../style/colors';
-import houseFeeList from '../config/houseFee';
 
 export default function PublishHouse(props) {
   const [houseItem, setHouseItem] = useState([]);
@@ -30,6 +33,7 @@ export default function PublishHouse(props) {
     {id: 2, name: '南卧'},
     {id: 3, name: '次卧'},
   ]);
+  const [modalVisible, setModalVisible] = useState(false);
   // 后台请求参数
   const [houseId] = useState('483710797791371264');
   const [title, setTitle] = useState('');
@@ -57,7 +61,7 @@ export default function PublishHouse(props) {
       setSelectedPros(res.house_spots, 'houseSpots');
       setSelectedPros(res.rent_requirements, 'rentReq');
       setHouseTypeList(res.house_type);
-      setHouseDecorator(res.house_decorator);
+      setHouseDecorator(setRadioProps(res.house_decorator));
     });
   }, []);
 
@@ -76,6 +80,14 @@ export default function PublishHouse(props) {
         setRentRequirements(list);
         break;
     }
+  }
+  function setRadioProps(list) {
+    return list.map(item => {
+      return {
+        label: item.value,
+        value: item.code,
+      };
+    });
   }
 
   function changeHouseItem(item, i) {
@@ -170,24 +182,19 @@ export default function PublishHouse(props) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {/* 发布房间 */}
-        <Text style={[styles.publishTitle, styles.specialPadding]}>
-          发布房间
-        </Text>
+        <Text style={styles.publishTitle}>发布房间</Text>
         <Form>
           <Item style={styles.marginLeft0} inlineLabel>
             <Label style={[styles.labelTitle, styles.defaultSize]}>
               发布标题
             </Label>
             <Input
-              value={title}
-              onChangeText={setTitle}
               placeholder="请输入房源标题"
               placeholderTextColor={Theme.textMuted}
               style={[styles.defaultSize, styles.textAlignR]}
             />
           </Item>
-          <Item picker style={{marginBottom: 15}}>
+          <Item picker>
             <Label
               style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
               房间类型
@@ -207,141 +214,192 @@ export default function PublishHouse(props) {
               })}
             </Picker>
           </Item>
-          {houseType === 'co_rent' ? (
-            <LabelSelect
-              labelList={rooms}
-              checkItem={(item, i) => changeRooms(item, i)}
-            />
-          ) : (
-            <Text />
-          )}
         </Form>
-        {/* 室内设施 */}
-        <Text style={styles.publishTitle}>室内设施</Text>
-        <Form>
-          <Item picker>
-            <Label
-              style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
-              装修
-            </Label>
-            <Picker
-              mode="dropdown"
-              selectedValue={houseAmenity.decoration}
-              onValueChange={value => setHouseAmenity({decoration: value})}
-              iosIcon={
-                <AntDesign
-                  name="right"
-                  style={{fontSize: 12, color: Theme.textSecondary}}
-                />
-              }>
-              {houseDecorator.map((item, index) => {
-                return <Picker.Item label={item.value} value={item.code} />;
-              })}
-            </Picker>
-          </Item>
-          <View style={styles.label_content}>
+        <Input
+          value={title}
+          onChangeText={setTitle}
+          inputStyle={styles.input_content}
+          leftIcon={<Text style={styles.label}>发布标题</Text>}
+        />
+        <Text style={styles.title}>发布房间</Text>
+        <RadioForm
+          formHorizontal={true}
+          radio_props={houseTypeList}
+          onPress={value => {
+            setHouseType(value);
+          }}
+        />
+        {houseType === 'co_rent' ? (
+          <LabelSelect
+            labelList={rooms}
+            checkItem={(item, i) => changeRooms(item, i)}
+          />
+        ) : (
+          <Text />
+        )}
+        <Text style={styles.title}>室内设施</Text>
+        <View style={styles.common_content}>
+          <Text
+            style={styles.label}
+            onPress={() => setModalVisible(!modalVisible)}>
+            装修类型
+          </Text>
+          <RadioForm
+            formHorizontal={true}
+            radio_props={houseDecorator}
+            onPress={value => {
+              setHouseAmenity({decoration: value});
+            }}
+          />
+          <View style={styles.line} />
+          <View style={styles.house_content}>
             <LabelSelect
               labelList={houseItem}
               checkItem={(item, i) => changeHouseItem(item, i)}
             />
           </View>
-        </Form>
-        {/* 房屋亮点 */}
-        <Text style={styles.publishTitle}>房屋亮点</Text>
-        <View>
+        </View>
+        <Text style={styles.title}>房屋亮点</Text>
+        <View style={[styles.house_content, styles.common_content]}>
           <LabelSelect
             labelList={houseSpots}
             checkItem={(item, i) => changeHouseSpots(item, i)}
           />
         </View>
-        {/* 出租要求 */}
-        <Text style={styles.publishTitle}>出租要求</Text>
-        <View>
+        <Text style={styles.title}>出租要求</Text>
+        <View style={[styles.house_content, styles.common_content]}>
           <LabelSelect
             labelList={rentRequirements}
             checkItem={(item, i) => changeRentReq(item, i)}
           />
         </View>
-        {/* 相关费用 */}
-        <Text style={styles.publishTitle}>相关费用</Text>
-        <Form>
-          <Item style={styles.marginLeft0} inlineLabel>
-            <Label style={[styles.labelTitle, styles.defaultSize]}>房租</Label>
+        <Text style={styles.title}>相关费用</Text>
+        <View style={styles.house_content}>
+          <View>
             <Input
               value={houseRatePlan.rentPrice}
               onChange={e => {
                 setData('rentPrice', e.nativeEvent.text, 'houseRatePlan');
               }}
-              style={[styles.defaultSize, styles.textAlignR]}
+              inputStyle={styles.input_content}
+              leftIcon={<Text style={styles.label}>房租</Text>}
+              rightIcon={<Text style={styles.label}>元每月</Text>}
             />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>元 / 月</Text>
-            <Text style={{width: 80}} />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>押</Text>
             <Input
               value={houseRatePlan.deposit}
               onChange={e => {
                 setData('deposit', e.nativeEvent.text, 'houseRatePlan');
               }}
-              style={[styles.defaultSize, styles.textAlignC]}
+              inputStyle={styles.input_content}
+              leftIcon={<Text style={styles.label}>押</Text>}
             />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>付</Text>
             <Input
               value={houseRatePlan.payment}
               onChange={e => {
                 setData('payment', e.nativeEvent.text, 'houseRatePlan');
               }}
-              style={[styles.defaultSize, styles.textAlignC]}
+              inputStyle={styles.input_content}
+              leftIcon={<Text style={styles.label}>付</Text>}
             />
-          </Item>
-          {houseFeeList.map((item, index) => {
-            return (
-              <Item style={styles.marginLeft0} inlineLabel>
-                <Label style={[styles.labelTitle, styles.defaultSize]}>
-                  {item.name}
-                </Label>
-                <Input
-                  value={houseRatePlan[item.key]}
-                  onChange={e => {
-                    setData(item.key, e.nativeEvent.text, 'houseRatePlan');
-                  }}
-                  style={[styles.defaultSize, styles.textAlignR]}
-                />
-                <Text style={[styles.labelTitle, styles.defaultSize]}>
-                  {item.desc}
-                </Text>
-              </Item>
-            );
-          })}
-        </Form>
-        {/* 房屋描述 */}
-        <Text style={styles.publishTitle}>房屋描述</Text>
-        <Form>
-          <Textarea
-            style={{backgroundColor: Theme.cardBackground}}
-            rowSpan={5}
-            placeholder="补充介绍房屋及其周边交通、生活环境"
+          </View>
+          <Input
+            value={houseRatePlan.waterFeeUnitPrice}
+            onChange={e => {
+              setData('waterFeeUnitPrice', e.nativeEvent.text, 'houseRatePlan');
+            }}
+            inputStyle={styles.input_content}
+            leftIcon={<Text style={styles.label}>水费</Text>}
+            rightIcon={<Text style={styles.label}>元每吨</Text>}
           />
-        </Form>
-        {/* 上传图片 */}
-        <Text style={styles.ImgTitle}>上传图片</Text>
-        <Text style={styles.imgDec}>最多9张，可上传户型图、室内室外图片</Text>
+          <Input
+            value={houseRatePlan.electricityFeeUnitPrice}
+            onChange={e => {
+              setData(
+                'electricityFeeUnitPrice',
+                e.nativeEvent.text,
+                'houseRatePlan',
+              );
+            }}
+            inputStyle={styles.input_content}
+            leftIcon={<Text style={styles.label}>电费</Text>}
+            rightIcon={<Text style={styles.label}>元每度</Text>}
+          />
+          <Input
+            value={houseRatePlan.networkFeeUnitPrice}
+            onChange={e => {
+              setData(
+                'networkFeeUnitPrice',
+                e.nativeEvent.text,
+                'houseRatePlan',
+              );
+            }}
+            inputStyle={styles.input_content}
+            leftIcon={<Text style={styles.label}>宽带</Text>}
+            rightIcon={<Text style={styles.label}>元每月</Text>}
+          />
+          <Input
+            value={houseRatePlan.managementFeeUnitPrice}
+            onChange={e => {
+              setData(
+                'managementFeeUnitPrice',
+                e.nativeEvent.text,
+                'houseRatePlan',
+              );
+            }}
+            inputStyle={styles.input_content}
+            leftIcon={<Text style={styles.label}>物业</Text>}
+            rightIcon={<Text style={styles.label}>元每月</Text>}
+          />
+          <Input
+            value={houseRatePlan.gasFeeUnitPrice}
+            onChange={e => {
+              setData('gasFeeUnitPrice', e.nativeEvent.text, 'houseRatePlan');
+            }}
+            inputStyle={styles.input_content}
+            leftIcon={<Text style={styles.label}>天然水</Text>}
+            rightIcon={<Text style={styles.label}>元每立方</Text>}
+          />
+          <Input
+            value={houseRatePlan.heatingFeeUnitPrice}
+            onChange={e => {
+              setData(
+                'heatingFeeUnitPrice',
+                e.nativeEvent.text,
+                'houseRatePlan',
+              );
+            }}
+            inputStyle={styles.input_content}
+            leftIcon={<Text style={styles.label}>暖气</Text>}
+            rightIcon={<Text style={styles.label}>元每平方</Text>}
+          />
+        </View>
+        <Text style={styles.title}>房屋描述</Text>
+        <View style={[styles.common_content]}>
+          <TextInput
+            value={houseAddition.description}
+            onChange={e => {
+              setData('description', e.nativeEvent.text, 'houseAddition');
+            }}
+            multiline={true}
+            style={{margin: 10, height: 100}}
+          />
+        </View>
+        <Text style={styles.title}>上传图片（最多9张）</Text>
         <View
           style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'space-around',
-            paddingTop: 16,
           }}>
           <ImageUpload setImageForm={obj => setImageForm(0, obj)} />
           <ImageUpload setImageForm={obj => setImageForm(1, obj)} />
           <ImageUpload setImageForm={obj => setImageForm(2, obj)} />
         </View>
         <Button
-          full
+          title="发布"
+          style={{marginBottom: 40}}
           onPress={handlerPublish}
-          style={{borderRadius: 40, marginVertical: 36}}>
-          <Text>提交审核</Text>
-        </Button>
+        />
       </ScrollView>
     </View>
   );
@@ -350,9 +408,6 @@ export default function PublishHouse(props) {
 const styles = StyleSheet.create({
   textAlignR: {
     textAlign: 'right',
-  },
-  textAlignC: {
-    textAlign: 'center',
   },
   flex1: {
     flex: 1,
@@ -369,19 +424,6 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     paddingTop: 32,
   },
-  specialPadding: {
-    paddingTop: 16,
-  },
-  ImgTitle: {
-    fontSize: 16,
-    color: Theme.textTitle,
-    paddingTop: 32,
-    paddingBottom: 5,
-  },
-  imgDec: {
-    fontSize: 12,
-    color: Theme.textSecondary,
-  },
   labelTitle: {
     color: Theme.textDefault,
   },
@@ -391,7 +433,55 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
   },
-  label_content: {
-    marginTop: 15,
+  flex_box: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 10,
+    color: '#333',
+    paddingLeft: 15,
+    paddingTop: 15,
+  },
+  label_style: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    backgroundColor: '#ddd',
+    marginRight: 10,
+    marginBottom: 10,
+    borderRadius: 3,
+  },
+  selected_bgColor: {
+    backgroundColor: 'green',
+  },
+  selected_color: {
+    color: '#fff',
+  },
+  title: {
+    fontSize: 16,
+    marginTop: 30,
+    marginBottom: 20,
+  },
+  common_content: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#e2e2e3',
+  },
+  house_content: {
+    // marginHorizontal: 10,
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
+  line: {
+    height: 1,
+    opacity: 1,
+    backgroundColor: 'darkgray',
+  },
+  input_content: {
+    margin: 0,
+    padding: 0,
   },
 });

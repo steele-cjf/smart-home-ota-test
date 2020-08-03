@@ -24,7 +24,7 @@ function HouseList(props) {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: '#fff',
+    backgroundColor: '#fff',
     flex: 1,
     // paddingLeft: 10,
     // paddingRight: 10,
