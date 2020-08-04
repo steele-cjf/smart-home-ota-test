@@ -90,12 +90,13 @@ function LoginPage(props) {
     <View style={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
       <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
-      <Input inputStyle={styles.inputPhone}
+      <Input
+        inputStyle={styles.inputPhone}
         ref={refMobile}
         keyboardType="numeric"
         placeholder="请输入中国大陆手机号"
-        placeholderTextColor='#C7C7C7'
-        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
+        placeholderTextColor="#C7C7C7"
+        leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
         value={mobile}
         errorMessage={mobileError}
         onSubmitEditing={() => refMobile.current.focus()}
@@ -103,18 +104,22 @@ function LoginPage(props) {
         onBlur={e => validateField('mobile')}
       />
       <View>
-        <Input inputStyle={styles.verCodeInput}
+        <Input
+          inputStyle={styles.verCodeInput}
           ref={refVerifyCode}
           keyboardType="numeric"
           placeholder="请输入短信验证码"
-          placeholderTextColor='#C7C7C7'
-          leftIcon={{ type: 'font-awesome', name: 'comment' }}
+          placeholderTextColor="#C7C7C7"
+          leftIcon={{type: 'font-awesome', name: 'comment'}}
           value={verifyCode}
           errorMessage={verifyCodeError}
           onSubmitEditing={() => refVerifyCode.current.focus()}
           onChangeText={setVerifyCode}
         />
-        <Button containerStyle={styles.codeBtnPosition} buttonStyle={styles.verCodeBtn} titleStyle={styles.verCodeTitle}
+        <Button
+          containerStyle={styles.codeBtnPosition}
+          buttonStyle={styles.verCodeBtn}
+          titleStyle={styles.verCodeTitle}
           title="发送短信验证码"
           disabled={ifSend}
           type="solid"
@@ -122,16 +127,20 @@ function LoginPage(props) {
         />
       </View>
       <View>
-        <CheckBox containerStyle={styles.checkBoxContainer} titleStyle={styles.checkBoxTitle}
-          title='同意'
-          checkedIcon='dot-circle-o'
-          uncheckedIcon='circle-o'
+        <CheckBox
+          containerStyle={styles.checkBoxContainer}
+          titleStyle={styles.checkBoxTitle}
+          title="同意"
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
           checked={checked}
           onPress={() => setChecked(!checked)}
         />
-        <Button containerStyle={styles.protocolContainer} titleStyle={styles.protocolTitle}
-          type='clear'
-          title='《用户服务协议》'
+        <Button
+          containerStyle={styles.protocolContainer}
+          titleStyle={styles.protocolTitle}
+          type="clear"
+          title="《用户服务协议》"
         />
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
@@ -205,7 +214,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#5C8BFF'
+    backgroundColor: '#5C8BFF',
   },
   tipTitle: {
     marginTop: 14,

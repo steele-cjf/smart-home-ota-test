@@ -52,20 +52,21 @@ export default function Form(props) {
           switch (data.type) {
             case 'INPUT':
               return (
-                <Input
+                <Input containerStyle={styles.inputContainer} inputStyle={styles.input}
                   key={index}
                   value={obj[key]}
                   onChange={e => {
                     setData(key, e.nativeEvent.text);
                   }}
                   placeholder={placeholder}
+                  placeholderTextColor='#C7C7C7'
                   leftIcon={<Text style={styles.label}>{name}</Text>}
                 />
               );
             case 'DATE':
               return (
                 <View key={index}>
-                  <Input
+                  <Input containerStyle={styles.inputContainer} inputStyle={styles.input}
                     disabled
                     value={obj[key]}
                     onTouchStart={() => {
@@ -137,20 +138,33 @@ const styles = StyleSheet.create({
   font18: {
     fontSize: 18,
   },
+  inputContainer: {
+    height: 52,
+  },
   label: {
-    fontSize: 18,
+    fontSize: 14,
+    color: '#282828',
     width: 100,
   },
+  input: {
+    fontSize: 14,
+    color: '#282828',
+  },
   radioLabel: {
-    fontSize: 18,
-    lineHeight: 30,
+    fontSize: 14,
+    color: '#282828',
+    //height: 52,
+    lineHeight: 52,
   },
   radioForm: {
     width: 200,
+    //height: 52,
     position: 'absolute',
     left: 90,
+    top: 10,
   },
   radioBox: {
+    height: 52,
     marginHorizontal: 10,
     borderBottomColor: 'rgba(0, 0, 0, .4)',
     borderBottomWidth: 1,

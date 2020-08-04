@@ -64,19 +64,20 @@ export default function ImageUpload(props) {
 }
 const styles = StyleSheet.create({
     avatarContainer: {
-        borderColor: '#9B9B9B',
+        borderColor: '#C7C7C7', //'#9B9B9B',
         borderWidth: 1 / PixelRatio.get(),
+        borderRadius: 2,
         justifyContent: 'center',
         alignItems: 'center',
     },
     avatar: {
         width: 100,
         height: 100,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     addBtn: {
         fontSize: 70,
         color: "rgba(0, 0, 0, .05)",
-        fontWeight: "700"
+        fontWeight: "700",
     }
 });
