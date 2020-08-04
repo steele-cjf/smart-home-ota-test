@@ -104,18 +104,18 @@ function AuthenticationPage(props) {
   const [AuthList] = useState([
     {
       name: '人脸识别',
-      type: '自动识别',
+      type: '自动验证',
       description: '适合中国公民，5分钟内验证完毕',
       id: 1,
     },
     {
-      name: '身份证认证',
+      name: '身份证',
       type: '人工审核',
-      description: '适合中国老人小孩或者人脸识别失败的用户，两个工作日内完成',
+      description: '适合中国老人小孩或人脸识别失败的用户，两个工作日内完成',
       id: 2,
     },
     {
-      name: '护照认证',
+      name: '护照',
       type: '人工审核',
       description: '适合持有护照的非中国公民，两个工作日内完成',
       id: 3,
@@ -126,41 +126,33 @@ function AuthenticationPage(props) {
   const AliyunVerify = useRef();
   return (
     <View style={styles.container} ref={AliyunVerify}>
-      <Text style={{fontSize: 18}}>请选择认证方式：</Text>
+      <View>
+        <Text style={styles.tipStatus}>当前状态：</Text>
+        <Text style={styles.status}>未实名认证</Text>
+      </View>
+      <Text style={styles.verTitle}>请选择认证方式：</Text>
       {AuthList.map((u, i) => {
         return (
-          <TouchableOpacity
-            style={
-              i === selectIndex ? styles.selectedStyle : styles.authListStyle
-            }
-            key={i}
-            onPress={() => changeSelect(i)}>
-            <Text>
-              <Text style={i === selectIndex ? styles.SelectName : styles.name}>
-                {u.name}{' '}
-              </Text>
-              <Text
-                style={
-                  i === selectIndex
-                    ? styles.selectSecondaryText
-                    : styles.secondaryText
-                }>
-                {u.type}
-              </Text>
+          <TouchableOpacity style={i === selectIndex ? styles.selectedStyle : styles.authListStyle}
+          key={i}
+          onPress={() => changeSelect(i)}>
+            <Text style={i === selectIndex ? styles.SelectName : styles.name}>
+              {u.name}
             </Text>
-            <Text
-              style={
-                i === selectIndex
-                  ? styles.selectSecondaryText
-                  : styles.secondaryText
-              }>
+            <Text style={i === selectIndex ? styles.selectTypeText : styles.typeText}>
+              {u.type}
+            </Text>
+            <Text style={i === selectIndex ? styles.selectSecondaryText : styles.secondaryText}>
               {u.description}
             </Text>
           </TouchableOpacity>
         );
       })}
+      <Text style={styles.tipText}>
+        {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡"}
+      </Text>
       <Button
-        style={styles.verifyBtn}
+        buttonStyle={styles.verifyBtn}
         title="开始认证"
         onPress={handlerVerify}
       />
@@ -186,40 +178,90 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 10,
-    // alignItems: 'center',
+    //justifyContent: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    backgroundColor: 'white'
+  },
+  tipStatus: {
+    fontSize: 14, 
+    color: '#7C7C7C',
+  },
+  status: {
+    position: 'absolute',
+    right: 0,
+    fontSize: 14, 
+    color: '#282828', 
+    textAlign: 'right',
+  },
+  verTitle: {
+    marginVertical: 20,
+    fontSize: 14, 
+    color: '#282828',
   },
   authListStyle: {
-    backgroundColor: '#fff',
-    paddingVertical: 20,
-    marginTop: 15,
-    paddingLeft: 10,
+    marginBottom: 18,
+    padding: 16,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#C7C7C7',
+    height: 82,
   },
   selectedStyle: {
-    backgroundColor: Theme.accent,
-    paddingVertical: 20,
-    marginTop: 15,
-    paddingLeft: 10,
+    marginBottom: 18,
+    padding: 16,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#527BDF',
+    height: 82,
   },
   SelectName: {
-    color: '#fff',
+    color: '#527BDF',
     fontSize: 18,
   },
   name: {
-    fontSize: 18,
+    color: '#282828',
+    fontSize: 18, 
+  },
+  typeText: {
+    position: 'absolute',
+    top: 22,
+    right: 16,
+    fontSize: 12,
+    color: '#7C7C7C',
+  },
+  selectTypeText: {
+    position: 'absolute',
+    top: 22,
+    right: 16,
+    fontSize: 12,
+    color: '#527BDF',
   },
   secondaryText: {
-    fontSize: 13,
-    marginTop: 10,
-    color: Theme.textSecondary,
+    marginTop: 12,
+    fontSize: 12,
+    color: '#282828',
   },
   selectSecondaryText: {
-    fontSize: 13,
-    marginTop: 10,
-    color: '#fff',
+    marginTop: 12,
+    fontSize: 12,
+    color: '#527BDF',
+  },
+  tipText: {
+    padding: 12,
+    fontSize: 12,
+    color: '#7C7C7C',
+    borderRadius: 4,
+    lineHeight: 17,
+    backgroundColor: '#F0F0F0',
   },
   verifyBtn: {
-    marginTop: 30,
+    //position: 'absolute',
+    //top: 280,
+    //bottom: 60,
+    marginTop: 185,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#5C8BFF'
   },
 });

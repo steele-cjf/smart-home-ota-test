@@ -1,7 +1,9 @@
 import React, {useState, useRef} from 'react';
 import {View, StyleSheet} from 'react-native';
 
-import {Text, Input, Button} from 'react-native-elements';
+import {Text, Input, Button, CheckBox} from 'react-native-elements';
+// import {Text, Input} from 'react-native-elements';
+// import {Button} from 'native-base';
 import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
@@ -42,23 +44,23 @@ function LoginPage(props) {
   }
   // action
   function handleSubmit() {
-    // props.navigation.navigate(AppRoute.HOME);
-    const data = {
-      mobile: mobile,
-      verifyCode: verifyCode,
-    };
-    if (['mobile', 'verifyCode'].every(validateField)) {
-      props.handleLogin(data, res => {
-        console.log(res);
-        if (!res.code) {
-          storage.set('token', res.data.accessToken);
-          storageDataDictionary();
-          props.navigation.navigate(AppRoute.HOME);
-        } else {
-          showToast(res.message);
-        }
-      });
-    }
+    props.navigation.navigate(AppRoute.HOME);
+    // const data = {
+    //   mobile: mobile,
+    //   verifyCode: verifyCode,
+    // };
+    // if (['mobile', 'verifyCode'].every(validateField)) {
+    //   props.handleLogin(data, res => {
+    //     console.log(res);
+    //     if (!res.code) {
+    //       storage.set('token', res.data.accessToken);
+    //       storageDataDictionary();
+    //       props.navigation.navigate(AppRoute.HOME);
+    //     } else {
+    //       showToast(res.message);
+    //     }
+    //   });
+    // }
   }             
   function handleGetCode() {
     setSendStatus(ifSend => (ifSend = true));
@@ -83,14 +85,18 @@ function LoginPage(props) {
   const [verifyCode, setVerifyCode] = useState(595087);
   const [mobileError, setMobileError] = useState(null);
   const [verifyCodeError, setVerifyCodeError] = useState(null);
+  const [checked, setChecked] = useState(true);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
       <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
-      <Input
+      <Input inputStyle={styles.inputPhone}
         ref={refMobile}
         keyboardType="numeric"
-        placeholder="手机号"
+        placeholder="请输入中国大陆手机号"
+        placeholderTextColor='#C7C7C7'
+        leftIcon={{ type: 'font-awesome', name: 'chevron-left'}}
         value={mobile}
         errorMessage={mobileError}
         onSubmitEditing={() => refMobile.current.focus()}
@@ -98,24 +104,39 @@ function LoginPage(props) {
         onBlur={e => validateField('mobile')}
       />
       <View>
-        <Input
-          ref={refVerifyCode}
-          keyboardType="numeric"
-          placeholder="短信验证码"
-          value={verifyCode}
-          errorMessage={verifyCodeError}
-          onSubmitEditing={() => refVerifyCode.current.focus()}
-          onChangeText={setVerifyCode}
+        <Input inputStyle={styles.verCodeInput}
+        ref={refVerifyCode}
+        keyboardType="numeric"
+        placeholder="请输入短信验证码"
+        placeholderTextColor='#C7C7C7'
+        leftIcon={{ type: 'font-awesome', name: 'comment' }}
+        value={verifyCode}
+        errorMessage={verifyCodeError}
+        onSubmitEditing={() => refVerifyCode.current.focus()}
+        onChangeText={setVerifyCode}
         />
-        <Button
-          title="获取验证码"
-          disabled={ifSend}
-          type="clear"
-          onPress={handleGetCode}
+        <Button containerStyle={styles.codeBtnPosition} buttonStyle={styles.verCodeBtn} titleStyle={styles.verCodeTitle}
+        title="发送短信验证码"
+        disabled={ifSend}
+        type="solid"
+        onPress={handleGetCode}
         />
       </View>
-      <Button style={styles.logBtn} title="登录" onPress={handleSubmit} />
-      <Text style={styles.title}>若手机号未注册将自动注册为新用户</Text>
+      <View>
+        <CheckBox containerStyle={styles.checkBoxContainer} titleStyle={styles.checkBoxTitle}
+        title='同意'
+        checkedIcon='dot-circle-o'
+        uncheckedIcon='circle-o'
+        checked={checked}
+        onPress={() => setChecked(!checked)}
+        />
+        <Button containerStyle={styles.protocolContainer} titleStyle={styles.protocolTitle}
+        type='clear'
+        title='《用户服务协议》'
+        />
+      </View>
+      <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
+      <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户</Text>
     </View>
   );
 }
@@ -123,38 +144,75 @@ function LoginPage(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 32, //10
-    paddingRight: 32, //10
-    paddingTop: 128, //160
-    //backgroundColor: 'red'
+    paddingLeft: 32, 
+    paddingRight: 32, 
+    paddingTop: 128, 
   },
   loginTitle: {
     fontSize: 32,
     color: '#527BDF',
-    // marginTop: 30,
-    // marginBottom: 20,
   },
   subtitle: {
     fontSize: 14,
     color: '#7C7C7C',
     marginTop: 14,
-    marginBottom: 82,    
-    //backgroundColor: 'red',
+    marginBottom: 92,    
   },
-  title: {
-    fontSize: 16,
-    marginTop: 30,
-    marginBottom: 20,
+  inputPhone: {
+    fontSize: 14,
+    color: '#7C7C7C',
   },
-  label: {
-    fontSize: 16,
-    paddingRight: 20,
+  verCodeInput: {
+    fontSize: 14,
+    color: '#7C7C7C',
+    width: 30,
+    marginRight: 168,
+  },
+  codeBtnPosition: {
+    position: 'absolute',
+    right: 10,
+    top: 7,
+  },
+  verCodeBtn: {
+    width: 147,
+    height: 32,
+    borderRadius: 20,
+    backgroundColor: '#5C8BFF',
+  },
+  verCodeTitle: {
+    fontSize: 14,
+  },
+  checkBoxContainer: {
+    marginLeft: -10,
+    marginTop: -25,
+    width: 75, 
+    borderColor: 'transparent',
+    backgroundColor: 'transparent', 
+  },
+  checkBoxTitle: {
+    fontSize: 14,
+    color: '#282828',
+  },
+  protocolContainer: {
+    position: 'absolute',
+    left: 65,
+    top: -19,
+  },
+  protocolTitle: {
+    fontSize: 14,
+    color: '#527BDF',
   },
   logBtn: {
-    marginVertical: 15,
-    marginHorizontal: 10,
+    marginTop: 25,
     height: 40,
-    borderRadius: 5,
+    borderRadius: 20,
+    backgroundColor: '#5C8BFF'
+  },
+  tipTitle: {
+    marginTop: 14,
+    fontSize: 14,
+    color: '#C7C7C7',
+    textAlign: 'center',
   },
 });
 export default LoginPage;
