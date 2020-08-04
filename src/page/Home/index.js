@@ -10,7 +10,6 @@ import showToast from '../../util/toast';
 
 function HomePage(props) {
   useEffect(() => {
-    // props.navigation.navigate(AppRoute.HOUSELIST);
     if (!props.userInfo) {
       props.getUserInfo();
       return;
@@ -19,7 +18,7 @@ function HomePage(props) {
     if (!Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data);
-      props.navigation.navigate(AppRoute.HOUSELIST);
+      // props.navigation.navigate(AppRoute.HOUSELIST);
     } else {
       showToast(Info.message);
       // props.navigation.navigate(AppRoute.RECORD);

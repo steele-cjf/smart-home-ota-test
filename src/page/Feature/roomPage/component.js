@@ -11,7 +11,6 @@ import {
   Icon,
   Title,
   Text,
-  Input,
 } from 'native-base';
 import DialogInput from '../../Component/dialogInput';
 

@@ -21,21 +21,35 @@ const BottomTabScreen = () => {
       <Tab.Screen
         name={AppRoute.HOME}
         component={HomeStackComponent}
-        options={{
-          title: '首页',
-          tabBarIcon: ({focused, color}) => (
-            <Ionicons name={'ios-home'} color={color} size={24} />
-          ),
+        options={({route}) => {
+          const isHomeRoute = route.name === AppRoute.HOME;
+          // WORKAROUND: route.state 是一个非常 HACK 的处理方式，皆因其他数据维护太过繁琐
+          const routeState = route.state;
+          const isHomeRoot = !routeState || routeState?.index === 0;
+          return {
+            title: '首页',
+            // 非根 Home 屏都要隐藏 Tabbar
+            tabBarVisible: isHomeRoute && isHomeRoot,
+            tabBarIcon: ({focused, color}) => (
+              <Ionicons name={'ios-home'} color={color} size={24} />
+            ),
+          };
         }}
       />
       <Tab.Screen
         name={AppRoute.FEATURE}
         component={FeatureStackComponent}
-        options={{
-          title: '功能',
-          tabBarIcon: ({focused, color}) => (
-            <Ionicons name={'ios-bonfire'} color={color} size={24} />
-          ),
+        options={({route}) => {
+          const routeState = route.state;
+          const isFeatureRoot = !routeState || routeState?.index === 0;
+          const isFeatureRoute = route.name === AppRoute.FEATURE;
+          return {
+            title: '功能',
+            tabBarVisible: isFeatureRoot && isFeatureRoute,
+            tabBarIcon: ({focused, color}) => (
+              <Ionicons name={'ios-bonfire'} color={color} size={24} />
+            ),
+          };
         }}
       />
       <Tab.Screen
