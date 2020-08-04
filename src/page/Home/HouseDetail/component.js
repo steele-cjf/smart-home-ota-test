@@ -14,8 +14,7 @@ function HouseDetail(props) {
     hasElevator: '电梯',
   });
   useEffect(() => {
-    props.getHouseDetail('483710797791371264', res => {
-      console.log('res', res);
+    props.getHouseDetail('488063582421929984', res => {
       if (!res.code) {
         if (res.data) {
           setHouseInfo(res.data);

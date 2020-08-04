@@ -52,14 +52,7 @@ export function getCityList(data, callback) {
     },
   });
 }
-// 房源详情
-export function getHouseDetail(id, callback) {
-  return $get(`/house/${id}`, {
-    successConfig: {
-      callback,
-    },
-  });
-}
+
 // 房源审核
 export function addHouse(data, callback) {
   return $post('/house', {
@@ -88,7 +81,8 @@ export function verfityResult(state = null, action) {
   return state;
 }
 
+
 export default {
   userInfo,
-  verfityResult,
+  verfityResult
 };

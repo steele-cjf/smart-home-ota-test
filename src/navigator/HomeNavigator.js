@@ -21,7 +21,7 @@ export const HomeStackComponent = () => {
         name={AppRoute.HOME}
         component={HomePage}
         options={{
-          headerShown: false,
+          headerShown: false
         }}
       />
       <HomeStack.Screen

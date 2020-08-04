@@ -49,6 +49,7 @@ export const httpService = (url, config) => {
     ) {
       config.body = config.body && JSON.stringify(config.body);
     }
+    // console.log('config', appApi + url, config)
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {

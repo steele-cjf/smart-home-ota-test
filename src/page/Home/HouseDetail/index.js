@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getHouseDetail} from '../../../store/home/index';
+import {getHouseDetail} from '../../../store/house/index';
 
 import Component from './component';
 // reducer获取
