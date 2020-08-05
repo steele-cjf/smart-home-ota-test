@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { ButtonGroup, Button, Input, ListItem, Image } from 'react-native-elements';
+import { Input, ListItem, Image, Card } from 'react-native-elements';
+import { Button } from 'native-base';
+
 import { AppRoute } from '../../../navigator/AppRoutes';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const image = require('../../../assets/images/scan.png')
 
 export default function AddTenant(props) {
-  const buttons = ['扫一扫添加住户', '手动添加住户'];
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [cameraOptions, setCameraOptions] = useState(null)
-
+  const [roomList] = useState(props.roomList)
   const [house, setHouse] = useState({})
 
   function updateIndex(index) {
@@ -32,29 +33,49 @@ export default function AddTenant(props) {
     // props.navigation.navigate(AppRoute.HOUSEDETAIL)
   }
 
+  const renderScanContent = () => {
+    console.log(888, props.roomList)
+    return (
+      <View style={{ alignItems: 'center' }}>
+        <Image
+          source={image}
+          style={{ width: 115, height: 115 }}
+        />
+        <Button rounded full style={styles.scanBtn} onPress={() => { props.openCamera({ open: true }) }}>
+          <Text style={{ color: '#fff' }}>扫码添加住户</Text>
+        </Button>
+        <TouchableOpacity onPress={() => updateIndex(1)}>
+          <Text style={styles.scanText}>没有二维码？手动添加住户并实名</Text>
+        </TouchableOpacity>
+      </View>)
+  }
+
   const renderCameraContent = () => {
     if (cameraOptions && cameraOptions.result) {
-      let { result } = cameraOptions
-      console.log('result', result)
-      if (result.error) {
+      let { data } = cameraOptions.result
+      if (cameraOptions.result.error) {
         return (
           <TouchableOpacity onPress={() => { props.openCamera({ open: true }) }} style={styles.errorDes}>
             <Text style={styles.errorColor}> {result.error}</Text>
           </TouchableOpacity>)
       }
       return (
-        <TouchableOpacity onPress={() => { props.openCamera({ open: true }) }}>
+        <View>
           {/* <Text> {cameraContent.result}</Text> */}
-        </TouchableOpacity>)
+          <Card style>
+            <ListItem
+              leftElement={<Text style={styles.dec}>姓名</Text>}
+              rightElement={<Text>{data.name || '--'}</Text>}
+              bottomDivider
+            />
+            <ListItem
+              leftElement={<Text style={styles.dec}>手机号码</Text>}
+              rightElement={<Text>{data.mobile || '--'}</Text>}
+            />
+          </Card>
+        </View>)
     }
-    return (
-      <TouchableOpacity onPress={() => { props.openCamera({ open: true }) }} style={{ alignItems: 'center' }}>
-        <Image
-          source={image}
-          style={{ width: 200, height: 200 }}
-        />
-        <Text style={styles.scanText}>点击扫码添加</Text>
-      </TouchableOpacity>)
+    return renderScanContent()
   }
 
   const renderRightContext = () => {
@@ -78,21 +99,15 @@ export default function AddTenant(props) {
           rightElement={renderRightPicker()}
           chevron
         />
-        <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
-        <ButtonGroup
-          onPress={index => updateIndex(index)}
-          selectedIndex={selectedIndex}
-          selectedButtonStyle={{ backgroundColor: '#527BDF' }}
-          containerStyle={{ left: 0 }}
-          buttons={buttons}
-        />
         <View
           style={
             ({ paddingHorizontal: 10 }, selectedIndex ? { display: 'none' } : '')
           }>
+          <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
           {renderCameraContent()}
         </View>
         <View style={selectedIndex !== 1 ? { display: 'none' } : ''}>
+          <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
           <Input
             inputStyle={styles.input_content}
             leftIcon={<Text style={styles.label}>真实姓名</Text>}
@@ -108,11 +123,10 @@ export default function AddTenant(props) {
         </View>
       </View>
       <Button
-        style={styles.submit}
-        buttonStyle={{ backgroundColor: '#5C8BFF' }}
-        title="保存"
+        full
+        style={styles.scanBtn}
         onPress={() => saveTenant()}
-      />
+      ><Text style={{color: '#fff'}}>添加住户</Text></Button>
     </View>
   );
 }
@@ -149,5 +163,15 @@ const styles = StyleSheet.create({
   },
   errorColor: {
     color: 'red'
+  },
+  scanText: {
+    color: '#7C7C7C',
+    fontSize: 12,
+    textDecorationLine: 'underline'
+  },
+  scanBtn: {
+    borderRadius: 30,
+    backgroundColor: '#5C8BFF',
+    marginVertical: 30
   }
 });

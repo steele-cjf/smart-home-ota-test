@@ -10,7 +10,8 @@ function mapStateToProps(state) {
     userInfo: state.userInfo,
     cameraOpt: state.cameraOpt,
     houseDetail: state.houseDetail,
-    scanTenant: state.scanTenant
+    scanTenant: state.scanTenant,
+    roomList: state.roomList
   };
 }
 function matchDispatchToProps(dispatch) {

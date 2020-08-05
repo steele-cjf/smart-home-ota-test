@@ -13,8 +13,7 @@ function Camera(props) {
 
     const scanCode = (result) => {
         let { data } = result
-        let url = data.slice(33)
-        props.getScanResult(url, (res) => {
+        props.getScanResult(data, (res) => {
             props.openCamera({ open: false, result: res })
         })
         return

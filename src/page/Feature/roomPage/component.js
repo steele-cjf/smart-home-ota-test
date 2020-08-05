@@ -26,7 +26,6 @@ export default function RoomPage(props) {
 
   const fetchRoomList = useCallback(id => {
     props.getRoomList({houseId: id}, res => {
-      console.log('houseList', res.data);
       if (!res.code) {
         setRoomList(res.data);
       }

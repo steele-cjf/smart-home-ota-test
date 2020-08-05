@@ -47,7 +47,6 @@ export function updateRoomName(id, name, callback) {
 }
 
 export function roomList(state = null, action) {
-  console.log(state, action);
   if (action.type === 'ROOM_LIST') {
     return action.data || null;
   }
@@ -55,5 +54,5 @@ export function roomList(state = null, action) {
 }
 
 export default {
-  roomList,
+  roomList
 };
