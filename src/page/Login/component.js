@@ -63,7 +63,6 @@ function LoginPage(props) {
       mobile: mobile,
       verifyCode: verifyCode,
     };
-<<<<<<< HEAD
 
     props.handleLogin(data, res => {
       if (!res.code) {
@@ -74,21 +73,6 @@ function LoginPage(props) {
         showToast(res.message);
       }
     });
-=======
-    if (['mobile', 'verifyCode'].every(validateField)) {
-      console.log(777, data)
-      props.handleLogin(data, res => {
-        console.log(9999, res)
-        if (!res.code) {
-          storage.set('token', res.data.accessToken);
-          storageDataDictionary();
-          props.navigation.navigate(AppRoute.HOME);
-        } else {
-          showToast(res.message);
-        }
-      });
-    }
->>>>>>> 6c5e96d80961493acc259db908c79d575e1214a1
   }
 
   function handleGetCode() {
@@ -119,15 +103,8 @@ function LoginPage(props) {
   const [isSend, setSendStatus] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-<<<<<<< HEAD
   const [mobile, setMobile] = useState(null);   //13661992793
   const [verifyCode, setVerifyCode] = useState(null);   //560657
-=======
-  const [mobile, setMobile] = useState(13661992793);
-  const [verifyCode, setVerifyCode] = useState(608653);
-  const [mobileError, setMobileError] = useState(null);
-  const [verifyCodeError, setVerifyCodeError] = useState(null);
->>>>>>> 6c5e96d80961493acc259db908c79d575e1214a1
   const [checked, setChecked] = useState(true);
 
   return (
@@ -139,13 +116,8 @@ function LoginPage(props) {
         ref={refMobile}
         keyboardType="numeric"
         placeholder="请输入中国大陆手机号"
-<<<<<<< HEAD
         placeholderTextColor={Theme.textMuted}
         leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
-=======
-        placeholderTextColor='#C7C7C7'
-        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
->>>>>>> 6c5e96d80961493acc259db908c79d575e1214a1
         value={mobile}
         //errorMessage={mobileError}
         onSubmitEditing={() => refMobile.current.focus()}
@@ -161,13 +133,8 @@ function LoginPage(props) {
           placeholderTextColor={Theme.textMuted}
           leftIcon={{type: 'font-awesome', name: 'comment'}}
           value={verifyCode}
-<<<<<<< HEAD
           //errorMessage={verifyCodeError}
           onSubmitEditing={() => refVerifyCode.current.focus()}
-=======
-          errorMessage={verifyCodeError}
-          onSubmitEditing={Keyboard.dismiss}
->>>>>>> 6c5e96d80961493acc259db908c79d575e1214a1
           onChangeText={setVerifyCode}
         />
         <Button containerStyle={styles.codeBtnPosition} buttonStyle={styles.verCodeBtn} titleStyle={styles.verCodeTitle}

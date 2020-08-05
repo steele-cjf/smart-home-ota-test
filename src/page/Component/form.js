@@ -172,7 +172,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderBottomColor: 'rgba(0, 0, 0, .4)',
     borderBottomWidth: 1,
-    // paddingBottom: 15,
-    // marginBottom: 20,
   },
 });
