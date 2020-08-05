@@ -185,19 +185,19 @@ const styles = StyleSheet.create({
   },
   tipStatus: {
     fontSize: 14, 
-    color: '#7C7C7C',
+    color: Theme.textSecondary,
   },
   status: {
     position: 'absolute',
     right: 0,
     fontSize: 14, 
-    color: '#282828', 
+    color: Theme.textDefault, 
     textAlign: 'right',
   },
   verTitle: {
     marginVertical: 20,
     fontSize: 14, 
-    color: '#282828',
+    color: Theme.textDefault,
   },
   authListStyle: {
     marginBottom: 18,
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   name: {
-    color: '#282828',
+    color: Theme.textDefault,
     fontSize: 18, 
   },
   typeText: {
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     top: 22,
     right: 16,
     fontSize: 12,
-    color: '#7C7C7C',
+    color: Theme.textSecondary,
   },
   selectTypeText: {
     position: 'absolute',
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   secondaryText: {
     marginTop: 12,
     fontSize: 12,
-    color: '#282828',
+    color: Theme.textDefault,
   },
   selectSecondaryText: {
     marginTop: 12,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   tipText: {
     padding: 12,
     fontSize: 12,
-    color: '#7C7C7C',
+    color: Theme.textSecondary,
     borderRadius: 4,
     lineHeight: 17,
     backgroundColor: '#F0F0F0',

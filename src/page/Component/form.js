@@ -7,6 +7,7 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from 'react-native-simple-radio-button';
+import Theme from '../../style/colors';
 
 export default function Form(props) {
   const [config] = useState(props.config);
@@ -59,7 +60,7 @@ export default function Form(props) {
                     setData(key, e.nativeEvent.text);
                   }}
                   placeholder={placeholder}
-                  placeholderTextColor='#C7C7C7'
+                  placeholderTextColor={Theme.textMuted} 
                   leftIcon={<Text style={styles.label}>{name}</Text>}
                 />
               );
@@ -73,12 +74,16 @@ export default function Form(props) {
                       showDatePicker(key);
                     }}
                     placeholder={placeholder}
+                    placeholderTextColor={Theme.textMuted} 
                     leftIcon={<Text style={styles.label}>{name}</Text>}
                   />
                   <DateTimePickerModal
                     isVisible={isDatePickerVisible[key] || false}
                     mode="date"
-                    locale="en_GB"
+                    headerTextIOS={'选择日期'}
+                    cancelTextIOS={'取消'}
+                    confirmTextIOS={'确定'}
+                    locale="zh-Hans"   //en_GB
                     onConfirm={date => {
                       handleConfirm(date, key);
                     }}
@@ -108,9 +113,9 @@ export default function Form(props) {
                             onPress={value => {
                               setData(key, value);
                             }}
-                            buttonInnerColor={'#2196f3'}
+                            buttonInnerColor={Theme.primary}
                             buttonOuterColor={
-                              option.value == obj[key] ? '#2196f3' : '#000'
+                              option.value == obj[key] ? Theme.primary : Theme.tabIconDefault 
                             }
                             buttonWrapStyle={{marginLeft: 20}}
                           />
@@ -143,32 +148,31 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#282828',
+    color: Theme.textDefault,
     width: 100,
   },
   input: {
     fontSize: 14,
-    color: '#282828',
+    color: Theme.textDefault,
   },
   radioLabel: {
     fontSize: 14,
-    color: '#282828',
-    //height: 52,
-    lineHeight: 52,
+    color: Theme.textDefault,
+    height: 48,
+    lineHeight: 48,
   },
   radioForm: {
     width: 200,
-    //height: 52,
     position: 'absolute',
     left: 90,
     top: 10,
   },
   radioBox: {
-    height: 52,
+    height: 48,
     marginHorizontal: 10,
     borderBottomColor: 'rgba(0, 0, 0, .4)',
     borderBottomWidth: 1,
-    paddingBottom: 15,
-    marginBottom: 20,
+    // paddingBottom: 15,
+    // marginBottom: 20,
   },
 });

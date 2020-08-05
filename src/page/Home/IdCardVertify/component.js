@@ -6,6 +6,7 @@ import ImageUpload from '../../Component/imageUpload';
 import {AppRoute} from '../../../navigator/AppRoutes';
 
 import vertifyCn from '../config/IdCardVertifyCn';
+import Theme from '../../../style/colors';
 export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState([]);
@@ -106,11 +107,11 @@ const styles = StyleSheet.create({
   scrollContainer: {
     paddingTop: 16, 
     paddingHorizontal: 16, 
-    backgroundColor: 'white',
+    backgroundColor: Theme.background,
   },
   textTitle: {
     fontSize: 16,
-    color: '#282828',
+    color: Theme.textDefault,
   },
   formBox: {
     paddingBottom: 16,
@@ -127,6 +128,6 @@ const styles = StyleSheet.create({
     marginBottom: 60,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#5C8BFF'
+    backgroundColor: Theme.primary,
   },
 });
