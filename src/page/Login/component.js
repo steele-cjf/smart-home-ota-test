@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, {useState, useRef} from 'react';
+import {View, Keyboard, StyleSheet} from 'react-native';
 
-import { Text, Input, Button, CheckBox } from 'react-native-elements';
+import {Text, Input, Button, CheckBox} from 'react-native-elements';
 // import {Text, Input} from 'react-native-elements';
 // import {Button} from 'native-base';
-import { AppRoute } from '../../navigator/AppRoutes';
+import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
 import Theme from '../../style/colors';
@@ -63,6 +63,7 @@ function LoginPage(props) {
       mobile: mobile,
       verifyCode: verifyCode,
     };
+<<<<<<< HEAD
 
     props.handleLogin(data, res => {
       if (!res.code) {
@@ -73,6 +74,21 @@ function LoginPage(props) {
         showToast(res.message);
       }
     });
+=======
+    if (['mobile', 'verifyCode'].every(validateField)) {
+      console.log(777, data)
+      props.handleLogin(data, res => {
+        console.log(9999, res)
+        if (!res.code) {
+          storage.set('token', res.data.accessToken);
+          storageDataDictionary();
+          props.navigation.navigate(AppRoute.HOME);
+        } else {
+          showToast(res.message);
+        }
+      });
+    }
+>>>>>>> 6c5e96d80961493acc259db908c79d575e1214a1
   }
 
   function handleGetCode() {
@@ -88,6 +104,7 @@ function LoginPage(props) {
     const data = {
       mobile: mobile,
     };
+    
     props.getVerifyCode(data, res => {
       console.log('code', res);
       if (!res.code) {
@@ -102,8 +119,15 @@ function LoginPage(props) {
   const [isSend, setSendStatus] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
+<<<<<<< HEAD
   const [mobile, setMobile] = useState(null);   //13661992793
   const [verifyCode, setVerifyCode] = useState(null);   //560657
+=======
+  const [mobile, setMobile] = useState(13661992793);
+  const [verifyCode, setVerifyCode] = useState(608653);
+  const [mobileError, setMobileError] = useState(null);
+  const [verifyCodeError, setVerifyCodeError] = useState(null);
+>>>>>>> 6c5e96d80961493acc259db908c79d575e1214a1
   const [checked, setChecked] = useState(true);
 
   return (
@@ -115,8 +139,13 @@ function LoginPage(props) {
         ref={refMobile}
         keyboardType="numeric"
         placeholder="请输入中国大陆手机号"
+<<<<<<< HEAD
         placeholderTextColor={Theme.textMuted}
         leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
+=======
+        placeholderTextColor='#C7C7C7'
+        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
+>>>>>>> 6c5e96d80961493acc259db908c79d575e1214a1
         value={mobile}
         //errorMessage={mobileError}
         onSubmitEditing={() => refMobile.current.focus()}
@@ -132,14 +161,16 @@ function LoginPage(props) {
           placeholderTextColor={Theme.textMuted}
           leftIcon={{type: 'font-awesome', name: 'comment'}}
           value={verifyCode}
+<<<<<<< HEAD
           //errorMessage={verifyCodeError}
           onSubmitEditing={() => refVerifyCode.current.focus()}
+=======
+          errorMessage={verifyCodeError}
+          onSubmitEditing={Keyboard.dismiss}
+>>>>>>> 6c5e96d80961493acc259db908c79d575e1214a1
           onChangeText={setVerifyCode}
         />
-        <Button
-          containerStyle={styles.codeBtnPosition}
-          buttonStyle={styles.verCodeBtn}
-          titleStyle={styles.verCodeTitle}
+        <Button containerStyle={styles.codeBtnPosition} buttonStyle={styles.verCodeBtn} titleStyle={styles.verCodeTitle}
           title="发送短信验证码"
           disabled={isSend}
           type="solid"
@@ -147,20 +178,16 @@ function LoginPage(props) {
         />
       </View>
       <View>
-        <CheckBox
-          containerStyle={styles.checkBoxContainer}
-          titleStyle={styles.checkBoxTitle}
-          title="同意"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
+        <CheckBox containerStyle={styles.checkBoxContainer} titleStyle={styles.checkBoxTitle}
+          title='同意'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
           checked={checked}
           onPress={() => setChecked(!checked)}
         />
-        <Button
-          containerStyle={styles.protocolContainer}
-          titleStyle={styles.protocolTitle}
-          type="clear"
-          title="《用户服务协议》"
+        <Button containerStyle={styles.protocolContainer} titleStyle={styles.protocolTitle}
+          type='clear'
+          title='《用户服务协议》'
         />
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
