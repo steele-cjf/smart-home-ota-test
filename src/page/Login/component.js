@@ -7,31 +7,27 @@ import {Text, Input, Button, CheckBox} from 'react-native-elements';
 import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
+import Theme from '../../style/colors';
 
 function LoginPage(props) {
+
   function validateField(field) {
-    let phoneReg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
     switch (field) {
-      case 'mobile':
-        const userMsg = phoneReg.test(mobile);
-        setMobileError(userMsg ? null : '请输入正确的手机号');
-        if (!mobile) {
-          refMobile.current.shake();
-        }
-        if (mobile) {
-          setSendStatus(ifSend => (ifSend = false));
-        }
-        return !!userMsg;
-      case 'verifyCode':
-        setVerifyCodeError(verifyCode ? null : '请输入短信验证码');
-        if (!verifyCode) {
-          refVerifyCode.current.shake();
-        }
-        return !!verifyCode;
+      case 'mobile': {
+        let phoneReg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+        const validateFlag = phoneReg.test(mobile);
+        return validateFlag; 
+      }
+      case 'verifyCode': {
+        let verCodeReg = /^\d{4,6}$/;
+        const validateFlag2 = verCodeReg.test(verifyCode);
+        return validateFlag2;
+      }
       default:
         return true;
     }
   }
+
   function storageDataDictionary() {
     props.getAllData(res => {
       // console.log('resss', res.data);
@@ -42,29 +38,53 @@ function LoginPage(props) {
       storage.set('code', result);
     });
   }
-  // action
+ 
   function handleSubmit() {
     // props.navigation.navigate(AppRoute.HOME);
+
+    if (!mobile) {
+      showToast('请输入手机号');
+      return;
+    } else if (!validateField('mobile')) {
+      showToast('请输入正确的手机号');
+      return;
+    } else if (!verifyCode) {
+      showToast('请输入短信验证码');
+      return;
+    } else if (!validateField('verifyCode')) {
+      showToast('请输入6位数字验证码');
+      return;
+    } else if (!checked) {
+      showToast('您需要同意《用户服务协议》')
+      return;
+    }
+
     const data = {
       mobile: mobile,
       verifyCode: verifyCode,
     };
-    if (['mobile', 'verifyCode'].every(validateField)) {
-      console.log(777, data)
-      props.handleLogin(data, res => {
-        console.log(9999, res)
-        if (!res.code) {
-          storage.set('token', res.data.accessToken);
-          storageDataDictionary();
-          props.navigation.navigate(AppRoute.HOME);
-        } else {
-          showToast(res.message);
-        }
-      });
-    }
+
+    props.handleLogin(data, res => {
+      if (!res.code) {
+        storage.set('token', res.data.accessToken);
+        storageDataDictionary();
+        props.navigation.navigate(AppRoute.HOME);
+      } else {
+        showToast(res.message);
+      }
+    });
   }
+
   function handleGetCode() {
-    setSendStatus(ifSend => (ifSend = true));
+    if (!mobile) {
+      //refMobile.current.shake();
+      showToast('请输入手机号');
+      return;
+    } else if (!validateField('mobile')) {
+      showToast('请输入正确的手机号');
+      return;
+    }
+    
     const data = {
       mobile: mobile,
     };
@@ -73,20 +93,18 @@ function LoginPage(props) {
       console.log('code', res);
       if (!res.code) {
         showToast('验证码已发送，请注意查收！');
+        setSendStatus(true);
       } else {
         showToast(res.message);
       }
     });
   }
 
-  const [ifSend, setSendStatus] = useState(true);
-
+  const [isSend, setSendStatus] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(13661992793);
-  const [verifyCode, setVerifyCode] = useState(608653);
-  const [mobileError, setMobileError] = useState(null);
-  const [verifyCodeError, setVerifyCodeError] = useState(null);
+  const [mobile, setMobile] = useState(null);   //13661992793
+  const [verifyCode, setVerifyCode] = useState(null);   //560657
   const [checked, setChecked] = useState(true);
 
   return (
@@ -98,13 +116,13 @@ function LoginPage(props) {
         ref={refMobile}
         keyboardType="numeric"
         placeholder="请输入中国大陆手机号"
-        placeholderTextColor='#C7C7C7'
-        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
+        placeholderTextColor={Theme.textMuted}
+        leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
         value={mobile}
-        errorMessage={mobileError}
+        //errorMessage={mobileError}
         onSubmitEditing={() => refMobile.current.focus()}
         onChangeText={setMobile}
-        onBlur={e => validateField('mobile')}
+        onBlur={() => validateField('mobile')}
       />
       <View>
         <Input
@@ -112,16 +130,16 @@ function LoginPage(props) {
           ref={refVerifyCode}
           keyboardType="numeric"
           placeholder="请输入短信验证码"
-          placeholderTextColor="#C7C7C7"
+          placeholderTextColor={Theme.textMuted}
           leftIcon={{type: 'font-awesome', name: 'comment'}}
           value={verifyCode}
-          errorMessage={verifyCodeError}
-          onSubmitEditing={Keyboard.dismiss}
+          //errorMessage={verifyCodeError}
+          onSubmitEditing={() => refVerifyCode.current.focus()}
           onChangeText={setVerifyCode}
         />
         <Button containerStyle={styles.codeBtnPosition} buttonStyle={styles.verCodeBtn} titleStyle={styles.verCodeTitle}
           title="发送短信验证码"
-          disabled={ifSend}
+          disabled={isSend}
           type="solid"
           onPress={handleGetCode}
         />
@@ -151,6 +169,7 @@ const styles = StyleSheet.create({
     paddingLeft: 32,
     paddingRight: 32,
     paddingTop: 128,
+    backgroundColor: Theme.background,
   },
   loginTitle: {
     fontSize: 32,
@@ -158,17 +177,17 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: '#7C7C7C',
+    color: Theme.textSecondary,
     marginTop: 14,
     marginBottom: 92,
   },
   inputPhone: {
     fontSize: 14,
-    color: '#7C7C7C',
+    color: Theme.textSecondary,
   },
   verCodeInput: {
     fontSize: 14,
-    color: '#7C7C7C',
+    color: Theme.textSecondary,
     width: 30,
     marginRight: 168,
   },
@@ -181,26 +200,26 @@ const styles = StyleSheet.create({
     width: 147,
     height: 32,
     borderRadius: 20,
-    backgroundColor: '#5C8BFF',
+    backgroundColor: Theme.primary,
   },
   verCodeTitle: {
     fontSize: 14,
   },
   checkBoxContainer: {
     marginLeft: -10,
-    marginTop: -25,
+    marginTop: -20,
     width: 75,
     borderColor: 'transparent',
     backgroundColor: 'transparent',
   },
   checkBoxTitle: {
     fontSize: 14,
-    color: '#282828',
+    color: Theme.textDefault,
   },
   protocolContainer: {
     position: 'absolute',
     left: 65,
-    top: -19,
+    top: -14,
   },
   protocolTitle: {
     fontSize: 14,
@@ -210,12 +229,12 @@ const styles = StyleSheet.create({
     marginTop: 25,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#5C8BFF',
+    backgroundColor: Theme.primary,
   },
   tipTitle: {
     marginTop: 14,
     fontSize: 14,
-    color: '#C7C7C7',
+    color: Theme.textMuted,
     textAlign: 'center',
   },
 });

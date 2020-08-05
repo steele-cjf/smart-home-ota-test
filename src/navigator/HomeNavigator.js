@@ -8,7 +8,6 @@ import UnrecordedHouse from '../page/Home/UnrecordedHouse';
 import RecordHouse from '../page/Home/RecordHouse';
 import AuditHouse from '../page/Home/AuditHouse';
 import HouseList from '../page/Home/HouseList';
-import HouseDetail from '../page/Home/HouseDetail';
 
 import {AppRoute} from './AppRoutes';
 
@@ -21,7 +20,7 @@ export const HomeStackComponent = () => {
         name={AppRoute.HOME}
         component={HomePage}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
@@ -75,14 +74,6 @@ export const HomeStackComponent = () => {
         component={HouseList}
         options={{
           title: '房源列表',
-        }}
-      />
-      <HomeStack.Screen
-        name={AppRoute.HOUSEDETAIL}
-        component={HouseDetail}
-        options={{
-          title: '查看房源',
-          headerBackTitle: '返回',
         }}
       />
     </HomeStack.Navigator>

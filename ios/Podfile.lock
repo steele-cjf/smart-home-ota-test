@@ -395,11 +395,11 @@ PODS:
     - React
   - RNCMaskedView (0.1.10):
     - React
-  - RNDateTimePicker (2.6.0):
+  - RNDateTimePicker (2.6.1):
     - React
-  - RNGestureHandler (1.6.1):
+  - RNGestureHandler (1.7.0):
     - React
-  - RNReanimated (1.9.0):
+  - RNReanimated (1.10.1):
     - React
   - RNScreens (2.9.0):
     - React
@@ -643,9 +643,9 @@ SPEC CHECKSUMS:
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   RNCAsyncStorage: d059c3ee71738c39834a627476322a5a8cd5bf36
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDateTimePicker: e386ff4ef3300964ed0cad97ce6f206e0effbfdb
-  RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
+  RNDateTimePicker: 83540fb5d71f28bd34990d8fabccb8d91e5d957e
+  RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
+  RNReanimated: c2bb7438b57a3d987bb2e4e6e4bca94787e30b02
   RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
   RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
   toolbar-android: 85f3ef4d691469f2d304e7dee4bca013aa1ba1ff
