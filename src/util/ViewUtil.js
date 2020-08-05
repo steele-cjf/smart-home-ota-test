@@ -1,6 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Theme from '../style/colors';
 
 export default class ViewUtil {
   /**
@@ -30,15 +33,14 @@ export default class ViewUtil {
               style={{opacity: 1, width: 16, height: 16, marginRight: 10}}
             />
           )}
-          <Text>{text}</Text>
+          <Text style={{color: Theme.textDefault, fontSize: 14}}>{text}</Text>
         </View>
-        <Ionicons
-          name={expandableIco ? expandableIco : 'ios-arrow-forward'}
-          size={16}
+        <AntDesign
+          name="right"
+          size={12}
           style={{
-            marginRight: 10,
             alignSelf: 'center',
-            color: color || 'black',
+            color: '#7C7C7C',
           }}
         />
       </TouchableOpacity>
@@ -113,8 +115,7 @@ export default class ViewUtil {
 const styles = StyleSheet.create({
   setting_item_container: {
     backgroundColor: 'white',
-    padding: 10,
-    height: 60,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',

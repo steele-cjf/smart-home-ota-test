@@ -14,8 +14,8 @@ export const MORE_MENU = {
     Icons: MaterialCommunityIcons,
     icon: 'sort',
   },
-  Operating_Record: {
-    name: '操作记录',
+  House_Collect: {
+    name: '房源收藏',
     Icons: Ionicons,
     icon: 'ios-color-palette',
   },
@@ -30,5 +30,5 @@ export const MORE_MENU = {
   Member: {name: '家庭成员', Icons: Ionicons, icon: 'md-checkbox-outline'},
   Record: {name: '开门记录', Icons: Ionicons, icon: 'logo-github'},
   Declare: {name: '门锁配置和故障申报', Icons: Ionicons, icon: 'feedback'},
-  ComponentTest: {name: '组件预研', Icons: Ionicons, icon: 'logo-github'}
+  ComponentTest: {name: '组件预研', Icons: Ionicons, icon: 'logo-github'},
 };

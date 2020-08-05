@@ -42,7 +42,7 @@ export default function RegionPicker(props) {
 
   function getRegion(data, tabsList) {
     setRegionId(data);
-    props.setTabs(tabsList)
+    props.setTabs(tabsList);
   }
 
   function close() {

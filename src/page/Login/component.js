@@ -10,13 +10,12 @@ import storage from '../../util/storage';
 import Theme from '../../style/colors';
 
 function LoginPage(props) {
-
   function validateField(field) {
     switch (field) {
       case 'mobile': {
         let phoneReg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
         const validateFlag = phoneReg.test(mobile);
-        return validateFlag; 
+        return validateFlag;
       }
       case 'verifyCode': {
         let verCodeReg = /^\d{4,6}$/;
@@ -38,7 +37,7 @@ function LoginPage(props) {
       storage.set('code', result);
     });
   }
- 
+
   function handleSubmit() {
     // props.navigation.navigate(AppRoute.HOME);
 
@@ -55,7 +54,7 @@ function LoginPage(props) {
       showToast('请输入6位数字验证码');
       return;
     } else if (!checked) {
-      showToast('您需要同意《用户服务协议》')
+      showToast('您需要同意《用户服务协议》');
       return;
     }
 
@@ -84,11 +83,11 @@ function LoginPage(props) {
       showToast('请输入正确的手机号');
       return;
     }
-    
+
     const data = {
       mobile: mobile,
     };
-    
+
     props.getVerifyCode(data, res => {
       console.log('code', res);
       if (!res.code) {
@@ -103,8 +102,8 @@ function LoginPage(props) {
   const [isSend, setSendStatus] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(13661992793);   //13661992793
-  const [verifyCode, setVerifyCode] = useState(608653);   //560657
+  const [mobile, setMobile] = useState(13661992793); //13661992793
+  const [verifyCode, setVerifyCode] = useState(608653); //560657
   const [checked, setChecked] = useState(true);
 
   return (
@@ -137,7 +136,10 @@ function LoginPage(props) {
           onSubmitEditing={() => refVerifyCode.current.focus()}
           onChangeText={setVerifyCode}
         />
-        <Button containerStyle={styles.codeBtnPosition} buttonStyle={styles.verCodeBtn} titleStyle={styles.verCodeTitle}
+        <Button
+          containerStyle={styles.codeBtnPosition}
+          buttonStyle={styles.verCodeBtn}
+          titleStyle={styles.verCodeTitle}
           title="发送短信验证码"
           disabled={isSend}
           type="solid"
@@ -145,16 +147,20 @@ function LoginPage(props) {
         />
       </View>
       <View>
-        <CheckBox containerStyle={styles.checkBoxContainer} titleStyle={styles.checkBoxTitle}
-          title='同意'
-          checkedIcon='dot-circle-o'
-          uncheckedIcon='circle-o'
+        <CheckBox
+          containerStyle={styles.checkBoxContainer}
+          titleStyle={styles.checkBoxTitle}
+          title="同意"
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
           checked={checked}
           onPress={() => setChecked(!checked)}
         />
-        <Button containerStyle={styles.protocolContainer} titleStyle={styles.protocolTitle}
-          type='clear'
-          title='《用户服务协议》'
+        <Button
+          containerStyle={styles.protocolContainer}
+          titleStyle={styles.protocolTitle}
+          type="clear"
+          title="《用户服务协议》"
         />
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
