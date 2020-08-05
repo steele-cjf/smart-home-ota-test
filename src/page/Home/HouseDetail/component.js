@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import {
   Header,
   Button,
@@ -14,8 +14,8 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HouseBaseInfo from '../../Component/houseBaseInfo';
-import {AppRoute} from '../../../navigator/AppRoutes';
-import {Divider} from 'react-native-elements';
+import { AppRoute } from '../../../navigator/AppRoutes';
+import { Divider } from 'react-native-elements';
 import Theme from '../../../style/colors';
 
 function HouseDetail(props) {
@@ -63,13 +63,13 @@ function HouseDetail(props) {
               <Text style={styles.statusDesc}>约两个工作日内完成审核</Text>
             </View>
           ) : (
-            <View style={[styles.statusContent, styles.failColor]}>
-              <Text style={styles.statusTitle}>房源审核失败</Text>
-              <Text style={styles.statusDesc}>
-                房产证与本人不符，请修改{houseInfo.auditOpinions}
-              </Text>
-            </View>
-          )}
+              <View style={[styles.statusContent, styles.failColor]}>
+                <Text style={styles.statusTitle}>房源审核失败</Text>
+                <Text style={styles.statusDesc}>
+                  房产证与本人不符，请修改{houseInfo.auditOpinions}
+                </Text>
+              </View>
+            )}
           {/*  房源信息 */}
           <View style={styles.listBox}>
             <View style={styles.leftContent}>
@@ -124,7 +124,7 @@ function HouseDetail(props) {
             </View>
             <View style={styles.rightContent}>
               <Text
-                style={{color: Theme.textLink, paddingRight: 20, fontSize: 14}}>
+                style={{ color: Theme.textLink, paddingRight: 20, fontSize: 14 }}>
                 查看
               </Text>
               <AntDesign
@@ -139,7 +139,7 @@ function HouseDetail(props) {
               />
             </View>
           </View>
-          <Divider style={{marginTop: 16}} />
+          <Divider style={{ marginTop: 16 }} />
           <View style={styles.listBox}>
             <View style={styles.leftContent}>
               <Text
@@ -198,7 +198,7 @@ function HouseDetail(props) {
               </Text>
             </View>
           </View>
-          <Divider style={{marginTop: 16}} />
+          <Divider style={{ marginTop: 16 }} />
           {/* 状态 */}
           <View style={styles.listBox}>
             <View style={styles.leftContent}>
@@ -236,7 +236,7 @@ function HouseDetail(props) {
               </Text>
             </View>
           </View>
-          <Divider style={{marginTop: 16}} />
+          <Divider style={{ marginTop: 16 }} />
           {/* 发布 */}
           <TouchableOpacity
             onPress={() => props.navigation.navigate(AppRoute.PUBLISH)}>
@@ -283,7 +283,7 @@ function HouseDetail(props) {
               </View>
             </View>
           </TouchableOpacity>
-          <Divider style={{marginTop: 16}} />
+          <Divider style={{ marginTop: 16 }} />
           {/* 房间 */}
           <TouchableOpacity
             onPress={() => props.navigation.navigate(AppRoute.ROOM)}>
@@ -348,9 +348,12 @@ function HouseDetail(props) {
                   color: Theme.textLink,
                 }}
               />
-              <Text style={{fontSize: 14, color: Theme.textLink}}>
-                新增住户
-              </Text>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate(AppRoute.ADDTENANT)}>
+                <Text style={{ fontSize: 14, color: Theme.textLink }}>
+                  新增住户
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

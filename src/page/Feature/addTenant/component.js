@@ -10,15 +10,16 @@ const image = require('../../../assets/images/scan.png')
 export default function AddTenant(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [cameraOptions, setCameraOptions] = useState(null)
-  const [roomList] = useState(props.roomList)
+  const [roomList, setRoomList] = useState(props.roomList)
   const [house, setHouse] = useState({})
+  const [form, setForm] = useState({})
 
   function updateIndex(index) {
     setSelectedIndex(index);
   }
   // hose详情获取
   useEffect(() => {
-    props.openCamera({ open: false, result: null })
+    // props.openCamera({ open: false, result: null })
     setHouse(props.houseDetail.data)
   }, [props.houseDetail])
 
@@ -26,6 +27,12 @@ export default function AddTenant(props) {
   useEffect(() => {
     setCameraOptions(props.cameraOpt)
   }, [props.cameraOpt])
+
+  // 获取房间列表
+  useEffect(() => {
+    !roomList && props.getRoomList('488400405136433152')
+    setRoomList(props.roomList)
+  }, [props.roomList])
 
   //保存
   const saveTenant = () => {
@@ -61,7 +68,6 @@ export default function AddTenant(props) {
       }
       return (
         <View>
-          {/* <Text> {cameraContent.result}</Text> */}
           <Card style>
             <ListItem
               leftElement={<Text style={styles.dec}>姓名</Text>}
@@ -83,6 +89,20 @@ export default function AddTenant(props) {
   }
   const renderRightPicker = () => {
     return (<Text style={styles.dec}>{house && house.regionFullName || '整租'}</Text>)
+  }
+  const renderRoomList = () => {
+    let { data } = roomList
+    if (data && data.length) {
+      let result = data.map((item) => {
+        return (<Button
+          style={[styles.roomList]}
+          onPress={()=> console.log(item)}
+          key={item.id}
+          bordered
+        ><Text style={[styles.btnColor]}>{item.name}</Text></Button>)
+      })
+      return(<View style={styles.roomListBox}>{result}</View>)
+    }
   }
 
   return (
@@ -108,6 +128,7 @@ export default function AddTenant(props) {
         </View>
         <View style={selectedIndex !== 1 ? { display: 'none' } : ''}>
           <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
+          {renderRoomList()}
           <Input
             inputStyle={styles.input_content}
             leftIcon={<Text style={styles.label}>真实姓名</Text>}
@@ -122,11 +143,11 @@ export default function AddTenant(props) {
           />
         </View>
       </View>
-      <Button
+      {/* <Button
         full
         style={styles.scanBtn}
         onPress={() => saveTenant()}
-      ><Text style={{color: '#fff'}}>添加住户</Text></Button>
+      ><Text style={{ color: '#fff' }}>添加住户</Text></Button> */}
     </View>
   );
 }
@@ -173,5 +194,23 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: '#5C8BFF',
     marginVertical: 30
+  },
+  roomListBox: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
+  },
+  activeColor: {
+    color: '#527BDF',
+    borderColor: '#527BDF'
+  },
+  btnColor: {
+    color: '#C7C7C7'
+  },
+  roomList: {
+    paddingHorizontal: 28,
+    paddingVertical: 6,
+    marginBottom: 15,
+    borderColor: '#C7C7C7'
   }
 });
