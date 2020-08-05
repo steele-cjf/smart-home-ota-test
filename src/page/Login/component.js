@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, {useState, useRef} from 'react';
+import {View, Keyboard, StyleSheet} from 'react-native';
 
-import { Text, Input, Button, CheckBox } from 'react-native-elements';
+import {Text, Input, Button, CheckBox} from 'react-native-elements';
 // import {Text, Input} from 'react-native-elements';
 // import {Button} from 'native-base';
-import { AppRoute } from '../../navigator/AppRoutes';
+import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
 
@@ -116,7 +116,7 @@ function LoginPage(props) {
           leftIcon={{type: 'font-awesome', name: 'comment'}}
           value={verifyCode}
           errorMessage={verifyCodeError}
-          onSubmitEditing={() => refVerifyCode.current.focus()}
+          onSubmitEditing={Keyboard.dismiss}
           onChangeText={setVerifyCode}
         />
         <Button containerStyle={styles.codeBtnPosition} buttonStyle={styles.verCodeBtn} titleStyle={styles.verCodeTitle}

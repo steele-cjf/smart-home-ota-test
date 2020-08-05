@@ -12,7 +12,7 @@ import {
 class DialogInput extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {inputModal: props.initValueTextInput, openning: true};
+    this.state = {inputModal: props.initValueTextInput, opening: true};
   }
 
   handleOnRequestClose = () => {
@@ -21,28 +21,28 @@ class DialogInput extends PureComponent {
   };
 
   handleOnKeyPress = () => {
-    this.setState({openning: false});
+    this.setState({opening: false});
   };
 
   handleOnChangeText = inputModal => {
-    this.setState({inputModal, openning: false});
+    this.setState({inputModal, opening: false});
   };
 
   handleOnCloseDialog = () => {
     this.props.closeDialog();
-    this.setState({inputModal: '', openning: true});
+    this.setState({inputModal: '', opening: true});
   };
 
   handleSubmit = () => {
     this.props.submitInput(this.state.inputModal);
-    this.setState({inputModal: '', openning: true});
+    this.setState({inputModal: ''});
   };
 
   render() {
     const title = this.props.title || '';
     const hintInput = this.props.hintInput || '';
     let value = '';
-    if (!this.state.openning) {
+    if (!this.state.opening) {
       value = this.state.inputModal;
     } else {
       value = this.props.initValueTextInput

@@ -53,6 +53,7 @@ export const httpService = (url, config) => {
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {
+        console.log('response', response);
         if (config.actionType) {
           dispatch({
             type: config.actionType,

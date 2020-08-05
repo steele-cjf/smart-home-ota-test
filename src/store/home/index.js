@@ -81,8 +81,7 @@ export function verfityResult(state = null, action) {
   return state;
 }
 
-
 export default {
   userInfo,
-  verfityResult
+  verfityResult,
 };
