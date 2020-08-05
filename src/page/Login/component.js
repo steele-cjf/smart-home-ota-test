@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, {useState, useRef} from 'react';
+import {View, Keyboard, StyleSheet} from 'react-native';
 
-import { Text, Input, Button, CheckBox } from 'react-native-elements';
+import {Text, Input, Button, CheckBox} from 'react-native-elements';
 // import {Text, Input} from 'react-native-elements';
 // import {Button} from 'native-base';
-import { AppRoute } from '../../navigator/AppRoutes';
+import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
 
@@ -81,7 +81,7 @@ function LoginPage(props) {
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(13661992793);
-  const [verifyCode, setVerifyCode] = useState(560657);
+  const [verifyCode, setVerifyCode] = useState(608653);
   const [mobileError, setMobileError] = useState(null);
   const [verifyCodeError, setVerifyCodeError] = useState(null);
   const [checked, setChecked] = useState(true);
@@ -113,7 +113,7 @@ function LoginPage(props) {
           leftIcon={{type: 'font-awesome', name: 'comment'}}
           value={verifyCode}
           errorMessage={verifyCodeError}
-          onSubmitEditing={() => refVerifyCode.current.focus()}
+          onSubmitEditing={Keyboard.dismiss}
           onChangeText={setVerifyCode}
         />
         <Button

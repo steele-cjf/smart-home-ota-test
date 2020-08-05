@@ -17,6 +17,16 @@ export function getAllData(callback) {
     },
   });
 }
+// 房间列表
+export function getRoomList(data, callback) {
+  return $get('/room', {
+    queryData: data,
+    actionType: 'ROOM_LIST',
+    successConfig: {
+      callback,
+    },
+  });
+}
 // 添加房间
 export function addRoom(data, callback) {
   return $post('/room', {
@@ -27,11 +37,23 @@ export function addRoom(data, callback) {
   });
 }
 // 更新房间名
-export function updateRoomName(id, data, callback) {
-  return $put(`/room/${id}`, {
-    body: data,
+export function updateRoomName(id, name, callback) {
+  return $put(`/room/${id}?name=${name}`, {
+    // body: data,
     successConfig: {
       callback,
     },
   });
 }
+
+export function roomList(state = null, action) {
+  console.log(state, action);
+  if (action.type === 'ROOM_LIST') {
+    return action.data || null;
+  }
+  return state;
+}
+
+export default {
+  roomList,
+};
