@@ -50,7 +50,9 @@ function LoginPage(props) {
       verifyCode: verifyCode,
     };
     if (['mobile', 'verifyCode'].every(validateField)) {
+      console.log(777, data)
       props.handleLogin(data, res => {
+        console.log(9999, res)
         if (!res.code) {
           storage.set('token', res.data.accessToken);
           storageDataDictionary();
@@ -66,6 +68,7 @@ function LoginPage(props) {
     const data = {
       mobile: mobile,
     };
+    
     props.getVerifyCode(data, res => {
       console.log('code', res);
       if (!res.code) {
@@ -81,7 +84,7 @@ function LoginPage(props) {
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(13661992793);
-  const [verifyCode, setVerifyCode] = useState(560657);
+  const [verifyCode, setVerifyCode] = useState(608653);
   const [mobileError, setMobileError] = useState(null);
   const [verifyCodeError, setVerifyCodeError] = useState(null);
   const [checked, setChecked] = useState(true);
@@ -95,8 +98,8 @@ function LoginPage(props) {
         ref={refMobile}
         keyboardType="numeric"
         placeholder="请输入中国大陆手机号"
-        placeholderTextColor="#C7C7C7"
-        leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
+        placeholderTextColor='#C7C7C7'
+        leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
         value={mobile}
         errorMessage={mobileError}
         onSubmitEditing={() => refMobile.current.focus()}
@@ -116,10 +119,7 @@ function LoginPage(props) {
           onSubmitEditing={() => refVerifyCode.current.focus()}
           onChangeText={setVerifyCode}
         />
-        <Button
-          containerStyle={styles.codeBtnPosition}
-          buttonStyle={styles.verCodeBtn}
-          titleStyle={styles.verCodeTitle}
+        <Button containerStyle={styles.codeBtnPosition} buttonStyle={styles.verCodeBtn} titleStyle={styles.verCodeTitle}
           title="发送短信验证码"
           disabled={ifSend}
           type="solid"
@@ -127,20 +127,16 @@ function LoginPage(props) {
         />
       </View>
       <View>
-        <CheckBox
-          containerStyle={styles.checkBoxContainer}
-          titleStyle={styles.checkBoxTitle}
-          title="同意"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
+        <CheckBox containerStyle={styles.checkBoxContainer} titleStyle={styles.checkBoxTitle}
+          title='同意'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
           checked={checked}
           onPress={() => setChecked(!checked)}
         />
-        <Button
-          containerStyle={styles.protocolContainer}
-          titleStyle={styles.protocolTitle}
-          type="clear"
-          title="《用户服务协议》"
+        <Button containerStyle={styles.protocolContainer} titleStyle={styles.protocolTitle}
+          type='clear'
+          title='《用户服务协议》'
         />
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />

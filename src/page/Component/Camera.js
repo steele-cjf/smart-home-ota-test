@@ -1,20 +1,33 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { openCamera, getScanResult } from '../../store/common/index';
+
 import { View, StyleSheet } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { RNCamera } from 'react-native-camera';
 
-export default function Camera(props) {
-    var camera = useRef(null)
+function Camera(props) {
+    var cameraRef = useRef(null)
+    const [camera, setCamera] = useState({})
 
     const scanCode = (result) => {
-        props.getCode && props.getCode(result)
+        let { data } = result
+        let url = data.slice(33)
+        props.getScanResult(url, (res) => {
+            props.openCamera({ open: false, result: res })
+        })
         return
     }
+    useEffect(() => {
+        setCamera(props.cameraOpt)
+    }, [props.cameraOpt])
+
     return (
-        <View style={styles.container}>
-            <RNCamera
+        <View style={[styles.container, camera && camera.open && styles.show]}>
+            {camera && camera.open && <RNCamera
                 ref={ref => {
-                    camera = ref;
+                    cameraRef = ref;
                 }}
                 captureAudio={false}
                 style={{ flex: 1, justifyContent: 'center' }}
@@ -35,24 +48,38 @@ export default function Camera(props) {
                         size="small"
                         title="X"
                         rounded
-                        onPress={() => props.close()}
+                        onPress={() => props.openCamera({ open: false })}
                         activeOpacity={0.7}
                         containerStyle={styles.cancelBtn}
                     />
                 </View>
                 <View style={styles.centerSquare}></View>
-            </RNCamera>
+            </RNCamera>}
         </View>
     );
 }
+// reducer获取
+function mapStateToProps(state) {
+    return {
+        cameraOpt: state.cameraOpt
+    };
+}
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({ openCamera, getScanResult }, dispatch);
+}
+export default connect(
+    mapStateToProps,
+    matchDispatchToProps,
+)(Camera);
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        position: 'absolute',
         width: '100%',
         height: '100%',
-        zIndex: 100,
+        display: "none"
+    },
+    show: {
+        display: 'flex'
     },
     cancelBtn: {
         backgroundColor: 'blue',

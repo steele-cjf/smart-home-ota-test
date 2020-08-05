@@ -3,7 +3,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AuthNavigator from './AuthNavigator';
 import TabNavigator from './TabNavigator';
 import {AppRoute} from './AppRoutes';
-
 const Stack = createStackNavigator();
 
 export const AppNavigator = props => (
