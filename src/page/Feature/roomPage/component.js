@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect, useCallback} from 'react';
 import {View, StyleSheet, FlatList, Alert} from 'react-native';
@@ -88,12 +89,10 @@ export default function RoomPage(props) {
     console.log('vale', value);
     console.log(selectItem.name);
     if (!value && selectItem.name) {
-      // eslint-disable-next-line no-undef
       showToast('请输入你要更改的房间名');
       return;
     }
     if (!value) {
-      // eslint-disable-next-line no-undef
       showToast('请输入房间名');
       return;
     }

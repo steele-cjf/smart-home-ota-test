@@ -12,13 +12,13 @@ const HomeStack = createStackNavigator();
 
 export const FeatureStackComponent = () => {
   return (
-    <HomeStack.Navigator 
-    screenOptions={{
-      cardStyle: {
-        fontSize: 16,
-        backgroundColor: '#fff'
-      }
-    }}>
+    <HomeStack.Navigator
+      screenOptions={{
+        cardStyle: {
+          fontSize: 16,
+          backgroundColor: '#fff',
+        },
+      }}>
       <HomeStack.Screen
         name={AppRoute.FEATURE}
         component={FeaturePage}
@@ -31,8 +31,7 @@ export const FeatureStackComponent = () => {
         name={AppRoute.HOUSEDETAIL}
         component={HouseDetail}
         options={{
-          title: '查看房源',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <HomeStack.Screen

@@ -7,7 +7,7 @@ export default function HouseBaseInfo(props) {
   const [houseList] = useState([
     {title: '房源状态', key: 'status', content: 'single', type: 'text'},
     {title: '出租状态', key: 'rentStatus', content: 'single', type: 'text'},
-    {title: '房屋所有者', key: 'self', content: 'single', type: 'text'},
+    {title: '房屋所有人', key: 'self', content: 'single', type: 'text'},
     {
       title: '房产证照片',
       key: 'housePropertyCertificateImageUrl',
