@@ -27,8 +27,8 @@ export const MORE_MENU = {
 
   HouseDetail: {name: '房屋详情', Icons: Ionicons, icon: 'ios-bookmarks'},
   TemporaryKey: {name: '临时钥匙', Icons: Ionicons, icon: 'logo-github'},
-  Member: {name: '家庭成员', Icons: Ionicons, icon: 'md-checkbox-outline'},
+  // Member: {name: '家庭成员', Icons: Ionicons, icon: 'md-checkbox-outline'},
   Record: {name: '开门记录', Icons: Ionicons, icon: 'logo-github'},
-  Declare: {name: '门锁配置和故障申报', Icons: Ionicons, icon: 'feedback'},
+  Declare: {name: '门锁/设备配置', Icons: Ionicons, icon: 'logo-github'},
   ComponentTest: {name: '组件预研', Icons: Ionicons, icon: 'logo-github'},
 };

@@ -23,8 +23,7 @@ export const FeatureStackComponent = () => {
         name={AppRoute.FEATURE}
         component={FeaturePage}
         options={{
-          title: '更多功能',
-          // headerBackTitle: '更多功能',
+          headerShown: false,
         }}
       />
       <HomeStack.Screen

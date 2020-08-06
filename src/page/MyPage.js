@@ -1,6 +1,6 @@
 /* eslint-disable radix */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {Thumbnail, Button} from 'native-base';
@@ -10,11 +10,24 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AppRoute} from '../navigator/AppRoutes';
 
 export default function MyPage(props) {
+  const [userInfo, setUserInfo] = useState({});
+  const statusList = {
+    not_audit: '未实名',
+    audit_pending: '实名审核中',
+    audit_pass: '已实名',
+  };
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    storage.get('info').then(res => {
+      console.log('info', res);
+      setUserInfo(res);
+    });
+  }, []);
   function onClick(menu) {
     let RouteName;
     switch (menu) {
       case MORE_MENU.Owner:
-        props.navigation.navigate(AppRoute.HOUSEDETAIL);
+        props.navigation.navigate(AppRoute.MYHOUSELIST);
         // RouteName = 'Owner';
         break;
       case MORE_MENU.About:
@@ -62,8 +75,12 @@ export default function MyPage(props) {
                 source={{uri: uri}}
               />
               <View>
-                <Text style={{fontSize: 20, color: '#fff'}}>张三</Text>
-                <Text style={styles.unnamed}>未实名</Text>
+                <Text style={{fontSize: 20, color: '#fff'}}>
+                  {userInfo.name || userInfo.mobile}
+                </Text>
+                <Text style={styles.unnamed}>
+                  {statusList[userInfo.status]}
+                </Text>
               </View>
             </View>
             <View>

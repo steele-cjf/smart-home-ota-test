@@ -149,7 +149,7 @@ function AuthenticationPage(props) {
         );
       })}
       <Text style={styles.tipText}>
-        {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡"}
+        {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、1122787面部清晰可见无遮挡"}
       </Text>
       <Button
         buttonStyle={styles.verifyBtn}
@@ -205,7 +205,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#C7C7C7',
-    height: 82,
   },
   selectedStyle: {
     marginBottom: 18,
@@ -213,7 +212,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#527BDF',
-    height: 82,
   },
   SelectName: {
     color: '#527BDF',

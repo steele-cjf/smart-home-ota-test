@@ -23,7 +23,7 @@ export default function RoomPage(props) {
 
   useEffect(() => {
     fetchRoomList('488400405136433152');
-  }, [fetchRoomList, props]);
+  }, [fetchRoomList]);
 
   const fetchRoomList = useCallback(id => {
     props.getRoomList({houseId: id}, res => {
