@@ -149,7 +149,7 @@ function AuthenticationPage(props) {
         );
       })}
       <Text style={styles.tipText}>
-        {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡99"}
+        {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡"}
       </Text>
       <Button
         buttonStyle={styles.verifyBtn}
