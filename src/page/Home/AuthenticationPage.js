@@ -205,7 +205,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#C7C7C7',
-    height: 82,
   },
   selectedStyle: {
     marginBottom: 18,
@@ -213,7 +212,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#527BDF',
-    height: 82,
   },
   SelectName: {
     color: '#527BDF',
