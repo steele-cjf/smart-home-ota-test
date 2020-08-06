@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getHouseDetail} from '../../../store/house/index';
 import { openCamera } from '../../../store/common/index'
-
+import {getRoomList} from '../../../store/feature/index'
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
@@ -10,11 +10,12 @@ function mapStateToProps(state) {
     userInfo: state.userInfo,
     cameraOpt: state.cameraOpt,
     houseDetail: state.houseDetail,
-    scanTenant: state.scanTenant
+    scanTenant: state.scanTenant,
+    roomList: state.roomList
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getHouseDetail, openCamera}, dispatch);
+  return bindActionCreators({getHouseDetail, openCamera, getRoomList}, dispatch);
 }
 export default connect(
   mapStateToProps,

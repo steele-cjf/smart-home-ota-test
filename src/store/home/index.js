@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export function getUserInfo(callback) {
   return $get('/user/me', {
     actionType: 'USER_INFO',
@@ -52,6 +53,15 @@ export function getCityList(data, callback) {
     },
   });
 }
+// 获取我的房源列表
+export function getMyHouseList(callback) {
+  return $get('/house/listMine', {
+    actionType: 'MY_HOUSE_LIST',
+    successConfig: {
+      callback,
+    },
+  });
+}
 
 // 房源审核
 export function addHouse(data, callback) {
@@ -81,7 +91,15 @@ export function verfityResult(state = null, action) {
   return state;
 }
 
+// my house
+export function myHouseList(state = null, action) {
+  if (action.type === 'MY_HOUSE_LIST') {
+    return action.data || null;
+  }
+  return state;
+}
 export default {
   userInfo,
   verfityResult,
+  myHouseList,
 };
