@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
     cancelBtn: {
         backgroundColor: 'blue',
-        top: 10,
+        top: 40,
         right: 10
     },
     cameraBox: {

@@ -1,36 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Input, ListItem, Image, Card } from 'react-native-elements';
-import { Button } from 'native-base';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { ListItem, Image, Card } from 'react-native-elements';
+import { Button, Item, Label, Input, Picker } from 'native-base';
 
 import { AppRoute } from '../../../navigator/AppRoutes';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import tenant_form from '../config/tenant'
 const image = require('../../../assets/images/scan.png')
-
+const data = {
+  houseId: '',
+  houseType: '0',
+  roomIds: [],
+  userId: '',
+  authType: 'id'
+}
 export default function AddTenant(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [cameraOptions, setCameraOptions] = useState(null)
   const [roomList, setRoomList] = useState(props.roomList)
   const [house, setHouse] = useState({})
-  const [form, setForm] = useState({})
+  const [room, selectRoom] = useState({})
+
+  const [form, setForm] = useState(data)
 
   function updateIndex(index) {
     setSelectedIndex(index);
   }
   // hose详情获取
   useEffect(() => {
-    // props.openCamera({ open: false, result: null })
+    props.openCamera({ open: false, result: null })
     setHouse(props.houseDetail.data)
   }, [props.houseDetail])
 
   // 扫描结果获取
   useEffect(() => {
+    // console.log(888, props.cameraOpt)
     setCameraOptions(props.cameraOpt)
   }, [props.cameraOpt])
 
   // 获取房间列表
   useEffect(() => {
-    !roomList && props.getRoomList('488400405136433152')
+    !roomList && props.getRoomList({ houseId: '488400405136433152' })
     setRoomList(props.roomList)
   }, [props.roomList])
 
@@ -39,9 +48,15 @@ export default function AddTenant(props) {
     console.log(props.userInfo)
     // props.navigation.navigate(AppRoute.HOUSEDETAIL)
   }
+  const onValueChange = (type, data) => {
+    console.log(type, data)
+    let obj = Object.assign({}, form)
+    obj[type] = data
+    console.log(888, obj)
+    setForm(obj)
+  }
 
   const renderScanContent = () => {
-    console.log(888, props.roomList)
     return (
       <View style={{ alignItems: 'center' }}>
         <Image
@@ -57,29 +72,28 @@ export default function AddTenant(props) {
       </View>)
   }
 
+
   const renderCameraContent = () => {
     if (cameraOptions && cameraOptions.result) {
       let { data } = cameraOptions.result
-      if (cameraOptions.result.error) {
+      if (cameraOptions.result.error || !data) {
         return (
           <TouchableOpacity onPress={() => { props.openCamera({ open: true }) }} style={styles.errorDes}>
-            <Text style={styles.errorColor}> {result.error}</Text>
+            <Text style={styles.errorColor}> {(cameraOptions.result && cameraOptions.result.error) || '无该用户，点击重新扫描'}</Text>
           </TouchableOpacity>)
       }
       return (
-        <View>
-          <Card style>
-            <ListItem
-              leftElement={<Text style={styles.dec}>姓名</Text>}
-              rightElement={<Text>{data.name || '--'}</Text>}
-              bottomDivider
-            />
-            <ListItem
-              leftElement={<Text style={styles.dec}>手机号码</Text>}
-              rightElement={<Text>{data.mobile || '--'}</Text>}
-            />
-          </Card>
-        </View>)
+        <Card>
+          <ListItem
+            leftElement={<Text style={styles.dec}>姓名</Text>}
+            rightElement={<Text>{(data && data.name) || '--'}</Text>}
+            bottomDivider
+          />
+          <ListItem
+            leftElement={<Text style={styles.dec}>手机号码</Text>}
+            rightElement={<Text>{(data && data.mobile) || '--'}</Text>}
+          />
+        </Card>)
     }
     return renderScanContent()
   }
@@ -88,20 +102,29 @@ export default function AddTenant(props) {
     return (<Text style={styles.dec}>{house && house.regionFullName || '--'}</Text>)
   }
   const renderRightPicker = () => {
-    return (<Text style={styles.dec}>{house && house.regionFullName || '整租'}</Text>)
+    return (<Picker
+      iosHeader="房屋类型"
+      mode="dropdown"
+      selectedValue={form.houseType}
+      onValueChange={(val) => onValueChange('houseType', val)}>
+      <Item label="整租" value="0" />
+      <Item label="合租" value="1" />
+    </Picker>)
   }
   const renderRoomList = () => {
-    let { data } = roomList
-    if (data && data.length) {
-      let result = data.map((item) => {
+    if (roomList && roomList.data && roomList.data.length) {
+      let result = roomList.data.map((item) => {
+        let active = item.id === room && styles.activeColor
         return (<Button
-          style={[styles.roomList]}
-          onPress={()=> console.log(item)}
+          style={[styles.roomList, active]}
+          onPress={() => selectRoom(item.id)}
           key={item.id}
           bordered
-        ><Text style={[styles.btnColor]}>{item.name}</Text></Button>)
+        ><Text style={[styles.btnColor, active]}>{item.name}</Text></Button>)
       })
-      return(<View style={styles.roomListBox}>{result}</View>)
+      return (<View style={styles.roomListBox}>{result}</View>)
+    } else {
+      return (<Text style={styles.dec, {textAlign: 'center'}}>暂无房间</Text>)
     }
   }
 
@@ -117,8 +140,8 @@ export default function AddTenant(props) {
         <ListItem
           leftElement={<Text>房屋类型</Text>}
           rightElement={renderRightPicker()}
-          chevron
         />
+        {form.houseType == 1 && renderRoomList()}
         <View
           style={
             ({ paddingHorizontal: 10 }, selectedIndex ? { display: 'none' } : '')
@@ -128,26 +151,47 @@ export default function AddTenant(props) {
         </View>
         <View style={selectedIndex !== 1 ? { display: 'none' } : ''}>
           <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
-          {renderRoomList()}
-          <Input
-            inputStyle={styles.input_content}
-            leftIcon={<Text style={styles.label}>真实姓名</Text>}
-          />
-          <Input
-            inputStyle={styles.input_content}
-            leftIcon={<Text style={styles.label}>身份证号</Text>}
-          />
-          <Input
-            inputStyle={styles.input_content}
-            leftIcon={<Text style={styles.label}>手机号</Text>}
-          />
+          {tenant_form.map((item, index) => {
+            if ((item.key === 'id' && form.authType === 'notId')
+              || (item.key === 'notId' && form.authType === 'id')) return
+            return (
+              <Item style={styles.marginLeft0} inlineLabel picker>
+                <Label style={[styles.labelTitle, styles.defaultSize]}>
+                  {item.name}
+                </Label>
+                {
+                  item.type === 'SELECT' ? (
+                    <Picker
+                      iosHeader={item.name}
+                      mode="dropdown"
+                      style={{ textAlign: 'right' }}
+                      selectedValue={form.authType}
+                      onValueChange={(val) => onValueChange('authType', val)}>
+                      <Item label="身份证" value="id" />
+                      <Item label="护照" value="notId" />
+                    </Picker>) :
+                    <Input
+                      // value={houseRatePlan[item.key]}
+                      // onChange={e => {
+                      //   setData(item.key, e.nativeEvent.text, 'houseRatePlan');
+                      // }}
+                      placeholder={item.desc}
+                      style={[styles.defaultSize, styles.textAlignR]}
+                    />
+                }
+              </Item>
+            );
+          })}
+          <View style={{ alignItems: 'center', paddingBottom: 60 }}>
+            <Button rounded full style={styles.scanBtn}>
+              <Text style={{ color: '#fff' }}>添加住户并开始实名</Text>
+            </Button>
+            <TouchableOpacity onPress={() => updateIndex(0)}>
+              <Text style={styles.scanText}>已实名？扫码立即添加</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-      {/* <Button
-        full
-        style={styles.scanBtn}
-        onPress={() => saveTenant()}
-      ><Text style={{ color: '#fff' }}>添加住户</Text></Button> */}
     </View>
   );
 }
@@ -198,7 +242,11 @@ const styles = StyleSheet.create({
   roomListBox: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    borderTopColor: '#E9E9E9',
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    paddingTop: 16
   },
   activeColor: {
     color: '#527BDF',
@@ -212,5 +260,17 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     marginBottom: 15,
     borderColor: '#C7C7C7'
+  },
+  defaultSize: {
+    fontSize: 14,
+  },
+  marginLeft0: {
+    marginLeft: 0,
+  },
+  labelTitle: {
+    color: Theme.textDefault,
+  },
+  textAlignR: {
+    textAlign: 'right',
   }
 });
