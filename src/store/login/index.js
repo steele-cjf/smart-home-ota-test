@@ -6,6 +6,14 @@ export function handleLogin(data, callback) {
     },
   });
 }
+export function handleLogout(callback) {
+  return $post('/auth/logout', {
+    successConfig: {
+      callback,
+    },
+  });
+}
+
 export function getVerifyCode(data, callback) {
   return $post('/sms/loginCode', {
     body: data,

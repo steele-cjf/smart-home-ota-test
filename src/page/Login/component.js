@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef} from 'react';
 import {View, Keyboard, StyleSheet} from 'react-native';
 import {Text, Input, Button, CheckBox} from 'react-native-elements';
@@ -7,7 +8,7 @@ import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
 import Theme from '../../style/colors';
-import { and } from 'react-native-reanimated';
+import {and} from 'react-native-reanimated';
 
 function LoginPage(props) {
   function validateField(field) {
@@ -103,7 +104,7 @@ function LoginPage(props) {
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(13661992793); //13661992793
-  const [verifyCode, setVerifyCode] = useState(608653); //560657
+  const [verifyCode, setVerifyCode] = useState(870860); //560657
   const [checked, setChecked] = useState(true);
 
   return (

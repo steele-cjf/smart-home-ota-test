@@ -74,6 +74,7 @@ function RecordHouse(props) {
 
     result.append('regionId', regionId);
     result.append('address', address);
+    console.log('result', result);
     props.addHouse(result, res => {
       console.log('res', res);
       props.navigation.navigate(AppRoute.AUDIT);

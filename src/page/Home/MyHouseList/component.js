@@ -6,56 +6,43 @@ import {AppRoute} from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
 
 function MyHouseList(props) {
+  const statusColor = {
+    audit_pending: '#5C8BFF',
+    audit_reject: '#FF7373',
+  };
   const [houseList, setHouseList] = useState([
     {
       address: '深圳市南山区沿山社区网谷科技大厦501',
-      area: 50,
-      roomCount: 2,
-      hallCount: 1,
-      toiletCount: 1,
-      direction: '南',
-      hasElevator: false,
-      status: '待入住',
-    },
-    {
-      address: '深圳市南山区沿山社区网谷科技大厦501',
-      area: 20,
-      roomCount: 2,
-      hallCount: 1,
-      toiletCount: 1,
-      direction: '南',
-      hasElevator: true,
-      status: '待审核',
-    },
-    {
-      address: '深圳市南山区沿山社区网谷科技大厦501',
-      area: 30,
-      roomCount: 2,
-      hallCount: 1,
-      toiletCount: 1,
-      direction: '南',
-      hasElevator: true,
-      status: '待发布',
+      houseLayout: {},
+      id: '488400405136433152',
     },
   ]);
   useEffect(() => {
-    props.getMyHouseList(res => {
-      console.log('houselist', res);
+    props.getHouseListByHolder({pageNum: 1, pageSize: 100}, res => {
+      console.log('houselist', res.data.list);
       if (!res.code) {
         if (res.data) {
-          setHouseList(res.data);
+          setHouseList(res.data.list);
         }
       }
     });
   }, [props]);
+
+  const handleToDetailPage = item => {
+    props.navigation.navigate(AppRoute.HOUSEDETAIL, {
+      id: item.id,
+    });
+  };
+
   const _houseItem = ({item, index}) => {
     return (
       <TouchableOpacity
         key={index}
         style={styles.container}
-        onPress={() => props.navigation.navigate(AppRoute.HOUSEDETAIL)}>
+        onPress={() => handleToDetailPage(item)}>
         <View style={styles.rightContainer}>
           <Text style={styles.houseName} numberOfLines={1}>
+            {item.regionFullName}
             {item.address}
           </Text>
           <View
@@ -65,23 +52,34 @@ function MyHouseList(props) {
               paddingVertical: 8,
             }}>
             <Text style={styles.houseInfo}>
-              {item.area}㎡ - {item.roomCount}室{item.hallCount}厅
-              {item.toiletCount}卫 - {item.direction} -{' '}
-              {item.hasElevator ? '电梯房' : ''}
+              {item.houseLayout.area || '--'}㎡ -{' '}
+              {item.houseLayout.roomCount || '--'}室
+              {item.houseLayout.hallCount || '--'}厅
+              {item.houseLayout.toiletCount || '--'}卫 -{' '}
+              {STATIC_VARIABLE.orientation[item.houseLayout.direction] || '--'}
+              {item.houseLayout.hasElevator ? ' - 电梯房' : ''}
             </Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Text style={[styles.rentPrice, styles.highColor]}>
-              {item.status}
-            </Text>
+            {item.status === 'audit_pass' ? (
+              <Text style={[styles.rentPrice, styles.highColor]}>
+                {STATIC_VARIABLE.rentStatusList[item.rentStatus]} |{' '}
+                {STATIC_VARIABLE.publishStatusList[item.publishStatus]}
+              </Text>
+            ) : (
+              <Text
+                style={[styles.rentPrice, {color: statusColor[item.status]}]}>
+                {STATIC_VARIABLE.houseStatusList[item.status]}
+              </Text>
+            )}
           </View>
         </View>
       </TouchableOpacity>
     );
   };
   return (
-    <View>
-      <Header>
+    <View style={{backgroundColor: '#fff', flex: 1}}>
+      <Header style={{backgroundColor: '#fff'}}>
         <Left>
           <Button transparent>
             <Icon name="arrow-back" onPress={() => props.navigation.goBack()} />
