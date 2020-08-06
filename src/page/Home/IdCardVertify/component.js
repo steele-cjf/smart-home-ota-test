@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import Form from '../../Component/form';
 import ImageUpload from '../../Component/imageUpload';
 import {AppRoute} from '../../../navigator/AppRoutes';
