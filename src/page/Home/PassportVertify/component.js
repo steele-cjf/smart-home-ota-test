@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Form from '../../Component/form'
 import ImageUpload from '../../Component/imageUpload'
-
 import vertifyCn from '../config/PassportVertify'
+import {AppRoute} from '../../../navigator/AppRoutes'; // lyq test
+
 export default function PassportVertifyPage(props) {
     const [formData, setFormData] = useState({});
     const [formImage, setFormImage] = useState([]);
 
     // 检查并提交form
     const handleConfirm = () => {
+        props.navigation.navigate(AppRoute.VERDETAILS);  //lyq test
+
         let message = ''
         let key = vertifyCn.findIndex((item) => { return (item.required && !formData[item.key]) })
         message = vertifyCn[key] && vertifyCn[key].errorMsg[0]
