@@ -39,14 +39,14 @@ function MyHouseList(props) {
     },
   ]);
   useEffect(() => {
-    // props.getMyHouseList(res => {
-    //   console.log('houselist', res);
-    //   if (!res.code) {
-    //     if (res.data) {
-    //       setHouseList(res.data);
-    //     }
-    //   }
-    // });
+    props.getMyHouseList(res => {
+      console.log('houselist', res);
+      if (!res.code) {
+        if (res.data) {
+          setHouseList(res.data);
+        }
+      }
+    });
   }, [props]);
   const _houseItem = ({item, index}) => {
     return (
