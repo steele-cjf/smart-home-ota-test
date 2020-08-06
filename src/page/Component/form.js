@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Input, Text} from 'react-native-elements';
+import {StyleSheet, View, Text, TextInput} from 'react-native';
+//import {Input, Text} from 'react-native-elements';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import RadioForm, {
   RadioButton,
@@ -53,21 +54,25 @@ export default function Form(props) {
           switch (data.type) {
             case 'INPUT':
               return (
-                <Input containerStyle={styles.inputContainer} inputStyle={styles.input}
-                  key={index}
-                  value={obj[key]}
-                  onChange={e => {
-                    setData(key, e.nativeEvent.text);
-                  }}
-                  placeholder={placeholder}
-                  placeholderTextColor={Theme.textMuted} 
-                  leftIcon={<Text style={styles.label}>{name}</Text>}
-                />
+                <View style={styles.inputContainer}>
+                  <Text style={styles.label}>{name}</Text>
+                  <TextInput style={styles.input}
+                    key={index}
+                    value={obj[key]}
+                    onChange={e => {
+                      setData(key, e.nativeEvent.text);
+                    }}
+                    placeholder={placeholder}
+                    placeholderTextColor={Theme.textMuted} 
+                  />
+                </View>
               );
             case 'DATE':
               return (
-                <View key={index}>
-                  <Input containerStyle={styles.inputContainer} inputStyle={styles.input}
+                <View style={styles.inputContainer} key={index}>
+                  <Text style={styles.label}>{name}</Text>
+                  <AntDesign name="right" style={styles.rightArrow} />
+                  <TextInput style={styles.input}
                     disabled
                     value={obj[key]}
                     onTouchStart={() => {
@@ -75,7 +80,6 @@ export default function Form(props) {
                     }}
                     placeholder={placeholder}
                     placeholderTextColor={Theme.textMuted} 
-                    leftIcon={<Text style={styles.label}>{name}</Text>}
                   />
                   <DateTimePickerModal
                     isVisible={isDatePickerVisible[key] || false}
@@ -95,9 +99,9 @@ export default function Form(props) {
               );
             case 'RADIO':
               obj[key] = obj[key] || initial;
-              return (
-                <View style={styles.radioBox}key={index}>
-                  <Text style={styles.radioLabel}>{name}</Text>
+              return (  
+                <View style={styles.inputContainer} key={index}> 
+                  <Text style={styles.label}>{name}</Text>
                   <RadioForm
                     style={styles.radioForm}
                     formHorizontal={true}
@@ -140,37 +144,40 @@ export default function Form(props) {
   );
 }
 const styles = StyleSheet.create({
-  font18: {
-    fontSize: 18,
-  },
   inputContainer: {
-    height: 52,
+    height: 54,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E9E9E9',
+  },
+  rightArrow: {
+    position: 'absolute', 
+    right: 0, 
+    height: 54,
+    lineHeight: 54,
+    fontSize: 14, 
+    color: Theme.textSecondary, 
   },
   label: {
     fontSize: 14,
     color: Theme.textDefault,
-    width: 100,
+    width: 80,
+    height: 54,
+    lineHeight: 54,
   },
   input: {
+    position: 'absolute',
+    left: 80,
+    right: 24,
+    top: 0,
+    bottom: 0,
     fontSize: 14,
     color: Theme.textDefault,
-  },
-  radioLabel: {
-    fontSize: 14,
-    color: Theme.textDefault,
-    height: 48,
-    lineHeight: 48,
+    textAlign: 'right',
   },
   radioForm: {
-    width: 200,
+    width: 80,
     position: 'absolute',
-    left: 90,
+    right: 92,
     top: 10,
-  },
-  radioBox: {
-    height: 48,
-    marginHorizontal: 10,
-    borderBottomColor: 'rgba(0, 0, 0, .4)',
-    borderBottomWidth: 1,
   },
 });

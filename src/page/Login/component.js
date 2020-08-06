@@ -39,7 +39,7 @@ function LoginPage(props) {
   }
 
   function handleSubmit() {
-    // props.navigation.navigate(AppRoute.HOME);
+    //props.navigation.navigate(AppRoute.HOME);
 
     if (!mobile) {
       showToast('请输入手机号');
