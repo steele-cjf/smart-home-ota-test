@@ -113,225 +113,235 @@ function RecordHouse(props) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{backgroundColor: Theme.background}}>
       <ScrollView>
-        <Text style={[styles.publishTitle, styles.specialPadding]}>
-          房源资料
-        </Text>
-        <Form>
-          <Item style={styles.marginLeft0} inlineLabel>
-            <Label
-              style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
-              所在地区
-            </Label>
-            <TouchableOpacity
-              style={{paddingRight: 20}}
-              onPress={() => {
-                setModalVisible(true);
-              }}>
+        <View style={styles.container}>
+          <Text style={[styles.publishTitle, styles.specialPadding]}>
+            房源资料
+          </Text>
+          <Form>
+            <Item style={styles.marginLeft0} inlineLabel>
+              <Label
+                style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
+                所在地区
+              </Label>
+              <TouchableOpacity
+                style={{paddingRight: 20}}
+                onPress={() => {
+                  setModalVisible(true);
+                }}>
+                <Input
+                  value={regionName}
+                  disabled={true}
+                  onChangeText={setRegionId}
+                  placeholder="请选择 - 省 - 市 - 区"
+                  placeholderTextColor={Theme.textMuted}
+                  style={[styles.defaultSize, styles.textAlignR]}
+                />
+                <AntDesign
+                  name="right"
+                  style={{
+                    fontSize: 12,
+                    color: Theme.textSecondary,
+                    position: 'absolute',
+                    right: 0,
+                    top: 20,
+                  }}
+                />
+              </TouchableOpacity>
+            </Item>
+            <Item style={styles.marginLeft0} inlineLabel>
+              <Label style={[styles.labelTitle, styles.defaultSize]}>
+                详细地址
+              </Label>
               <Input
-                value={regionName}
-                disabled={true}
-                onChangeText={setRegionId}
-                placeholder="请选择 - 省 - 市 - 区"
+                value={address}
+                onChangeText={setAddress}
+                placeholder="街道、小区、楼与门牌号"
                 placeholderTextColor={Theme.textMuted}
                 style={[styles.defaultSize, styles.textAlignR]}
               />
-              <AntDesign
-                name="right"
-                style={{
-                  fontSize: 12,
-                  color: Theme.textSecondary,
-                  position: 'absolute',
-                  right: 0,
-                  top: 20,
-                }}
-              />
-            </TouchableOpacity>
-          </Item>
-          <Item style={styles.marginLeft0} inlineLabel>
-            <Label style={[styles.labelTitle, styles.defaultSize]}>
-              详细地址
-            </Label>
-            <Input
-              value={address}
-              onChangeText={setAddress}
-              placeholder="街道、小区、楼与门牌号"
-              placeholderTextColor={Theme.textMuted}
-              style={[styles.defaultSize, styles.textAlignR]}
-            />
-          </Item>
-          <Item picker>
-            <Label
-              style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
-              房屋所有者
-            </Label>
-            <Picker
-              mode="dropdown"
-              selectedValue={houseHolder.self}
-              onValueChange={value => setHouseHolder({self: value})}
-              iosIcon={
-                <AntDesign
-                  name="right"
-                  style={{fontSize: 12, color: Theme.textSecondary}}
-                />
-              }>
-              {selfList.map((item, index) => {
-                return <Picker.Item label={item.value} value={item.code} />;
-              })}
-            </Picker>
-          </Item>
+            </Item>
+            <Item picker>
+              <Label
+                style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
+                房屋所有者
+              </Label>
+              <Picker
+                mode="dropdown"
+                selectedValue={houseHolder.self}
+                onValueChange={value => setHouseHolder({self: value})}
+                iosIcon={
+                  <AntDesign
+                    name="right"
+                    style={{fontSize: 12, color: Theme.textSecondary}}
+                  />
+                }>
+                {selfList.map((item, index) => {
+                  return <Picker.Item label={item.value} value={item.code} />;
+                })}
+              </Picker>
+            </Item>
 
-          {/*  非本人 */}
-          <View style={houseHolder.self === 'others' ? '' : {display: 'none'}}>
-            <Item style={styles.marginLeft0} inlineLabel>
-              <Label style={[styles.labelTitle, styles.defaultSize]}>
-                所有者姓名
-              </Label>
-              <Input
-                value={houseHolder.holderName}
-                onChange={e => {
-                  setData('holderName', e.nativeEvent.text, 'houseHolder');
-                }}
-                style={[styles.defaultSize, styles.textAlignR]}
-              />
-            </Item>
-            <Item style={styles.marginLeft0} inlineLabel>
-              <Label style={[styles.labelTitle, styles.defaultSize]}>
-                所有者身份证号/护照号
-              </Label>
-              <Input
-                value={houseHolder.holderIdCardNumber}
-                onChange={e => {
-                  setData(
-                    'holderIdCardNumber',
-                    e.nativeEvent.text,
-                    'houseHolder',
-                  );
-                }}
-                style={[styles.defaultSize, styles.textAlignR]}
-              />
-            </Item>
-            <Text style={[styles.publishTitle]}>授权文件</Text>
+            {/*  非本人 */}
             <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-              }}>
-              <ImageUpload
-                setImageForm={obj => setImageForm(0, obj, 'files')}
-              />
-              <ImageUpload
-                setImageForm={obj => setImageForm(1, obj, 'files')}
-              />
-            </View>
-          </View>
-          <Text style={[styles.publishTitle]}>房产证照片</Text>
-          <ImageUpload setImageForm={obj => setImageForm(0, obj, 'cert')} />
-          <Text style={[styles.publishTitle]}>建筑信息</Text>
-          <Item style={styles.marginLeft0} inlineLabel>
-            <Label style={[styles.labelTitle, styles.defaultSize]}>
-              建筑面积
-            </Label>
-            <Input
-              value={houseLayout.area}
-              onChange={e => {
-                setData('area', e.nativeEvent.text, 'houseLayout');
-              }}
-              style={[styles.defaultSize, styles.textAlignR]}
-            />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>㎡</Text>
-          </Item>
-          <Item style={styles.marginLeft0} inlineLabel>
-            <Label
-              style={[styles.labelTitle, styles.defaultSize, styles.width100]}>
-              楼层
-            </Label>
-            <Text style={[styles.labelTitle, styles.defaultSize]}>共</Text>
-            <Input
-              value={houseLayout.floorCount}
-              onChange={e => {
-                setData('floorCount', e.nativeEvent.text, 'houseLayout');
-              }}
-              style={[styles.defaultSize, styles.textAlignC, styles.width100]}
-            />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>层 / 第</Text>
-            <Input
-              value={houseLayout.floor}
-              onChange={e => {
-                setData('floor', e.nativeEvent.text, 'houseLayout');
-              }}
-              style={[styles.defaultSize, styles.textAlignC]}
-            />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>层</Text>
-            <CheckBox
-              // center
-              title="电梯"
-              containerStyle={styles.checkbox_style}
-              checked={hasElevator}
-              onPress={toggleSwitch}
-            />
-            <Text>电梯大幅度发</Text>
-          </Item>
-          <Item style={styles.marginLeft0} inlineLabel>
-            <Label
-              style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
-              户型
-            </Label>
-            <Input
-              value={houseLayout.roomCount}
-              onChange={e => {
-                setData('roomCount', e.nativeEvent.text, 'houseLayout');
-              }}
-              style={[styles.defaultSize, styles.textAlignR, styles.width100]}
-            />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>室</Text>
-            <Input
-              value={houseLayout.hallCount}
-              onChange={e => {
-                setData('hallCount', e.nativeEvent.text, 'houseLayout');
-              }}
-              style={[styles.defaultSize, styles.textAlignR]}
-            />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>厅</Text>
-            <Input
-              value={houseLayout.toiletCount}
-              onChange={e => {
-                setData('toiletCount', e.nativeEvent.text, 'houseLayout');
-              }}
-              style={[styles.defaultSize, styles.textAlignR]}
-            />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>卫</Text>
-          </Item>
-          <Item picker style={{marginBottom: 15}}>
-            <Label
-              style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
-              房屋朝向
-            </Label>
-            <Picker
-              mode="dropdown"
-              selectedValue={houseLayout.direction}
-              onValueChange={value => setHouseLayout({direction: value})}
-              iosIcon={
-                <AntDesign
-                  name="right"
-                  style={{fontSize: 12, color: Theme.textSecondary}}
+              style={houseHolder.self === 'others' ? '' : {display: 'none'}}>
+              <Item style={styles.marginLeft0} inlineLabel>
+                <Label style={[styles.labelTitle, styles.defaultSize]}>
+                  所有者姓名
+                </Label>
+                <Input
+                  value={houseHolder.holderName}
+                  onChange={e => {
+                    setData('holderName', e.nativeEvent.text, 'houseHolder');
+                  }}
+                  style={[styles.defaultSize, styles.textAlignR]}
                 />
-              }>
-              {houseDirectionList.map((item, index) => {
-                return <Picker.Item label={item.value} value={item.code} />;
-              })}
-            </Picker>
-          </Item>
-        </Form>
-        <Button
-          full
-          onPress={() => handlerAudit()}
-          style={{borderRadius: 40, marginVertical: 36}}>
-          <Text>提交审核</Text>
-        </Button>
+              </Item>
+              <Item style={styles.marginLeft0} inlineLabel>
+                <Label style={[styles.labelTitle, styles.defaultSize]}>
+                  所有者身份证号/护照号
+                </Label>
+                <Input
+                  value={houseHolder.holderIdCardNumber}
+                  onChange={e => {
+                    setData(
+                      'holderIdCardNumber',
+                      e.nativeEvent.text,
+                      'houseHolder',
+                    );
+                  }}
+                  style={[styles.defaultSize, styles.textAlignR]}
+                />
+              </Item>
+              <Text style={[styles.publishTitle]}>授权文件</Text>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}>
+                <ImageUpload
+                  setImageForm={obj => setImageForm(0, obj, 'files')}
+                />
+                <ImageUpload
+                  setImageForm={obj => setImageForm(1, obj, 'files')}
+                />
+              </View>
+            </View>
+            <Text style={[styles.publishTitle]}>房产证照片</Text>
+            <ImageUpload setImageForm={obj => setImageForm(0, obj, 'cert')} />
+            <Text style={[styles.publishTitle]}>建筑信息</Text>
+            <Item style={styles.marginLeft0} inlineLabel>
+              <Label style={[styles.labelTitle, styles.defaultSize]}>
+                建筑面积
+              </Label>
+              <Input
+                value={houseLayout.area}
+                onChange={e => {
+                  setData('area', e.nativeEvent.text, 'houseLayout');
+                }}
+                style={[styles.defaultSize, styles.textAlignR]}
+              />
+              <Text style={[styles.labelTitle, styles.defaultSize]}>㎡</Text>
+            </Item>
+            <Item style={styles.marginLeft0} inlineLabel>
+              <Label
+                style={[
+                  styles.labelTitle,
+                  styles.defaultSize,
+                  styles.width100,
+                ]}>
+                楼层
+              </Label>
+              <Text style={[styles.labelTitle, styles.defaultSize]}>共</Text>
+              <Input
+                value={houseLayout.floorCount}
+                onChange={e => {
+                  setData('floorCount', e.nativeEvent.text, 'houseLayout');
+                }}
+                style={[styles.defaultSize, styles.textAlignC, styles.width100]}
+              />
+              <Text style={[styles.labelTitle, styles.defaultSize]}>
+                层 / 第
+              </Text>
+              <Input
+                value={houseLayout.floor}
+                onChange={e => {
+                  setData('floor', e.nativeEvent.text, 'houseLayout');
+                }}
+                style={[styles.defaultSize, styles.textAlignC]}
+              />
+              <Text style={[styles.labelTitle, styles.defaultSize]}>层</Text>
+              <CheckBox
+                // center
+                title="电梯"
+                containerStyle={styles.checkbox_style}
+                checked={hasElevator}
+                onPress={toggleSwitch}
+              />
+              <Text>电梯大幅度发</Text>
+            </Item>
+            <Item style={styles.marginLeft0} inlineLabel>
+              <Label
+                style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
+                户型
+              </Label>
+              <Input
+                value={houseLayout.roomCount}
+                onChange={e => {
+                  setData('roomCount', e.nativeEvent.text, 'houseLayout');
+                }}
+                style={[styles.defaultSize, styles.textAlignR, styles.width100]}
+              />
+              <Text style={[styles.labelTitle, styles.defaultSize]}>室</Text>
+              <Input
+                value={houseLayout.hallCount}
+                onChange={e => {
+                  setData('hallCount', e.nativeEvent.text, 'houseLayout');
+                }}
+                style={[styles.defaultSize, styles.textAlignR]}
+              />
+              <Text style={[styles.labelTitle, styles.defaultSize]}>厅</Text>
+              <Input
+                value={houseLayout.toiletCount}
+                onChange={e => {
+                  setData('toiletCount', e.nativeEvent.text, 'houseLayout');
+                }}
+                style={[styles.defaultSize, styles.textAlignR]}
+              />
+              <Text style={[styles.labelTitle, styles.defaultSize]}>卫</Text>
+            </Item>
+            <Item picker style={{marginBottom: 15}}>
+              <Label
+                style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
+                房屋朝向
+              </Label>
+              <Picker
+                mode="dropdown"
+                selectedValue={houseLayout.direction}
+                onValueChange={value => setHouseLayout({direction: value})}
+                iosIcon={
+                  <AntDesign
+                    name="right"
+                    style={{fontSize: 12, color: Theme.textSecondary}}
+                  />
+                }>
+                {houseDirectionList.map((item, index) => {
+                  return <Picker.Item label={item.value} value={item.code} />;
+                })}
+              </Picker>
+            </Item>
+          </Form>
+          <Button
+            full
+            onPress={() => handlerAudit()}
+            style={{borderRadius: 40, marginVertical: 36}}>
+            <Text>提交审核</Text>
+          </Button>
+        </View>
       </ScrollView>
+
       <RegionPicker
         visible={modalVisible}
         tabs={tabs}
@@ -386,9 +396,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: Theme.background,
-    paddingLeft: 15,
-    paddingRight: 15,
+    // paddingLeft: 15,
+    // paddingRight: 15,
+    marginHorizontal: 15,
   },
   label_content: {
     marginTop: 15,

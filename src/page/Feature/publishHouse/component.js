@@ -168,8 +168,8 @@ export default function PublishHouse(props) {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <ScrollView>
+      <View style={styles.container}>
         {/* 发布房间 */}
         <Text style={[styles.publishTitle, styles.specialPadding]}>
           发布房间
@@ -342,8 +342,8 @@ export default function PublishHouse(props) {
           style={{borderRadius: 40, marginVertical: 36}}>
           <Text>提交审核</Text>
         </Button>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -388,8 +388,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Theme.background,
-    paddingLeft: 15,
-    paddingRight: 15,
+    marginHorizontal: 15,
   },
   label_content: {
     marginTop: 15,

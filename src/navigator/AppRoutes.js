@@ -16,5 +16,6 @@ export const AppRoute = {
   HOUSELIST: 'HouseList',
   COMPONENTTEST: 'ComponentTest',
   ROOM: 'RoomPage',
+  MYHOUSELIST: 'MyHouseList',
 };
 Object.freeze(AppRoute);

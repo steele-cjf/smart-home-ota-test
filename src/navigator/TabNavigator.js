@@ -16,7 +16,7 @@ const BottomTabScreen = () => {
       initialRouteName={AppRoute.HOME}
       tabBarOptions={{
         activeTintColor: '#0d86ff',
-        inactiveTintColor: '#555'
+        inactiveTintColor: '#555',
       }}>
       <Tab.Screen
         name={AppRoute.HOME}
