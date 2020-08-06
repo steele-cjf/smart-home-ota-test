@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Button } from 'react-native-elements'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Form from '../../Component/form'
 import ImageUpload from '../../Component/imageUpload'
 
@@ -69,7 +68,9 @@ export default function PassportVertifyPage(props) {
                     <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} />
                     <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} />
                 </View>
-                <Button title="确认" buttonStyle={styles.Btn} onPress={() => { handleConfirm() }} />
+                <TouchableOpacity style={styles.Btn} onPress={() => {handleConfirm();}}>
+                    <Text style={styles.btnText}>确认</Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     );
@@ -104,10 +105,20 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     Btn: {
-        marginTop: 40,
-        marginBottom: 60,
+        // position: 'absolute',
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
+        marginTop: 100,
         height: 40,
         borderRadius: 20,
-        backgroundColor: '#5C8BFF'
-    }
+        backgroundColor: Theme.primary,
+    },
+    btnText: {
+        height: 40,
+        lineHeight: 40,
+        textAlign: 'center',
+        fontSize: 16, 
+        color: '#FFFFFF', 
+    },
 })
