@@ -71,9 +71,11 @@ export default function PassportVertifyPage(props) {
                     <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} />
                     <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} />
                 </View>
-                <TouchableOpacity style={styles.Btn} onPress={() => {handleConfirm();}}>
-                    <Text style={styles.btnText}>确认</Text>
-                </TouchableOpacity>
+                <View style={{height:'100%'}}>
+                    <TouchableOpacity style={styles.Btn} onPress={() => {handleConfirm();}}>
+                        <Text style={styles.btnText}>确认</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </View>
     );
@@ -81,6 +83,7 @@ export default function PassportVertifyPage(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        //height:'100%'
     },
     scrollContainer: {
         paddingTop: 16, 
@@ -102,10 +105,10 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     Btn: {
-        // position: 'absolute',
-        // left: 0,
-        // right: 0,
-        // bottom: 0,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 258,
         marginTop: 100,
         height: 40,
         borderRadius: 20,
@@ -116,6 +119,6 @@ const styles = StyleSheet.create({
         lineHeight: 40,
         textAlign: 'center',
         fontSize: 16, 
-        color: '#FFFFFF', 
+        color: '#FFFFFF',    
     },
 })
