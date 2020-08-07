@@ -1,7 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, FlatList, Text, TouchableOpacity} from 'react-native';
-import {Header, Left, Right, Body, Icon, Button, Title} from 'native-base';
+import {
+  Header,
+  Left,
+  Right,
+  Body,
+  Icon,
+  Button,
+  Title,
+  ActionSheet,
+  Root,
+  Spinner,
+} from 'native-base';
 import {AppRoute} from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
 
@@ -10,6 +21,8 @@ function MyHouseList(props) {
     audit_pending: '#5C8BFF',
     audit_reject: '#FF7373',
   };
+  const BUTTONS = ['Option 0', 'Option 1', 'Option 2', 'Delete', 'Cancel'];
+  const [loading, setLoading] = useState(true);
   const [houseList, setHouseList] = useState([
     {
       address: '深圳市南山区沿山社区网谷科技大厦501',
@@ -17,21 +30,33 @@ function MyHouseList(props) {
       id: '488400405136433152',
     },
   ]);
+  const [mappings, setMappings] = useState({});
   useEffect(() => {
     props.getHouseListByHolder({pageNum: 1, pageSize: 100}, res => {
       console.log('houselist', res.data.list);
       if (!res.code) {
         if (res.data) {
           setHouseList(res.data.list);
+          setLoading(false);
         }
       }
     });
   }, [props]);
 
+  useEffect(() => {
+    storage.get('dictionaryMappings').then(res => {
+      console.log('res', res);
+      setMappings(res);
+    });
+  }, []);
+
   const handleToDetailPage = item => {
     props.navigation.navigate(AppRoute.HOUSEDETAIL, {
       id: item.id,
     });
+  };
+  const handleIndex = (index, item) => {
+    console.log(index, item);
   };
 
   const _houseItem = ({item, index}) => {
@@ -56,53 +81,77 @@ function MyHouseList(props) {
               {item.houseLayout.roomCount || '--'}室
               {item.houseLayout.hallCount || '--'}厅
               {item.houseLayout.toiletCount || '--'}卫 -{' '}
-              {STATIC_VARIABLE.orientation[item.houseLayout.direction] || '--'}
+              {mappings.house_direction[item.houseLayout.direction] || '--'}
               {item.houseLayout.hasElevator ? ' - 电梯房' : ''}
             </Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
             {item.status === 'audit_pass' ? (
               <Text style={[styles.rentPrice, styles.highColor]}>
-                {STATIC_VARIABLE.rentStatusList[item.rentStatus]} |{' '}
-                {STATIC_VARIABLE.publishStatusList[item.publishStatus]}
+                {mappings.rent_status[item.rentStatus]} |{' '}
+                {mappings.publish_status[item.publishStatus]}
               </Text>
             ) : (
               <Text
                 style={[styles.rentPrice, {color: statusColor[item.status]}]}>
-                {STATIC_VARIABLE.houseStatusList[item.status]}
+                {mappings.house_status[item.status]}
               </Text>
             )}
           </View>
+          {/* <Button
+            onPress={() =>
+              ActionSheet.show(
+                {
+                  options: BUTTONS,
+                  cancelButtonIndex: 4,
+                  destructiveButtonIndex: 3,
+                },
+                buttonIndex => {
+                  handleIndex(buttonIndex, item.id);
+                },
+              )
+            }>
+            <Text>Actionsheet</Text>
+          </Button> */}
         </View>
       </TouchableOpacity>
     );
   };
   return (
-    <View style={{backgroundColor: '#fff', flex: 1}}>
-      <Header style={{backgroundColor: '#fff'}}>
-        <Left>
-          <Button transparent>
-            <Icon name="arrow-back" onPress={() => props.navigation.goBack()} />
-          </Button>
-        </Left>
-        <Body>
-          <Title>房源列表</Title>
-        </Body>
-        <Right>
-          <Button
-            transparent
-            onPress={() => props.navigation.navigate(AppRoute.RECORD)}>
-            <Text style={{color: Theme.textLink}}>新增房源</Text>
-          </Button>
-        </Right>
-      </Header>
-      <FlatList
-        data={houseList}
-        // 唯一 ID
-        keyExtractor={item => item.id}
-        renderItem={_houseItem}
-      />
-    </View>
+    <Root>
+      {loading ? (
+        <Spinner color="#5C8BFF" />
+      ) : (
+        <View style={{backgroundColor: '#fff', flex: 1}}>
+          <Header style={{backgroundColor: '#fff'}}>
+            <Left>
+              <Button transparent>
+                <Icon
+                  name="arrow-back"
+                  onPress={() => props.navigation.goBack()}
+                />
+              </Button>
+            </Left>
+            <Body>
+              <Title>房源列表</Title>
+            </Body>
+            <Right>
+              <Button
+                transparent
+                onPress={() => props.navigation.navigate(AppRoute.RECORD)}>
+                <Text style={{color: Theme.textLink}}>新增房源</Text>
+              </Button>
+            </Right>
+          </Header>
+          <FlatList
+            data={houseList}
+            // 唯一 ID
+            keyExtractor={item => item.id}
+            renderItem={_houseItem}
+          />
+        </View>
+      )}
+    </Root>
   );
 }
 const styles = StyleSheet.create({

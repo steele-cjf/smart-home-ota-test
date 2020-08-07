@@ -137,7 +137,7 @@ function RecordHouse(props) {
                   onChangeText={setRegionId}
                   placeholder="请选择 - 省 - 市 - 区"
                   placeholderTextColor={Theme.textMuted}
-                  style={[styles.defaultSize, styles.textAlignR]}
+                  style={[{fontSize: 14}, styles.textAlignR]}
                 />
                 <AntDesign
                   name="right"

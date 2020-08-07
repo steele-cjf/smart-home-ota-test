@@ -4,7 +4,6 @@ import Theme from '../style/colors';
 import screen from '../style/sizes';
 import storage from './storage';
 import camera from '../page/Component/Camera';
-import {STATIC_VARIABLE} from '../common/STATIC_VARIABLE';
 
 global.$get = get;
 global.$post = post;
@@ -18,4 +17,3 @@ global.Theme = Theme;
 global.$screen = screen;
 
 global.storage = storage;
-global.STATIC_VARIABLE = STATIC_VARIABLE;

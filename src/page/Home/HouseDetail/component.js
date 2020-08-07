@@ -34,7 +34,8 @@ function HouseDetail(props) {
     houseHolder: {},
   });
   useEffect(() => {
-    props.getHouseDetail('488400405136433152', res => {
+    const {params} = props.route;
+    props.getHouseDetail(params.id, res => {
       if (!res.code) {
         if (res.data) {
           setHouseInfo(res.data);
