@@ -5418,6 +5418,13 @@ react-native-status-bar-height@^2.5.0:
   resolved "https://registry.npm.taobao.org/react-native-status-bar-height/download/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"
   integrity sha1-vA+4UjBgOFCquWZ+6BEaYpVN6Qw=
 
+react-native-swiper@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npm.taobao.org/react-native-swiper/download/react-native-swiper-1.6.0.tgz#59fdbdf95addee49630312f27077622c27776819"
+  integrity sha1-Wf29+Vrd7kljAxLycHdiLCd3aBk=
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-vector-icons@^6.6.0:
   version "6.7.0"
   resolved "https://registry.npm.taobao.org/react-native-vector-icons/download/react-native-vector-icons-6.7.0.tgz?cache=0&sync_timestamp=1593863353635&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native-vector-icons%2Fdownload%2Freact-native-vector-icons-6.7.0.tgz#8871ba52ef8e98878ba7a932847f96b6dfc1c137"

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { ListItem, Image, Card } from 'react-native-elements';
 import { Button, Item, Label, Input, Picker } from 'native-base';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import tenant_form from '../config/tenant'
+
 const image = require('../../../assets/images/scan.png')
 const data = {
   houseId: '',
@@ -18,6 +19,7 @@ export default function AddTenant(props) {
   const [cameraOptions, setCameraOptions] = useState(null)
   const [roomList, setRoomList] = useState(props.roomList)
   const [house, setHouse] = useState({})
+  const [houseTypeList, setHouseTypeList] = useState([])
   const [room, selectRoom] = useState({})
 
   const [form, setForm] = useState(data)
@@ -27,13 +29,15 @@ export default function AddTenant(props) {
   }
   // hose详情获取
   useEffect(() => {
+    storage.get('code').then(res => {
+      setHouseTypeList(res.house_type);
+    });
     props.openCamera({ open: false, result: null })
     setHouse(props.houseDetail.data)
   }, [props.houseDetail])
 
   // 扫描结果获取
   useEffect(() => {
-    // console.log(888, props.cameraOpt)
     setCameraOptions(props.cameraOpt)
   }, [props.cameraOpt])
 
@@ -46,13 +50,12 @@ export default function AddTenant(props) {
   //保存
   const saveTenant = () => {
     console.log(props.userInfo)
-    // props.navigation.navigate(AppRoute.HOUSEDETAIL)
+    props.navigation.navigate(AppRoute.HOUSEDETAIL)
   }
   const onValueChange = (type, data) => {
     console.log(type, data)
     let obj = Object.assign({}, form)
     obj[type] = data
-    console.log(888, obj)
     setForm(obj)
   }
 
@@ -83,17 +86,27 @@ export default function AddTenant(props) {
           </TouchableOpacity>)
       }
       return (
-        <Card>
-          <ListItem
-            leftElement={<Text style={styles.dec}>姓名</Text>}
-            rightElement={<Text>{(data && data.name) || '--'}</Text>}
-            bottomDivider
-          />
-          <ListItem
-            leftElement={<Text style={styles.dec}>手机号码</Text>}
-            rightElement={<Text>{(data && data.mobile) || '--'}</Text>}
-          />
-        </Card>)
+        <View>
+          <Card>
+            <ListItem
+              leftElement={<Text style={styles.dec}>姓名</Text>}
+              rightElement={<Text>{(data && data.name) || '--'}</Text>}
+              bottomDivider
+            />
+            <ListItem
+              leftElement={<Text style={styles.dec}>手机号码</Text>}
+              rightElement={<Text>{(data && data.mobile) || '--'}</Text>}
+            />
+          </Card>
+          <View style={{ alignItems: 'center', paddingBottom: 60 }}>
+            <Button rounded full style={styles.scanBtn} onPress={() => saveTenant()}>
+              <Text style={{ color: '#fff' }}>添加成员</Text>
+            </Button>
+            <TouchableOpacity onPress={() => updateIndex(0)}>
+              <Text style={styles.scanText}>重新扫描</Text>
+            </TouchableOpacity>
+          </View>
+        </View>)
     }
     return renderScanContent()
   }
@@ -105,12 +118,15 @@ export default function AddTenant(props) {
     return (<Picker
       iosHeader="房屋类型"
       mode="dropdown"
+      placeholder='请选择房屋类型'
       selectedValue={form.houseType}
       onValueChange={(val) => onValueChange('houseType', val)}>
-      <Item label="整租" value="0" />
-      <Item label="合租" value="1" />
+      {houseTypeList.map((item) => {
+        return <Picker.Item label={item.value} key={item.code} value={item.code} />;
+      })}
     </Picker>)
   }
+
   const renderRoomList = () => {
     if (roomList && roomList.data && roomList.data.length) {
       let result = roomList.data.map((item) => {
@@ -124,7 +140,7 @@ export default function AddTenant(props) {
       })
       return (<View style={styles.roomListBox}>{result}</View>)
     } else {
-      return (<Text style={styles.dec, {textAlign: 'center'}}>暂无房间</Text>)
+      return (<Text style={styles.dec, { textAlign: 'center' }}>暂无房间</Text>)
     }
   }
 
@@ -141,7 +157,7 @@ export default function AddTenant(props) {
           leftElement={<Text>房屋类型</Text>}
           rightElement={renderRightPicker()}
         />
-        {form.houseType == 1 && renderRoomList()}
+        {form.houseType == 'co_rent' && renderRoomList()}
         <View
           style={
             ({ paddingHorizontal: 10 }, selectedIndex ? { display: 'none' } : '')
@@ -156,7 +172,7 @@ export default function AddTenant(props) {
               || (item.key === 'notId' && form.authType === 'id')) return
             return (
               <Item style={styles.marginLeft0} inlineLabel picker>
-                <Label style={[styles.labelTitle, styles.defaultSize]}>
+                <Label style={[styles.labelTitle, styles.defaultSize, item.type === 'SELECT' && { flex: 1 }]}>
                   {item.name}
                 </Label>
                 {
@@ -166,6 +182,12 @@ export default function AddTenant(props) {
                       mode="dropdown"
                       style={{ textAlign: 'right' }}
                       selectedValue={form.authType}
+                      iosIcon={
+                        <AntDesign
+                          name="right"
+                          style={{ fontSize: 12, color: Theme.textSecondary }}
+                        />
+                      }
                       onValueChange={(val) => onValueChange('authType', val)}>
                       <Item label="身份证" value="id" />
                       <Item label="护照" value="notId" />
@@ -183,7 +205,7 @@ export default function AddTenant(props) {
             );
           })}
           <View style={{ alignItems: 'center', paddingBottom: 60 }}>
-            <Button rounded full style={styles.scanBtn}>
+            <Button rounded full style={styles.scanBtn} onPress={() => saveTenant()}>
               <Text style={{ color: '#fff' }}>添加住户并开始实名</Text>
             </Button>
             <TouchableOpacity onPress={() => updateIndex(0)}>

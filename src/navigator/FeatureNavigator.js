@@ -13,10 +13,11 @@ const HomeStack = createStackNavigator();
 export const FeatureStackComponent = () => {
   return (
     <HomeStack.Navigator
+      mode="modal"
       screenOptions={{
         cardStyle: {
           fontSize: 16,
-          backgroundColor: '#fff',
+          backgroundColor: '#fff'
         },
       }}>
       <HomeStack.Screen

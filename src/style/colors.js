@@ -21,6 +21,10 @@ export const Theme = {
 
   textTitle: '#282828', // 标题文本
   textLink: '#5C8BFF', // 链接文本
+
+  white: {
+    color: '#fff'
+  }
 };
 
 export default Theme;
