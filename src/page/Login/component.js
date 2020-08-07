@@ -1,13 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef} from 'react';
 import {View, Keyboard, StyleSheet} from 'react-native';
-
 import {Text, Input, Button, CheckBox} from 'react-native-elements';
-// import {Text, Input} from 'react-native-elements';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 // import {Button} from 'native-base';
 import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
 import Theme from '../../style/colors';
+import {and} from 'react-native-reanimated';
 
 function LoginPage(props) {
   function validateField(field) {
@@ -39,7 +40,7 @@ function LoginPage(props) {
   }
 
   function handleSubmit() {
-    // props.navigation.navigate(AppRoute.HOME);
+    //props.navigation.navigate(AppRoute.HOME);
 
     if (!mobile) {
       showToast('请输入手机号');
@@ -115,7 +116,13 @@ function LoginPage(props) {
         keyboardType="numeric"
         placeholder="请输入中国大陆手机号"
         placeholderTextColor={Theme.textMuted}
-        leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
+        //leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
+        leftIcon={
+          <AntDesign
+            name="calendar"
+            style={{fontSize: 14, color: Theme.primary, marginRight: 8}}
+          />
+        }
         value={mobile}
         //errorMessage={mobileError}
         onSubmitEditing={() => refMobile.current.focus()}
@@ -129,7 +136,13 @@ function LoginPage(props) {
           keyboardType="numeric"
           placeholder="请输入短信验证码"
           placeholderTextColor={Theme.textMuted}
-          leftIcon={{type: 'font-awesome', name: 'comment'}}
+          //leftIcon={{type: 'font-awesome', name: 'comment'}}
+          leftIcon={
+            <AntDesign
+              name="lock1"
+              style={{fontSize: 14, color: Theme.primary, marginRight: 8}}
+            />
+          }
           value={verifyCode}
           //errorMessage={verifyCodeError}
           onSubmitEditing={() => refVerifyCode.current.focus()}
@@ -150,8 +163,10 @@ function LoginPage(props) {
           containerStyle={styles.checkBoxContainer}
           titleStyle={styles.checkBoxTitle}
           title="同意"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
+          //checkedIcon="dot-circle-o"
+          // uncheckedIcon="circle-o"
+          checkedColor={Theme.primary}
+          uncheckedColor={Theme.primary}
           checked={checked}
           onPress={() => setChecked(!checked)}
         />

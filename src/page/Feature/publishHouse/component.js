@@ -31,7 +31,7 @@ export default function PublishHouse(props) {
     {id: 3, name: '次卧'},
   ]);
   // 后台请求参数
-  const [houseId] = useState('483710797791371264');
+  const [houseId] = useState('488793035494150144');
   const [title, setTitle] = useState('');
   const [houseType, setHouseType] = useState('');
   const [houseRatePlan, setHouseRatePlan] = useState({

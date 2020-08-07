@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView, Modal} from 'react-native';
-import {Button} from 'react-native-elements';
+import {View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import Form from '../../Component/form';
 import ImageUpload from '../../Component/imageUpload';
 import {AppRoute} from '../../../navigator/AppRoutes';
@@ -89,12 +88,9 @@ export default function IdCardVertifyPage(props) {
             setImageForm={obj => setImageForm(2, obj)}
           />
         </View>
-        <Button buttonStyle={styles.Btn}
-          title="确认"
-          onPress={() => {
-            handleConfirm();
-          }}
-        />
+        <TouchableOpacity style={styles.Btn} onPress={() => {handleConfirm();}}>
+          <Text style={styles.btnText}>确认</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -102,7 +98,6 @@ export default function IdCardVertifyPage(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    fontSize: 18,
   },
   scrollContainer: {
     paddingTop: 16, 
@@ -124,10 +119,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   Btn: {
-    marginTop: 40,
-    marginBottom: 60,
+    // position: 'absolute',
+    // left: 0,
+    // right: 0,
+    // bottom: 0,
+    marginTop: 100,
     height: 40,
     borderRadius: 20,
     backgroundColor: Theme.primary,
+  },
+  btnText: {
+    height: 40,
+    lineHeight: 40,
+    textAlign: 'center',
+    fontSize: 16, 
+    color: '#FFFFFF', 
   },
 });

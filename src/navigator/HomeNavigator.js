@@ -4,6 +4,7 @@ import HomePage from '../page/Home/index';
 import AuthenticationPage from '../page/Home/AuthenticationPage';
 import IdCardVertify from '../page/Home/IdCardVertify';
 import PassportVertify from '../page/Home/PassportVertify';
+import VertifyDetailsPage from '../page/Home/VertifyDetails/component';
 import UnrecordedHouse from '../page/Home/UnrecordedHouse';
 import RecordHouse from '../page/Home/RecordHouse';
 import AuditHouse from '../page/Home/AuditHouse';
@@ -61,6 +62,14 @@ export const HomeStackComponent = () => {
         component={PassportVertify}
         options={{
           title: '护照认证',
+          headerBackTitle: '返回',
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.VERDETAILS}
+        component={VertifyDetailsPage}
+        options={{
+          title: '实名详情',
           headerBackTitle: '返回',
         }}
       />

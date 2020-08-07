@@ -10,7 +10,6 @@ import {
   findNodeHandle,
   Platform,
 } from 'react-native';
-import {Button} from 'react-native-elements';
 import {AppRoute} from '../../navigator/AppRoutes';
 import {getVerifyToken, getVerifyResult} from '../../store/home/index';
 import Theme from '../../style/colors';
@@ -149,13 +148,11 @@ function AuthenticationPage(props) {
         );
       })}
       <Text style={styles.tipText}>
-        {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、1122787面部清晰可见无遮挡"}
+        {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡"}
       </Text>
-      <Button
-        buttonStyle={styles.verifyBtn}
-        title="开始认证"
-        onPress={handlerVerify}
-      />
+      <TouchableOpacity style={styles.verifyBtn} onPress={handlerVerify}>
+          <Text style={styles.btnText}>开始认证</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -181,7 +178,7 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
     paddingHorizontal: 16,
     paddingVertical: 16,
-    backgroundColor: 'white'
+    backgroundColor: Theme.background,
   },
   tipStatus: {
     fontSize: 14, 
@@ -204,7 +201,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#C7C7C7',
+    borderColor: Theme.border,
   },
   selectedStyle: {
     marginBottom: 18,
@@ -254,12 +251,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0F0F0',
   },
   verifyBtn: {
-    //position: 'absolute',
-    //top: 280,
-    //bottom: 60,
-    marginTop: 185,
+    position: 'absolute',
+    left: 16,
+    right: 16,
+    bottom: 50,
     height: 40,
     borderRadius: 20,
     backgroundColor: '#5C8BFF'
+  },
+  btnText: {
+    height: 40,
+    lineHeight: 40,
+    textAlign: 'center',
+    fontSize: 16, 
+    color: '#FFFFFF', 
   },
 });

@@ -59,13 +59,30 @@ export function getMyHouseList(callback) {
     },
   });
 }
-
+// 业主的房源列表
+export function getHouseListByHolder(data, callback) {
+  return $get('/house/listHolderMine', {
+    queryData: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
 // 房源审核
 export function addHouse(data, callback) {
   return $post('/house', {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
+    body: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
+// 删除房源
+export function deleteHouse(data, callback) {
+  return $delete(`/house/${data.id}`, {
     body: data,
     successConfig: {
       callback,
