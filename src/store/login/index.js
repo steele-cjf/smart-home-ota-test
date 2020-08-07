@@ -6,6 +6,14 @@ export function handleLogin(data, callback) {
     },
   });
 }
+export function handleLogout(callback) {
+  return $post('/auth/logout', {
+    successConfig: {
+      callback,
+    },
+  });
+}
+
 export function getVerifyCode(data, callback) {
   return $post('/sms/loginCode', {
     body: data,
@@ -22,4 +30,13 @@ export function getAllData(callback) {
     },
   });
 }
+// 获取静态状态数据Mapping
+export function getDictionaryMapping(callback) {
+  return $get('/dictionary/mappings', {
+    successConfig: {
+      callback,
+    },
+  });
+}
+
 export default {};
