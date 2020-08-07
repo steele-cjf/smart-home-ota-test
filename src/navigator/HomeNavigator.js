@@ -4,7 +4,7 @@ import HomePage from '../page/Home/index';
 import AuthenticationPage from '../page/Home/AuthenticationPage';
 import IdCardVertify from '../page/Home/IdCardVertify';
 import PassportVertify from '../page/Home/PassportVertify';
-import VertifyDetailsPage from '../page/Home/VertifyDetails/component';
+import VertifyDetailsPage from '../page/Home/VertifyDetails';
 import UnrecordedHouse from '../page/Home/UnrecordedHouse';
 import RecordHouse from '../page/Home/RecordHouse';
 import AuditHouse from '../page/Home/AuditHouse';

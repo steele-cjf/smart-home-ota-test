@@ -39,6 +39,12 @@ function LoginPage(props) {
     });
   }
 
+  function storageMappingDictionary() {
+    props.getDictionaryMapping(res => {
+      storage.set('dictionaryMappings', res.data);
+    });
+  }
+
   function handleSubmit() {
     //props.navigation.navigate(AppRoute.HOME);
 
@@ -67,6 +73,7 @@ function LoginPage(props) {
       if (!res.code) {
         storage.set('token', res.data.accessToken);
         storageDataDictionary();
+        storageMappingDictionary();
         props.navigation.navigate(AppRoute.HOME);
       } else {
         showToast(res.message);
