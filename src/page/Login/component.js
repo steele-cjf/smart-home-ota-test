@@ -68,7 +68,7 @@ function LoginPage(props) {
     const data = {
       mobile: mobile,
       verifyCode: verifyCode,
-    };;
+    };
     props.handleLogin(data, res => {
       if (!res.code) {
         storage.set('token', res.data.accessToken);
@@ -109,8 +109,8 @@ function LoginPage(props) {
   const [isSend, setSendStatus] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(18218025628); //13661992793
-  const [verifyCode, setVerifyCode] = useState(494284); //560657
+  const [mobile, setMobile] = useState(13661992793); //13661992793
+  const [verifyCode, setVerifyCode] = useState(771541); //560657
   const [checked, setChecked] = useState(true);
 
   return (
