@@ -132,7 +132,7 @@ function LoginPage(props) {
         }
         value={mobile}
         //errorMessage={mobileError}
-        onSubmitEditing={() => refMobile.current.focus()}
+        // onSubmitEditing={() => refMobile.current.focus()}
         onChangeText={setMobile}
         onBlur={() => validateField('mobile')}
       />
@@ -152,7 +152,7 @@ function LoginPage(props) {
           }
           value={verifyCode}
           //errorMessage={verifyCodeError}
-          onSubmitEditing={() => refVerifyCode.current.focus()}
+          // onSubmitEditing={() => refVerifyCode.current.focus()}
           onChangeText={setVerifyCode}
         />
         <Button

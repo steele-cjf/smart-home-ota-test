@@ -1049,6 +1049,11 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
+"@react-navigation/compat@^5.2.5":
+  version "5.2.5"
+  resolved "https://registry.npm.taobao.org/@react-navigation/compat/download/@react-navigation/compat-5.2.5.tgz#b8e110f46418834dece9319374e0161cf5a976eb"
+  integrity sha1-uOEQ9GQYg03s6TGTdOAWHPWpdus=
+
 "@react-navigation/core@^5.12.2":
   version "5.12.2"
   resolved "https://registry.npm.taobao.org/@react-navigation/core/download/@react-navigation/core-5.12.2.tgz?cache=0&sync_timestamp=1596076391243&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40react-navigation%2Fcore%2Fdownload%2F%40react-navigation%2Fcore-5.12.2.tgz#b97c94e8b165fa3a2220db00d28eb06d0e6820cf"

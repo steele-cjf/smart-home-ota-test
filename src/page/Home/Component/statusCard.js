@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Theme from '../../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { AppRoute } from '../../../navigator/AppRoutes';
 
 
 const status_cf = {
@@ -10,46 +11,53 @@ const status_cf = {
         title: '您还未进行实名认证，请尽快验证!',
         desc: '更多操作需要实名认证才可以进行',
         iconName: 'idcard',
-        btnDesc: '实名认证'
+        btnDesc: '实名认证',
+        route: 'AUTHENTICATION'
     },
     'audit_pending': {
         title: '您的实名信息正在审核中，请耐心等待!',
         desc: '更多操作需要认证完成才可以进行',
         iconName: 'idcard',
         btnDesc: '查看进度',
-        showLocation: true
+        showLocation: true,
+        route: 'AUTHENTICATION'
     },
     'audit_reject': {
         title: '您的实名信息未通过，请重新提交!',
         desc: '更多操作需要认证完成才可以进行',
         iconName: 'idcard',
-        btnDesc: '重新提交'
+        btnDesc: '重新提交',
+        route: 'AUTHENTICATION'
     },
     'audit_pass': {
         title: '您还没添加登记房源，请尽快登记!',
         desc: '添加后才能执行开锁操作',
         icon: 'home',
-        btnDesc: '登记房源'
+        btnDesc: '登记房源',
+        route: 'FEATURE'
     },
     'audit_pending': {
         title: '您的房源正在审核中，请耐心等待!',
         desc: '审核完成后才可以添加住户和发布房源',
         iconName: 'idcard',
-        btnDesc: '查看进度'
+        btnDesc: '查看进度',
+        route: 'FEATURE'
     },
     'audit_reject': {
         title: '您的房源审核失败了，请重新提交!',
         desc: '审核完成后才可以添加住户和发布房源',
         iconName: 'idcard',
         btnDesc: '重新提交',
-        showLocation: true
+        showLocation: true,
+        route: 'FEATURE'
     },
     'audit_pass': {
         title: '您的房源还未绑定设备，请尽快绑定!',
         desc: '审核完成后才可以添加住户和发布房源',
         iconName: 'tool',
         btnDesc: '绑定设备',
-        showLocation: true
+        showLocation: true,
+        route: 'FEATURE'
     }
 }
 export default function StatusCard(props) {
@@ -72,10 +80,10 @@ export default function StatusCard(props) {
                     <Text style={styles.title}>{options.title || '--'}</Text>
                     <Text style={styles.des} note>{options.desc || '--'}</Text>
                 </View>
-                <View style={styles.RightContent}>
+                <TouchableOpacity style={styles.RightContent} onPress={() => NavigatorService.navigate(AppRoute[options.route])}>
                     <AntDesign name={options.iconName} style={styles.iconBox} />
                     <Text style={{ color: Theme.primary }}>{options.btnDesc || '--'}</Text>
-                </View>
+                </TouchableOpacity>
             </View>
         </View>
 
