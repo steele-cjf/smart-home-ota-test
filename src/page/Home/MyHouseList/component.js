@@ -9,7 +9,6 @@ import {
   Icon,
   Button,
   Title,
-  ActionSheet,
   Root,
   Spinner,
 } from 'native-base';
@@ -21,7 +20,6 @@ function MyHouseList(props) {
     audit_pending: '#5C8BFF',
     audit_reject: '#FF7373',
   };
-  const BUTTONS = ['Option 0', 'Option 1', 'Option 2', 'Delete', 'Cancel'];
   const [loading, setLoading] = useState(true);
   const [houseList, setHouseList] = useState([
     {
@@ -33,7 +31,6 @@ function MyHouseList(props) {
   const [mappings, setMappings] = useState({});
   useEffect(() => {
     props.getHouseListByHolder({pageNum: 1, pageSize: 100}, res => {
-      console.log('houselist', res.data.list);
       if (!res.code) {
         if (res.data) {
           setHouseList(res.data.list);
@@ -54,9 +51,6 @@ function MyHouseList(props) {
     props.navigation.navigate(AppRoute.HOUSEDETAIL, {
       id: item.id,
     });
-  };
-  const handleIndex = (index, item) => {
-    console.log(index, item);
   };
 
   const _houseItem = ({item, index}) => {
@@ -98,21 +92,6 @@ function MyHouseList(props) {
               </Text>
             )}
           </View>
-          {/* <Button
-            onPress={() =>
-              ActionSheet.show(
-                {
-                  options: BUTTONS,
-                  cancelButtonIndex: 4,
-                  destructiveButtonIndex: 3,
-                },
-                buttonIndex => {
-                  handleIndex(buttonIndex, item.id);
-                },
-              )
-            }>
-            <Text>Actionsheet</Text>
-          </Button> */}
         </View>
       </TouchableOpacity>
     );

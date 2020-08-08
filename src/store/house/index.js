@@ -16,7 +16,7 @@ export function getHouseDetail(id, callback) {
     successConfig: {
       callback,
     },
-    actionType: 'HOUSE_DETAIL'
+    actionType: 'HOUSE_DETAIL',
   });
 }
 // HOUSE_DETAIL
@@ -28,5 +28,5 @@ export function houseDetail(state = null, action) {
 }
 
 export default {
-  houseDetail
+  houseDetail,
 };
