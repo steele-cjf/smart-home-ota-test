@@ -48,7 +48,7 @@ function MyHouseList(props) {
   }, []);
 
   const handleToDetailPage = item => {
-    props.navigation.navigate(AppRoute.HOUSEDETAIL, {
+    NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
       id: item.id,
     });
   };
@@ -107,7 +107,7 @@ function MyHouseList(props) {
               <Button transparent>
                 <Icon
                   name="arrow-back"
-                  onPress={() => props.navigation.goBack()}
+                  onPress={() => NavigatorService.goBack('MYHOUSELIST')}
                 />
               </Button>
             </Left>
@@ -117,7 +117,7 @@ function MyHouseList(props) {
             <Right>
               <Button
                 transparent
-                onPress={() => props.navigation.navigate(AppRoute.RECORD)}>
+                onPress={() => NavigatorService.navigate(AppRoute.RECORD)}>
                 <Text style={{color: Theme.textLink}}>新增房源</Text>
               </Button>
             </Right>

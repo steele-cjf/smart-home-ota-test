@@ -5,8 +5,7 @@ import { NavigationActions } from '@react-navigation/compat'
 let _container; // eslint-disable-line
 
 function setContainer(container) {
-    console.log(88888, container)
-    _container = container;
+	_container = container;
 }
 
 function reset(routeName, params) {
@@ -25,13 +24,21 @@ function reset(routeName, params) {
 }
 
 function navigate(routeName, params) {
+	console.log(777777, params, routeName)
+	// StackActions.push({ routeName, params })
 	_container.dispatch(
 		NavigationActions.navigate({
 			type: 'Navigation/NAVIGATE',
 			routeName,
 			params,
+			key: params && params.key
 		}),
 	);
+}
+
+function goBack(key) {
+	_container.dispatch(StackActions.pop(1))
+
 }
 
 function navigateDeep(actions) {
@@ -50,10 +57,14 @@ function navigateDeep(actions) {
 }
 
 function getCurrentRoute() {
-	if (!_container || !_container.state.nav) {
+	if (!_container || !_container.state || !_container.state.nav) {
 		return null;
 	}
 	return _container.state.nav.routes[_container.state.nav.index] || null;
+}
+//获取当前路由名称
+const getCurrentRouteName = () => {
+	return getCurrentRoute().routeName;
 }
 
 export default {
@@ -62,4 +73,6 @@ export default {
 	navigate,
 	reset,
 	getCurrentRoute,
+	goBack,
+	getCurrentRouteName
 };

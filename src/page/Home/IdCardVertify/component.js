@@ -37,15 +37,15 @@ export default function IdCardVertifyPage(props) {
     // 暂时写死
     result.append('userId', '478609054946578432');
     result.append('identificationType', 'id_card');
-    props.navigation.navigate(AppRoute.UNRECORD);
+    NavigatorService.navigate(AppRoute.UNRECORD);
     props.verifyIdCard(result, res => {
       console.log(res, 'end');
       if (!res.code) {
         showToast('success');
-        props.navigation.navigate(AppRoute.UNRECORD);
+        NavigatorService.navigate(AppRoute.UNRECORD);
       }
     });
-    // props.navigation.navigate(AppRoute.UNRECORD);
+    // NavigatorService.navigate(AppRoute.UNRECORD);
   };
   // 修改成能提交的数据结构
   const changeToForm = result => {

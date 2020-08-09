@@ -26,7 +26,7 @@ export default function VertifyDetailsPage(props) {
   //   if (!res.code) {
   //     storage.set('token', res.data.accessToken);
   //     storageDataDictionary();
-  //     props.navigation.navigate(AppRoute.HOME);
+  //     NavigatorService.navigate(AppRoute.HOME);
   //   } else {
   //     showToast(res.message);
   //   }
@@ -63,8 +63,6 @@ export default function VertifyDetailsPage(props) {
     };
     props.getManualAuditInfo(data, res => {
       //console.log('code', res);
-      console.log(7777);
-      console.log(8888, res.message);
 
       if (!res.code) {
         showToast('成功！');
@@ -74,9 +72,9 @@ export default function VertifyDetailsPage(props) {
     });
 
     // if (authType === 1) {
-    //   props.navigation.navigate(AppRoute.IDCARDVERTIFY);
+    //   NavigatorService.navigate(AppRoute.IDCARDVERTIFY);
     // } else {
-    //   props.navigation.navigate(AppRoute.PASSPORTVERTIFY);
+    //   NavigatorService.navigate(AppRoute.PASSPORTVERTIFY);
     // }
 
   }

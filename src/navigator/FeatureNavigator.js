@@ -39,7 +39,7 @@ export const FeatureStackComponent = () => {
         component={PublishHouse}
         options={{
           title: '发布房源',
-          headerBackTitle: '返回',
+          headerBackTitle: '返回'
         }}
       />
       <HomeStack.Screen

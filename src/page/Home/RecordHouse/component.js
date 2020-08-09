@@ -92,7 +92,7 @@ function RecordHouse(props) {
     console.log('result', result);
     props.addHouse(result, res => {
       console.log('res', res);
-      props.navigation.navigate(AppRoute.AUDIT);
+      NavigatorService.navigate(AppRoute.AUDIT);
     });
   };
 

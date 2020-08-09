@@ -50,7 +50,7 @@ export default function AddTenant(props) {
   //保存
   const saveTenant = () => {
     console.log(props.userInfo)
-    props.navigation.navigate(AppRoute.HOUSEDETAIL)
+    NavigatorService.navigate(AppRoute.HOUSEDETAIL)
   }
   const onValueChange = (type, data) => {
     console.log(type, data)

@@ -19,7 +19,6 @@ const status_cf = {
         desc: '更多操作需要认证完成才可以进行',
         iconName: 'idcard',
         btnDesc: '查看进度',
-        showLocation: true,
         route: 'AUTHENTICATION'
     },
     'audit_reject': {
@@ -36,11 +35,12 @@ const status_cf = {
         btnDesc: '登记房源',
         route: 'FEATURE'
     },
-    'audit_pending': {
+    'audit_pending2': {
         title: '您的房源正在审核中，请耐心等待!',
         desc: '审核完成后才可以添加住户和发布房源',
         iconName: 'idcard',
         btnDesc: '查看进度',
+        showLocation: true,
         route: 'FEATURE'
     },
     'audit_reject': {

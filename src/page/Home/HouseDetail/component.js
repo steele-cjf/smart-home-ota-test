@@ -327,7 +327,7 @@ function HouseDetail(props) {
               <Divider style={{marginTop: 16}} />
               {/* 发布 */}
               <TouchableOpacity
-                onPress={() => props.navigation.navigate(AppRoute.PUBLISH)}>
+                onPress={() => NavigatorService.navigate(AppRoute.PUBLISH)}>
                 <View style={styles.listBox}>
                   <View style={[styles.leftContent, styles.flex]}>
                     <AntDesign
@@ -374,7 +374,7 @@ function HouseDetail(props) {
               <Divider style={{marginTop: 16}} />
               {/* 房间 */}
               <TouchableOpacity
-                onPress={() => props.navigation.navigate(AppRoute.ROOM)}>
+                onPress={() => NavigatorService.navigate(AppRoute.ROOM)}>
                 <View style={styles.listBox}>
                   <View style={[styles.leftContent, styles.flex]}>
                     <AntDesign
@@ -438,7 +438,7 @@ function HouseDetail(props) {
                   />
                   <TouchableOpacity
                     onPress={() =>
-                      props.navigation.navigate(AppRoute.ADDTENANT)
+                      NavigatorService.navigate(AppRoute.ADDTENANT)
                     }>
                     <Text style={{fontSize: 14, color: Theme.textLink}}>
                       新增住户

@@ -40,7 +40,7 @@ function MyPage(props) {
     let RouteName;
     switch (menu) {
       case MORE_MENU.Owner:
-        props.navigation.navigate(AppRoute.MYHOUSELIST);
+        NavigatorService.navigate(AppRoute.MYHOUSELIST, {screen: 'MyHouseList'});
         // RouteName = 'Owner';
         break;
       case MORE_MENU.About:
@@ -71,7 +71,7 @@ function MyPage(props) {
       if (!res.code) {
         // eslint-disable-next-line no-undef
         storage.set('token', null);
-        props.navigation.navigate(AppRoute.LOGIN);
+        NavigatorService.navigate(AppRoute.LOGIN);
       }
     });
   }

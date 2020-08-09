@@ -46,7 +46,7 @@ function LoginPage(props) {
   }
 
   function handleSubmit() {
-    //props.navigation.navigate(AppRoute.HOME);
+    //NavigatorService.navigate(AppRoute.HOME);
 
     if (!mobile) {
       showToast('请输入手机号');
@@ -74,7 +74,7 @@ function LoginPage(props) {
         storage.set('token', res.data.accessToken);
         storageDataDictionary();
         storageMappingDictionary();
-        props.navigation.navigate(AppRoute.HOME);
+        NavigatorService.navigate(AppRoute.HOME);
       } else {
         showToast(res.message);
       }
@@ -110,7 +110,7 @@ function LoginPage(props) {
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(18218025628); //13661992793
-  const [verifyCode, setVerifyCode] = useState(494284); //560657
+  const [verifyCode, setVerifyCode] = useState(255878); //560657
   const [checked, setChecked] = useState(true);
 
   return (
