@@ -107,7 +107,7 @@ function MyHouseList(props) {
               <Button transparent>
                 <Icon
                   name="arrow-back"
-                  onPress={() => NavigatorService.goBack('MYHOUSELIST')}
+                  onPress={() => NavigatorService.goBack()}
                 />
               </Button>
             </Left>

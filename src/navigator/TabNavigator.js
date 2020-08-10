@@ -4,10 +4,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { HomeStackComponent } from './HomeNavigator';
 import { FeatureStackComponent } from './FeatureNavigator';
+import { MyPageStackComponent } from './MyPageNavigator';
+
 import { Text } from 'native-base'
 
 // import DynamicPage from '../page/DynamicPage';
-import MyPage from '../page/MyPage';
 import { AppRoute } from './AppRoutes';
 
 const Tab = createBottomTabNavigator();
@@ -25,6 +26,7 @@ const BottomTabScreen = (props) => {
   return (
     <Tab.Navigator
       initialRouteName={AppRoute.HOME}
+      backBehavior='none'
       tabBarOptions={{
         activeTintColor: '#0d86ff',
         inactiveTintColor: '#555'
@@ -68,12 +70,15 @@ const BottomTabScreen = (props) => {
       />
       <Tab.Screen
         name={AppRoute.MY}
-        component={MyPage}
+        component={MyPageStackComponent}
         options={({ route, navigation }) => {
-          const isMy = route.name === AppRoute.MY;
+          const routeState = route.state;
+          const isMy = !routeState || routeState?.index === 0;
+          const isMyRoute = route.name === AppRoute.MY;
           // checkoutNavigation(navigation, AppRoute.MY)
           return {
             title: '我的',
+            tabBarVisible: isMy && isMyRoute,
             tabBarOptions: {
             },
             tabBarIcon: ({ focused, color }) => (
