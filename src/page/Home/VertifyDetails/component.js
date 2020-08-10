@@ -1,93 +1,96 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import Theme from '../../../style/colors';
 import {AppRoute} from '../../../navigator/AppRoutes'; 
 
 
-const dataArr = [
-  {title: "真实姓名", content: "张三"},
-  {title: "", content: "2389***************2"},
-  {title: "性别", content: "男"},
-  {title: "民族", content: "汉族"},
-  {title: "出生日期", content: "1990-8-7"},
-  {title: "", content: "广东省深圳市南山区 南海大道1057号科技大厦二期A座809890890890"},
-];
-
-const authType = 2;  //1:身份证认证;   2:护照认证
-const authStatus = 2;  //1:认证失败;   2:认证中
-
 export default function VertifyDetailsPage(props) {
 
-  // const data = {
-  //   mobile: mobile,
-  //   verifyCode: verifyCode,
-  // };
-  // props.handleLogin(data, res => {
-  //   if (!res.code) {
-  //     storage.set('token', res.data.accessToken);
-  //     storageDataDictionary();
-  //     props.navigation.navigate(AppRoute.HOME);
-  //   } else {
-  //     showToast(res.message);
-  //   }
-  // });
+  async function handlModify() {
 
-  // 暂时写死
-  // result.append('userId', '478609054946578432')
-  // result.append('identificationType', 'id_card')
-
-  // props.verifyIdCard(result, (res) => {
-  //     console.log(res, 'end')
-  //     showToast('success');
-  // })
-
-  // const data = {
-  //   userId: '478609054946578432',
-  // };
-  // props.getManualAuditInfo(data, res => {
-  //   console.log('code', res);
-  //   if (!res.code) {
-  //     showToast('成功！');
-     
-  //   } else {
-  //     showToast(res.message);
-  //   }
-  // });
-
-  
-
-  function handlModify() {
-    //test
-    const data = {
-      userId: '478609054946578432',
-    };
-    props.getManualAuditInfo(data, res => {
-      //console.log('code', res);
-      console.log(7777);
-      console.log(8888, res.message);
-
-      if (!res.code) {
-        showToast('成功！');
-      } else {
-        showToast("90909"+res.message);
-      }
-    });
-
+    //路由到其他界面
     // if (authType === 1) {
     //   props.navigation.navigate(AppRoute.IDCARDVERTIFY);
     // } else {
     //   props.navigation.navigate(AppRoute.PASSPORTVERTIFY);
     // }
 
+    //请求数据
+    var info = await storage.get('info');
+    userId = info.id;
+
+    console.log(33, userId);
+
+    props.getManualAuditInfo(userId, res => {
+      console.log('code-res-kk:', res);
+      console.log(8888, res.message);
+
+      if (!res.code) {
+        showToast('成功！');
+        dealDataRefresh(res.data);
+      } else {
+        showToast("90909"+res.message);
+      }
+    });
+
+    //test 模拟刷新成服务数据
+    // const rightContentData = {
+    // name: '莉丝', identificationType: 2, identificationNo: '7878787887887887',  
+    // gender: '女', nation: '哈哈族', birthDate: '1990-09-09',
+    // identificationAddress : '海南省看电视看风景看酸辣粉是对抗肌肤开始地方端口克林顿的多的是 111',
+    // country: '法国',
+    // };
+    // dealDataRefresh(rightContentData);  
   }
 
-  let typeTitle, typeAddr;
+  //刷新为服务数据
+  function dealDataRefresh(data) { 
+    let actualDataArr;
+    if (data.identificationType === 1) {
+      actualDataArr = [   
+        {title: "真实姓名", content: data.name},
+        {title: "身份证号码", content: data.identificationNo},
+        {title: "性别", content: data.gender},
+        {title: "民族", content: data.nation},
+        {title: "出生日期", content: data.birthDate},
+        {title: "身份证地址", content: data.identificationAddress},
+      ];
+    } else {
+      actualDataArr = [
+        {title: "真实姓名", content: data.name},
+        {title: "护照号", content: data.identificationNo},
+        {title: "性别", content: data.gender},
+        {title: "出生日期", content: data.birthDate},
+        {title: "国籍", content: data.country},
+      ];
+    }
+
+    console.log('*********************', actualDataArr);
+    setData(actualDataArr);
+  }
+
+  //初始化默认数据（因服务数据暂缺）
+  const authType = 1;  //1:身份证认证;   2:护照认证
+  const authStatus = 2;  //1:认证失败;   2:认证中
+
+  let dataArr;
   if (authType === 1) {
-    typeTitle = '身份证号码';
-    typeAddr = '身份证地址';
+    dataArr = [
+      {title: "真实姓名", content: "张三"},
+      {title: "身份证号码", content: "2389***************2"},
+      {title: "性别", content: "男"},
+      {title: "民族", content: "汉族"},
+      {title: "出生日期", content: "1990-8-7"},
+      {title: "身份证地址", content: "广东省深圳市南山区 南海大道1057号科技大厦二期A座809890890890"},
+    ];
   } else {
-    typeTitle = '护照号';
-    typeAddr = '国籍';
+    dataArr = [
+      {title: "真实姓名", content: "张三"},
+      {title: "护照号", content: "2389***************2"},
+      {title: "性别", content: "男"},
+      {title: "出生日期", content: "1990-8-7"},
+      {title: "国籍", content: "广东省深圳市南山区 南海大道1057号科技大厦二期A座809890890890"},
+    ];
   }
 
   let topTitle1, topTitle2, btnTitle;
@@ -99,7 +102,10 @@ export default function VertifyDetailsPage(props) {
     topTitle1 = '实名认证审核中';
     topTitle2 = '约两个工作日内完成审核';
     btnTitle = '修改';
-  }
+  } 
+
+
+  const [data, setData] = useState(dataArr);
 
   return (
     <View style={styles.containerStyle}> 
@@ -108,13 +114,7 @@ export default function VertifyDetailsPage(props) {
         <Text style={styles.topTextStyle2}>{topTitle2}</Text>
       </View> 
       {
-        dataArr.map((item, index) => {
-          if (index === 1) {
-            item.title = typeTitle;
-          } else if (index === 5) {
-            item.title = typeAddr;
-          }
-
+        data.map((item, index) => { 
           return (
             <View>
               <Text style={styles.textTitle}>{item.title}</Text>
