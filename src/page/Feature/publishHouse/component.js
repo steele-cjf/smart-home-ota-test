@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   Form,
@@ -11,6 +11,7 @@ import {
   Button,
   Picker,
   Textarea,
+  ActionSheet,
 } from 'native-base';
 import ImageUpload from '../../Component/imageUpload';
 import LabelSelect from '../../Component/labelSelect';
@@ -30,8 +31,10 @@ export default function PublishHouse(props) {
     {id: 2, name: '南卧'},
     {id: 3, name: '次卧'},
   ]);
+  const [selectedTypeValue, setSelectedTypeValue] = useState('');
+  const [selectedDecoratorValue, setSelectedDecoratorValue] = useState('');
   // 后台请求参数
-  const [houseId] = useState('488793035494150144');
+  const [houseId, setHouseId] = useState('');
   const [title, setTitle] = useState('');
   const [houseType, setHouseType] = useState('');
   const [houseRatePlan, setHouseRatePlan] = useState({
@@ -52,14 +55,56 @@ export default function PublishHouse(props) {
   });
 
   useEffect(() => {
+    setHouseId(props.route.params.id);
     storage.get('code').then(res => {
       setSelectedPros(res.house_item, 'houseItem');
       setSelectedPros(res.house_spots, 'houseSpots');
       setSelectedPros(res.rent_requirements, 'rentReq');
-      setHouseTypeList(res.house_type);
-      setHouseDecorator(res.house_decorator);
+      setHouseTypeList(handlerOptions(res.house_type));
+      setHouseDecorator(handlerOptions(res.house_decorator));
     });
-  }, []);
+  }, [props.route.params.id]);
+
+  const handlerOptions = list => {
+    list = list.map(item => {
+      return {
+        text: item.value,
+        value: item.code,
+      };
+    });
+    list.push({text: '取消', value: 'cancel'});
+    return list;
+  };
+
+  const openSettings = (BUTTONS, CANCEL_INDEX, TYPE) => {
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+        // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
+        // title: i18n.t("settings")
+      },
+      buttonIndex => {
+        if (buttonIndex === CANCEL_INDEX) {
+          return;
+        }
+        handleSetValue(buttonIndex, TYPE);
+        console.log('Logout was clicked ' + BUTTONS[buttonIndex]);
+      },
+    );
+  };
+  const handleSetValue = (index, type) => {
+    switch (type) {
+      case 'houseType':
+        setHouseType(houseTypeList[index].value);
+        setSelectedTypeValue(houseTypeList[index].text);
+        break;
+      case 'decorator':
+        setHouseAmenity({decoration: houseDecorator[index].value});
+        setSelectedDecoratorValue(houseDecorator[index].text);
+        break;
+    }
+  };
 
   function setSelectedPros(list, type) {
     list.map(item => {
@@ -141,6 +186,8 @@ export default function PublishHouse(props) {
     console.log('result', result);
     props.publishHouse(result, res => {
       console.log('res', res);
+      props.route.params.refresh();
+      props.navigation.goBack();
     });
   }
 
@@ -187,25 +234,26 @@ export default function PublishHouse(props) {
               style={[styles.defaultSize, styles.textAlignR]}
             />
           </Item>
-          <Item picker style={{marginBottom: 15}}>
+          <Item style={[styles.marginLeft0, {marginBottom: 15}]} inlineLabel>
             <Label
               style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
               房间类型
             </Label>
-            <Picker
-              mode="dropdown"
-              selectedValue={houseType}
-              onValueChange={value => setHouseType(value)}
-              iosIcon={
-                <AntDesign
-                  name="right"
-                  style={{fontSize: 12, color: Theme.textSecondary}}
-                />
-              }>
-              {houseTypeList.map((item, index) => {
-                return <Picker.Item label={item.value} value={item.code} />;
-              })}
-            </Picker>
+            <TouchableOpacity
+              style={styles.input_item}
+              onPress={() => openSettings(houseTypeList, 2, 'houseType')}>
+              <Text
+                style={[{fontSize: 14, paddingRight: 10}, styles.textAlignR]}>
+                {selectedTypeValue}
+              </Text>
+              <AntDesign
+                name="right"
+                style={{
+                  fontSize: 12,
+                  color: Theme.textSecondary,
+                }}
+              />
+            </TouchableOpacity>
           </Item>
           {houseType === 'co_rent' ? (
             <LabelSelect
@@ -219,25 +267,26 @@ export default function PublishHouse(props) {
         {/* 室内设施 */}
         <Text style={styles.publishTitle}>室内设施</Text>
         <Form>
-          <Item picker>
+          <Item style={styles.marginLeft0} inlineLabel>
             <Label
               style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
               装修
             </Label>
-            <Picker
-              mode="dropdown"
-              selectedValue={houseAmenity.decoration}
-              onValueChange={value => setHouseAmenity({decoration: value})}
-              iosIcon={
-                <AntDesign
-                  name="right"
-                  style={{fontSize: 12, color: Theme.textSecondary}}
-                />
-              }>
-              {houseDecorator.map((item, index) => {
-                return <Picker.Item label={item.value} value={item.code} />;
-              })}
-            </Picker>
+            <TouchableOpacity
+              style={styles.input_item}
+              onPress={() => openSettings(houseDecorator, 4, 'decorator')}>
+              <Text
+                style={[{fontSize: 14, paddingRight: 10}, styles.textAlignR]}>
+                {selectedDecoratorValue}
+              </Text>
+              <AntDesign
+                name="right"
+                style={{
+                  fontSize: 12,
+                  color: Theme.textSecondary,
+                }}
+              />
+            </TouchableOpacity>
           </Item>
           <View style={styles.label_content}>
             <LabelSelect
@@ -392,5 +441,10 @@ const styles = StyleSheet.create({
   },
   label_content: {
     marginTop: 15,
+  },
+  input_item: {
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

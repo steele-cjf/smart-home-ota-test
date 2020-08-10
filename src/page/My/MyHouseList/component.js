@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, StyleSheet, FlatList, Text, TouchableOpacity} from 'react-native';
 import {
   Header,
@@ -30,15 +30,8 @@ function MyHouseList(props) {
   ]);
   const [mappings, setMappings] = useState({});
   useEffect(() => {
-    props.getHouseListByHolder({pageNum: 1, pageSize: 100}, res => {
-      if (!res.code) {
-        if (res.data) {
-          setHouseList(res.data.list);
-          setLoading(false);
-        }
-      }
-    });
-  }, [props]);
+    init();
+  }, [init]);
 
   useEffect(() => {
     storage.get('dictionaryMappings').then(res => {
@@ -46,10 +39,28 @@ function MyHouseList(props) {
       setMappings(res);
     });
   }, []);
+  const init = useCallback(() => {
+    props.getHouseListByHolder({pageNum: 1, pageSize: 100}, res => {
+      console.log('refresh');
+      if (!res.code) {
+        if (res.data) {
+          setHouseList(res.data.list);
+          setLoading(false);
+        }
+      }
+    });
+  });
 
   const handleToDetailPage = item => {
     NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
       id: item.id,
+    });
+  };
+  const goAddHousePage = () => {
+    NavigatorService.navigate(AppRoute.RECORD, {
+      refresh: function() {
+        init();
+      },
     });
   };
 
@@ -115,9 +126,7 @@ function MyHouseList(props) {
               <Title>房源列表</Title>
             </Body>
             <Right>
-              <Button
-                transparent
-                onPress={() => NavigatorService.navigate(AppRoute.RECORD)}>
+              <Button transparent onPress={() => goAddHousePage()}>
                 <Text style={{color: Theme.textLink}}>新增房源</Text>
               </Button>
             </Right>
