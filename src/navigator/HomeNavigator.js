@@ -99,14 +99,14 @@ export const HomeStackComponent = () => {
         name={AppRoute.HOUSELIST}
         component={HouseList}
         options={{
-          title: '房源列表',
+          headerShown: false
         }}
       />
       <HomeStack.Screen
         name={AppRoute.MYHOUSELIST}
         component={MyHouseList}
         options={{
-          headerShown: false,
+          headerShown: false
         }}
       />
     </HomeStack.Navigator>

@@ -10,7 +10,6 @@ import {FlatList} from 'react-native-gesture-handler';
 import {IS_IOS} from '../../../config';
 
 function HouseListComponent(props) {
-  const nav = props.nav;
   const listElement = React.createRef();
   const [houses, setHouses] = useState([
     {
@@ -23,20 +22,23 @@ function HouseListComponent(props) {
     },
     {
       id: 2,
-      title: '深圳市市南区沿山社区网谷科技大厦501',
+      title: '深圳市市南区沿山社区网谷科技大厦502',
       roomCount: 2,
       hallCount: 1,
       toiletCount: 1,
       rentPrice: 1500,
-    },
+    },{
+      id: 3,
+      title: '深圳市市南区沿山社区网谷科技大厦503',
+      roomCount: 2,
+      hallCount: 1,
+      toiletCount: 1,
+      rentPrice: 1000,
+    }
   ]);
   // const [params, setParams] = useState({});
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   fetchHouseList();
-  // }, [fetchHouseList]);
 
   const scrollToListTop = () => {
     const listElementCur = listElement.current;
@@ -101,7 +103,7 @@ function HouseListComponent(props) {
   };
   const handleToDetailPage = item => {
     console.log('item', item);
-    nav.navigate({
+    NavigatorService.navigate({
       name: AppRoute.HOUSEDETAIL,
       key: String(item.id),
       params: {item},
@@ -166,7 +168,7 @@ function HouseListComponent(props) {
       // 当前列表 loading 状态
       refreshing={isLoading}
       // 刷新
-      // onRefresh={fetchHouseList}
+      onRefresh={fetchHouseList}
       // 加载更多安全距离（相对于屏幕高度的比例）
       onEndReachedThreshold={IS_IOS ? 0.05 : 0.2}
       // 加载更多

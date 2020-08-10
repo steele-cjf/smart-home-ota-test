@@ -5,10 +5,10 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { Button, ActionSheet, Root } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
-import showToast from '../../util/toast';
 import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
 import HouseListComponent from '../Component/housingList/list';
+import Theme from '../../style/colors';
 
 const imgList = [ // 暂时写死
   require('../../assets/images/mock/home1.jpg'),
@@ -64,8 +64,8 @@ function HomePage(props) {
     )
   }
   return (
-    <Root>
-      <ScrollView style={styles.container}>
+    <Root style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>首页</Text>
           <View style={styles.SwiperBox} >
@@ -74,13 +74,15 @@ function HomePage(props) {
           <StatusCard items={houseList} status={userInfo && userInfo.status} showList={() => showList()} />
         </View>
         <View style={styles.listContent}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={styles.listTitle}>房源推荐</Text>
-            <Text style={styles.listMore}>查看更多</Text>
+            <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
+              <Text style={{ color: Theme.textLink }} >查看更多</Text>
+            </Button>
           </View>
-          <HouseListComponent nav={props.navigation}/>
+          <HouseListComponent nav={props.navigation} />
         </View>
-      </ScrollView>
+      </View>
     </Root>
   );
 }
@@ -132,8 +134,7 @@ const styles = StyleSheet.create({
   },
   listMore: {
     position: 'absolute',
-    color: '#527BDF',
     right: 0,
-    top: 10
+    top: -10
   }
 });
