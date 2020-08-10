@@ -12,6 +12,7 @@ export const AppRoute = {
   RECORD: 'RecordHouse',
   AUDIT: 'AuditHouse',
   HOUSEDETAIL: 'HouseDetail',
+  PUBLICHOUSEDETAIL: 'PublicHouseDetail',
   PUBLISH: 'PublishHouse',
   ADDTENANT: 'AddTenant',
   HOUSELIST: 'HouseList',

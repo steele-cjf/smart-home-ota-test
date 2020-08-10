@@ -103,11 +103,7 @@ function HouseListComponent(props) {
   };
   const handleToDetailPage = item => {
     console.log('item', item);
-    NavigatorService.navigate({
-      name: AppRoute.HOUSEDETAIL,
-      key: String(item.id),
-      params: {item},
-    });
+    NavigatorService.navigate(AppRoute.PUBLICHOUSEDETAIL);
   };
 
   // 渲染列表为空时的状态：无数据
