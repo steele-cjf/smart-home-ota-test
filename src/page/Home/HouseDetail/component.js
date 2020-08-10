@@ -73,6 +73,12 @@ function HouseDetail(props) {
       }
     });
   };
+
+  const handleToPage = () => {
+    props.navigation.navigate(AppRoute.RECORD, {
+      id: houseInfo.id,
+    });
+  };
   return (
     <View style={styles.container}>
       {loading ? (
@@ -94,6 +100,7 @@ function HouseDetail(props) {
             <Right>
               <Button
                 transparent
+                onPress={() => handleToPage()}
                 style={{
                   display: houseInfo.status === 'audit_pass' ? 'none' : 'flex',
                 }}>

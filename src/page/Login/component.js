@@ -68,7 +68,7 @@ function LoginPage(props) {
     const data = {
       mobile: mobile,
       verifyCode: verifyCode,
-    };;
+    };
     props.handleLogin(data, res => {
       if (!res.code) {
         storage.set('token', res.data.accessToken);
