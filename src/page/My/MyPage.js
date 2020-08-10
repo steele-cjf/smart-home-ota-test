@@ -6,11 +6,11 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {Thumbnail, Button, Spinner} from 'native-base';
-import ViewUtil from '../util/ViewUtil';
-import {MORE_MENU} from '../common/MORE_MENU';
+import ViewUtil from '../../util/ViewUtil';
+import {MORE_MENU} from '../../common/MORE_MENU';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {AppRoute} from '../navigator/AppRoutes';
-import {handleLogout} from '../store/login/index';
+import {AppRoute} from '../../navigator/AppRoutes';
+import {handleLogout} from '../../store/login/index';
 
 function MyPage(props) {
   const statusColor = {
@@ -40,7 +40,9 @@ function MyPage(props) {
     let RouteName;
     switch (menu) {
       case MORE_MENU.Owner:
-        NavigatorService.navigate(AppRoute.MYHOUSELIST, {screen: 'MyHouseList'});
+        NavigatorService.navigate(AppRoute.MYHOUSELIST, {
+          screen: 'MyHouseList',
+        });
         // RouteName = 'Owner';
         break;
       case MORE_MENU.About:

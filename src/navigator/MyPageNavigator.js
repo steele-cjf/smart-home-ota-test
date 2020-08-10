@@ -1,9 +1,11 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import MyPage from '../page/MyPage';
-import MyHouseList from '../page/Home/MyHouseList';
+import {createStackNavigator} from '@react-navigation/stack';
+import MyPage from '../page/My/MyPage';
+import MyHouseList from '../page/My/MyHouseList';
+import HouseDetail from '../page/Feature/HouseDetail';
+import RecordHouse from '../page/My/RecordHouse';
 
-import { AppRoute } from './AppRoutes';
+import {AppRoute} from './AppRoutes';
 
 const MyPageNavigator = createStackNavigator();
 
@@ -13,8 +15,8 @@ export const MyPageStackComponent = () => {
       screenOptions={{
         cardStyle: {
           fontSize: 16,
-          backgroundColor: '#fff'
-        }
+          backgroundColor: '#fff',
+        },
       }}>
       <MyPageNavigator.Screen
         name={AppRoute.MY}
@@ -28,6 +30,21 @@ export const MyPageStackComponent = () => {
         component={MyHouseList}
         options={{
           headerShown: false,
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.HOUSEDETAIL}
+        component={HouseDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.RECORD}
+        component={RecordHouse}
+        options={{
+          title: '添加房源',
+          headerBackTitle: '返回',
         }}
       />
     </MyPageNavigator.Navigator>

@@ -24,7 +24,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import showToast from '../../../util/toast';
 
 function RecordHouse(props) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState();
   const [houseId, setHouseId] = useState('');
   const [selfList, setSelfList] = useState([]);
   const [selectedSelfValue, setSelectedSelfValue] = useState('');
@@ -52,7 +52,7 @@ function RecordHouse(props) {
       setHouseDirection(handlerOptions(res.house_direction));
     });
     const {params} = props.route;
-    if (params.id) {
+    if (params && params.id) {
       setLoading(true);
       setHouseId(params.id);
       storage.get('dictionaryMappings').then(res => {
