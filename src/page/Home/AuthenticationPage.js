@@ -85,9 +85,9 @@ function AuthenticationPage(props) {
     if (selectIndex === 0) {
       personalVerify();
     } else if (selectIndex === 1) {
-      props.navigation.navigate(AppRoute.IDCARDVERTIFY);
+      NavigatorService.navigate(AppRoute.IDCARDVERTIFY);
     } else {
-      props.navigation.navigate(AppRoute.PASSPORTVERTIFY);
+      NavigatorService.navigate(AppRoute.PASSPORTVERTIFY);
     }
   }
 

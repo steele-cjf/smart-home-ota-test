@@ -16,7 +16,7 @@ function HomePage(props) {
   //         storage.set('info', Info.data);
   //       } else {
   //         showToast(Info.message);
-  //         props.navigation.navigate(AppRoute.LOGIN);
+  //         NavigatorService.navigate(AppRoute.LOGIN);
   //       }
   //     };
   //   }
@@ -29,7 +29,7 @@ function HomePage(props) {
         <Text style={styles.secondaryText}>需要添加后才能执行开锁操作</Text>
         <Button
           title="登记房源"
-          onPress={() => props.navigation.navigate(AppRoute.RECORD)}
+          onPress={() => NavigatorService.navigate(AppRoute.RECORD)}
         />
         <Button title="申请电子钥匙" />
       </View>

@@ -1,10 +1,7 @@
 /* eslint-disable no-undef */
 export function getUserInfo(callback) {
   return $get('/user/me', {
-    actionType: 'USER_INFO',
-    successConfig: {
-      callback,
-    },
+    actionType: 'USER_INFO'
   });
 }
 export function getVerifyToken(data, callback) {

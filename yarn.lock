@@ -1049,6 +1049,11 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
+"@react-navigation/compat@^5.2.5":
+  version "5.2.5"
+  resolved "https://registry.npm.taobao.org/@react-navigation/compat/download/@react-navigation/compat-5.2.5.tgz#b8e110f46418834dece9319374e0161cf5a976eb"
+  integrity sha1-uOEQ9GQYg03s6TGTdOAWHPWpdus=
+
 "@react-navigation/core@^5.12.2":
   version "5.12.2"
   resolved "https://registry.npm.taobao.org/@react-navigation/core/download/@react-navigation/core-5.12.2.tgz?cache=0&sync_timestamp=1596076391243&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40react-navigation%2Fcore%2Fdownload%2F%40react-navigation%2Fcore-5.12.2.tgz#b97c94e8b165fa3a2220db00d28eb06d0e6820cf"
@@ -5417,6 +5422,13 @@ react-native-status-bar-height@^2.5.0:
   version "2.5.0"
   resolved "https://registry.npm.taobao.org/react-native-status-bar-height/download/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"
   integrity sha1-vA+4UjBgOFCquWZ+6BEaYpVN6Qw=
+
+react-native-swiper@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npm.taobao.org/react-native-swiper/download/react-native-swiper-1.6.0.tgz#59fdbdf95addee49630312f27077622c27776819"
+  integrity sha1-Wf29+Vrd7kljAxLycHdiLCd3aBk=
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-vector-icons@^6.6.0:
   version "6.7.0"

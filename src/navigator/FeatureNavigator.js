@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import FeaturePage from '../page/Feature/index';
-import HouseDetail from '../page/Home/HouseDetail';
+import HouseDetail from '../page/Feature/HouseDetail';
 import PublishHouse from '../page/Feature/publishHouse';
 import AddTenant from '../page/Feature/addTenant';
 import RoomPage from '../page/Feature/roomPage';
@@ -13,6 +13,7 @@ const HomeStack = createStackNavigator();
 export const FeatureStackComponent = () => {
   return (
     <HomeStack.Navigator
+      mode="modal"
       screenOptions={{
         cardStyle: {
           fontSize: 16,

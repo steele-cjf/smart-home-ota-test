@@ -16,10 +16,10 @@ function AuditHouse(props) {
   //   if (!Info.code) {
   //     storage.set('info', Info.data);
   //     setUserInfo(Info.data);
-  //     // props.navigation.navigate(AppRoute.RECORD);
+  //     // NavigatorService.navigate(AppRoute.RECORD);
   //   } else {
   //     showToast(Info.message);
-  //     props.navigation.navigate(AppRoute.LOGIN);
+  //     NavigatorService.navigate(AppRoute.LOGIN);
   //   }
   // }, [props, props.userInfo]);
 
@@ -31,7 +31,7 @@ function AuditHouse(props) {
         <Text>当前房源</Text>
         <Text
           style={styles.buttonTextStyle}
-          onPress={() => props.navigation.navigate(AppRoute.HOUSEDETAIL)}>
+          onPress={() => NavigatorService.navigate(AppRoute.HOUSEDETAIL)}>
           审核中，
         </Text>
         <Text style={styles.textFont}>请耐心等待</Text>

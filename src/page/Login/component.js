@@ -46,7 +46,7 @@ function LoginPage(props) {
   }
 
   function handleSubmit() {
-    //props.navigation.navigate(AppRoute.HOME);
+    //NavigatorService.navigate(AppRoute.HOME);
 
     if (!mobile) {
       showToast('请输入手机号');
@@ -69,13 +69,12 @@ function LoginPage(props) {
       mobile: mobile,
       verifyCode: verifyCode,
     };
-
     props.handleLogin(data, res => {
       if (!res.code) {
         storage.set('token', res.data.accessToken);
         storageDataDictionary();
         storageMappingDictionary();
-        props.navigation.navigate(AppRoute.HOME);
+        NavigatorService.navigate(AppRoute.HOME);
       } else {
         showToast(res.message);
       }
@@ -111,7 +110,7 @@ function LoginPage(props) {
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(13661992793); //13661992793
-  const [verifyCode, setVerifyCode] = useState(870860); //560657
+  const [verifyCode, setVerifyCode] = useState(615011); //560657
   const [checked, setChecked] = useState(true);
 
   return (
@@ -133,7 +132,7 @@ function LoginPage(props) {
         }
         value={mobile}
         //errorMessage={mobileError}
-        onSubmitEditing={() => refMobile.current.focus()}
+        // onSubmitEditing={() => refMobile.current.focus()}
         onChangeText={setMobile}
         onBlur={() => validateField('mobile')}
       />
@@ -153,7 +152,7 @@ function LoginPage(props) {
           }
           value={verifyCode}
           //errorMessage={verifyCodeError}
-          onSubmitEditing={() => refVerifyCode.current.focus()}
+          // onSubmitEditing={() => refVerifyCode.current.focus()}
           onChangeText={setVerifyCode}
         />
         <Button

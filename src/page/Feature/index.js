@@ -15,7 +15,7 @@ function FeaturePage(props) {
     let RouteName;
     switch (menu) {
       case MORE_MENU.HouseDetail:
-        props.navigation.navigate(AppRoute.HOUSEDETAIL);
+        NavigatorService.navigate(AppRoute.HOUSEDETAIL);
         break;
       case MORE_MENU.TemporaryKey:
         RouteName = 'TemporaryKey';
@@ -28,7 +28,7 @@ function FeaturePage(props) {
         break;
       case MORE_MENU.ComponentTest:
         RouteName = 'ComponentTest';
-        props.navigation.navigate(AppRoute.COMPONENTTEST);
+        NavigatorService.navigate(AppRoute.COMPONENTTEST);
         break;
     }
   }

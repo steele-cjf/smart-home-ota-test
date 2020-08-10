@@ -16,7 +16,19 @@ export function getHouseDetail(id, callback) {
     successConfig: {
       callback,
     },
-    actionType: 'HOUSE_DETAIL'
+    actionType: 'HOUSE_DETAIL',
+  });
+}
+// 编辑房源审核信息
+export function updateHouse(id, data, callback) {
+  return $put(`/house/${id}`, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    body: data,
+    successConfig: {
+      callback,
+    },
   });
 }
 // HOUSE_DETAIL
@@ -28,5 +40,5 @@ export function houseDetail(state = null, action) {
 }
 
 export default {
-  houseDetail
+  houseDetail,
 };

@@ -6,10 +6,11 @@ import IdCardVertify from '../page/Home/IdCardVertify';
 import PassportVertify from '../page/Home/PassportVertify';
 import VertifyDetailsPage from '../page/Home/VertifyDetails';
 import UnrecordedHouse from '../page/Home/UnrecordedHouse';
-import RecordHouse from '../page/Home/RecordHouse';
+import RecordHouse from '../page/My/RecordHouse';
 import AuditHouse from '../page/Home/AuditHouse';
 import HouseList from '../page/Home/HouseList';
-import MyHouseList from '../page/Home/MyHouseList';
+import MyHouseList from '../page/My/MyHouseList';
+import MapHousePage from '../page/Home/MapHouse';
 
 import {AppRoute} from './AppRoutes';
 
@@ -17,12 +18,26 @@ const HomeStack = createStackNavigator();
 
 export const HomeStackComponent = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator
+      screenOptions={{
+        cardStyle: {
+          fontSize: 16,
+          backgroundColor: '#fff',
+        },
+      }}>
       <HomeStack.Screen
         name={AppRoute.HOME}
         component={HomePage}
         options={{
           headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.MAPHOUSE}
+        component={MapHousePage}
+        options={{
+          title: '地图找房',
+          headerBackTitle: '返回',
         }}
       />
       <HomeStack.Screen

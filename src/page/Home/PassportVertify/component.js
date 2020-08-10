@@ -11,7 +11,7 @@ export default function PassportVertifyPage(props) {
 
     // 检查并提交form
     const handleConfirm = () => {
-        props.navigation.navigate(AppRoute.VERDETAILS);  //lyq test
+        NavigatorService.navigate(AppRoute.VERDETAILS);  //lyq test
 
         let message = ''
         let key = vertifyCn.findIndex((item) => { return (item.required && !formData[item.key]) })
@@ -41,7 +41,7 @@ export default function PassportVertifyPage(props) {
             console.log(res, 'end')
             showToast('success');
         })
-        // props.navigation.navigate(AppRoute.UNRECORD);
+        // NavigatorService.navigate(AppRoute.UNRECORD);
     };
     // 修改成能提交的数据结构
     const changeToForm = (result) => {
