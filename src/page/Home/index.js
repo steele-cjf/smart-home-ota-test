@@ -19,35 +19,43 @@ const imgList = [ // 暂时写死
 function HomePage(props) {
   const [userInfo, setUserInfo] = useState({});
   const [houseList, setHouseList] = useState({});
+  const [selectHouse, setSelectHouse] = useState({});
 
   // 可以理解为componentDidMount
   useEffect(() => {
-    props.getMyHouseList() // 获取本人的房源
     props.getUserInfo(); // 获取个人信息
   }, [])
 
   // 获取用户信息
   useEffect(() => {
     const Info = props.userInfo;
-    console.log(Info)
+    console.log('useInfo', Info)
     if (Info && !Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data)
+      if (Info.data.status === 'audit_pass') {
+        props.getMyHouseList() // 获取本人的房源
+      }
     }
   }, [props.userInfo]);
 
   useEffect(() => {
     // 获取本人的房源
-    setHouseList(props.myHouseList)
+    if (props.myHouseList && props.myHouseList.data) {
+      let { data } = props.myHouseList
+      setHouseList(data)
+      data.length && setSelectHouse(data[0])
+    }
   }, [props.myHouseList])
+
 
   // 展示房源选择
   const showList = () => {
-
     let array = []
     if (houseList.length) {
+      console.log(88888, houseList)
       array = houseList.map((item) => {
-        item.text = item.name
+        item.text = item.regionFullName.replace(/\//g, '')
         return item
       })
     }
@@ -59,7 +67,9 @@ function HomePage(props) {
         title: "请选择房源"
       },
       buttonIndex => {
-        console.log(buttonIndex)
+        if (houseList[buttonIndex]) {
+          setSelectHouse(houseList[buttonIndex])
+        }
       }
     )
   }
@@ -71,7 +81,7 @@ function HomePage(props) {
           <View style={styles.SwiperBox} >
             <Swiper items={imgList} />
           </View>
-          <StatusCard items={houseList} status={userInfo && userInfo.status} showList={() => showList()} />
+          <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
         </View>
         <View style={styles.listContent}>
           <View style={{ flexDirection: 'row' }}>

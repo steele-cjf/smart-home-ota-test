@@ -11,6 +11,7 @@ import AuditHouse from '../page/Home/AuditHouse';
 import HouseList from '../page/Home/HouseList';
 import MyHouseList from '../page/My/MyHouseList';
 import MapHousePage from '../page/Home/MapHouse';
+import HouseDetail from '../page/Feature/HouseDetail';
 
 import {AppRoute} from './AppRoutes';
 
@@ -106,6 +107,13 @@ export const HomeStackComponent = () => {
         component={MyHouseList}
         options={{
           headerShown: false
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.HOUSEDETAIL}
+        component={HouseDetail}
+        options={{
+          headerShown: false,
         }}
       />
     </HomeStack.Navigator>
