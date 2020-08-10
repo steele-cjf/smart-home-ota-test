@@ -334,7 +334,11 @@ function HouseDetail(props) {
               <Divider style={{marginTop: 16}} />
               {/* 发布 */}
               <TouchableOpacity
-                onPress={() => NavigatorService.navigate(AppRoute.PUBLISH)}>
+                onPress={() =>
+                  NavigatorService.navigate(AppRoute.PUBLISHLISE, {
+                    id: houseInfo.id,
+                  })
+                }>
                 <View style={styles.listBox}>
                   <View style={[styles.leftContent, styles.flex]}>
                     <AntDesign

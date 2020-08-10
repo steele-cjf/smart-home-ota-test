@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 export function getUserInfo(callback) {
   return $get('/user/me', {
-    actionType: 'USER_INFO'
+    actionType: 'USER_INFO',
   });
 }
 export function getVerifyToken(data, callback) {
@@ -62,6 +62,15 @@ export function getMyHouseList(callback) {
 // 业主的房源列表
 export function getHouseListByHolder(data, callback) {
   return $get('/house/listHolderMine', {
+    queryData: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
+// 获取我的房源发布列表
+export function getMyPublishList(data, callback) {
+  return $get('/publish/listByHouse', {
     queryData: data,
     successConfig: {
       callback,

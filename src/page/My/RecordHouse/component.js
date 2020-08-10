@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useCallback, useEffect} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, Image} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   Form,
@@ -39,7 +39,7 @@ function RecordHouse(props) {
   const [
     housePropertyCertificateImage,
     setHousePropertyCertificateImage,
-  ] = useState([]);
+  ] = useState(null);
   const [certificateFilesImg, setCertificateFilesImg] = useState([]);
   const [tabs, setTabs] = useState([{name: '请选择', id: 0}]);
   const [regionName, setRegionName] = useState('');
@@ -71,9 +71,6 @@ function RecordHouse(props) {
           setAddress(info.address);
           setHouseHolder(info.houseHolder);
           setHouseLayout(info.houseLayout);
-          setHousePropertyCertificateImage(
-            info.housePropertyCertificateImageUrl,
-          );
           setCertificateFilesImg(info.houseHolder.certificateFileUrls);
           setRegionId(info.regionId);
           const addressName = info.regionFullName.split('/').join('');
@@ -83,7 +80,11 @@ function RecordHouse(props) {
           setSelectedDirectionValue(
             obj.house_direction[info.houseLayout.direction],
           );
-          setLoading(false);
+          $getImage(info.housePropertyCertificateImageUrl, uri => {
+            console.log('uri', uri);
+            setHousePropertyCertificateImage(uri);
+            setLoading(false);
+          });
         }
       }
     });
@@ -130,10 +131,11 @@ function RecordHouse(props) {
     result.append('address', address);
 
     if (houseId) {
-      console.log('add');
+      console.log('edit');
       result.append('id', houseId);
       console.log('result', result);
       props.updateHouse(houseId, result, res => {
+        console.log('update', res);
         if (!res.code) {
           props.navigation.navigate(AppRoute.HOUSEDETAIL, {
             id: houseId,
@@ -143,10 +145,10 @@ function RecordHouse(props) {
         }
       });
     } else {
-      console.log('edir');
       props.addHouse(result, res => {
         console.log('res', res);
-        props.navigation.navigate(AppRoute.AUDIT);
+        props.route.params.refresh();
+        props.navigation.goBack();
       });
     }
   };
@@ -357,7 +359,13 @@ function RecordHouse(props) {
                   </View>
                 </View>
                 <Text style={[styles.publishTitle]}>房产证照片</Text>
+                <Text>{housePropertyCertificateImage}</Text>
+                {/* <Image
+                  style={{width: 75, height: 75}}
+                  source={{uri: housePropertyCertificateImage}}
+                /> */}
                 <ImageUpload
+                  imgUrl={housePropertyCertificateImage}
                   setImageForm={obj => setImageForm(0, obj, 'cert')}
                 />
                 <Text style={[styles.publishTitle]}>建筑信息</Text>
@@ -366,7 +374,11 @@ function RecordHouse(props) {
                     建筑面积
                   </Label>
                   <Input
-                    value={'' + houseLayout.area || ''}
+                    value={
+                      houseLayout.area
+                        ? '' + houseLayout.area
+                        : houseLayout.area
+                    }
                     onChange={e => {
                       setData('area', e.nativeEvent.text, 'houseLayout');
                     }}
@@ -401,7 +413,11 @@ function RecordHouse(props) {
                       共
                     </Text>
                     <Input
-                      value={'' + houseLayout.floorCount || ''}
+                      value={
+                        houseLayout.floorCount
+                          ? '' + houseLayout.floorCount
+                          : houseLayout.floorCount
+                      }
                       onChange={e => {
                         setData(
                           'floorCount',
@@ -419,7 +435,11 @@ function RecordHouse(props) {
                       层 / 第
                     </Text>
                     <Input
-                      value={'' + houseLayout.floor}
+                      value={
+                        houseLayout.floor
+                          ? '' + houseLayout.floor
+                          : houseLayout.floor
+                      }
                       onChange={e => {
                         setData('floor', e.nativeEvent.text, 'houseLayout');
                       }}
@@ -462,7 +482,11 @@ function RecordHouse(props) {
                     户型
                   </Label>
                   <Input
-                    value={'' + houseLayout.roomCount}
+                    value={
+                      houseLayout.roomCount
+                        ? '' + houseLayout.roomCount
+                        : houseLayout.roomCount
+                    }
                     onChange={e => {
                       setData('roomCount', e.nativeEvent.text, 'houseLayout');
                     }}
@@ -476,7 +500,11 @@ function RecordHouse(props) {
                     室
                   </Text>
                   <Input
-                    value={'' + houseLayout.hallCount}
+                    value={
+                      houseLayout.hallCount
+                        ? '' + houseLayout.hallCount
+                        : houseLayout.hallCount
+                    }
                     onChange={e => {
                       setData('hallCount', e.nativeEvent.text, 'houseLayout');
                     }}
@@ -486,7 +514,11 @@ function RecordHouse(props) {
                     厅
                   </Text>
                   <Input
-                    value={'' + houseLayout.toiletCount}
+                    value={
+                      houseLayout.toiletCount
+                        ? '' + houseLayout.toiletCount
+                        : houseLayout.toiletCount
+                    }
                     onChange={e => {
                       setData('toiletCount', e.nativeEvent.text, 'houseLayout');
                     }}
