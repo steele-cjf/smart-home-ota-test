@@ -4,15 +4,15 @@ import { View, Text } from 'react-native';
 import { Button } from 'native-base'
 import { useNavigationState } from '@react-navigation/native'
 import { MapView } from "react-native-amap3d";
-function MapHouse(props) {
-  useNavigationState(state => {
-    console.log(99999, state.routes)
-    return state.index
-  });
 
+function MapHouse(props) {
+  useEffect(() => {
+  }, [])
+  
   return (
-    <View style={{flex: 1}}>
-      <MapView>
+    <View style={{ flex: 1}}>
+      <Text>dfsadfsa</Text>
+      <MapView style={{flex:1}}>
         <MapView.Marker
           coordinate={{
             latitude: 39.91095,
