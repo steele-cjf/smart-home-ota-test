@@ -1,19 +1,18 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomePage from '../page/Home/index';
 import AuthenticationPage from '../page/Home/AuthenticationPage';
 import IdCardVertify from '../page/Home/IdCardVertify';
 import PassportVertify from '../page/Home/PassportVertify';
 import VertifyDetailsPage from '../page/Home/VertifyDetails';
 import UnrecordedHouse from '../page/Home/UnrecordedHouse';
-import RecordHouse from '../page/Home/RecordHouse';
+import RecordHouse from '../page/My/RecordHouse';
 import AuditHouse from '../page/Home/AuditHouse';
 import HouseList from '../page/Home/HouseList';
-import MyHouseList from '../page/Home/MyHouseList';
+import MyHouseList from '../page/My/MyHouseList';
 import MapHousePage from '../page/Home/MapHouse';
 
-
-import { AppRoute } from './AppRoutes';
+import {AppRoute} from './AppRoutes';
 
 const HomeStack = createStackNavigator();
 
@@ -23,8 +22,8 @@ export const HomeStackComponent = () => {
       screenOptions={{
         cardStyle: {
           fontSize: 16,
-          backgroundColor: '#fff'
-        }
+          backgroundColor: '#fff',
+        },
       }}>
       <HomeStack.Screen
         name={AppRoute.HOME}
