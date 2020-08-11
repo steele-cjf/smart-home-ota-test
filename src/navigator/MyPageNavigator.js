@@ -7,6 +7,7 @@ import HouseDetail from '../page/Feature/HouseDetail';
 import RecordHouse from '../page/My/RecordHouse';
 import MyPublishHouse from '../page/My/MyPublishHouse';
 import PublishHouse from '../page/Feature/publishHouse';
+import RoomPage from '../page/Feature/roomPage';
 
 import {AppRoute} from './AppRoutes';
 
@@ -71,6 +72,13 @@ export const MyPageStackComponent = () => {
         options={{
           title: '发布房源',
           headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.ROOM}
+        component={RoomPage}
+        options={{
+          headerShown: false,
         }}
       />
     </MyPageNavigator.Navigator>
