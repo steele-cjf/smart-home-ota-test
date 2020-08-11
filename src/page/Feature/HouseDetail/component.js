@@ -64,8 +64,7 @@ function HouseDetail(props) {
     ]);
   };
   const handlerDelete = () => {
-    console.log('delete');
-    props.deleteHouse({id: props.route.id}, res => {
+    props.deleteHouse({id: props.route.params.id}, res => {
       console.log('res', res);
       if (!res.code) {
         showToast('删除成功');
