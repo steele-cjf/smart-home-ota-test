@@ -70,7 +70,7 @@ function AuthenticationPage(props) {
       }
       // 安卓活体认证
       NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
-        console.log(99999, ret);
+        //console.log(99999, ret);
         if (ret === 'success') {
           // 认证结果返回
           props.getVerifyResult({bizId});
@@ -97,7 +97,7 @@ function AuthenticationPage(props) {
     });
   });
   useEffect(() => {
-    console.log(9999, props.verfityResult);
+    console.log(99998, props.verfityResult);
   }, [props.verfityResult]);
 
   const [AuthList] = useState([

@@ -6,6 +6,7 @@ import {AppRoute} from '../../../navigator/AppRoutes';
 
 import vertifyCn from '../config/IdCardVertifyCn';
 import Theme from '../../../style/colors';
+
 export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState([]);
@@ -32,23 +33,36 @@ export default function IdCardVertifyPage(props) {
       showToast(message);
       return;
     }
+    //NavigatorService.navigate(AppRoute.UNRECORD);
+
     var result = new FormData();
     changeToForm(result);
+
     // 暂时写死
-    result.append('userId', '478609054946578432');
+    // result.append('userId', '478609054946578432');
+    // result.append('identificationType', 'id_card');
+    var info = props.userInfo;
+    userId = info.data.id;
+    result.append('userId', userId);
     result.append('identificationType', 'id_card');
-    NavigatorService.navigate(AppRoute.UNRECORD);
+
+    console.log('传入参数result：', result);
+
     props.verifyIdCard(result, res => {
-      console.log(res, 'end');
+      console.log('res12:', res);
+      console.log(777, res.message);
+
       if (!res.code) {
         showToast('success');
         NavigatorService.navigate(AppRoute.UNRECORD);
+      } else {
+        showToast("90909"+res.message);
       }
     });
-    // NavigatorService.navigate(AppRoute.UNRECORD);
   };
+
   // 修改成能提交的数据结构
-  const changeToForm = result => {
+  const changeToForm = (result) => {
     for (var index in formData) {
       result.append(index, formData[index]);
     }
@@ -56,14 +70,17 @@ export default function IdCardVertifyPage(props) {
       result.append('images', formImage[i]);
     }
   };
+
   const setImageForm = (type, obj) => {
     let data = Object.assign([], formImage);
     data[type] = obj;
     setFormImage(data);
   };
+
   const changeForm = data => {
     setFormData(data);
   };
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
