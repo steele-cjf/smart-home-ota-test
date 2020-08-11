@@ -19,9 +19,9 @@ function HouseDetail(props) {
             <View style={styles.flexRow}>
                 <Text style={styles.title}>3600</Text>
                 <Text style={styles.desc}>元/月</Text>
-                <AntDesign style={[styles.rightBtn, options.collect && styles.activeBtn]} 
-                onPress={() => {changeData('collect', !options.collect)}}
-                name={options.collect ? 'heart' : 'hearto'}></AntDesign>
+                <AntDesign style={[styles.rightBtn, options.collect && styles.activeBtn]}
+                    onPress={() => { changeData('collect', !options.collect) }}
+                    name={options.collect ? 'heart' : 'hearto'}></AntDesign>
             </View>
             <Text style={styles.secondDes}>整租·位置·2房·1卫·1间</Text>
             <Text style={styles.moduleTitle}>--</Text>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     rightBtn: {
         position: 'absolute',
         right: 16,
-        fontSize: 20, 
+        fontSize: 20,
         color: '#666',
         top: 10
     },

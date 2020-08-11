@@ -8,7 +8,6 @@ import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
 import Theme from '../../style/colors';
-import {and} from 'react-native-reanimated';
 
 function LoginPage(props) {
   function validateField(field) {
@@ -30,17 +29,18 @@ function LoginPage(props) {
 
   function storageDataDictionary() {
     props.getAllData(res => {
-      // console.log('resss', res.data);
       let result = {};
       res.data.forEach(item => {
         result[item.name] = item.dictionaries;
       });
+      props.setCodeInfo(result)
       storage.set('code', result);
     });
   }
 
   function storageMappingDictionary() {
     props.getDictionaryMapping(res => {
+      props.setDictionaryMappings(res.data)
       storage.set('dictionaryMappings', res.data);
     });
   }
@@ -71,7 +71,6 @@ function LoginPage(props) {
     };
     props.handleLogin(data, res => {
       if (!res.code) {
-        console.log('login', res.data.accessToken);
         (async () => {
           await storage.set('token', res.data.accessToken);
           const accessToken = await storage.get('token');
@@ -114,8 +113,8 @@ function LoginPage(props) {
   const [isSend, setSendStatus] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(18218025628); //13661992793
-  const [verifyCode, setVerifyCode] = useState(996432); //560657
+  const [mobile, setMobile] = useState(18702637317); //18218025628
+  const [verifyCode, setVerifyCode] = useState(461355); //996432
   const [checked, setChecked] = useState(true);
 
   return (

@@ -7,23 +7,6 @@ import {AppRoute} from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 
 function AuditHouse(props) {
-  // useEffect(() => {
-  //   if (!props.userInfo) {
-  //     props.getUserInfo();
-  //     return;
-  //   }
-  //   const Info = props.userInfo;
-  //   if (!Info.code) {
-  //     storage.set('info', Info.data);
-  //     setUserInfo(Info.data);
-  //     // NavigatorService.navigate(AppRoute.RECORD);
-  //   } else {
-  //     showToast(Info.message);
-  //     NavigatorService.navigate(AppRoute.LOGIN);
-  //   }
-  // }, [props, props.userInfo]);
-
-  // const [userInfo, setUserInfo] = useState({});
 
   return (
     <View style={styles.container}>

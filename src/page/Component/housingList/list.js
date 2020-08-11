@@ -173,6 +173,7 @@ function HouseListComponent(props) {
       renderItem={({ item, index }) => {
         return (
           <HouseItem
+            key={item.id}
             houseInfo={item}
             onPress={handleToDetailPage}
             key={getHouseIdKey(item, index)}

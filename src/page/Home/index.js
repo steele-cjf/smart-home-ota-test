@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
@@ -9,6 +9,7 @@ import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
 import HouseListComponent from '../Component/housingList/list';
 import Theme from '../../style/colors';
+import WS from 'react-native-websocket'
 
 const imgList = [ // 暂时写死
   require('../../assets/images/mock/home1.jpg'),
@@ -22,11 +23,16 @@ function HomePage(props) {
   const [selectHouse, setSelectHouse] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true)
   const [loadingList, setLoadingList] = useState(true)
+  const wsRef = useRef(null)
 
   // 可以理解为componentDidMount
   useEffect(() => {
     props.getUserInfo(); // 获取个人信息
   }, [])
+  useEffect(() => {
+    console.log(88888)
+    props.getUserInfo();
+  }, [props.webSocketInfo])
 
   // 获取用户信息
   useEffect(() => {
@@ -109,7 +115,8 @@ function HomePage(props) {
 function mapStateToProps(state) {
   return {
     userInfo: state.userInfo,
-    myHouseList: state.myHouseList
+    myHouseList: state.myHouseList,
+    webSocketInfo: state.webSocketInfo
   };
 }
 function matchDispatchToProps(dispatch) {

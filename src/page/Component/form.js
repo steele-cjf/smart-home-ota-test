@@ -54,7 +54,7 @@ export default function Form(props) {
           switch (data.type) {
             case 'INPUT':
               return (
-                <View style={styles.inputContainer}>
+                <View style={styles.inputContainer} key={key}>
                   <Text style={styles.label}>{name}</Text>
                   <TextInput style={styles.input}
                     key={index}

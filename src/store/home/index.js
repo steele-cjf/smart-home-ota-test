@@ -110,14 +110,6 @@ export function userInfo(state = null, action) {
   return state;
 }
 
-// verfity result
-export function verfityResult(state = null, action) {
-  if (action.type === 'VERIFY_RESULT') {
-    return action.data || null;
-  }
-  return state;
-}
-
 // my house
 export function myHouseList(state = null, action) {
   if (action.type === 'MY_HOUSE_LIST') {
@@ -127,6 +119,5 @@ export function myHouseList(state = null, action) {
 }
 export default {
   userInfo,
-  verfityResult,
   myHouseList,
 };

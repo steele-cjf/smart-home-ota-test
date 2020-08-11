@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from './src/store';
 import storage from './src/util/storage';
 import Camera from './src/page/Component/Camera';
+import WebsocketComponent from './src/page/Component/WebSocker'
 export default () => {
   // This value is used to determine the initial screen1
   const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ export default () => {
     <SafeAreaView style={{ flex: 1 }}>
       <Provider store={store}>
         <Camera />
+        <WebsocketComponent/>
         <NavigationContainer ref={navigatorRef}>
           {/* {loading ? (
             <Text>Loading.....</Text>

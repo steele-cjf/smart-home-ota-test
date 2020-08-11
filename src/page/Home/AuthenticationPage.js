@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   View,
   Text,
@@ -10,70 +10,44 @@ import {
   findNodeHandle,
   Platform,
 } from 'react-native';
-import {AppRoute} from '../../navigator/AppRoutes';
-import {getVerifyToken, getVerifyResult} from '../../store/home/index';
+import { AppRoute } from '../../navigator/AppRoutes';
+import { getVerifyToken, getVerifyResult } from '../../store/home/index';
 import Theme from '../../style/colors';
-import storage from '../../util/storage';
 
 function AuthenticationPage(props) {
   function changeSelect(i) {
     setSelectIndex(selectIndex => (selectIndex = i));
   }
-  // function getVerifyResult() {
-  //   const data = {
-  //     bizId: tokenObj.bizId,
-  //   };
-  //   console.log('tokenObj', tokenObj);
-  //   http
-  //     .get('/rp/verifyResult', data)
-  //     .then(res => {
-  //       if (!res.code) {
-  //         showToast('认证成功');
-  //       } else {
-  //         showToast(res.message);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
 
   function personalVerify() {
-    props.getVerifyToken({userId}, res => {
+    props.getVerifyToken({ useId: userInfo.id }, res => {
       if (res.code) {
         showToast(res.message);
         return;
       }
       console.log('ddddd', res.data);
-      let {token, bizId} = res.data;
+      let { token, bizId } = res.data;
       if (Platform.OS === 'ios') {
         let domId = findNodeHandle(AliyunVerify.current);
 
         NativeModules.RealPersonAuth.addEvent(domId, token, (state, errorCode, message) => {
           //返回结果
-          console.log(1111, state);
-          console.log(2222, errorCode);
-          console.log(3333, message);  
-           
           if (state === 'RPStatePass') {
-             showToast("认证返回成功");
-             props.getVerifyResult({bizId});
+            showToast("认证返回成功");
+            props.getVerifyResult({ bizId });
           } else if (state === 'RPStateFail') {
-             showToast("认证不通过");
+            showToast("认证不通过");
           } else if (state === 'RPStateNotVerify') {
-             showToast("未认证");
+            showToast("未认证");
           }
         });
-
-        //NativeModules.RealPersonAuth.addEvent(domId, token);
         return;
       }
       // 安卓活体认证
       NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
-        //console.log(99999, ret);
         if (ret === 'success') {
           // 认证结果返回
-          props.getVerifyResult({bizId});
+          props.getVerifyResult({ bizId });
         } else {
           showToast('认证失败');
         }
@@ -90,15 +64,10 @@ function AuthenticationPage(props) {
       NavigatorService.navigate(AppRoute.PASSPORTVERTIFY);
     }
   }
-
+  // 初始化获取用户信息
   useEffect(() => {
-    storage.get('info').then(info => {
-      setUserId(info.id);
-    });
-  });
-  useEffect(() => {
-    console.log(99998, props.verfityResult);
-  }, [props.verfityResult]);
+    setUserInfo(props.userInfo.data);
+  }, [props.userInfo]);
 
   const [AuthList] = useState([
     {
@@ -121,20 +90,20 @@ function AuthenticationPage(props) {
     },
   ]);
   const [selectIndex, setSelectIndex] = useState(0);
-  const [userId, setUserId] = useState(0);
+  const [userInfo, setUserInfo] = useState(0);
   const AliyunVerify = useRef();
   return (
     <View style={styles.container} ref={AliyunVerify}>
       <View>
         <Text style={styles.tipStatus}>当前状态：</Text>
-        <Text style={styles.status}>未实名认证</Text>
+        <Text style={styles.status}>{props.dictionaryMappings.user_status[userInfo.status]}</Text>
       </View>
       <Text style={styles.verTitle}>请选择认证方式：</Text>
       {AuthList.map((u, i) => {
         return (
           <TouchableOpacity style={i === selectIndex ? styles.selectedStyle : styles.authListStyle}
-          key={i}
-          onPress={() => changeSelect(i)}>
+            key={i}
+            onPress={() => changeSelect(i)}>
             <Text style={i === selectIndex ? styles.SelectName : styles.name}>
               {u.name}
             </Text>
@@ -151,7 +120,7 @@ function AuthenticationPage(props) {
         {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡"}
       </Text>
       <TouchableOpacity style={styles.verifyBtn} onPress={handlerVerify}>
-          <Text style={styles.btnText}>开始认证</Text>
+        <Text style={styles.btnText}>开始认证</Text>
       </TouchableOpacity>
     </View>
   );
@@ -161,11 +130,11 @@ function AuthenticationPage(props) {
 function mapStateToProps(state) {
   return {
     userInfo: state.userInfo,
-    verfityResult: state.verfityResult,
+    dictionaryMappings: state.dictionaryMappings
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getVerifyToken, getVerifyResult}, dispatch);
+  return bindActionCreators({ getVerifyToken, getVerifyResult }, dispatch);
 }
 export default connect(
   mapStateToProps,
@@ -181,19 +150,19 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.background,
   },
   tipStatus: {
-    fontSize: 14, 
+    fontSize: 14,
     color: Theme.textSecondary,
   },
   status: {
     position: 'absolute',
     right: 0,
-    fontSize: 14, 
-    color: Theme.textDefault, 
+    fontSize: 14,
+    color: Theme.textDefault,
     textAlign: 'right',
   },
   verTitle: {
     marginVertical: 20,
-    fontSize: 14, 
+    fontSize: 14,
     color: Theme.textDefault,
   },
   authListStyle: {
@@ -216,7 +185,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: Theme.textDefault,
-    fontSize: 18, 
+    fontSize: 18,
   },
   typeText: {
     position: 'absolute',
@@ -263,7 +232,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16, 
-    color: '#FFFFFF', 
+    fontSize: 16,
+    color: '#FFFFFF',
   },
 });

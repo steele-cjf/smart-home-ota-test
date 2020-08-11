@@ -27,9 +27,10 @@ function PublicHouseDetail(props) {
           <Text style={[styles.headerText, styles.back]}>返回</Text>
         </TouchableOpacity>
       </ImageBackground>
-      {
+      {/* {
         loading ? <Spinner></Spinner>:<HouseDetail data={data} />
-      }
+      } */}
+      <Button onPress={() => {console.log(888);props.setWebSocketInfo(Number(new Date()))}}><Text>dddddd</Text></Button>
     </View>
   );
 }

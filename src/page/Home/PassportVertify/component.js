@@ -3,12 +3,16 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import Form from '../../Component/form'
 import ImageUpload from '../../Component/imageUpload'
 import vertifyCn from '../config/PassportVertify'
-import {AppRoute} from '../../../navigator/AppRoutes'; // lyq test
+import { AppRoute } from '../../../navigator/AppRoutes'; // lyq test
 
 export default function PassportVertifyPage(props) {
     const [formData, setFormData] = useState({});
     const [formImage, setFormImage] = useState([]);
-
+    const [userId, setUserId] = useState(null)
+    // 初始化获取用户信息
+    useEffect(() => {
+        setUserId(props.userInfo.id);
+    }, [props.userInfo]);
     // 检查并提交form
     const handleConfirm = () => {
         //NavigatorService.navigate(AppRoute.VERDETAILS);  //lyq test
@@ -35,7 +39,7 @@ export default function PassportVertifyPage(props) {
         var result = new FormData()
         changeToForm(result)
         // 暂时写死
-        result.append('userId', '478609054946578432')
+        result.append('userId', userId)
         result.append('identificationType', 'id_card')
 
         props.verifyIdCard(result, (res) => {
@@ -72,8 +76,8 @@ export default function PassportVertifyPage(props) {
                     <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} />
                     <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} />
                 </View>
-                <View style={{height:'100%'}}>
-                    <TouchableOpacity style={styles.Btn} onPress={() => {handleConfirm();}}>
+                <View style={{ height: '100%' }}>
+                    <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
                         <Text style={styles.btnText}>确认</Text>
                     </TouchableOpacity>
                 </View>
@@ -87,8 +91,8 @@ const styles = StyleSheet.create({
         //height:'100%'
     },
     scrollContainer: {
-        paddingTop: 16, 
-        paddingHorizontal: 16, 
+        paddingTop: 16,
+        paddingHorizontal: 16,
         backgroundColor: Theme.background,
     },
     textTitle: {
@@ -119,7 +123,7 @@ const styles = StyleSheet.create({
         height: 40,
         lineHeight: 40,
         textAlign: 'center',
-        fontSize: 16, 
-        color: '#FFFFFF',    
+        fontSize: 16,
+        color: '#FFFFFF',
     },
 })

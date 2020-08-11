@@ -4,23 +4,8 @@ import {bindActionCreators} from 'redux';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {getUserInfo} from '../../store/home/index';
 import {AppRoute} from '../../navigator/AppRoutes';
-import showToast from '../../util/toast';
 
 function HomePage(props) {
-  // useEffect(() => {
-  //   if (!props.userInfo) {
-  //     async () => {
-  //       await props.getUserInfo();
-  //       const Info = props.userInfo;
-  //       if (!Info.code) {
-  //         storage.set('info', Info.data);
-  //       } else {
-  //         showToast(Info.message);
-  //         NavigatorService.navigate(AppRoute.LOGIN);
-  //       }
-  //     };
-  //   }
-  // }, [props, props.userInfo]);
 
   return (
     <View style={styles.container}>
