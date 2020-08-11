@@ -5,7 +5,9 @@ import {publishHouse} from '../../../store/feature/index';
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
-  return {};
+  return {
+    roomList: state.roomList,
+  };
 }
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({publishHouse}, dispatch);

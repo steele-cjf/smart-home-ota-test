@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -34,7 +34,12 @@ function HouseDetail(props) {
     houseLayout: {},
     houseHolder: {},
   });
+  const [rooms, setRooms] = useState([]);
   useEffect(() => {
+    init();
+  }, [init]);
+
+  const init = useCallback(() => {
     const {params} = props.route;
     props.getHouseDetail(params.id, res => {
       if (!res.code) {
@@ -44,7 +49,10 @@ function HouseDetail(props) {
         }
       }
     });
-  }, [props]);
+    props.getRoomList({houseId: params.id}, res => {
+      setRooms(res.data);
+    });
+  });
 
   const alertDeleteModal = () => {
     Alert.alert('确定删除？', '', [
@@ -64,10 +72,12 @@ function HouseDetail(props) {
     ]);
   };
   const handlerDelete = () => {
-    props.deleteHouse({id: houseInfo.id}, res => {
+    props.deleteHouse({id: props.route.params.id}, res => {
       console.log('res', res);
       if (!res.code) {
         showToast('删除成功');
+        props.route.params.refresh();
+        props.navigation.goBack();
       } else {
         showToast(res.message);
       }
@@ -77,6 +87,14 @@ function HouseDetail(props) {
   const handleToPage = () => {
     props.navigation.navigate(AppRoute.RECORD, {
       id: houseInfo.id,
+    });
+  };
+  const handleToRoomPage = () => {
+    NavigatorService.navigate(AppRoute.ROOM, {
+      id: houseInfo.id,
+      refresh: function() {
+        init();
+      },
     });
   };
   return (
@@ -384,8 +402,7 @@ function HouseDetail(props) {
               </TouchableOpacity>
               <Divider style={{marginTop: 16}} />
               {/* 房间 */}
-              <TouchableOpacity
-                onPress={() => NavigatorService.navigate(AppRoute.ROOM)}>
+              <TouchableOpacity onPress={() => handleToRoomPage()}>
                 <View style={styles.listBox}>
                   <View style={[styles.leftContent, styles.flex]}>
                     <AntDesign
@@ -412,7 +429,7 @@ function HouseDetail(props) {
                         color: Theme.textSecondary,
                         paddingRight: 20,
                       }}>
-                      1间房间
+                      {rooms.length}间房间
                     </Text>
                     <AntDesign
                       name="right"

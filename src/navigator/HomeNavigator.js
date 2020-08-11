@@ -12,9 +12,10 @@ import AuditHouse from '../page/Home/AuditHouse';
 import HouseList from '../page/Home/HouseList';
 import MyHouseList from '../page/My/MyHouseList';
 import MapHousePage from '../page/Home/MapHouse';
-import PublicHouseDetail from '../page/Home/PublicHouseDetail';
+import PublishHouseDetail from '../page/Home/PublishHouseDetail';
 import HouseDetail from '../page/Feature/HouseDetail';
-
+import MyPublishHouse from '../page/My/MyPublishHouse';
+import PublishHouse from '../page/Feature/publishHouse';
 
 import {AppRoute} from './AppRoutes';
 import { houseDetail } from '../store/house';
@@ -122,8 +123,8 @@ export const HomeStackComponent = () => {
         }}
       />
       <HomeStack.Screen
-        name={AppRoute.PUBLICHOUSEDETAIL}
-        component={PublicHouseDetail}
+        name={AppRoute.PUBLISHOUSEDETAIL}
+        component={PublishHouseDetail}
         options={{
           headerShown: false,
         }}
@@ -133,6 +134,21 @@ export const HomeStackComponent = () => {
         component={HouseDetail}
         options={{
           headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.PUBLISHLISE}
+        component={MyPublishHouse}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.PUBLISH}
+        component={PublishHouse}
+        options={{
+          title: '发布房源',
+          headerBackTitle: '返回',
         }}
       />
     </HomeStack.Navigator>

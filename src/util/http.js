@@ -4,7 +4,7 @@ import {showToast} from './toast';
 import storage from './storage';
 
 // 默认配置
-const DEFAULT_CONFIG = {
+export const DEFAULT_CONFIG = {
   method: 'GET',
   body: null,
   queryData: {},
@@ -33,12 +33,16 @@ export const formatURL = (url, params) => {
 
 // 请求参数
 export const httpService = (url, config) => {
-  storage
-    .get('token')
-    .then(
-      accessToken =>
-        (DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken),
-    );
+  // (async () => {
+  //   const accessToken = await storage.get('token');
+  //   DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken;
+  // })();
+  // storage
+  //   .get('token')
+  //   .then(
+  //     accessToken =>
+  //       (DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken),
+  //   );
   return dispatch => {
     config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
     config = Object.assign({}, DEFAULT_CONFIG, config);
@@ -49,7 +53,7 @@ export const httpService = (url, config) => {
     ) {
       config.body = config.body && JSON.stringify(config.body);
     }
-    console.log(config.headers.Authorization, 'token');
+    console.log(config.headers.Authorization, url, 'token');
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {
@@ -93,7 +97,7 @@ export const remove = (url, config) => {
 // image如果需要token时的处理
 export const getImage = (url, callback) => {
   storage.get('token').then(accessToken => {
-    fetch(appApi + url, {
+    fetch('http://120.76.174.157:9700' + url, {
       headers: {
         Authorization: 'Bearer ' + accessToken,
       },
@@ -103,6 +107,7 @@ export const getImage = (url, callback) => {
         console.log('blod', blod);
         let url = URL.createObjectURL(blod);
         callback(url);
+        return url
       })
       .catch(err => {
         callback(err);
@@ -116,4 +121,5 @@ export default {
   put,
   remove,
   getImage,
+  DEFAULT_CONFIG,
 };

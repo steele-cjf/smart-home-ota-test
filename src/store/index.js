@@ -5,6 +5,7 @@ import {houseDetail} from './house/index';
 import {myHouseList} from './home/index';
 import {cameraOpt} from './common/index';
 import {roomList} from './feature/index';
+import { publishHouseDetail } from './publish/index'
 const allReducers = combineReducers({
   userInfo,
   verfityResult,
@@ -12,6 +13,7 @@ const allReducers = combineReducers({
   cameraOpt,
   roomList,
   myHouseList,
+  publishHouseDetail
 });
 const store = createStore(allReducers, applyMiddleware(thunk));
 export default store;

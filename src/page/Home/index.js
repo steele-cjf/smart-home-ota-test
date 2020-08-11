@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
-import { Button, ActionSheet, Root } from 'native-base'
+import { Button, ActionSheet, Root, Spinner } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
@@ -20,6 +20,8 @@ function HomePage(props) {
   const [userInfo, setUserInfo] = useState({});
   const [houseList, setHouseList] = useState({});
   const [selectHouse, setSelectHouse] = useState({});
+  const [loadingStatus, setLoadingStatus] = useState(true)
+  const [loadingList, setLoadingList] = useState(true)
 
   // 可以理解为componentDidMount
   useEffect(() => {
@@ -29,12 +31,13 @@ function HomePage(props) {
   // 获取用户信息
   useEffect(() => {
     const Info = props.userInfo;
-    console.log('useInfo', Info)
     if (Info && !Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data)
-      if (Info.data.status === 'audit_pass') {
+      if (Info.data && Info.data.status === 'audit_pass') {
         props.getMyHouseList() // 获取本人的房源
+      } else {
+        setLoadingStatus(false)
       }
     }
   }, [props.userInfo]);
@@ -46,6 +49,7 @@ function HomePage(props) {
       setHouseList(data)
       data.length && setSelectHouse(data[0])
     }
+    setLoadingStatus(false)
   }, [props.myHouseList])
 
 
@@ -53,7 +57,6 @@ function HomePage(props) {
   const showList = () => {
     let array = []
     if (houseList.length) {
-      console.log(88888, houseList)
       array = houseList.map((item) => {
         item.text = item.regionFullName.replace(/\//g, '')
         return item
@@ -81,7 +84,11 @@ function HomePage(props) {
           <View style={styles.SwiperBox} >
             <Swiper items={imgList} />
           </View>
-          <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
+          {
+            loadingStatus ?
+              <Spinner></Spinner> :
+              <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
+          }
         </View>
         <View style={styles.listContent}>
           <View style={{ flexDirection: 'row' }}>

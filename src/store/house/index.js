@@ -31,6 +31,15 @@ export function updateHouse(id, data, callback) {
     },
   });
 }
+// 删除房源
+export function deleteHouse(data, callback) {
+  return $remove(`/house/${data.id}`, {
+    body: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
 // HOUSE_DETAIL
 export function houseDetail(state = null, action) {
   if (action.type === 'HOUSE_DETAIL') {

@@ -20,13 +20,16 @@ export default function RoomPage(props) {
   const [RoomList, setRoomList] = useState([]);
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [selectItem, setSelectItem] = useState({});
+  const [houseId, setHouseId] = useState('');
 
   useEffect(() => {
-    fetchRoomList('488400405136433152');
+    fetchRoomList();
   }, [fetchRoomList]);
 
-  const fetchRoomList = useCallback(id => {
-    props.getRoomList({houseId: id}, res => {
+  const fetchRoomList = useCallback(() => {
+    const {params} = props.route;
+    setHouseId(params.id);
+    props.getRoomList({houseId: params.id}, res => {
       if (!res.code) {
         setRoomList(res.data);
       }
@@ -67,7 +70,7 @@ export default function RoomPage(props) {
       console.log(res);
       if (!res.code) {
         setIsDialogVisible(false);
-        fetchRoomList('488400405136433152');
+        fetchRoomList();
       } else {
         showToast(res.message);
       }
@@ -78,7 +81,7 @@ export default function RoomPage(props) {
       console.log(res);
       if (!res.code) {
         setIsDialogVisible(false);
-        fetchRoomList('488400405136433152');
+        fetchRoomList();
       } else {
         showToast(res.message);
       }
@@ -99,13 +102,16 @@ export default function RoomPage(props) {
       editRoomFunc(selectItem.id, value);
     } else {
       const data = {
-        houseId: '488400405136433152',
+        houseId: houseId,
         name: value,
       };
       addRoomFunc(data);
     }
   };
-
+  const goToPage = () => {
+    props.navigation.goBack();
+    props.route.params.refresh();
+  };
   const _renderItem = ({item, index}) => {
     return (
       <View style={styles.room_item_style}>
@@ -143,7 +149,7 @@ export default function RoomPage(props) {
       <Header>
         <Left>
           <Button transparent>
-            <Icon name="arrow-back" onPress={() => props.navigation.goBack()} />
+            <Icon name="arrow-back" onPress={() => goToPage()} />
           </Button>
         </Left>
         <Body>

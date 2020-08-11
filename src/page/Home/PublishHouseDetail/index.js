@@ -1,13 +1,16 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { getPublishHouseDetail } from '../../../store/publish/index';
 
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
-    return {};
+    return {
+        publishHouseDetail: state.publishHouseDetail
+    };
 }
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators({getPublishHouseDetail}, dispatch);
 }
 export default connect(
     mapStateToProps,

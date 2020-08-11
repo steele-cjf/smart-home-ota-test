@@ -72,7 +72,7 @@ export function getHouseListByHolder(data, callback) {
     },
   });
 }
-// 获取我的房源发布列表
+// 获取房源推荐
 export function getMyPublishList(data, callback) {
   return $get('/publish/listByHouse', {
     queryData: data,

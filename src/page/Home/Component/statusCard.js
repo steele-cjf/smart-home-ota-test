@@ -32,7 +32,6 @@ const status_cf = {
         title: '您还没添加登记房源，请尽快登记!',
         desc: '添加后才能执行开锁操作',
         iconName: 'home',
-        showLocation: true,
         btnDesc: '登记房源',
         route: 'RECORD'
     }
@@ -67,14 +66,16 @@ export default function StatusCard(props) {
     const [options, setOptions] = useState(status_cf['not_audit'])
 
     useEffect(() => {
-        if (props.status !== 'audit_pass' || (props.status === 'audit_pass' && !props.item)) {
-            setOptions(status_cf[props.status || 'not_audit'])
+        if (props.status !== 'audit_pass'
+            || (props.status === 'audit_pass' && (!props.item || !props.item.houseId))) {
+            let data = Object.assign({}, status_cf[props.status || 'not_audit'])
+            setOptions(data)
         }
     }, [props.status])
 
     useEffect(() => {
-        if (props.status === 'audit_pass' && props.item) {
-            let {status, regionFullName, houseId} = props.item
+        if (props.status === 'audit_pass' && props.item && props.item.houseId) {
+            let { status, regionFullName, houseId } = props.item
             let data = Object.assign({}, houseStatus[status || 'audit_pending'])
             data.name = regionFullName.replace(/\//g, '')
             data.id = houseId
@@ -83,13 +84,13 @@ export default function StatusCard(props) {
     }, [props.item])
     return (
         <View style={styles.container}>
-            {/* {options && options.showLocation && */}
+            {options && options.showLocation &&
                 <TouchableOpacity style={styles.topBox} onPress={() => props.showList()}>
                     <Entypo style={styles.LeftIcon} name='location-pin' />
                     <Text style={styles.location}>{options.name || '--'}</Text>
                     <AntDesign name='caretdown' style={styles.RightIcon} />
                 </TouchableOpacity>
-            {/* } */}
+            }
             <View style={styles.bottomBox}>
                 <View style={styles.Leftcontent}>
                     <Text style={styles.title}>{options.title || '--'}</Text>

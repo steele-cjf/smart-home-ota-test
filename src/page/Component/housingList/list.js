@@ -1,41 +1,41 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {StyleSheet, View, Text} from 'react-native';
-import {getHousingList} from '../../../store/home/index';
+import React, { useState, useEffect, useCallback } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { StyleSheet, View, Text } from 'react-native';
+import { getHousingList } from '../../../store/home/index';
 import HouseItem from './item';
-import {AppRoute} from '../../../navigator/AppRoutes';
-import {FlatList} from 'react-native-gesture-handler';
-import {IS_IOS} from '../../../config';
-
+import { AppRoute } from '../../../navigator/AppRoutes';
+import { FlatList } from 'react-native-gesture-handler';
+import { IS_IOS } from '../../../config';
+const mock = [
+  {
+    id: 1,
+    title: '深圳市市南区沿山社区网谷科技大厦501',
+    roomCount: 2,
+    hallCount: 1,
+    toiletCount: 1,
+    rentPrice: 1000,
+  },
+  {
+    id: 2,
+    title: '深圳市市南区沿山社区网谷科技大厦502',
+    roomCount: 2,
+    hallCount: 1,
+    toiletCount: 1,
+    rentPrice: 1500,
+  }, {
+    id: 3,
+    title: '深圳市市南区沿山社区网谷科技大厦503',
+    roomCount: 2,
+    hallCount: 1,
+    toiletCount: 1,
+    rentPrice: 1000,
+  }
+]
 function HouseListComponent(props) {
   const listElement = React.createRef();
-  const [houses, setHouses] = useState([
-    {
-      id: 1,
-      title: '深圳市市南区沿山社区网谷科技大厦501',
-      roomCount: 2,
-      hallCount: 1,
-      toiletCount: 1,
-      rentPrice: 1000,
-    },
-    {
-      id: 2,
-      title: '深圳市市南区沿山社区网谷科技大厦502',
-      roomCount: 2,
-      hallCount: 1,
-      toiletCount: 1,
-      rentPrice: 1500,
-    },{
-      id: 3,
-      title: '深圳市市南区沿山社区网谷科技大厦503',
-      roomCount: 2,
-      hallCount: 1,
-      toiletCount: 1,
-      rentPrice: 1000,
-    }
-  ]);
+  const [houses, setHouses] = useState(mock);
   // const [params, setParams] = useState({});
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +43,7 @@ function HouseListComponent(props) {
   const scrollToListTop = () => {
     const listElementCur = listElement.current;
     if (houseListData.length) {
-      listElementCur && listElementCur.scrollToIndex({index: 0, viewOffset: 0});
+      listElementCur && listElementCur.scrollToIndex({ index: 0, viewOffset: 0 });
     }
   };
 
@@ -74,16 +74,15 @@ function HouseListComponent(props) {
     }
   };
 
-  const fetchHouseList = useCallback((page = 1) => {
+  const fetchHouseList = (page = 1) => {
     updateLoadingState(true);
-    props.getHousingList({pageNum: page}, res => {
-      console.log('houseList', res.data);
-      // $getImage(res.data.list[0].imgUrl, res => {
-      //   console.log('img', res);
-      // });
+    props.getHousingList({ pageNum: page }, async (res) => {
       updateResultData(res.data);
     });
-  });
+  }
+  useEffect(() => {
+    fetchHouseList(1)
+  }, [])
 
   const getHouseIdKey = (house, index) => {
     return `index:${index}:sep:${house.id}`;
@@ -103,7 +102,7 @@ function HouseListComponent(props) {
   };
   const handleToDetailPage = item => {
     console.log('item', item);
-    NavigatorService.navigate(AppRoute.PUBLICHOUSEDETAIL);
+    NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, {id: item.id});
   };
 
   // 渲染列表为空时的状态：无数据
@@ -142,7 +141,7 @@ function HouseListComponent(props) {
 
     return (
       <View style={[styles.centerContainer, styles.loadMoreViewContainer]}>
-        <Text style={[styles.smallTitle, {marginLeft: 20}]}>
+        <Text style={[styles.smallTitle, { marginLeft: 20 }]}>
           努力加载中....
         </Text>
       </View>
@@ -171,7 +170,7 @@ function HouseListComponent(props) {
       onEndReached={handleLoadMoreArticle}
       // 唯一 ID
       keyExtractor={item => item.id}
-      renderItem={({item, index}) => {
+      renderItem={({ item, index }) => {
         return (
           <HouseItem
             houseInfo={item}
@@ -212,7 +211,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getHousingList}, dispatch);
+  return bindActionCreators({ getHousingList }, dispatch);
 }
 
 export default connect(
