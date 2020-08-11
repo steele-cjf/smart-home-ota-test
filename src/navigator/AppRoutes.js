@@ -5,6 +5,7 @@ export const AppRoute = {
   AUTHENTICATION: 'AuthenticationPage',
   FEATURE: 'FeaturePage',
   MY: 'MyPage',
+  PERSONALINFO: 'PersonalInfo',
   IDCARDVERTIFY: 'IdCardVertifyPage',
   PASSPORTVERTIFY: 'PassportVertifyPage',
   VERDETAILS: 'VertifyDetailsPage',

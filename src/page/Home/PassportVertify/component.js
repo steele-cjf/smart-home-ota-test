@@ -11,7 +11,8 @@ export default function PassportVertifyPage(props) {
 
     // 检查并提交form
     const handleConfirm = () => {
-        NavigatorService.navigate(AppRoute.VERDETAILS);  //lyq test
+        //NavigatorService.navigate(AppRoute.VERDETAILS);  //lyq test
+        NavigatorService.navigate(AppRoute.PERSONALINFO);  //lyq test
 
         let message = ''
         let key = vertifyCn.findIndex((item) => { return (item.required && !formData[item.key]) })

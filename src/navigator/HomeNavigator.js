@@ -5,6 +5,7 @@ import AuthenticationPage from '../page/Home/AuthenticationPage';
 import IdCardVertify from '../page/Home/IdCardVertify';
 import PassportVertify from '../page/Home/PassportVertify';
 import VertifyDetailsPage from '../page/Home/VertifyDetails';
+import PersonalInfo from '../page/My/PersonalInfo';
 import UnrecordedHouse from '../page/Home/UnrecordedHouse';
 import RecordHouse from '../page/My/RecordHouse';
 import AuditHouse from '../page/Home/AuditHouse';
@@ -69,6 +70,14 @@ export const HomeStackComponent = () => {
         component={VertifyDetailsPage}
         options={{
           title: '实名详情',
+          headerBackTitle: '返回',
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.PERSONALINFO}
+        component={PersonalInfo}
+        options={{
+          title: '个人信息',
           headerBackTitle: '返回',
         }}
       />
