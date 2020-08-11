@@ -6,16 +6,16 @@ import { AppRoute } from '../../../navigator/AppRoutes';
 import { Spinner } from 'native-base'
 import vertifyCn from '../config/IdCardVertifyCn';
 import Theme from '../../../style/colors';
+
 export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState([]);
   const [userId, setUserId] = useState('')
   const [loading, setLoading] = useState(false)
+  // 初始化获取用户信息
   useEffect(() => {
-    storage.get('info').then(info => {
-      setUserId(info.id)
-    });
-  }, [])
+    setUserId(props.userInfo.id);
+  }, [props.userInfo]);
 
   // 检查并提交form
   const handleConfirm = () => {
@@ -37,6 +37,8 @@ export default function IdCardVertifyPage(props) {
       showToast(message);
       return;
     }
+    //NavigatorService.navigate(AppRoute.UNRECORD);
+
     var result = new FormData();
     changeToForm(result);
     result.append('userId', userId);
@@ -52,8 +54,9 @@ export default function IdCardVertifyPage(props) {
       }
     })
   };
+
   // 修改成能提交的数据结构
-  const changeToForm = result => {
+  const changeToForm = (result) => {
     for (var index in formData) {
       result.append(index, formData[index]);
     }
@@ -61,14 +64,17 @@ export default function IdCardVertifyPage(props) {
       result.append('images', formImage[i]);
     }
   };
+
   const setImageForm = (type, obj) => {
     let data = Object.assign([], formImage);
     data[type] = obj;
     setFormImage(data);
   };
+
   const changeForm = data => {
     setFormData(data);
   };
+
   return (
     <View style={styles.container}>
       {loading ? <Spinner></Spinner> :

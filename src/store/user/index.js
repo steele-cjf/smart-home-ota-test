@@ -5,3 +5,11 @@ export function getManualAuditInfo(id, callback) {
     },
   });
 }
+
+export function getPersonalInfo(id, callback) {
+  return $get(`/user/${id}`, {
+    successConfig: {
+      callback,
+    },
+  });
+}

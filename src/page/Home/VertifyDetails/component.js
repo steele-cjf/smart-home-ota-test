@@ -6,8 +6,8 @@ import {AppRoute} from '../../../navigator/AppRoutes';
 
 export default function VertifyDetailsPage(props) {
 
-  async function handlModify() {
-
+  //async function handlModify() {
+  function handlModify() {
     //路由到其他界面
     // if (authType === 1) {
     //   props.navigation.navigate(AppRoute.IDCARDVERTIFY);
@@ -16,10 +16,10 @@ export default function VertifyDetailsPage(props) {
     // }
 
     //请求数据
-    var info = await storage.get('info');
-    userId = info.id;
-
-    console.log(33, userId);
+    // var info = await storage.get('info');
+    // userId = info.id;
+    var info = props.userInfo;
+    userId = info.data.id;
 
     props.getManualAuditInfo(userId, res => {
       console.log('code-res-kk:', res);
@@ -53,7 +53,7 @@ export default function VertifyDetailsPage(props) {
         {title: "性别", content: data.gender},
         {title: "民族", content: data.nation},
         {title: "出生日期", content: data.birthDate},
-        {title: "身份证地址", content: data.identificationAddress},
+        {title: "身份证地址", content: data.identificationAddress}, 
       ];
     } else {
       actualDataArr = [
@@ -61,7 +61,7 @@ export default function VertifyDetailsPage(props) {
         {title: "护照号", content: data.identificationNo},
         {title: "性别", content: data.gender},
         {title: "出生日期", content: data.birthDate},
-        {title: "国籍", content: data.country},
+        {title: "国籍", content: data.userId},  //data.country lyq test
       ];
     }
 

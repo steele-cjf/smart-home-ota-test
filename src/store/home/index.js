@@ -2,8 +2,12 @@
 export function getUserInfo(callback) {
   return $get('/user/me', {
     actionType: 'USER_INFO',
+    successConfig: {
+      callback,
+    },
   });
 }
+
 export function getVerifyToken(data, callback) {
   return $get('/rp/verifyToken', {
     queryData: data,

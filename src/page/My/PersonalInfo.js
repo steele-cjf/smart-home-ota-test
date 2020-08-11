@@ -2,7 +2,40 @@ import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import Theme from '../../style/colors';
 
-export default function PersonalInfoPage(props) {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {getPersonalInfo} from '../../store/user/index';  //接口不通
+import {getUserInfo} from '../../store/home/index';
+
+const PersonalInfoPage = (props) => {     
+  
+  function handleInfo() {
+    //请求数据
+    var info = props.userInfo;
+    userId = info.data.id;
+
+    // props.getPersonalInfo(userId, res => {  //接口不通
+    //   console.log('res11:', res);
+    //   console.log(8888, res.message);
+  
+    //   if (!res.code) {
+    //     showToast('成功！');
+    //   } else {
+    //     showToast("90909"+res.message);
+    //   }
+    // });
+
+    props.getUserInfo(res => {
+      console.log('res11:', res);
+      console.log(6666, res.message);
+  
+      if (!res.code) {
+        showToast('成功！');
+      } else {
+        showToast("90909"+res.message);
+      }
+    });
+  }
 
   return (
     <View style={styles.containerStyle}>
@@ -13,11 +46,15 @@ export default function PersonalInfoPage(props) {
       <View>
         <Text style={[styles.textTitle, styles.fontSize16]}>基本资料</Text>
       </View>
-    </View>
-    
-  ); 
 
+      <TouchableOpacity style={styles.btnStyle} onPress={handleInfo}> 
+        <Text style={styles.btnTextStyle}>获取</Text>
+      </TouchableOpacity>
+
+    </View>
+  ); 
 }
+
 
 const styles = StyleSheet.create({  
   containerStyle: {
@@ -26,10 +63,6 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.background,
   },
   headView: {
-    //flexDirection: 'row',
-    //height: 100,
-    //padding: 12,
-    //borderRadius: 4,
     //marginBottom: 10,
     marginVertical: 10,
     backgroundColor: '#FFECEC',
@@ -95,3 +128,23 @@ const styles = StyleSheet.create({
     color: '#FFFFFF', 
   },
 });
+
+
+// reducer获取
+function mapStateToProps(state) {
+  return {
+    userInfo: state.userInfo,
+  };
+}
+
+function matchDispatchToProps(dispatch) {
+  //return bindActionCreators({getPersonalInfo}, dispatch);   //接口不通
+  return bindActionCreators({getUserInfo}, dispatch);   
+}
+
+const VPersonalInfoPage = connect(
+  mapStateToProps,
+  matchDispatchToProps
+)(PersonalInfoPage);
+
+export default VPersonalInfoPage;
