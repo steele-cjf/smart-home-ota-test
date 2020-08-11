@@ -156,7 +156,7 @@ function MyPublishList(props) {
               alignItems: 'center',
             }}>
             <Text style={[styles.rentPrice, styles.highColor, {flex: 1}]}>
-              {mappings.publish_status[item.status]} |{' '}
+              {mappings.publishinfo_status[item.status]} |{' '}
               {item.roomNames.length ? '整租' : item.roomNames[0]}
             </Text>
             <Feather
