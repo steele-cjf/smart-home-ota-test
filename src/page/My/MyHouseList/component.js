@@ -54,6 +54,9 @@ function MyHouseList(props) {
   const handleToDetailPage = item => {
     NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
       id: item.id,
+      refresh: function() {
+        init();
+      },
     });
   };
   const goAddHousePage = () => {

@@ -39,7 +39,7 @@ function RecordHouse(props) {
   const [
     housePropertyCertificateImage,
     setHousePropertyCertificateImage,
-  ] = useState(null);
+  ] = useState('');
   const [certificateFilesImg, setCertificateFilesImg] = useState([]);
   const [tabs, setTabs] = useState([{name: '请选择', id: 0}]);
   const [regionName, setRegionName] = useState('');
@@ -359,11 +359,6 @@ function RecordHouse(props) {
                   </View>
                 </View>
                 <Text style={[styles.publishTitle]}>房产证照片</Text>
-                <Text>{housePropertyCertificateImage}</Text>
-                {/* <Image
-                  style={{width: 75, height: 75}}
-                  source={{uri: housePropertyCertificateImage}}
-                /> */}
                 <ImageUpload
                   imgUrl={housePropertyCertificateImage}
                   setImageForm={obj => setImageForm(0, obj, 'cert')}

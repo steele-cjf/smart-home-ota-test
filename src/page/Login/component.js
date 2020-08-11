@@ -71,10 +71,15 @@ function LoginPage(props) {
     };
     props.handleLogin(data, res => {
       if (!res.code) {
-        storage.set('token', res.data.accessToken);
-        storageDataDictionary();
-        storageMappingDictionary();
-        NavigatorService.navigate(AppRoute.HOME);
+        console.log('login', res.data.accessToken);
+        (async () => {
+          await storage.set('token', res.data.accessToken);
+          const accessToken = await storage.get('token');
+          $DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken;
+          props.navigation.navigate(AppRoute.HOME);
+          storageDataDictionary();
+          storageMappingDictionary();
+        })();
       } else {
         showToast(res.message);
       }

@@ -5,6 +5,7 @@ import AuthenticationPage from '../page/Home/AuthenticationPage';
 import IdCardVertify from '../page/Home/IdCardVertify';
 import PassportVertify from '../page/Home/PassportVertify';
 import VertifyDetailsPage from '../page/Home/VertifyDetails';
+import PersonalInfo from '../page/My/PersonalInfo';
 import UnrecordedHouse from '../page/Home/UnrecordedHouse';
 import RecordHouse from '../page/My/RecordHouse';
 import AuditHouse from '../page/Home/AuditHouse';
@@ -13,6 +14,7 @@ import MyHouseList from '../page/My/MyHouseList';
 import MapHousePage from '../page/Home/MapHouse';
 import PublishHouseDetail from '../page/Home/PublishHouseDetail';
 import HouseDetail from '../page/Feature/HouseDetail';
+import MyPublishHouse from '../page/My/MyPublishHouse';
 
 
 import {AppRoute} from './AppRoutes';
@@ -77,6 +79,14 @@ export const HomeStackComponent = () => {
         }}
       />
       <HomeStack.Screen
+        name={AppRoute.PERSONALINFO}
+        component={PersonalInfo}
+        options={{
+          title: '个人信息',
+          headerBackTitle: '返回',
+        }}
+      />
+      <HomeStack.Screen
         name={AppRoute.UNRECORD}
         component={UnrecordedHouse}
         options={{
@@ -122,6 +132,13 @@ export const HomeStackComponent = () => {
       <HomeStack.Screen
         name={AppRoute.HOUSEDETAIL}
         component={HouseDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.PUBLISHLISE}
+        component={MyPublishHouse}
         options={{
           headerShown: false,
         }}
