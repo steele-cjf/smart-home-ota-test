@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getPublishHouseDetail } from '../../../store/publish/index';
+import { setWebSocketInfo } from '../../../store/common/index';
+
+
 
 import Component from './component';
 // reducer获取
@@ -10,7 +13,7 @@ function mapStateToProps(state) {
     };
 }
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({getPublishHouseDetail}, dispatch);
+    return bindActionCreators({getPublishHouseDetail, setWebSocketInfo}, dispatch);
 }
 export default connect(
     mapStateToProps,

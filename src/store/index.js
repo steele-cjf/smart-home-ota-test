@@ -1,19 +1,21 @@
 import {applyMiddleware, createStore, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
-import {userInfo, verfityResult} from './home/index';
+import {userInfo} from './home/index';
 import {houseDetail} from './house/index';
 import {myHouseList} from './home/index';
-import {cameraOpt} from './common/index';
+import {cameraOpt, webSocketInfo, codeInfo, dictionaryMappings} from './common/index';
 import {roomList} from './feature/index';
 import { publishHouseDetail } from './publish/index'
 const allReducers = combineReducers({
   userInfo,
-  verfityResult,
   houseDetail,
   cameraOpt,
   roomList,
   myHouseList,
-  publishHouseDetail
+  publishHouseDetail,
+  webSocketInfo,
+  codeInfo,
+  dictionaryMappings
 });
 const store = createStore(allReducers, applyMiddleware(thunk));
 export default store;

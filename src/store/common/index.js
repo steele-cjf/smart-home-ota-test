@@ -24,6 +24,41 @@ export function getScanResult(url, callback) {
     })
 }
 
+// 设置数据字典
+export function setCodeInfo(info) {
+    return dispatch => {
+        dispatch({
+            type: 'CODE_INFO',
+            data: info,
+        });
+    }
+}
+
+export function setDictionaryMappings(data) {
+    return dispatch => {
+        dispatch({
+            type: 'DICTIONARY_MAPPINGS',
+            data
+        });
+    }
+}
+
+// websocket接受到信息
+export function setWebSocketInfo(info) {
+    return dispatch => {
+        dispatch({
+            type: 'WEB_SOCKET_INFO',
+            data: info,
+        });
+    }
+}
+// 获取websock的数据
+export function webSocketInfo(state = null, action) {
+    if (action.type === 'WEB_SOCKET_INFO') {
+        return action.data || null;
+    }
+    return state;
+}
 // HOUSE_DETAIL
 export function cameraOpt(state = null, action) {
     if (action.type === 'CAMERA_DETAIL') {
@@ -31,7 +66,24 @@ export function cameraOpt(state = null, action) {
     }
     return state;
 }
+// 获取数据字典
+export function codeInfo(state = null, action) {
+    if (action.type === 'CODE_INFO') {
+        return action.data || null;
+    }
+    return state;
+}
+// 获取数据字典
+export function dictionaryMappings(state = null, action) {
+    if (action.type === 'DICTIONARY_MAPPINGS') {
+        return action.data || null;
+    }
+    return state;
+}
 
 export default {
-    cameraOpt
+    cameraOpt,
+    webSocketInfo,
+    codeInfo,
+    dictionaryMappings
 };

@@ -1,14 +1,21 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Form from '../../Component/form';
 import ImageUpload from '../../Component/imageUpload';
-import {AppRoute} from '../../../navigator/AppRoutes';
-
+import { AppRoute } from '../../../navigator/AppRoutes';
+import { Spinner } from 'native-base'
 import vertifyCn from '../config/IdCardVertifyCn';
 import Theme from '../../../style/colors';
 export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState([]);
+  const [userId, setUserId] = useState('')
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    storage.get('info').then(info => {
+      setUserId(info.id)
+    });
+  }, [])
 
   // 检查并提交form
   const handleConfirm = () => {
@@ -17,7 +24,6 @@ export default function IdCardVertifyPage(props) {
       return item.required && !formData[item.key];
     });
     message = vertifyCn[key] && vertifyCn[key].errorMsg[0];
-
     if (!message) {
       for (var i = 0; i < 3; i++) {
         let item = formImage[i];
@@ -27,25 +33,24 @@ export default function IdCardVertifyPage(props) {
         }
       }
     }
-
     if (message) {
       showToast(message);
       return;
     }
     var result = new FormData();
     changeToForm(result);
-    // 暂时写死
-    result.append('userId', '478609054946578432');
+    result.append('userId', userId);
     result.append('identificationType', 'id_card');
-    NavigatorService.navigate(AppRoute.UNRECORD);
+    setLoading(true)
     props.verifyIdCard(result, res => {
-      console.log(res, 'end');
+      setLoading(false)
       if (!res.code) {
         showToast('success');
-        NavigatorService.navigate(AppRoute.UNRECORD);
+        NavigatorService.navigate(AppRoute.HOME)
+      } else {
+        showToast(res.message)
       }
-    });
-    // NavigatorService.navigate(AppRoute.UNRECORD);
+    })
   };
   // 修改成能提交的数据结构
   const changeToForm = result => {
@@ -66,32 +71,33 @@ export default function IdCardVertifyPage(props) {
   };
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollContainer}>
-        <Text style={styles.textTitle}>基本资料</Text>
-        <Form
-          config={vertifyCn}
-          class={styles.formBox}
-          changeForm={changeForm}
-        />
-        <Text style={styles.textTitle}>照片上传</Text>
-        <View style={styles.ImageUploadBox}>
-          <ImageUpload
-            title="身份证正面"
-            setImageForm={obj => setImageForm(0, obj)}
+      {loading ? <Spinner></Spinner> :
+        <ScrollView style={styles.scrollContainer}>
+          <Text style={styles.textTitle}>基本资料</Text>
+          <Form
+            config={vertifyCn}
+            class={styles.formBox}
+            changeForm={changeForm}
           />
-          <ImageUpload
-            title="身份证反面"
-            setImageForm={obj => setImageForm(1, obj)}
-          />
-          <ImageUpload
-            title="手持身份证"
-            setImageForm={obj => setImageForm(2, obj)}
-          />
-        </View>
-        <TouchableOpacity style={styles.Btn} onPress={() => {handleConfirm();}}>
-          <Text style={styles.btnText}>确认</Text>
-        </TouchableOpacity>
-      </ScrollView>
+          <Text style={styles.textTitle}>照片上传</Text>
+          <View style={styles.ImageUploadBox}>
+            <ImageUpload
+              title="身份证正面"
+              setImageForm={obj => setImageForm(0, obj)}
+            />
+            <ImageUpload
+              title="身份证反面"
+              setImageForm={obj => setImageForm(1, obj)}
+            />
+            <ImageUpload
+              title="手持身份证"
+              setImageForm={obj => setImageForm(2, obj)}
+            />
+          </View>
+          <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
+            <Text style={styles.btnText}>确认</Text>
+          </TouchableOpacity>
+        </ScrollView>}
     </View>
   );
 }
@@ -100,8 +106,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContainer: {
-    paddingTop: 16, 
-    paddingHorizontal: 16, 
+    paddingTop: 16,
+    paddingHorizontal: 16,
     backgroundColor: Theme.background,
   },
   textTitle: {
@@ -132,7 +138,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16, 
-    color: '#FFFFFF', 
+    fontSize: 16,
+    color: '#FFFFFF',
   },
 });
