@@ -26,11 +26,7 @@ export default function PublishHouse(props) {
   const [houseTypeList, setHouseTypeList] = useState([]);
   const [houseDecorator, setHouseDecorator] = useState([]);
   const [houseImages, setHouseImages] = useState([]);
-  const [rooms, setRooms] = useState([
-    {id: 1, name: '主卧'},
-    {id: 2, name: '南卧'},
-    {id: 3, name: '次卧'},
-  ]);
+  const [rooms, setRooms] = useState([]);
   const [selectedTypeValue, setSelectedTypeValue] = useState('');
   const [selectedDecoratorValue, setSelectedDecoratorValue] = useState('');
   // 后台请求参数
@@ -56,6 +52,8 @@ export default function PublishHouse(props) {
 
   useEffect(() => {
     setHouseId(props.route.params.id);
+    console.log('room', props.roomList);
+    setRooms(props.roomList.data);
     storage.get('code').then(res => {
       setSelectedPros(res.house_item, 'houseItem');
       setSelectedPros(res.house_spots, 'houseSpots');
@@ -63,7 +61,7 @@ export default function PublishHouse(props) {
       setHouseTypeList(handlerOptions(res.house_type));
       setHouseDecorator(handlerOptions(res.house_decorator));
     });
-  }, [props.route.params.id]);
+  }, [props.roomList, props.route.params.id]);
 
   const handlerOptions = list => {
     list = list.map(item => {
@@ -156,6 +154,8 @@ export default function PublishHouse(props) {
     const items = getSelectedItem(houseItem);
     const spots = getSelectedItem(houseSpots);
     const requirements = getSelectedItem(rentRequirements);
+    const roomIds = getSelectedItem(rooms);
+
     if (!houseType) {
       setHouseType(houseTypeList[0].value);
     }
@@ -168,6 +168,7 @@ export default function PublishHouse(props) {
     result.append('title', title);
     result.append('houseId', houseId);
     result.append('houseType', houseType);
+    result.append('roomIds', roomIds);
 
     for (let c = 0; c < requirements.length; c++) {
       result.append('houseAddition.requirements', requirements[c]);
@@ -256,10 +257,16 @@ export default function PublishHouse(props) {
             </TouchableOpacity>
           </Item>
           {houseType === 'co_rent' ? (
-            <LabelSelect
-              labelList={rooms}
-              checkItem={(item, i) => changeRooms(item, i)}
-            />
+            rooms.length ? (
+              <LabelSelect
+                labelList={rooms}
+                checkItem={(item, i) => changeRooms(item, i)}
+              />
+            ) : (
+              <Text style={{color: 'red', fontSize: 14}}>
+                当前类型不可选, 请先添加房间
+              </Text>
+            )
           ) : (
             <Text />
           )}

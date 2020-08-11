@@ -19,8 +19,14 @@ const options = {
 
 export default function ImageUpload(props) {
   const {imgUrl} = props;
-  console.log('imgUrl', props);
-  const [avatarSource, setAvatarSource] = useState({uri: imgUrl} || null);
+  console.log('imgUrl', imgUrl);
+  let setUri = null;
+  if (imgUrl) {
+    setUri = {uri: imgUrl};
+  } else {
+    setUri = null;
+  }
+  const [avatarSource, setAvatarSource] = useState(setUri);
   function selectPhotoTapped() {
     const options = {
       quality: 1.0,
