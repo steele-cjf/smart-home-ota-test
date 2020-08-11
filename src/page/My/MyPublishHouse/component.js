@@ -1,13 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect, useCallback} from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  Text,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, StyleSheet, FlatList, Text, Image} from 'react-native';
 import {
   Header,
   Left,
@@ -18,18 +11,18 @@ import {
   Title,
   Root,
   Spinner,
+  ActionSheet,
 } from 'native-base';
 import {AppRoute} from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
-import HouseList from '../../Home/HouseList';
+import {Divider} from 'react-native-elements';
+import Feather from 'react-native-vector-icons/Feather';
+import showToast from '../../../util/toast';
 
 function MyPublishList(props) {
-  const statusColor = {
-    audit_pending: '#5C8BFF',
-    audit_reject: '#FF7373',
-  };
   const [loading, setLoading] = useState(true);
   const [houseId, setHouseId] = useState('');
+  const [houseInfo, setHouseInfo] = useState({});
   const [houseList, setHouseList] = useState([]);
   const [mappings, setMappings] = useState({});
   useEffect(() => {
@@ -42,15 +35,18 @@ function MyPublishList(props) {
     props.getMyPublishList(
       {houseId: params.id, pageNum: 1, pageSize: 100},
       res => {
-        console.log('res', res);
+        console.log('houseList', res.data.list);
         if (!res.code) {
           if (res.data) {
-            setHouseList(res.data.list);
+            const list = res.data.list;
+            setHouseList(list);
             setLoading(false);
           }
         }
       },
     );
+    setHouseInfo(props.houseDetail.data);
+    console.log('detail', props.houseDetail);
   });
 
   useEffect(() => {
@@ -68,12 +64,75 @@ function MyPublishList(props) {
       },
     });
   };
-
+  const handlerOffShelf = id => {
+    setLoading(true);
+    props.offShelf({id: id}, res => {
+      console.log('off', res);
+      if (!res.code) {
+        showToast('已下架');
+        init();
+      } else {
+        showToast(res.message);
+      }
+    });
+  };
+  const handlerRepublish = id => {
+    setLoading(true);
+    props.republish({id: id}, res => {
+      console.log('pub', res);
+      if (!res.code) {
+        showToast('已重新发布');
+        init();
+      } else {
+        showToast(res.message);
+      }
+    });
+  };
+  const openSettings = item => {
+    console.log('map', mappings.publish_status);
+    let BUTTONS = [];
+    const CANCEL_INDEX = 2;
+    if (item.status === 'published') {
+      BUTTONS = ['下架', '编辑', '取消'];
+    } else {
+      BUTTONS = ['发布', '编辑', '取消'];
+    }
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+        // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
+        // title: i18n.t("settings")
+      },
+      buttonIndex => {
+        if (buttonIndex === CANCEL_INDEX) {
+          return;
+        }
+        if (!buttonIndex) {
+          if (item.status === 'published') {
+            handlerOffShelf(item.id);
+          } else {
+            handlerRepublish(item.id);
+          }
+        } else {
+          console.log('编辑');
+        }
+        console.log('buttonIndex', buttonIndex);
+      },
+    );
+  };
   const _houseItem = ({item, index}) => {
     return (
-      <TouchableOpacity key={index} style={styles.container}>
+      <View key={index} style={styles.container}>
         <View style={styles.leftContainer}>
-          <Image style={{width: 75, height: 75}} />
+          <Image
+            style={{
+              width: 75,
+              height: 75,
+              backgroundColor: '#ccc',
+              marginRight: 16,
+            }}
+          />
         </View>
         <View style={styles.rightContainer}>
           <Text style={styles.houseName} numberOfLines={1}>
@@ -91,14 +150,24 @@ function MyPublishList(props) {
               {mappings.house_direction[item.direction] || '--'}
             </Text>
           </View>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Text style={[styles.rentPrice, styles.highColor]}>
-              {mappings.rent_status[item.rentStatus]} |{' '}
-              {mappings.publish_status[item.status]}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Text style={[styles.rentPrice, styles.highColor, {flex: 1}]}>
+              {mappings.publish_status[item.status]} |{' '}
+              {item.roomNames.length ? '整租' : item.roomNames[0]}
             </Text>
+            <Feather
+              name={'more-horizontal'}
+              color="#666"
+              size={24}
+              onPress={() => openSettings(item)}
+            />
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
   return (
@@ -125,32 +194,18 @@ function MyPublishList(props) {
               </Button>
             </Right>
           </Header>
-          <View style={styles.listBox}>
-            <View style={styles.leftContent}>
-              <Text
-                style={[styles.labelTitle, styles.secColor, styles.fontSize14]}>
-                房屋地址
-              </Text>
+          <View style={styles.house_address}>
+            <View style={{width: 70}}>
+              <Text style={{color: '#7C7C7C'}}>房屋地址</Text>
             </View>
-            <View style={styles.rightContent}>
-              <Text
-                style={[
-                  styles.textAlignR,
-                  styles.mainColor,
-                  styles.fontSize14,
-                ]}>
-                {/* {houseList[0].regionFullName} */}
+            <View style={{alignItems: 'flex-end'}}>
+              <Text style={[styles.main_color, styles.MT_5]}>
+                {houseInfo.regionFullName}
               </Text>
-              <Text
-                style={[
-                  styles.textAlignR,
-                  styles.mainColor,
-                  styles.fontSize14,
-                ]}>
-                {/* {houseList[0].address} */}
-              </Text>
+              <Text style={styles.main_color}>{houseInfo.address}</Text>
             </View>
           </View>
+          <Divider style={{marginHorizontal: 15}} />
           <FlatList
             data={houseList}
             // 唯一 ID
@@ -165,6 +220,17 @@ function MyPublishList(props) {
 const styles = StyleSheet.create({
   fontSize14: {
     fontSize: 14,
+  },
+  house_address: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 15,
+  },
+  MT_5: {
+    marginBottom: 5,
+  },
+  main_color: {
+    color: Theme.textDefault,
   },
   container: {
     flexDirection: 'row',

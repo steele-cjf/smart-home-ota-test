@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,11 +6,11 @@ import {
   PixelRatio,
   Platform,
 } from 'react-native';
-import { Text, Avatar, Badge } from 'react-native-elements';
+import {Text, Avatar, Badge} from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 const options = {
   title: 'Select Avatar',
-  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
   storageOptions: {
     skipBackup: true,
     path: 'images',
@@ -21,9 +21,9 @@ export default function ImageUpload(props) {
   const [avatarSource, setAvatarSource] = useState(null);
   useEffect(() => {
     if (props.imgUrl) {
-      setAvatarSource({ uri: props.imgUrl })
+      setAvatarSource({uri: props.imgUrl});
     }
-  }, [props.imgUrl])
+  }, [props.imgUrl]);
   function selectPhotoTapped() {
     const options = {
       quality: 1.0,
@@ -41,7 +41,7 @@ export default function ImageUpload(props) {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        let source = { uri: response.uri };
+        let source = {uri: response.uri};
         setAvatarSource(source);
         //注意，iOS 获取的图片地址要替换掉"file://",这是后面上传遇到的坑
         let imageObj = {
@@ -61,25 +61,25 @@ export default function ImageUpload(props) {
       onPress={() => {
         selectPhotoTapped();
       }}>
-      <View style={[styles.avatar, styles.avatarContainer, { marginBottom: 20 }]}>
+      <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
         {avatarSource === null ? (
           <Text style={styles.addBtn}>+</Text>
         ) : (
-            <View>
-              <Avatar style={styles.avatar} source={avatarSource} />
-              <Badge
-                value="X"
-                status="error"
-                onPress={() => {
-                  setAvatarSource(null);
-                  props.setImageForm(null);
-                }}
-                containerStyle={{ position: 'absolute', top: -4, right: -4 }}
-              />
-            </View>
-          )}
+          <View>
+            <Avatar style={styles.avatar} source={avatarSource} />
+            <Badge
+              value="X"
+              status="error"
+              onPress={() => {
+                setAvatarSource(null);
+                props.setImageForm(null);
+              }}
+              containerStyle={{position: 'absolute', top: -4, right: -4}}
+            />
+          </View>
+        )}
       </View>
-      {props.title && <Text style={{ textAlign: 'center' }}>{props.title}</Text>}
+      {props.title && <Text style={{textAlign: 'center'}}>{props.title}</Text>}
     </TouchableOpacity>
   );
 }

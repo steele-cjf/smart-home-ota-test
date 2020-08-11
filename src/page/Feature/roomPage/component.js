@@ -12,15 +12,19 @@ import {
   Icon,
   Title,
   Text,
+  Spinner,
 } from 'native-base';
 import DialogInput from '../../Component/dialogInput';
 import Theme from '../../../style/colors';
+import showToast from '../../../util/toast';
 
 export default function RoomPage(props) {
+  const [loading, setLoading] = useState(true);
   const [RoomList, setRoomList] = useState([]);
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [selectItem, setSelectItem] = useState({});
   const [houseId, setHouseId] = useState('');
+  const [houseInfo, setHouseInfo] = useState({});
 
   useEffect(() => {
     fetchRoomList();
@@ -32,14 +36,24 @@ export default function RoomPage(props) {
     props.getRoomList({houseId: params.id}, res => {
       if (!res.code) {
         setRoomList(res.data);
+        setLoading(false);
       }
     });
+    setHouseInfo(props.houseDetail.data);
   });
 
-  const handlerDelete = (item, index) => {
-    console.log(item, index);
-    const list = RoomList.splice(index, 1);
-    setRoomList(list);
+  const handlerDelete = item => {
+    setLoading(true);
+    console.log('ddd', item.id);
+    props.deleteRoom(item.id, res => {
+      if (!res.code) {
+        showToast('删除成功');
+        fetchRoomList();
+      } else {
+        showToast(res.message);
+        setLoading(false);
+      }
+    });
   };
   const createTwoButtonAlert = (item, index) =>
     Alert.alert('确定删除？', '', [
@@ -47,7 +61,7 @@ export default function RoomPage(props) {
         text: '取消',
         onPress: () => console.log('Cancel Pressed'),
       },
-      {text: '确定', onPress: () => handlerDelete(item, index)},
+      {text: '确定', onPress: () => handlerDelete(item)},
       {
         // cancelable and onDismiss only work on Android.
         cancelable: true,
@@ -66,6 +80,7 @@ export default function RoomPage(props) {
     setIsDialogVisible(true);
   };
   const addRoomFunc = data => {
+    setLoading(true);
     props.addRoom(data, res => {
       console.log(res);
       if (!res.code) {
@@ -77,6 +92,7 @@ export default function RoomPage(props) {
     });
   };
   const editRoomFunc = (id, name) => {
+    setLoading(true);
     props.updateRoomName(id, name, res => {
       console.log(res);
       if (!res.code) {
@@ -161,26 +177,30 @@ export default function RoomPage(props) {
           </Button>
         </Right>
       </Header>
-      <View style={styles.room_wrapper}>
-        <View style={styles.house_address}>
-          <View style={{width: 70}}>
-            <Text style={{color: '#7C7C7C'}}>房屋地址</Text>
+      {loading ? (
+        <Spinner color="#5C8BFF" />
+      ) : (
+        <View style={styles.room_wrapper}>
+          <View style={styles.house_address}>
+            <View style={{width: 70}}>
+              <Text style={{color: '#7C7C7C'}}>房屋地址</Text>
+            </View>
+            <View style={{alignItems: 'flex-end'}}>
+              <Text style={[styles.main_color, styles.MT_5]}>
+                {houseInfo.regionFullName}
+              </Text>
+              <Text style={styles.main_color}>{houseInfo.address}</Text>
+            </View>
           </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={[styles.main_color, styles.MT_5]}>
-              广东省深圳市南山区
-            </Text>
-            <Text style={styles.main_color}>南海大道1057号科技大厦二期A座</Text>
-          </View>
+          {/* <Divider /> */}
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={RoomList}
+            renderItem={_renderItem}
+            keyExtractor={(_, index) => index.toString()}
+          />
         </View>
-        {/* <Divider /> */}
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={RoomList}
-          renderItem={_renderItem}
-          keyExtractor={(_, index) => index.toString()}
-        />
-      </View>
+      )}
       <DialogInput
         isDialogVisible={isDialogVisible}
         title={'房间名'}

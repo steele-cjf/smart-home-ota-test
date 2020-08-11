@@ -146,7 +146,7 @@ export default function PublishHouse(props) {
     return list
       .filter(item => item.selected === true)
       .map((value, index) => {
-        return value.code;
+        return value.code || value.id;
       });
   }
 
@@ -185,6 +185,7 @@ export default function PublishHouse(props) {
     }
 
     console.log('result', result);
+    console.log('ids', roomIds);
     props.publishHouse(result, res => {
       console.log('res', res);
       props.route.params.refresh();

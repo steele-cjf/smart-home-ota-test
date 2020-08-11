@@ -33,14 +33,14 @@ function LoginPage(props) {
       res.data.forEach(item => {
         result[item.name] = item.dictionaries;
       });
-      props.setCodeInfo(result)
+      props.setCodeInfo(result);;
       storage.set('code', result);
     });
   }
 
   function storageMappingDictionary() {
     props.getDictionaryMapping(res => {
-      props.setDictionaryMappings(res.data)
+      props.setDictionaryMappings(res.data);;
       storage.set('dictionaryMappings', res.data);
     });
   }
@@ -113,8 +113,8 @@ function LoginPage(props) {
   const [isSend, setSendStatus] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(18702637317); //18218025628
-  const [verifyCode, setVerifyCode] = useState(461355); //996432
+  const [mobile, setMobile] = useState(13661992793); //13661992793
+  const [verifyCode, setVerifyCode] = useState(678848); //560657
   const [checked, setChecked] = useState(true);
 
   return (
