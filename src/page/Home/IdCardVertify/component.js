@@ -14,7 +14,7 @@ export default function IdCardVertifyPage(props) {
   const [loading, setLoading] = useState(false)
   // 初始化获取用户信息
   useEffect(() => {
-    setUserId(props.userInfo.id);
+    setUserId(props.userInfo.data.id);    //props.userInfo.id
   }, [props.userInfo]);
 
   // 检查并提交form
@@ -37,13 +37,14 @@ export default function IdCardVertifyPage(props) {
       showToast(message);
       return;
     }
-    //NavigatorService.navigate(AppRoute.UNRECORD);
-
+    
     var result = new FormData();
     changeToForm(result);
     result.append('userId', userId);
     result.append('identificationType', 'id_card');
-    setLoading(true)
+    setLoading(true);
+    console.log('99userId: ', userId);
+    
     props.verifyIdCard(result, res => {
       setLoading(false)
       if (!res.code) {

@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Form from '../../Component/form'
 import ImageUpload from '../../Component/imageUpload'
 import vertifyCn from '../config/PassportVertify'
+import { Spinner } from 'native-base'
 import { AppRoute } from '../../../navigator/AppRoutes'; // lyq test
 
 export default function PassportVertifyPage(props) {
     const [formData, setFormData] = useState({});
     const [formImage, setFormImage] = useState([]);
-    const [userId, setUserId] = useState(null)
+    const [userId, setUserId] = useState(null);
+    const [loading, setLoading] = useState(false);
+
     // 初始化获取用户信息
     useEffect(() => {
-        setUserId(props.userInfo.id);
+        setUserId(props.userInfo.data.id);
     }, [props.userInfo]);
     // 检查并提交form
     const handleConfirm = () => {
         //NavigatorService.navigate(AppRoute.VERDETAILS);  //lyq test
-        NavigatorService.navigate(AppRoute.PERSONALINFO);  //lyq test
+        //NavigatorService.navigate(AppRoute.PERSONALINFO);  //lyq test
 
         let message = ''
         let key = vertifyCn.findIndex((item) => { return (item.required && !formData[item.key]) })
@@ -36,17 +39,23 @@ export default function PassportVertifyPage(props) {
             showToast(message);
             return;
         }
+        
         var result = new FormData()
         changeToForm(result)
-        // 暂时写死
         result.append('userId', userId)
-        result.append('identificationType', 'id_card')
+        result.append('identificationType', 'passport')
+        setLoading(true);
+        console.log('88userId: ', userId);
 
         props.verifyIdCard(result, (res) => {
-            console.log(res, 'end')
-            showToast('success');
+            setLoading(false);
+            if (!res.code) {
+                showToast('success');
+                NavigatorService.navigate(AppRoute.HOME)
+            } else {
+                showToast(res.message)
+            }
         })
-        // NavigatorService.navigate(AppRoute.UNRECORD);
     };
     // 修改成能提交的数据结构
     const changeToForm = (result) => {
@@ -67,6 +76,7 @@ export default function PassportVertifyPage(props) {
     };
     return (
         <View style={styles.container}>
+            {loading ? <Spinner></Spinner> :
             <ScrollView style={styles.scrollContainer}>
                 <Text style={styles.textTitle}>基本资料</Text>
                 <Form config={vertifyCn} class={styles.formBox} changeForm={changeForm}></Form>
@@ -82,6 +92,7 @@ export default function PassportVertifyPage(props) {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+            }
         </View>
     );
 }

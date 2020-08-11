@@ -6,6 +6,7 @@ import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
   return {
+    userInfo: state.userInfo
   };
 }
 function matchDispatchToProps(dispatch) {
