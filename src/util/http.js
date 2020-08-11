@@ -103,6 +103,7 @@ export const getImage = (url, callback) => {
         console.log('blod', blod);
         let url = URL.createObjectURL(blod);
         callback(url);
+        return url
       })
       .catch(err => {
         callback(err);
