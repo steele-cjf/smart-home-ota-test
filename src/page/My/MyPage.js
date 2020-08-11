@@ -27,7 +27,7 @@ function MyPage(props) {
     // eslint-disable-next-line no-undef
     storage.get('info').then(res => {
       console.log('info', res);
-      res.status = 'audit_pass';
+      // res.status = 'audit_pass';
       setUserInfo(res);
     });
     storage.get('dictionaryMappings').then(res => {
@@ -72,8 +72,10 @@ function MyPage(props) {
     props.handleLogout(res => {
       if (!res.code) {
         // eslint-disable-next-line no-undef
-        storage.set('token', null);
-        NavigatorService.navigate(AppRoute.LOGIN);
+        (async () => {
+          await storage.set('token', null);
+          props.navigation.navigate(AppRoute.LOGIN);
+        })();
       }
     });
   }

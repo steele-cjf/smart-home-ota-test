@@ -64,10 +64,13 @@ function HouseDetail(props) {
     ]);
   };
   const handlerDelete = () => {
-    props.deleteHouse({id: houseInfo.id}, res => {
+    console.log('delete');
+    props.deleteHouse({id: props.route.id}, res => {
       console.log('res', res);
       if (!res.code) {
         showToast('删除成功');
+        props.route.params.refresh();
+        props.navigation.goBack();
       } else {
         showToast(res.message);
       }
