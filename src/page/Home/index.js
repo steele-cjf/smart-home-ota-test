@@ -5,10 +5,10 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { Button, ActionSheet, Root } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
-import showToast from '../../util/toast';
 import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
 import HouseListComponent from '../Component/housingList/list';
+import Theme from '../../style/colors';
 
 const imgList = [ // 暂时写死
   require('../../assets/images/mock/home1.jpg'),
@@ -19,35 +19,43 @@ const imgList = [ // 暂时写死
 function HomePage(props) {
   const [userInfo, setUserInfo] = useState({});
   const [houseList, setHouseList] = useState({});
+  const [selectHouse, setSelectHouse] = useState({});
 
   // 可以理解为componentDidMount
   useEffect(() => {
-    props.getMyHouseList() // 获取本人的房源
     props.getUserInfo(); // 获取个人信息
   }, [])
 
   // 获取用户信息
   useEffect(() => {
     const Info = props.userInfo;
-    console.log(Info)
+    console.log('useInfo', Info)
     if (Info && !Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data)
+      if (Info.data.status === 'audit_pass') {
+        props.getMyHouseList() // 获取本人的房源
+      }
     }
   }, [props.userInfo]);
 
   useEffect(() => {
     // 获取本人的房源
-    setHouseList(props.myHouseList)
+    if (props.myHouseList && props.myHouseList.data) {
+      let { data } = props.myHouseList
+      setHouseList(data)
+      data.length && setSelectHouse(data[0])
+    }
   }, [props.myHouseList])
+
 
   // 展示房源选择
   const showList = () => {
-
     let array = []
     if (houseList.length) {
+      console.log(88888, houseList)
       array = houseList.map((item) => {
-        item.text = item.name
+        item.text = item.regionFullName.replace(/\//g, '')
         return item
       })
     }
@@ -59,28 +67,32 @@ function HomePage(props) {
         title: "请选择房源"
       },
       buttonIndex => {
-        console.log(buttonIndex)
+        if (houseList[buttonIndex]) {
+          setSelectHouse(houseList[buttonIndex])
+        }
       }
     )
   }
   return (
-    <Root>
-      <ScrollView style={styles.container}>
+    <Root style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>首页</Text>
           <View style={styles.SwiperBox} >
             <Swiper items={imgList} />
           </View>
-          <StatusCard items={houseList} status={userInfo && userInfo.status} showList={() => showList()} />
+          <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
         </View>
         <View style={styles.listContent}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={styles.listTitle}>房源推荐</Text>
-            <Text style={styles.listMore}>查看更多</Text>
+            <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
+              <Text style={{ color: Theme.textLink }} >查看更多</Text>
+            </Button>
           </View>
-          <HouseListComponent nav={props.navigation}/>
+          <HouseListComponent nav={props.navigation} />
         </View>
-      </ScrollView>
+      </View>
     </Root>
   );
 }
@@ -132,8 +144,7 @@ const styles = StyleSheet.create({
   },
   listMore: {
     position: 'absolute',
-    color: '#527BDF',
     right: 0,
-    top: 10
+    top: -10
   }
 });

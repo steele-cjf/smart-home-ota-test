@@ -24,7 +24,6 @@ function reset(routeName, params) {
 }
 
 function navigate(routeName, params) {
-	console.log(777777, params, routeName)
 	// StackActions.push({ routeName, params })
 	_container.dispatch(
 		NavigationActions.navigate({

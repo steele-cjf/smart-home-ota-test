@@ -12,8 +12,7 @@ export default function HouseItem(props) {
       <View style={{flex: 20}}>
         <Image
           source={{
-            uri:
-              'blob:CF57F991-A050-4ED4-A8B0-4C7FB817663A?offset=0&size=221112',
+            uri: 'https://reactnativeexample.com/favicon.png',
           }}
           style={styles.linkImage}
         />

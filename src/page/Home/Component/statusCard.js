@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Theme from '../../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -31,17 +31,20 @@ const status_cf = {
     'audit_pass': {
         title: '您还没添加登记房源，请尽快登记!',
         desc: '添加后才能执行开锁操作',
-        icon: 'home',
+        iconName: 'home',
+        showLocation: true,
         btnDesc: '登记房源',
-        route: 'FEATURE'
-    },
-    'audit_pending2': {
+        route: 'RECORD'
+    }
+}
+const houseStatus = {
+    'audit_pending': {
         title: '您的房源正在审核中，请耐心等待!',
         desc: '审核完成后才可以添加住户和发布房源',
         iconName: 'idcard',
         btnDesc: '查看进度',
         showLocation: true,
-        route: 'FEATURE'
+        route: 'HOUSEDETAIL'
     },
     'audit_reject': {
         title: '您的房源审核失败了，请重新提交!',
@@ -64,29 +67,42 @@ export default function StatusCard(props) {
     const [options, setOptions] = useState(status_cf['not_audit'])
 
     useEffect(() => {
-        setOptions(status_cf[props.status || 'audit_pass'])
+        if (props.status !== 'audit_pass' || (props.status === 'audit_pass' && !props.item)) {
+            setOptions(status_cf[props.status || 'not_audit'])
+        }
     }, [props.status])
+
+    useEffect(() => {
+        if (props.status === 'audit_pass' && props.item) {
+            let {status, regionFullName, houseId} = props.item
+            let data = Object.assign({}, houseStatus[status || 'audit_pending'])
+            data.name = regionFullName.replace(/\//g, '')
+            data.id = houseId
+            setOptions(data)
+        }
+    }, [props.item])
     return (
         <View style={styles.container}>
-            {options && options.showLocation &&
+            {/* {options && options.showLocation && */}
                 <TouchableOpacity style={styles.topBox} onPress={() => props.showList()}>
                     <Entypo style={styles.LeftIcon} name='location-pin' />
-                    <Text style={styles.location}>222</Text>
+                    <Text style={styles.location}>{options.name || '--'}</Text>
                     <AntDesign name='caretdown' style={styles.RightIcon} />
                 </TouchableOpacity>
-            }
+            {/* } */}
             <View style={styles.bottomBox}>
                 <View style={styles.Leftcontent}>
                     <Text style={styles.title}>{options.title || '--'}</Text>
                     <Text style={styles.des} note>{options.desc || '--'}</Text>
                 </View>
-                <TouchableOpacity style={styles.RightContent} onPress={() => NavigatorService.navigate(AppRoute[options.route])}>
+                <TouchableOpacity style={styles.RightContent} onPress={() => NavigatorService.navigate(AppRoute[options.route], {
+                    id: options.id || undefined
+                })}>
                     <AntDesign name={options.iconName} style={styles.iconBox} />
                     <Text style={{ color: Theme.primary }}>{options.btnDesc || '--'}</Text>
                 </TouchableOpacity>
             </View>
         </View>
-
     );
 }
 

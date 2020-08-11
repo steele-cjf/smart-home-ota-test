@@ -5,6 +5,8 @@ import PersonalInfo from '../page/My/PersonalInfo';
 import MyHouseList from '../page/My/MyHouseList';
 import HouseDetail from '../page/Feature/HouseDetail';
 import RecordHouse from '../page/My/RecordHouse';
+import MyPublishHouse from '../page/My/MyPublishHouse';
+import PublishHouse from '../page/Feature/publishHouse';
 
 import {AppRoute} from './AppRoutes';
 
@@ -53,6 +55,21 @@ export const MyPageStackComponent = () => {
         component={RecordHouse}
         options={{
           title: '添加房源',
+          headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.PUBLISHLISE}
+        component={MyPublishHouse}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.PUBLISH}
+        component={PublishHouse}
+        options={{
+          title: '发布房源',
           headerBackTitle: '返回',
         }}
       />

@@ -93,13 +93,14 @@ export const remove = (url, config) => {
 // image如果需要token时的处理
 export const getImage = (url, callback) => {
   storage.get('token').then(accessToken => {
-    fetch(url, {
+    fetch(appApi + url, {
       headers: {
         Authorization: 'Bearer ' + accessToken,
       },
     })
       .then(response => response.blob())
       .then(blod => {
+        console.log('blod', blod);
         let url = URL.createObjectURL(blod);
         callback(url);
       })

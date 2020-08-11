@@ -12,8 +12,12 @@ import AuditHouse from '../page/Home/AuditHouse';
 import HouseList from '../page/Home/HouseList';
 import MyHouseList from '../page/My/MyHouseList';
 import MapHousePage from '../page/Home/MapHouse';
+import PublicHouseDetail from '../page/Home/PublicHouseDetail';
+import HouseDetail from '../page/Feature/HouseDetail';
+
 
 import {AppRoute} from './AppRoutes';
+import { houseDetail } from '../store/house';
 
 const HomeStack = createStackNavigator();
 
@@ -107,12 +111,26 @@ export const HomeStackComponent = () => {
         name={AppRoute.HOUSELIST}
         component={HouseList}
         options={{
-          title: '房源列表',
+          headerShown: false
         }}
       />
       <HomeStack.Screen
         name={AppRoute.MYHOUSELIST}
         component={MyHouseList}
+        options={{
+          headerShown: false
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.PUBLICHOUSEDETAIL}
+        component={PublicHouseDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.HOUSEDETAIL}
+        component={HouseDetail}
         options={{
           headerShown: false,
         }}

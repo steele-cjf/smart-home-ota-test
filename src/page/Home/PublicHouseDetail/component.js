@@ -1,16 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-elements';
-import HouseListComponent from '../../Component/housingList/list';
-import SearchHeader from '../Component/searchHeader'
-function HouseList(props) {
+function PublicHouseDetail(props) {
   return (
     <View style={styles.container}>
-      <SearchHeader />
-      {/* <ScrollView > */}
-      <HouseListComponent />
-      {/* </ScrollView> */}
+        <Text>detail</Text>
     </View>
   );
 }
@@ -21,4 +16,4 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   }
 });
-export default HouseList;
+export default PublicHouseDetail;

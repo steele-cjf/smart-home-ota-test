@@ -13,12 +13,14 @@ export const AppRoute = {
   RECORD: 'RecordHouse',
   AUDIT: 'AuditHouse',
   HOUSEDETAIL: 'HouseDetail',
+  PUBLICHOUSEDETAIL: 'PublicHouseDetail',
   PUBLISH: 'PublishHouse',
   ADDTENANT: 'AddTenant',
   HOUSELIST: 'HouseList',
   COMPONENTTEST: 'ComponentTest',
   ROOM: 'RoomPage',
   MYHOUSELIST: 'MyHouseList',
-  MAPHOUSE: 'MapHouse'
+  MAPHOUSE: 'MapHouse',
+  PUBLISHLISE: 'MyPublishHouse',
 };
 Object.freeze(AppRoute);
