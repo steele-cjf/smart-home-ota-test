@@ -3,9 +3,14 @@ import thunk from 'redux-thunk';
 import {userInfo} from './home/index';
 import {houseDetail} from './house/index';
 import {myHouseList} from './home/index';
-import {cameraOpt, webSocketInfo, codeInfo, dictionaryMappings} from './common/index';
+import {
+  cameraOpt,
+  webSocketInfo,
+  codeInfo,
+  dictionaryMappings,
+} from './common/index';
 import {roomList} from './feature/index';
-import { publishHouseDetail } from './publish/index'
+import {publishHouseDetail} from './publish/index';
 const allReducers = combineReducers({
   userInfo,
   houseDetail,
@@ -15,7 +20,7 @@ const allReducers = combineReducers({
   publishHouseDetail,
   webSocketInfo,
   codeInfo,
-  dictionaryMappings
+  dictionaryMappings,
 });
 const store = createStore(allReducers, applyMiddleware(thunk));
 export default store;

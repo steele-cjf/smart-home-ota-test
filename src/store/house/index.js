@@ -40,6 +40,15 @@ export function deleteHouse(data, callback) {
     },
   });
 }
+// 我是租客房源列表
+export function getTenantHouseList(data, callback) {
+  return $get('/house/listTenantMine', {
+    queryData: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
 // HOUSE_DETAIL
 export function houseDetail(state = null, action) {
   if (action.type === 'HOUSE_DETAIL') {

@@ -8,6 +8,7 @@ import RecordHouse from '../page/My/RecordHouse';
 import MyPublishHouse from '../page/My/MyPublishHouse';
 import PublishHouse from '../page/Feature/publishHouse';
 import RoomPage from '../page/Feature/roomPage';
+import TenantHouseList from '../page/My/TenantHouseList';
 
 import {AppRoute} from './AppRoutes';
 
@@ -79,6 +80,14 @@ export const MyPageStackComponent = () => {
         component={RoomPage}
         options={{
           headerShown: false,
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.TENANTHOUSELIST}
+        component={TenantHouseList}
+        options={{
+          title: '我是租户',
+          headerBackTitle: '返回',
         }}
       />
     </MyPageNavigator.Navigator>
