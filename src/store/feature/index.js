@@ -48,7 +48,7 @@ export function updateRoomName(id, name, callback) {
 // 删除房间
 export function deleteRoom(id, callback) {
   return $remove(`/room/${id}`, {
-    body: {id: id},
+    // body: {id: id},
     successConfig: {
       callback,
     },
