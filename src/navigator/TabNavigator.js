@@ -6,8 +6,6 @@ import { HomeStackComponent } from './HomeNavigator';
 import { FeatureStackComponent } from './FeatureNavigator';
 import { MyPageStackComponent } from './MyPageNavigator';
 
-import { Text } from 'native-base'
-
 // import DynamicPage from '../page/DynamicPage';
 import { AppRoute } from './AppRoutes';
 

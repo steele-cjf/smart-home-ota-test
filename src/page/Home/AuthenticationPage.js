@@ -25,7 +25,6 @@ function AuthenticationPage(props) {
         showToast(res.message);
         return;
       }
-      console.log('ddddd', res.data);
       let { token, bizId } = res.data;
       if (Platform.OS === 'ios') {
         let domId = findNodeHandle(AliyunVerify.current);

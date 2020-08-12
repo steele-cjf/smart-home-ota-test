@@ -1,4 +1,4 @@
-import {get, post, remove, put, getImage, DEFAULT_CONFIG} from './http';
+import {get, post, remove, put, getImage, DEFAULT_CONFIG, appApi} from './http';
 import {showToast} from './toast';
 import Theme from '../style/colors';
 import screen from '../style/sizes';
@@ -19,4 +19,6 @@ global.Theme = Theme;
 global.$screen = screen;
 
 global.storage = storage;
+global.APP_API = appApi;
+
 global.NavigatorService = NavigatorService;
