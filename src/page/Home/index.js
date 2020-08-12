@@ -103,7 +103,7 @@ function HomePage(props) {
               <Text style={{ color: Theme.textLink }} >查看更多</Text>
             </Button>
           </View>
-          <HouseListComponent nav={props.navigation} />
+          <HouseListComponent />
         </View>
       </View>
     </Root>
