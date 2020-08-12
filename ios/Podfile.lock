@@ -14,15 +14,15 @@ PODS:
     - React-Core (= 0.62.2)
     - React-jsi (= 0.62.2)
     - ReactCommon/turbomodule/core (= 0.62.2)
-  - Firebase/CoreOnly (6.28.1):
-    - FirebaseCore (= 6.9.1)
-  - Firebase/MLVision (6.28.1):
+  - Firebase/CoreOnly (6.30.0):
+    - FirebaseCore (= 6.10.0)
+  - Firebase/MLVision (6.30.0):
     - Firebase/CoreOnly
     - FirebaseMLVision (~> 0.21.0)
-  - Firebase/MLVisionBarcodeModel (6.28.1):
+  - Firebase/MLVisionBarcodeModel (6.30.0):
     - Firebase/CoreOnly
     - FirebaseMLVisionBarcodeModel (~> 0.21.0)
-  - FirebaseCore (6.9.1):
+  - FirebaseCore (6.10.0):
     - FirebaseCoreDiagnostics (~> 1.3)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
@@ -31,8 +31,8 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30905.0)
-  - FirebaseInstallations (1.5.0):
-    - FirebaseCore (~> 6.8)
+  - FirebaseInstallations (1.6.0):
+    - FirebaseCore (~> 6.10)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
@@ -117,7 +117,7 @@ PODS:
   - GoogleAPIClientForREST/Vision (1.4.2):
     - GoogleAPIClientForREST/Core
     - GTMSessionFetcher (>= 1.1.7)
-  - GoogleDataTransport (7.0.0):
+  - GoogleDataTransport (7.2.0):
     - nanopb (~> 1.30905.0)
   - GoogleToolboxForMac/DebugUtils (2.2.2):
     - GoogleToolboxForMac/Defines (= 2.2.2)
@@ -131,11 +131,11 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.2.2)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.2)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.2.2)"
-  - GoogleUtilities/Environment (6.7.1):
+  - GoogleUtilities/Environment (6.7.2):
     - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (6.7.1):
+  - GoogleUtilities/Logger (6.7.2):
     - GoogleUtilities/Environment
-  - GoogleUtilities/UserDefaults (6.7.1):
+  - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
   - GTMSessionFetcher (1.4.0):
     - GTMSessionFetcher/Full (= 1.4.0)
@@ -150,7 +150,7 @@ PODS:
   - OpenSSL-Universal (1.0.2.19):
     - OpenSSL-Universal/Static (= 1.0.2.19)
   - OpenSSL-Universal/Static (1.0.2.19)
-  - PromisesObjC (1.2.9)
+  - PromisesObjC (1.2.10)
   - Protobuf (3.12.0)
   - RCTRequired (0.62.2)
   - RCTTypeSafety (0.62.2):
@@ -318,25 +318,25 @@ PODS:
   - react-native-amap3d (2.0.2):
     - AMap3DMap (~> 7.5.0)
     - React
-  - react-native-camera/BarcodeDetectorMLKit (3.33.0):
+  - react-native-camera/BarcodeDetectorMLKit (3.36.0):
     - Firebase/MLVision
     - Firebase/MLVisionBarcodeModel
     - React
     - react-native-camera/RCT
     - react-native-camera/RN
-  - react-native-camera/RCT (3.33.0):
+  - react-native-camera/RCT (3.36.0):
     - React
-  - react-native-camera/RN (3.33.0):
+  - react-native-camera/RN (3.36.0):
     - React
   - react-native-geolocation (2.0.2):
     - React
   - react-native-image-picker (2.3.3):
     - React
-  - react-native-netinfo (5.9.5):
+  - react-native-netinfo (5.9.6):
     - React
   - react-native-network-info (5.2.1):
     - React
-  - react-native-safe-area-context (3.1.1):
+  - react-native-safe-area-context (3.1.4):
     - React
   - React-RCTActionSheet (0.62.2):
     - React-Core/RCTActionSheetHeaders (= 0.62.2)
@@ -403,13 +403,13 @@ PODS:
     - React
   - RNCPushNotificationIOS (1.4.0):
     - React
-  - RNDateTimePicker (2.6.1):
+  - RNDateTimePicker (2.6.2):
     - React
   - RNGestureHandler (1.7.0):
     - React
-  - RNReanimated (1.10.1):
+  - RNReanimated (1.12.0):
     - React
-  - RNScreens (2.9.0):
+  - RNScreens (2.10.1):
     - React
   - RNVectorIcons (6.7.0):
     - React
@@ -609,10 +609,10 @@ SPEC CHECKSUMS:
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: 4aab18c93cd9546e4bfed752b4084585eca8b245
   FBReactNativeSpec: 5465d51ccfeecb7faa12f9ae0024f2044ce4044e
-  Firebase: ed042590caa0029392257529a8003c25ee82bc18
-  FirebaseCore: 687b8e6a0a4337b898a6326d68254c2f80c143af
+  Firebase: 210f41ca352067d83b1ba4fd2e7fb49a0c017397
+  FirebaseCore: 9a41e2de78fef10f63cee30ab10e2945266bc1fc
   FirebaseCoreDiagnostics: 7535fe695737f8c5b350584292a70b7f8ff0357b
-  FirebaseInstallations: 3c520c951305cbf9ca54eb891ff9e6d1fd384881
+  FirebaseInstallations: 45f9d44d3a8d6f780fa337ee8987dad87210fcbc
   FirebaseMLCommon: d218d75dd1c6c4e447f731ac22da56b88cb79431
   FirebaseMLVision: 68dd092b4c52a7ac163ec0d4f541d5711fc9fec6
   FirebaseMLVisionBarcodeModel: 394cd61c52dc03558088caf82b0dade8028f57d5
@@ -626,13 +626,13 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   GoogleAPIClientForREST: 9f49df9fac7867b459187e687fed3066b2be049a
-  GoogleDataTransport: 8a40cb194ad242b6f6dfe72c14fe40fc67c4dcd7
+  GoogleDataTransport: 672fb0ce96fe7f7f31d43672fca62ad2c9c86f7b
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
-  GoogleUtilities: e121a3867449ce16b0e35ddf1797ea7a389ffdf2
+  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
-  PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
+  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   RCTRequired: cec6a34b3ac8a9915c37e7e4ad3aa74726ce4035
   RCTTypeSafety: 93006131180074cffa227a1075802c89a49dd4ce
@@ -644,12 +644,12 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 1540d1c01bb493ae3124ed83351b1b6a155db7da
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
   react-native-amap3d: 26abcffc0fa7cd9f757cd9afe9bf7addb95105b0
-  react-native-camera: 55e1afb6d585314ca96ea5504e6b1ba7583c1d21
+  react-native-camera: 8016138a8348b889e22c95b23f668a234f124335
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
   react-native-image-picker: 3d3f85baabca60a00b75fb8facc1376db7bbdafa
-  react-native-netinfo: a53b00d949b6456913aaf507d9dba90c4008c611
+  react-native-netinfo: 38a1e0b3e89b48e4b5833ed475d8df5f049f6f90
   react-native-network-info: d1290ffc0bd0709e11436f5b8d7f605dcc5c4530
-  react-native-safe-area-context: 344b969c45af3d8464d36e8dea264942992ef033
+  react-native-safe-area-context: eb91fe1fb3f7b87d9c30a7f0808407d8569d539d
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
   React-RCTBlob: a332773f0ebc413a0ce85942a55b064471587a71
@@ -663,15 +663,15 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: d059c3ee71738c39834a627476322a5a8cd5bf36
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNCPushNotificationIOS: dc1c0c6aa18a128df123598149f42e848d26a4ac
-  RNDateTimePicker: 83540fb5d71f28bd34990d8fabccb8d91e5d957e
+  RNDateTimePicker: 968ccf716b3b6aee07849641966005924de5c0f9
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
-  RNReanimated: c2bb7438b57a3d987bb2e4e6e4bca94787e30b02
-  RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
+  RNReanimated: 9c475f9b272232351d94a1a781e8b7580bac1ff4
+  RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
   RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
   toolbar-android: 85f3ef4d691469f2d304e7dee4bca013aa1ba1ff
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e6b6d869b3bf7f75267ced9ed87c28c2df4c81a6
+PODFILE CHECKSUM: 6c2a52999d9a2c20c5deedb320a30a001810d969
 
 COCOAPODS: 1.9.3

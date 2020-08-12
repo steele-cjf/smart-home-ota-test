@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import WebsocketComponent from '../Component/WebSocket'
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { Button, ActionSheet, Root, Spinner } from 'native-base'
@@ -9,7 +10,6 @@ import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
 import HouseListComponent from '../Component/housingList/list';
 import Theme from '../../style/colors';
-import WS from 'react-native-websocket'
 
 const imgList = [ // 暂时写死
   require('../../assets/images/mock/home1.jpg'),
@@ -23,21 +23,18 @@ function HomePage(props) {
   const [selectHouse, setSelectHouse] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true)
   const [loadingList, setLoadingList] = useState(true)
-  const wsRef = useRef(null)
 
   // 可以理解为componentDidMount
   useEffect(() => {
     props.getUserInfo(); // 获取个人信息
   }, [])
   useEffect(() => {
-    console.log(88888)
     props.getUserInfo();
   }, [props.webSocketInfo])
 
   // 获取用户信息
   useEffect(() => {
     const Info = props.userInfo;
-    console.log('MMM_userInfo:', Info);
     if (Info && !Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data)
@@ -85,6 +82,7 @@ function HomePage(props) {
   }
   return (
     <Root style={styles.container}>
+      {userInfo && <WebsocketComponent id={userInfo.id} />}
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>首页</Text>
