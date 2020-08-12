@@ -157,7 +157,7 @@ function MyPublishList(props) {
             }}>
             <Text style={[styles.rentPrice, styles.highColor, {flex: 1}]}>
               {mappings.publishinfo_status[item.status]} |{' '}
-              {item.roomNames.length ? '整租' : item.roomNames[0]}
+              {!item.roomNames.length ? '整租' : item.roomNames[0]}
             </Text>
             <Feather
               name={'more-horizontal'}
