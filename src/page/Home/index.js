@@ -37,6 +37,7 @@ function HomePage(props) {
   // 获取用户信息
   useEffect(() => {
     const Info = props.userInfo;
+    console.log('MMM_userInfo:', Info);
     if (Info && !Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data)

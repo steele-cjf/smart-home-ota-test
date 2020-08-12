@@ -45,7 +45,15 @@ export function updateRoomName(id, name, callback) {
     },
   });
 }
-
+// 删除房间
+export function deleteRoom(id, callback) {
+  return $remove(`/room/${id}`, {
+    body: {id: id},
+    successConfig: {
+      callback,
+    },
+  });
+}
 export function roomList(state = null, action) {
   if (action.type === 'ROOM_LIST') {
     return action.data || null;
@@ -54,5 +62,5 @@ export function roomList(state = null, action) {
 }
 
 export default {
-  roomList
+  roomList,
 };

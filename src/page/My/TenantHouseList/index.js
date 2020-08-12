@@ -1,18 +1,19 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { verifyIdCard } from '../../../store/home/index';
+import {getTenantHouseList} from '../../../store/house/index';
 
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
   return {
-    userInfo: state.userInfo
+    houseDetail: state.houseDetail,
+    dictionaryMappings: state.dictionaryMappings,
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({verifyIdCard}, dispatch);
+  return bindActionCreators({getTenantHouseList}, dispatch);
 }
 export default connect(
   mapStateToProps,
-  matchDispatchToProps
+  matchDispatchToProps,
 )(Component);

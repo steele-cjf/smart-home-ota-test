@@ -7,7 +7,7 @@ import {AppRoute} from '../../../navigator/AppRoutes';
 export default function VertifyDetailsPage(props) {
 
   //async function handlModify() {
-  function handlModify() {
+  function handleModify() {
     //路由到其他界面
     // if (authType === 1) {
     //   props.navigation.navigate(AppRoute.IDCARDVERTIFY);
@@ -130,7 +130,7 @@ export default function VertifyDetailsPage(props) {
         <Image style={styles.imageStyle} source={{uri:'blob:CF57F991-A050-4ED4-A8B0-4C7FB817663A?offset=0&size=221112',}}/> 
       </View>
 
-      <TouchableOpacity style={styles.btnStyle} onPress={handlModify}> 
+      <TouchableOpacity style={styles.btnStyle} onPress={handleModify}> 
         <Text style={styles.btnTextStyle}>{btnTitle}</Text>
       </TouchableOpacity>
 
