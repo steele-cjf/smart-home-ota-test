@@ -146,7 +146,7 @@ export default function PublishHouse(props) {
     return list
       .filter(item => item.selected === true)
       .map((value, index) => {
-        return value.code;
+        return value.code || value.id;
       });
   }
 
@@ -168,7 +168,6 @@ export default function PublishHouse(props) {
     result.append('title', title);
     result.append('houseId', houseId);
     result.append('houseType', houseType);
-    result.append('roomIds', roomIds);
 
     for (let c = 0; c < requirements.length; c++) {
       result.append('houseAddition.requirements', requirements[c]);
@@ -179,12 +178,16 @@ export default function PublishHouse(props) {
     for (let c = 0; c < items.length; c++) {
       result.append('houseAmenity.items', items[c]);
     }
+    for (let c = 0; c < roomIds.length; c++) {
+      result.append('roomIds', roomIds[c]);
+    }
 
     for (let c = 0; c < houseImages.length; c++) {
       result.append('houseAddition.images', houseImages[c]);
     }
 
     console.log('result', result);
+    console.log('ids', roomIds);
     props.publishHouse(result, res => {
       console.log('res', res);
       props.route.params.refresh();

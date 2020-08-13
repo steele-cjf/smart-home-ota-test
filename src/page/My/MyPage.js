@@ -49,7 +49,9 @@ function MyPage(props) {
         RouteName = 'AboutPage';
         break;
       case MORE_MENU.Tenement:
-        RouteName = 'TenementPage';
+        NavigatorService.navigate(AppRoute.TENANTHOUSELIST, {
+          screen: 'TenantHouseList',
+        });
         break;
       case MORE_MENU.House_Collect:
         RouteName = 'OperatingPage';

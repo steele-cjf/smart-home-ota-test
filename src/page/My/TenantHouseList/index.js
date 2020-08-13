@@ -1,16 +1,17 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getMyPublishList, offShelf, republish} from '../../../store/home/index';
+import {getTenantHouseList} from '../../../store/house/index';
 
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
   return {
     houseDetail: state.houseDetail,
+    dictionaryMappings: state.dictionaryMappings,
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getMyPublishList, offShelf, republish}, dispatch);
+  return bindActionCreators({getTenantHouseList}, dispatch);
 }
 export default connect(
   mapStateToProps,

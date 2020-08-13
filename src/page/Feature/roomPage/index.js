@@ -4,6 +4,7 @@ import {
   addRoom,
   getRoomList,
   updateRoomName,
+  deleteRoom,
 } from '../../../store/feature/index';
 
 import Component from './component';
@@ -11,10 +12,14 @@ import Component from './component';
 function mapStateToProps(state) {
   return {
     roomList: state.roomList,
+    houseDetail: state.houseDetail,
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({addRoom, getRoomList, updateRoomName}, dispatch);
+  return bindActionCreators(
+    {addRoom, getRoomList, updateRoomName, deleteRoom},
+    dispatch,
+  );
 }
 export default connect(
   mapStateToProps,

@@ -122,4 +122,5 @@ export default {
   remove,
   getImage,
   DEFAULT_CONFIG,
+  appApi
 };

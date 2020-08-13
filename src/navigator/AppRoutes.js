@@ -22,5 +22,6 @@ export const AppRoute = {
   MYHOUSELIST: 'MyHouseList',
   MAPHOUSE: 'MapHouse',
   PUBLISHLISE: 'MyPublishHouse',
+  TENANTHOUSELIST: 'TenantHouseList',
 };
 Object.freeze(AppRoute);

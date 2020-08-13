@@ -102,6 +102,24 @@ export function deleteHouse(data, callback) {
     },
   });
 }
+// 重新发布
+export function republish(data, callback) {
+  return $put(`/publish/${data.id}/publish`, {
+    body: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
+// 下架
+export function offShelf(data, callback) {
+  return $put(`/publish/${data.id}/offShelf`, {
+    body: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
 // user info
 export function userInfo(state = null, action) {
   if (action.type === 'USER_INFO') {

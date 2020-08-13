@@ -55,8 +55,8 @@ class DialogInput extends PureComponent {
     const dialogStyleProps = this.props.dialogStyle || {};
     const placeholderTextColor = this.props.placeholderTextColor;
     const animationType = this.props.animationType || 'fade';
-    let cancelText = this.props.cancelText || 'Cancel';
-    let submitText = this.props.submitText || 'Submit';
+    let cancelText = this.props.cancelText || '取消';
+    let submitText = this.props.submitText || '确定';
     cancelText = Platform.OS === 'ios' ? cancelText : cancelText.toUpperCase();
     submitText = Platform.OS === 'ios' ? submitText : submitText.toUpperCase();
 
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.3)',
     ...Platform.select({
       android: {
         backgroundColor: 'rgba(0,0,0,0.62)',
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     marginRight: 30,
     ...Platform.select({
       ios: {
-        backgroundColor: '#f7f7f7',
+        backgroundColor: '#fff',
         borderRadius: 10,
         minWidth: 300,
       },

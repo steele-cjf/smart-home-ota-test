@@ -4,6 +4,10 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { Icon, Button, Left, Header, Text, Spinner } from 'native-base'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Theme from '../../../style/colors';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
+var PushNotification = require("react-native-push-notification");
+
+
 function HouseDetail(props) {
     const [options, setOptions] = useState({})
     useEffect(() => {
@@ -14,18 +18,52 @@ function HouseDetail(props) {
         res[type] = value
         setOptions(res)
     }
+    useEffect(() => {
+        PushNotification.configure({
+            onRegister: function (token) {
+                console.log("TOKEN:", token);
+            },
+            onNotification: function (notification) {
+                console.log("NOTIFICATION:", notification);
+                notification.finish(PushNotificationIOS.FetchResult.NoData);
+            },
+            onAction: function (notification) {
+                console.log("ACTION:", notification.action);
+                console.log("NOTIFICATION:", notification);
+            },
+            onRegistrationError: function (err) {
+                console.error(err.message, err);
+            },
+            permissions: {
+                alert: true,
+                badge: true,
+                sound: true,
+            },
+            popInitialNotification: true,
+            requestPermissions: true,
+        });
+    }, [])
+    const setNotification = () => {
+        PushNotification.localNotificationSchedule({
+            //... You can use all the options from localNotifications
+            message: "My Notification Message", // (required)
+            date: new Date(Date.now() + 1000), // in 60 secs
+            allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+        });
+    }
     return (
         <View style={styles.container}>
             <View style={styles.flexRow}>
                 <Text style={styles.title}>3600</Text>
                 <Text style={styles.desc}>元/月</Text>
-                <AntDesign style={[styles.rightBtn, options.collect && styles.activeBtn]}
-                    onPress={() => { changeData('collect', !options.collect) }}
-                    name={options.collect ? 'heart' : 'hearto'}></AntDesign>
+                <AntDesign style={[styles.rightBtn, options.collectedByMe && styles.activeBtn]}
+                    onPress={() => { changeData('collectedByMe', !options.collectedByMe) }}
+                    name={options.collectedByMe ? 'heart' : 'hearto'}></AntDesign>
             </View>
             <Text style={styles.secondDes}>整租·位置·2房·1卫·1间</Text>
             <Text style={styles.moduleTitle}>--</Text>
             <Text style={styles.moduleTitle}>地理位置</Text>
+            <Button onPress={() => setNotification()}><Text>通知</Text></Button>
         </View>
     );
 }
