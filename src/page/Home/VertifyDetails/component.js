@@ -1,29 +1,46 @@
 import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import { Spinner } from 'native-base'
 import Theme from '../../../style/colors';
 import {AppRoute} from '../../../navigator/AppRoutes'; 
 
+const auth_status = {
+  'audit_reject': {
+    title: '实名认证审核失败',
+    reasonDesc: '证件与本人不符，请修改',
+    btnTitle: '重新提交',
+  },
+  'audit_pending': {
+      title: '实名认证审核中',
+      reasonDesc: '约两个工作日内完成审核',
+      btnTitle: '修改',
+  },
+}
 
 export default function VertifyDetailsPage(props) {
 
-  //async function handlModify() {
-  function handleModify() {
-    //路由到其他界面
-    // if (authType === 1) {
-    //   props.navigation.navigate(AppRoute.IDCARDVERTIFY);
-    // } else {
-    //   props.navigation.navigate(AppRoute.PASSPORTVERTIFY);
-    // }
+  //请求数据
+  //getAuthInfo();
 
-    //请求数据
+  //test
+  function goPersonalInfo() {
+    props.navigation.navigate(AppRoute.PERSONALINFO);
+  }  
+
+  function handleModify() {
+    props.navigation.navigate(AppRoute.AUTHENTICATION);
+  }
+
+  //async function getAuthInfo() {
+  function getAuthInfo() {
     // var info = await storage.get('info');
     // userId = info.id;
     var info = props.userInfo;
     userId = info.data.id;
 
     props.getManualAuditInfo(userId, res => {
-      console.log('code-res-kk:', res);
-      console.log(8888, res.message);
+      console.log('AuditInfo-kk:', res);
+      setLoading(false);
 
       if (!res.code) {
         showToast('成功！');
@@ -32,25 +49,19 @@ export default function VertifyDetailsPage(props) {
         showToast("90909"+res.message);
       }
     });
-
-    //test 模拟刷新成服务数据
-    // const rightContentData = {
-    // name: '莉丝', identificationType: 2, identificationNo: '7878787887887887',  
-    // gender: '女', nation: '哈哈族', birthDate: '1990-09-09',
-    // identificationAddress : '海南省看电视看风景看酸辣粉是对抗肌肤开始地方端口克林顿的多的是 111',
-    // country: '法国',
-    // };
-    // dealDataRefresh(rightContentData);  
   }
 
   //刷新为服务数据
   function dealDataRefresh(data) { 
+    var auditStatus = data.auditStatus;      
+    
+    var sex = props.dictionaryMappings.gender[data.gender];
     let actualDataArr;
-    if (data.identificationType === 1) {
+    if (data.identificationType === 'id_card') { 
       actualDataArr = [   
         {title: "真实姓名", content: data.name},
         {title: "身份证号码", content: data.identificationNo},
-        {title: "性别", content: data.gender},
+        {title: "性别", content: sex},
         {title: "民族", content: data.nation},
         {title: "出生日期", content: data.birthDate},
         {title: "身份证地址", content: data.identificationAddress}, 
@@ -59,59 +70,28 @@ export default function VertifyDetailsPage(props) {
       actualDataArr = [
         {title: "真实姓名", content: data.name},
         {title: "护照号", content: data.identificationNo},
-        {title: "性别", content: data.gender},
+        {title: "性别", content: sex},
         {title: "出生日期", content: data.birthDate},
-        {title: "国籍", content: data.userId},  //data.country lyq test
+        {title: "国籍", content: data.country}, 
       ];
     }
 
-    console.log('*********************', actualDataArr);
+    setAuthStatus(auditStatus);
+    setAuthOptions(auth_status[auditStatus]);
     setData(actualDataArr);
   }
 
-  //初始化默认数据（因服务数据暂缺）
-  const authType = 1;  //1:身份证认证;   2:护照认证
-  const authStatus = 2;  //1:认证失败;   2:认证中
-
-  let dataArr;
-  if (authType === 1) {
-    dataArr = [
-      {title: "真实姓名", content: "张三"},
-      {title: "身份证号码", content: "2389***************2"},
-      {title: "性别", content: "男"},
-      {title: "民族", content: "汉族"},
-      {title: "出生日期", content: "1990-8-7"},
-      {title: "身份证地址", content: "广东省深圳市南山区 南海大道1057号科技大厦二期A座809890890890"},
-    ];
-  } else {
-    dataArr = [
-      {title: "真实姓名", content: "张三"},
-      {title: "护照号", content: "2389***************2"},
-      {title: "性别", content: "男"},
-      {title: "出生日期", content: "1990-8-7"},
-      {title: "国籍", content: "广东省深圳市南山区 南海大道1057号科技大厦二期A座809890890890"},
-    ];
-  }
-
-  let topTitle1, topTitle2, btnTitle;
-  if (authStatus === 1) {
-    topTitle1 = '实名认证审核失败';
-    topTitle2 = '证件与本人不符，请修改';
-    btnTitle = '重新提交';
-  } else {
-    topTitle1 = '实名认证审核中';
-    topTitle2 = '约两个工作日内完成审核';
-    btnTitle = '修改';
-  } 
-
-
-  const [data, setData] = useState(dataArr);
+  const [authStatus, setAuthStatus] = useState('audit_pending');
+  const [authOptions, setAuthOptions] = useState(auth_status['audit_pending']); 
+  const [data, setData] = useState([]); 
+  const [loading, setLoading] = useState(false);
 
   return (
+    loading ? <Spinner></Spinner> :
     <View style={styles.containerStyle}> 
-      <View style={[styles.topViewFail, authStatus === 2 && styles.topViewWait]}>
-        <Text style={styles.topTextStyle1}>{topTitle1}</Text>
-        <Text style={styles.topTextStyle2}>{topTitle2}</Text>
+      <View style={[styles.topViewFail, authStatus === 'audit_pending' && styles.topViewWait]}>
+        <Text style={styles.topTextStyle1}>{authOptions.title}</Text>
+        <Text style={styles.topTextStyle2}>{authOptions.reasonDesc}</Text>
       </View> 
       {
         data.map((item, index) => { 
@@ -129,11 +109,18 @@ export default function VertifyDetailsPage(props) {
         <Image style={styles.imageStyle} source={{uri:'blob:CF57F991-A050-4ED4-A8B0-4C7FB817663A?offset=0&size=221112',}}/> 
         <Image style={styles.imageStyle} source={{uri:'blob:CF57F991-A050-4ED4-A8B0-4C7FB817663A?offset=0&size=221112',}}/> 
       </View>
-
-      <TouchableOpacity style={styles.btnStyle} onPress={handleModify}> 
-        <Text style={styles.btnTextStyle}>{btnTitle}</Text>
+      
+      <TouchableOpacity style={[styles.btnStyle, styles.btnStyle3]} onPress={goPersonalInfo}> 
+        <Text style={styles.btnTextStyle}>进入个人中心</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity style={[styles.btnStyle, styles.btnStyle2]} onPress={getAuthInfo}> 
+        <Text style={styles.btnTextStyle}>请求服务数据刷新</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.btnStyle} onPress={handleModify}> 
+        <Text style={styles.btnTextStyle}>{authOptions.btnTitle}</Text>
+      </TouchableOpacity>
     </View>
   );
 
@@ -203,6 +190,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: '#5C8BFF'
+  },
+  btnStyle2: {
+    bottom: 110,
+  },
+  btnStyle3: {
+    bottom: 170,
   },
   btnTextStyle: {
     height: 40,

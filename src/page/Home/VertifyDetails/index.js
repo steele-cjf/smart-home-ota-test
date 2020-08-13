@@ -7,6 +7,7 @@ import Component from './component';
 function mapStateToProps(state) {
   return {
     userInfo: state.userInfo,
+    dictionaryMappings: state.dictionaryMappings
   };
 }
 

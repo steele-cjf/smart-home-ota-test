@@ -4,7 +4,6 @@ import Form from '../../Component/form'
 import ImageUpload from '../../Component/imageUpload'
 import vertifyCn from '../config/PassportVertify'
 import { Spinner } from 'native-base'
-import { AppRoute } from '../../../navigator/AppRoutes'; // lyq test
 
 export default function PassportVertifyPage(props) {
     const [formData, setFormData] = useState({});
@@ -16,11 +15,9 @@ export default function PassportVertifyPage(props) {
     useEffect(() => {
         setUserId(props.userInfo.data.id);
     }, [props.userInfo]);
+    
     // 检查并提交form
     const handleConfirm = () => {
-        //NavigatorService.navigate(AppRoute.VERDETAILS);  //lyq test
-        //NavigatorService.navigate(AppRoute.PERSONALINFO);  //lyq test
-
         let message = ''
         let key = vertifyCn.findIndex((item) => { return (item.required && !formData[item.key]) })
         message = vertifyCn[key] && vertifyCn[key].errorMsg[0]
