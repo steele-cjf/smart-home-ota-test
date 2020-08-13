@@ -8,15 +8,16 @@ const img = require('../../../assets/images/mock/home1.jpg')
 function PublicHouseDetail(props) {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
+  const [code, setCode] = useState(true)
   useEffect(() => {
-    let {id} = props.route.params
+    let { id } = props.route.params
     props.getPublishHouseDetail(id)
+    setCode(props.dictionaryMappings)
   }, [])
   useEffect(() => {
     let res = props.publishHouseDetail
     if (res && !res.code && res.data) {
-      console.log(888, res.data)
-      setData(res.data)
+      setData(Object.assign({}, res.data))
       setLoading(false)
     }
   }, [props.publishHouseDetail])
@@ -29,7 +30,7 @@ function PublicHouseDetail(props) {
         </TouchableOpacity>
       </ImageBackground>
       {
-        loading ? <Spinner></Spinner>:<HouseDetail data={data} />
+        loading ? <Spinner></Spinner> : <HouseDetail data={data} code={code} />
       }
     </View>
   );

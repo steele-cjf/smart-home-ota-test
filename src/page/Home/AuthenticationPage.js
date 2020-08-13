@@ -95,7 +95,7 @@ function AuthenticationPage(props) {
     <View style={styles.container} ref={AliyunVerify}>
       <View>
         <Text style={styles.tipStatus}>当前状态：</Text>
-        <Text style={styles.status}>{props.dictionaryMappings.user_status[userInfo.status]}</Text>
+        <Text style={styles.status}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text>
       </View>
       <Text style={styles.verTitle}>请选择认证方式：</Text>
       {AuthList.map((u, i) => {

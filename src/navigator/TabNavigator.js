@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -11,16 +11,6 @@ import { AppRoute } from './AppRoutes';
 
 const Tab = createBottomTabNavigator();
 const BottomTabScreen = (props) => {
-  // const checkoutNavigation = (nav, URL) => {
-  //   console.log
-  //   const unsubscribe = nav.addListener('tabPress', e => {
-  //     // Prevent default behavior
-  //     e.preventDefault();
-  //     NavigatorService.navigate(URL)
-  //     // ...
-  //   });
-  //   return unsubscribe;
-  // }
   return (
     <Tab.Navigator
       initialRouteName={AppRoute.HOME}
@@ -56,7 +46,6 @@ const BottomTabScreen = (props) => {
           const routeState = route.state;
           const isFeatureRoot = !routeState || routeState?.index === 0;
           const isFeatureRoute = route.name === AppRoute.FEATURE;
-          // checkoutNavigation(navigation, AppRoute.FEATURE)
           return {
             title: '功能',
             tabBarVisible: isFeatureRoot && isFeatureRoute,
@@ -88,4 +77,5 @@ const BottomTabScreen = (props) => {
     </Tab.Navigator>
   );
 };
+
 export default BottomTabScreen;

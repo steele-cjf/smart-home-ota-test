@@ -5,6 +5,7 @@ import HouseDetail from '../page/Feature/HouseDetail';
 import PublishHouse from '../page/Feature/publishHouse';
 import AddTenant from '../page/Feature/addTenant';
 import RoomPage from '../page/Feature/roomPage';
+import AuthenticationPage from '../page/Home/AuthenticationPage';
 import ComponentTest from '../page/ComponentTest/index';
 import {AppRoute} from './AppRoutes';
 
@@ -13,7 +14,6 @@ const HomeStack = createStackNavigator();
 export const FeatureStackComponent = () => {
   return (
     <HomeStack.Navigator
-      mode="modal"
       screenOptions={{
         cardStyle: {
           fontSize: 16,
@@ -66,6 +66,14 @@ export const FeatureStackComponent = () => {
         component={ComponentTest}
         options={{
           title: 'ComponentTest',
+          headerBackTitle: '返回',
+        }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.AUTHENTICATION}
+        component={AuthenticationPage}
+        options={{
+          title: '实名认证',
           headerBackTitle: '返回',
         }}
       />

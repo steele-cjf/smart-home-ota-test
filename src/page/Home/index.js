@@ -29,12 +29,15 @@ function HomePage(props) {
     props.getUserInfo(); // 获取个人信息
   }, [])
   useEffect(() => {
+    console.log('webSocketInfo 变了')
     props.getUserInfo();
   }, [props.webSocketInfo])
 
   // 获取用户信息
   useEffect(() => {
     const Info = props.userInfo;
+    console.log('user', Info)
+
     if (Info && !Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data)
@@ -67,6 +70,8 @@ function HomePage(props) {
       })
     }
     array.push({ text: "Cancel" })
+    console.log(8888888, array, ActionSheet.show)
+
     ActionSheet.show(
       {
         options: array,

@@ -3,7 +3,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Spinner, Root, ActionSheet} from 'native-base';
+import {Spinner, Root, ActionSheet, Button} from 'native-base';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {getMyHouseList} from '../../store/home/index';
 import ViewUtil from '../../util/ViewUtil';
@@ -11,11 +11,12 @@ import {MORE_MENU} from '../../common/MORE_MENU';
 import {AppRoute} from '../../navigator/AppRoutes';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-
 function FeaturePage(props) {
   const [loading, setLoading] = useState(true);
   const [houseList, setHouseList] = useState({});
   const [selectHouse, setSelectHouse] = useState({});
+  const [user, setUser] = useState(false);
+  const [hasHouse, setHasHouse] = useState(false);
 
   useEffect(() => {
     getHouseList();
@@ -30,6 +31,40 @@ function FeaturePage(props) {
       setLoading(false);
     }
   });
+  useEffect(() => {
+    let user = props.userInfo && props.userInfo.data && props.userInfo.data.status === 'audit_pass'
+    setUser(user)
+  }, [props.userInfo])
+  useEffect(() => {
+    let hasHouse = props.myHouseList && props.myHouseList.data && props.myHouseList.data.length
+    console.log(111)
+    setHasHouse(hasHouse)
+  }, [props.myHouseList])
+  const renderSpinner = () => {
+    console.log(9876543)
+    console.log(hasHouse, 777)
+    if (!user) {
+      return(
+        <View style={{paddingTop: 200, alignItems: 'center' }}>
+          <Text>您还未通过实名认证，请先</Text>
+          <TouchableOpacity transparent onPress={() => NavigatorService.navigate(AppRoute.AUTHENTICATION)}>
+            <Text style={{color: Theme.primary, marginTop: 10}}>实名认证</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    } else if (!hasHouse) {
+      return(
+        <View style={{padding: 200, alignContent: 'center', flexDirection: 'row'}}>
+          <Text>您还未添加房源，请先</Text>
+          <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.RECORD)} transparent>
+            <Text  style={{color: Theme.primary, marginTop: 10}}>添加房源</Text>
+            </TouchableOpacity>
+        </View>
+      )
+    } else {
+      return (<Spinner color="#5C8BFF" />)
+    }
+  }
 
   function onClick(menu) {
     let RouteName;
@@ -84,9 +119,8 @@ function FeaturePage(props) {
 
   return (
     <Root>
-      {loading ? (
-        <Spinner color="#5C8BFF" />
-      ) : (
+      {loading ? renderSpinner()
+       : (
         <View style={styles.container}>
           <View style={styles.headerContent}>
             <View style={[styles.flex, styles.topBox]}>
@@ -103,7 +137,7 @@ function FeaturePage(props) {
               <View style={[styles.flex, styles.InfoBox]}>
                 <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
                 <Text style={{fontSize: 18, color: '#f9f9f9'}}>
-                  {selectHouse.regionFullName.replace(/\//g, '') || '--'}
+                  {selectHouse.regionFullName && regionFullName.replace(/\//g, '') || '暂无房源'}
                 </Text>
                 <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />
               </View>
@@ -128,7 +162,20 @@ function FeaturePage(props) {
     </Root>
   );
 }
-
+// reducer获取
+function mapStateToProps(state) {
+  return {
+    myHouseList: state.myHouseList,
+    userInfo: state.userInfo
+  };
+}
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({getMyHouseList}, dispatch);
+}
+export default connect(
+  mapStateToProps,
+  matchDispatchToProps,
+)(FeaturePage);
 const {width, height} = Dimensions.get('window');
 const screenHeight = width < height ? height : width;
 const screenWidth = width < height ? width : height;
@@ -167,17 +214,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#E9E9E9',
   },
 });
-
-// reducer获取
-function mapStateToProps(state) {
-  return {
-    myHouseList: state.myHouseList,
-  };
-}
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getMyHouseList}, dispatch);
-}
-export default connect(
-  mapStateToProps,
-  matchDispatchToProps,
-)(FeaturePage);

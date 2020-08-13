@@ -33,13 +33,14 @@ function RecordHouse(props) {
   const [hasElevator, setHasElevator] = useState(false);
   const toggleSwitch = () => setHasElevator(previousState => !previousState);
 
+  const [image, setImage] = useState('')
   const [address, setAddress] = useState('');
   const [houseHolder, setHouseHolder] = useState({});
   const [houseLayout, setHouseLayout] = useState({});
   const [
     housePropertyCertificateImage,
     setHousePropertyCertificateImage,
-  ] = useState('');
+  ] = useState([]);
   const [certificateFilesImg, setCertificateFilesImg] = useState([]);
   const [tabs, setTabs] = useState([{name: '请选择', id: 0}]);
   const [regionName, setRegionName] = useState('');
@@ -82,7 +83,7 @@ function RecordHouse(props) {
           );
           $getImage(info.housePropertyCertificateImageUrl, uri => {
             console.log('uri', uri);
-            setHousePropertyCertificateImage(uri);
+            setImage(uri);
             setLoading(false);
           });
         }
@@ -360,7 +361,7 @@ function RecordHouse(props) {
                 </View>
                 <Text style={[styles.publishTitle]}>房产证照片</Text>
                 <ImageUpload
-                  imgUrl={housePropertyCertificateImage}
+                  imgUrl={image}
                   setImageForm={obj => setImageForm(0, obj, 'cert')}
                 />
                 <Text style={[styles.publishTitle]}>建筑信息</Text>

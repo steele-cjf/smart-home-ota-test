@@ -48,14 +48,15 @@ export function setWebSocketInfo(info) {
   return dispatch => {
     dispatch({
       type: 'WEB_SOCKET_INFO',
-      data: info,
+      data: Object.assign({}, info),
     });
   };
 }
 // 获取websock的数据
 export function webSocketInfo(state = null, action) {
+  
   if (action.type === 'WEB_SOCKET_INFO') {
-    return action.data || null;
+    return Object.assign(action.data) || null;
   }
   return state;
 }
@@ -85,5 +86,5 @@ export default {
   cameraOpt,
   webSocketInfo,
   codeInfo,
-  dictionaryMappings,
+  dictionaryMappings
 };

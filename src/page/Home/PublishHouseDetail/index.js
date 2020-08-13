@@ -8,7 +8,8 @@ import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
     return {
-        publishHouseDetail: state.publishHouseDetail
+        publishHouseDetail: state.publishHouseDetail,
+        dictionaryMappings: state.dictionaryMappings
     };
 }
 function matchDispatchToProps(dispatch) {

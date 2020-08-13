@@ -35,9 +35,8 @@ function navigate(routeName, params) {
 	);
 }
 
-function goBack(key) {
+function goBack() {
 	_container.dispatch(StackActions.pop(1))
-
 }
 
 function navigateDeep(actions) {
