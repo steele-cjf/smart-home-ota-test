@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { Spinner } from 'native-base'
 import Theme from '../../../style/colors';
@@ -11,25 +11,32 @@ const auth_status = {
     btnTitle: '重新提交',
   },
   'audit_pending': {
-      title: '实名认证审核中',
-      reasonDesc: '约两个工作日内完成审核',
-      btnTitle: '修改',
+    title: '实名认证审核中',
+    reasonDesc: '约两个工作日内完成审核',
+    btnTitle: '修改',
+  },
+  null: {
+    title: '服务返回认证状态null',
+    reasonDesc: '',
+    btnTitle: '',
   },
 }
 
 export default function VertifyDetailsPage(props) {
 
-  //请求数据
-  //getAuthInfo();
-
   //test
   function goPersonalInfo() {
+    //NavigatorService.navigate
     props.navigation.navigate(AppRoute.PERSONALINFO);
   }  
 
   function handleModify() {
     props.navigation.navigate(AppRoute.AUTHENTICATION);
   }
+
+  useEffect(() => {
+    getAuthInfo(); 
+  }, []);
 
   //async function getAuthInfo() {
   function getAuthInfo() {
@@ -39,11 +46,10 @@ export default function VertifyDetailsPage(props) {
     userId = info.data.id;
 
     props.getManualAuditInfo(userId, res => {
-      console.log('AuditInfo-kk:', res);
+      console.log('*******AuditInfo-kk:*******', res);
       setLoading(false);
 
       if (!res.code) {
-        showToast('成功！');
         dealDataRefresh(res.data);
       } else {
         showToast("90909"+res.message);
@@ -53,8 +59,9 @@ export default function VertifyDetailsPage(props) {
 
   //刷新为服务数据
   function dealDataRefresh(data) { 
-    var auditStatus = data.auditStatus;      
-    
+    var authStatus = data.auditStatus;      
+    console.log('authStatus********: ', authStatus);
+
     var sex = props.dictionaryMappings.gender[data.gender];
     let actualDataArr;
     if (data.identificationType === 'id_card') { 
@@ -76,15 +83,25 @@ export default function VertifyDetailsPage(props) {
       ];
     }
 
-    setAuthStatus(auditStatus);
-    setAuthOptions(auth_status[auditStatus]);
+    setAuthStatus(authStatus);
+    setAuthOptions(auth_status[authStatus]);
     setData(actualDataArr);
+
+    let imageUrls = data.imageUrls;
+    let image1 = imageUrls[0];
+    //console.log('image1:  ', image1);
+    
+    // $getImage(image1, uri => {
+    //   //console.log('uri******kkkk:   ', uri);
+    //   setImageUrl(uri);
+    // });
   }
 
   const [authStatus, setAuthStatus] = useState('audit_pending');
   const [authOptions, setAuthOptions] = useState(auth_status['audit_pending']); 
   const [data, setData] = useState([]); 
-  const [loading, setLoading] = useState(false);
+  //const [imageUrl, setImageUrl] = useState(''); 
+  const [loading, setLoading] = useState(true);
 
   return (
     loading ? <Spinner></Spinner> :
@@ -105,17 +122,13 @@ export default function VertifyDetailsPage(props) {
       }
       <Text style={[styles.topTextStyle1, styles.space]}>{'照片上传'}</Text> 
       <View style={styles.ImageBox}>
-        <Image style={styles.imageStyle} source={{uri:'blob:CF57F991-A050-4ED4-A8B0-4C7FB817663A?offset=0&size=221112',}}/> 
-        <Image style={styles.imageStyle} source={{uri:'blob:CF57F991-A050-4ED4-A8B0-4C7FB817663A?offset=0&size=221112',}}/> 
-        <Image style={styles.imageStyle} source={{uri:'blob:CF57F991-A050-4ED4-A8B0-4C7FB817663A?offset=0&size=221112',}}/> 
+        <Image style={styles.imageStyle} source={{uri:'https://facebook.github.io/react-native/docs/assets/favicon.png',}}/> 
+        <Image style={styles.imageStyle} source={{uri:'blob:5041381E-22B0-4DA6-9E33-90D1607FAC0C?offset=0&size=55',}}/> 
+        {/* <Image style={styles.imageStyle} source={{uri: imageUrl,}} />  */}
       </View>
       
-      <TouchableOpacity style={[styles.btnStyle, styles.btnStyle3]} onPress={goPersonalInfo}> 
+      <TouchableOpacity style={[styles.btnStyle, styles.btnStyle2]} onPress={goPersonalInfo}> 
         <Text style={styles.btnTextStyle}>进入个人中心</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={[styles.btnStyle, styles.btnStyle2]} onPress={getAuthInfo}> 
-        <Text style={styles.btnTextStyle}>请求服务数据刷新</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.btnStyle} onPress={handleModify}> 
@@ -193,9 +206,6 @@ const styles = StyleSheet.create({
   },
   btnStyle2: {
     bottom: 110,
-  },
-  btnStyle3: {
-    bottom: 170,
   },
   btnTextStyle: {
     height: 40,

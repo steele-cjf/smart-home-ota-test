@@ -23,6 +23,7 @@ function HomePage(props) {
   const [selectHouse, setSelectHouse] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true)
   const [loadingList, setLoadingList] = useState(true)
+  const [actionSheet, setActionSheet] = useState(null);
 
   // 可以理解为componentDidMount
   useEffect(() => {
@@ -70,20 +71,21 @@ function HomePage(props) {
       })
     }
     array.push({ text: "Cancel" })
-    console.log(8888888, array, ActionSheet.show)
-
-    ActionSheet.show(
-      {
-        options: array,
-        cancelButtonIndex: array.length - 1,
-        title: "请选择房源"
-      },
-      buttonIndex => {
-        if (houseList[buttonIndex]) {
-          setSelectHouse(houseList[buttonIndex])
+    if ( actionSheet !== null ) {
+      // fix cannot read property '_root' of null
+      actionSheet._root.showActionSheet(
+        {
+          options: array,
+          cancelButtonIndex: array.length - 1,
+          title: "请选择房源"
+        },
+        buttonIndex => {
+          if (houseList[buttonIndex]) {
+            setSelectHouse(houseList[buttonIndex])
+          }
         }
-      }
-    )
+      );
+    }
   }
   return (
     <Root style={styles.container}>
@@ -100,6 +102,7 @@ function HomePage(props) {
               <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
           }
         </View>
+        <ActionSheet ref={(c) => { setActionSheet(c) }} />
         <View style={styles.listContent}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.listTitle}>房源推荐</Text>

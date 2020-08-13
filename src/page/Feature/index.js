@@ -17,6 +17,7 @@ function FeaturePage(props) {
   const [selectHouse, setSelectHouse] = useState({});
   const [user, setUser] = useState(false);
   const [hasHouse, setHasHouse] = useState(false);
+  const [actionSheet, setActionSheet] = useState(null);
 
   useEffect(() => {
     getHouseList();
@@ -102,25 +103,29 @@ function FeaturePage(props) {
       });
     }
     array.push({text: 'Cancel'});
-    ActionSheet.show(
-      {
-        options: array,
-        cancelButtonIndex: array.length - 1,
-        title: '请选择房源',
-      },
-      buttonIndex => {
-        if (houseList[buttonIndex]) {
-          setSelectHouse(houseList[buttonIndex]);
-          console.log('selectHouse', selectHouse);
-        }
-      },
-    );
+    if ( actionSheet !== null ) {
+      // fix cannot read property '_root' of null
+      actionSheet._root.showActionSheet(
+        {
+          options: array,
+          cancelButtonIndex: array.length - 1,
+          title: '请选择房源',
+        },
+        buttonIndex => {
+          if (houseList[buttonIndex]) {
+            setSelectHouse(houseList[buttonIndex]);
+            console.log('selectHouse', selectHouse);
+          }
+        },
+      );
+    }
   }
 
   return (
-    <Root>
-      {loading ? renderSpinner()
-       : (
+    <View>
+      {loading ? (
+        <Spinner color="#5C8BFF" />
+      ) : (
         <View style={styles.container}>
           <View style={styles.headerContent}>
             <View style={[styles.flex, styles.topBox]}>
@@ -142,6 +147,7 @@ function FeaturePage(props) {
                 <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />
               </View>
             </TouchableOpacity>
+            <ActionSheet ref={(c) => { setActionSheet(c) }} />
           </View>
           <ScrollView style={styles.myContent}>
             <View style={{marginHorizontal: 16, paddingTop: 15}}>
@@ -159,7 +165,7 @@ function FeaturePage(props) {
           </ScrollView>
         </View>
       )}
-    </Root>
+    </View>
   );
 }
 // reducer获取

@@ -6,8 +6,9 @@ export function getManualAuditInfo(id, callback) {
   });
 }
 
-export function getPersonalInfo(id, callback) {
-  return $get(`/user/${id}`, {
+export function modifyPersonalInfo(id, data, callback) {
+  return $put(`/user/${id}`, {
+    body: data,
     successConfig: {
       callback,
     },
