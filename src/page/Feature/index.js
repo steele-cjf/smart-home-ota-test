@@ -3,7 +3,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Spinner, Root, ActionSheet} from 'native-base';
+import {Spinner, ActionSheet} from 'native-base';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {getMyHouseList} from '../../store/home/index';
 import ViewUtil from '../../util/ViewUtil';
@@ -16,6 +16,7 @@ function FeaturePage(props) {
   const [loading, setLoading] = useState(true);
   const [houseList, setHouseList] = useState({});
   const [selectHouse, setSelectHouse] = useState({});
+  const [actionSheet, setActionSheet] = useState(null);
 
   useEffect(() => {
     getHouseList();
@@ -67,23 +68,26 @@ function FeaturePage(props) {
       });
     }
     array.push({text: 'Cancel'});
-    ActionSheet.show(
-      {
-        options: array,
-        cancelButtonIndex: array.length - 1,
-        title: '请选择房源',
-      },
-      buttonIndex => {
-        if (houseList[buttonIndex]) {
-          setSelectHouse(houseList[buttonIndex]);
-          console.log('selectHouse', selectHouse);
-        }
-      },
-    );
+    if ( actionSheet !== null ) {
+      // fix cannot read property '_root' of null
+      actionSheet._root.showActionSheet(
+        {
+          options: array,
+          cancelButtonIndex: array.length - 1,
+          title: '请选择房源',
+        },
+        buttonIndex => {
+          if (houseList[buttonIndex]) {
+            setSelectHouse(houseList[buttonIndex]);
+            console.log('selectHouse', selectHouse);
+          }
+        },
+      );
+    }
   }
 
   return (
-    <Root>
+    <View>
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
@@ -108,6 +112,7 @@ function FeaturePage(props) {
                 <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />
               </View>
             </TouchableOpacity>
+            <ActionSheet ref={(c) => { setActionSheet(c) }} />
           </View>
           <ScrollView style={styles.myContent}>
             <View style={{marginHorizontal: 16, paddingTop: 15}}>
@@ -125,7 +130,7 @@ function FeaturePage(props) {
           </ScrollView>
         </View>
       )}
-    </Root>
+    </View>
   );
 }
 
