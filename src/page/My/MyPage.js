@@ -98,8 +98,8 @@ function MyPage(props) {
                   color: '#fff',
                 }}
               />
-            </View>
-            <TouchableOpacity>
+            </View>  
+            <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
               <View style={[styles.flex, styles.InfoBox]}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Thumbnail
