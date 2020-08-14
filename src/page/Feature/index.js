@@ -26,6 +26,7 @@ function FeaturePage(props) {
   const getHouseList = useCallback(() => {
     // 获取本人的房源
     if (props.myHouseList && props.myHouseList.data) {
+      console.log('fullhouse', props.myHouseList.data);
       let {data} = props.myHouseList;
       setHouseList(data);
       data.length && setSelectHouse(data[0]);
@@ -142,7 +143,7 @@ function FeaturePage(props) {
               <View style={[styles.flex, styles.InfoBox]}>
                 <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
                 <Text style={{fontSize: 18, color: '#f9f9f9'}}>
-                  {selectHouse.regionFullName && regionFullName.replace(/\//g, '') || '暂无房源'}
+                  {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'}
                 </Text>
                 <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />
               </View>

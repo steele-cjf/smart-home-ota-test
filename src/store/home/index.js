@@ -93,6 +93,14 @@ export function addHouse(data, callback) {
     },
   });
 }
+// 发布详情
+export function getPublishHouseDetail(id, callback) {
+  return $get(`/publish/${id}`, {
+    successConfig: {
+      callback,
+    },
+  });
+}
 // 删除房源
 export function deleteHouse(data, callback) {
   return $delete(`/house/${data.id}`, {

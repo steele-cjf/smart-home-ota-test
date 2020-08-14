@@ -9,7 +9,6 @@ import {
   Label,
   Text,
   Button,
-  Picker,
   Textarea,
   ActionSheet,
 } from 'native-base';
