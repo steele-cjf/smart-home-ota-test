@@ -1,18 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, Linking } from 'react-native';
 import { Icon, Button, Left, Header, Text, Spinner } from 'native-base'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Theme from '../../../style/colors';
-import { houseLayoutCn, houseItemCn } from '../config/houseDetailCn'
+import LocationsMap from '../../../page/Component/map/locations';
 
+import { houseLayoutCn, houseItemCn, houseRatePlanCn } from '../config/houseDetailCn'
+
+const loc = {
+    "name": "房子",
+    lat: '39.904989',
+    lng: '116.40',
+    "type": 0
+}
 function HouseDetail(props) {
     const [options, setOptions] = useState(null)
     const [loading, setLoading] = useState(true)
     const [code] = useState(props.code)
     useEffect(() => {
         setOptions(props.data)
-        // console.log('props.data', props.data, 2)
+        console.log('props.data', props.data, 2)
         if (props.data) {
             setLoading(false)
         }
@@ -23,6 +31,21 @@ function HouseDetail(props) {
         res[type] = value
         setOptions(res)
     }
+    // 电话咨询
+    const callPhone = () => {
+        let phone = options.mobile || 110
+        console.log(111, phone)
+        const url = `tel:${phone}`;
+        Linking.canOpenURL(url)
+            .then(supported => {
+                if (!supported) {
+                    return showToast(`您的设备不支持该功能，请手动拨打 ${phone}`);
+                }
+                return Linking.openURL(url);
+            })
+            .catch(err => {showToast(`出错了：${err}`, 1.5);console.log(err)});
+    }
+    //建筑信息
     const renderHouseLayout = () => {
         let result = houseLayoutCn.map((item) => {
             let data = item.headKey ? options[item.headKey] : options
@@ -42,6 +65,7 @@ function HouseDetail(props) {
         })
         return (<View style={styles.houseLayoutBox}>{result}</View>)
     }
+    // 房屋亮点(spots) & 出租要求(requirements)
     const renderHouseAddition = (type) => {
         let key = 'rent_requirements'
         let check = type === 'spots'
@@ -55,6 +79,7 @@ function HouseDetail(props) {
         })
         return (<View style={styles.houseAdditionBox}>{result}</View>)
     }
+    // 房源信息
     const renderHouseItem = () => {
         let result = options.houseAmenity.items.map((val) => {
             return (<View style={styles.houseItemModule}>
@@ -64,6 +89,19 @@ function HouseDetail(props) {
         })
         return (<View style={styles.houseItemBox}>{result}</View>)
     }
+    // 相关费用
+    const renderHouseRatePlan = () => {
+        let result = houseRatePlanCn.map((val) => {
+            return (
+                <View style={styles.houseRatePlanModule}>
+                    <Text style={styles.houseRatePlanDesc}>{val.name}:</Text>
+                    <Text style={styles.houseRatePlanText}>{options.houseRatePlan[val.key] || '--'} {val.unit}</Text>
+                </View>
+            )
+        })
+        return (<View style={styles.houseRatePlanBox}>{result}</View>)
+    }
+
     return (
         <View style={styles.container}>
             {loading ? <Spinner /> :
@@ -83,7 +121,14 @@ function HouseDetail(props) {
                     {renderHouseItem()}
                     <Text style={{ marginBottom: 16 }}>沙头角一房一厅，小区门口就有绿动共享单车{options.houseAddition.description || '--'}</Text>
                     {renderHouseAddition('requirements')}
+                    {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>
+                    <View style={styles.mapBox}>
+                        <LocationsMap loc={loc} />
+                    </View>
+                    <Button full style={styles.btn} onPress={() => callPhone()}>
+                        <Text>电话咨询</Text>
+                    </Button>
                 </View>
             }
         </View>
@@ -179,8 +224,37 @@ const styles = StyleSheet.create({
     },
     houseItemModule: {
         alignItems: 'flex-start',
-        marginHorizontal: 20,
+        marginRight: 40,
         marginBottom: 20
+    },
+    houseRatePlanBox: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginVertical: 15
+    },
+    houseRatePlanModule: {
+        flexDirection: 'row',
+        width: '50%',
+        paddingBottom: 20
+    },
+    houseRatePlanDesc: {
+        color: '#7C7C7C',
+        fontSize: 14,
+        paddingRight: 5
+    },
+    houseRatePlanText: {
+        color: '#282828'
+    },
+    mapBox: {
+        width: '100%',
+        height: 100,
+        backgroundColor: 'red',
+        marginTop: 10
+    },
+    btn: {
+        backgroundColor: '#5C8BFF',
+        borderRadius: 50,
+        marginTop: 35
     }
 });
 export default HouseDetail;
