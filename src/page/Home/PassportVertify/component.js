@@ -4,18 +4,58 @@ import Form from '../../Component/form'
 import ImageUpload from '../../Component/imageUpload'
 import vertifyCn from '../config/PassportVertify'
 import { Spinner } from 'native-base'
+import { AppRoute } from '../../../navigator/AppRoutes';
 
 export default function PassportVertifyPage(props) {
     const [formData, setFormData] = useState({});
     const [formImage, setFormImage] = useState([]);
     const [userId, setUserId] = useState(null);
+    const [oldData, setOldData] = useState({});
     const [loading, setLoading] = useState(false);
+    const [imageUrl1, setImageUrl1] = useState(''); 
+    const [imageUrl2, setImageUrl2] = useState(''); 
+    const [imageUrl3, setImageUrl3] = useState(''); 
 
     // 初始化获取用户信息
     useEffect(() => {
         setUserId(props.userInfo.data.id);
+        getAuthInfo();
     }, [props.userInfo]);
+
+    function getAuthInfo() {
+        setLoading(true);
+        var userId = props.userInfo.data.id;
     
+        props.getManualAuditInfo(userId, res => {
+            console.log('*******AuditInfo-modify:*******', res);
+            setLoading(false);
+          
+            if (!res.code) {
+                if (res.data.identificationType !== 'passport') { 
+                    return;
+                }
+
+                let {name, identificationNo, gender, birthDate, country} = res.data;
+                var oldData = {name, identificationNo, gender, birthDate, country} ;
+                console.log(999, oldData)
+                setOldData(Object.assign({}, oldData));
+
+                $getImage(res.data.imageUrls[0], uri => {
+                    setImageUrl1(uri);
+                });
+                $getImage(res.data.imageUrls[1], uri => {
+                    setImageUrl2(uri);
+                });
+                $getImage(res.data.imageUrls[2], uri => {
+                    setImageUrl3(uri);
+                });
+                
+            } else {
+                showToast("90909"+res.message);
+            }
+        });
+    }
+
     // 检查并提交form
     const handleConfirm = () => {
         let message = ''
@@ -45,12 +85,14 @@ export default function PassportVertifyPage(props) {
         console.log('88userId: ', userId);
 
         props.verifyIdCard(result, (res) => {
+            console.log('huzhaorenzhxiugai: ',res)
             setLoading(false);
             if (!res.code) {
                 showToast('success');
                 NavigatorService.navigate(AppRoute.HOME)
             } else {
                 showToast(res.message)
+                console.log('res.message*****: ',res.message)
             }
         })
     };
@@ -71,17 +113,20 @@ export default function PassportVertifyPage(props) {
     const changeForm = data => {
         setFormData(data);
     };
+
+    
+
     return (
         <View style={styles.container}>
             {loading ? <Spinner></Spinner> :
             <ScrollView style={styles.scrollContainer}>
                 <Text style={styles.textTitle}>基本资料</Text>
-                <Form config={vertifyCn} class={styles.formBox} changeForm={changeForm}></Form>
+                <Form config={vertifyCn} class={styles.formBox} changeForm={changeForm} oldData={oldData}></Form>
                 <Text style={styles.textTitle}>照片上传</Text>
                 <View style={styles.ImageUploadBox}>
-                    <ImageUpload title='护照个人信息' setImageForm={(obj) => setImageForm(0, obj)} />
-                    <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} />
-                    <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} />
+                    <ImageUpload title='护照个人信息' setImageForm={(obj) => setImageForm(0, obj)} imgUrl={imageUrl1} />
+                    <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} imgUrl={imageUrl2} />
+                    <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} imgUrl={imageUrl3} />
                 </View>
                 <View style={{ height: '100%' }}>
                     <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
