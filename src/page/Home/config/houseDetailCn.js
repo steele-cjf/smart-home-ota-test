@@ -38,7 +38,33 @@ const houseItemCn = {
     "washing_machine": "Safety",
     "water_heater": "woman"
 }
+const houseRatePlanCn = [{
+    name: '水费',
+    key: 'waterFeeUnitPrice',
+    unit: '元/吨'
+}, {
+    name: '电费',
+    key: 'electricityFeeUnitPrice',
+    unit: '元/度'
+}, {
+    name: '宽带',
+    key: 'networkFeeUnitPrice',
+    unit: '元/月'
+}, {
+    name: '物业',
+    key: 'managementFeeUnitPrice',
+    unit: '元/平方米'
+}, {
+    name: '燃气',
+    key: ' gasFeeUnitPrice',
+    unit: '元/立方米'
+}, {
+    name: '暖气',
+    key: ' heatingFeeUnitPrice',
+    unit: '元/立方米'
+}]
 export {
     houseLayoutCn,
-    houseItemCn
+    houseItemCn,
+    houseRatePlanCn
 };

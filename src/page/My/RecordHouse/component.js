@@ -146,10 +146,15 @@ function RecordHouse(props) {
         }
       });
     } else {
+      console.log('add', result);
       props.addHouse(result, res => {
         console.log('res', res);
-        props.route.params.refresh();
-        props.navigation.goBack();
+        if (!res.code) {
+          props.route.params.refresh();
+          props.navigation.goBack();
+        } else {
+          showToast(res.message);
+        }
       });
     }
   };

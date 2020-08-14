@@ -132,6 +132,7 @@ function MyPublishList(props) {
               backgroundColor: '#ccc',
               marginRight: 16,
             }}
+            source={{uri: item.imgUrl}}
           />
         </View>
         <View style={styles.rightContainer}>

@@ -16,21 +16,6 @@ const mock = [
     hallCount: 1,
     toiletCount: 1,
     rentPrice: 1000,
-  },
-  {
-    id: 2,
-    title: '深圳市市南区沿山社区网谷科技大厦502',
-    roomCount: 2,
-    hallCount: 1,
-    toiletCount: 1,
-    rentPrice: 1500,
-  }, {
-    id: 3,
-    title: '深圳市市南区沿山社区网谷科技大厦503',
-    roomCount: 2,
-    hallCount: 1,
-    toiletCount: 1,
-    rentPrice: 1000,
   }
 ]
 function HouseListComponent(props) {

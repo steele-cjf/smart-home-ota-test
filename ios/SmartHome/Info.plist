@@ -130,6 +130,7 @@
 		<string>alipay</string>
 		<string>alipayshare</string>
 
+		<string>tel</string>
 	</array>
 </dict>
 </plist>

@@ -71,7 +71,7 @@ function HomePage(props) {
       })
     }
     array.push({ text: "Cancel" })
-    if ( actionSheet !== null ) {
+    if (actionSheet !== null) {
       // fix cannot read property '_root' of null
       actionSheet._root.showActionSheet(
         {
@@ -136,7 +136,8 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#527BDF',
-    flex: 1
+    flex: 1,
+    flexDirection: 'column'
   },
   header: {
     paddingHorizontal: 16,
@@ -154,14 +155,16 @@ const styles = StyleSheet.create({
   },
   listContent: {
     backgroundColor: '#fff',
-    height: '100%',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 16
+    padding: 16,
+    flex: 1,
+    flexDirection: 'column'
   },
   listTitle: {
     fontSize: 24,
-    color: '#282828'
+    color: '#282828',
+    paddingBottom: 10
   },
   listMore: {
     position: 'absolute',

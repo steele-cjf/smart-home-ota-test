@@ -127,7 +127,8 @@ export const HomeStackComponent = () => {
         name={AppRoute.PUBLISHOUSEDETAIL}
         component={PublishHouseDetail}
         options={{
-          headerShown: false,
+          title: '房源信息',
+          headerBackTitle: '返回'
         }}
       />
       <HomeStack.Screen
