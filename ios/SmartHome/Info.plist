@@ -55,7 +55,6 @@
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
-	<key>LSApplicationQueriesSchemes</key>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -131,6 +130,7 @@
 		<string>alipay</string>
 		<string>alipayshare</string>
 
+		<string>tel</string>
 	</array>
 </dict>
 </plist>

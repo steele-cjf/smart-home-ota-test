@@ -10,8 +10,8 @@ import { houseLayoutCn, houseItemCn, houseRatePlanCn } from '../config/houseDeta
 
 const loc = {
     "name": "房子",
-    lat: '39.904989',
-    lng: '116.40',
+    lat: 39.904989,
+    lng: 116.40,
     "type": 0
 }
 function HouseDetail(props) {
@@ -24,7 +24,7 @@ function HouseDetail(props) {
         if (props.data) {
             setLoading(false)
         }
-    }, [props.data])
+    }, [props, props.data])
 
     const changeData = (type, value) => {
         let res = Object.assign({}, options)
@@ -33,8 +33,7 @@ function HouseDetail(props) {
     }
     // 电话咨询
     const callPhone = () => {
-        let phone = options.mobile || 110
-        console.log(111, phone)
+        let phone = options.mobile || +86
         const url = `tel:${phone}`;
         Linking.canOpenURL(url)
             .then(supported => {
@@ -119,7 +118,7 @@ function HouseDetail(props) {
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>
                     {renderHouseItem()}
-                    <Text style={{ marginBottom: 16 }}>沙头角一房一厅，小区门口就有绿动共享单车{options.houseAddition.description || '--'}</Text>
+                    <Text style={{ marginBottom: 16 }}>{options.houseAddition.description}</Text>
                     {renderHouseAddition('requirements')}
                     {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>

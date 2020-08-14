@@ -8,9 +8,7 @@ function HouseList(props) {
   return (
     <View style={styles.container}>
       <SearchHeader />
-      {/* <ScrollView > */}
       <HouseListComponent />
-      {/* </ScrollView> */}
     </View>
   );
 }
@@ -18,7 +16,8 @@ function HouseList(props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    flex: 1
   }
 });
 export default HouseList;

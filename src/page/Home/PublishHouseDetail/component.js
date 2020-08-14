@@ -24,10 +24,6 @@ function PublicHouseDetail(props) {
   }, [props.publishHouseDetail])
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.headerBack} onPress={() => NavigatorService.goBack()} >
-        <Icon name="md-chevron-back" style={styles.headerText} />
-        <Text style={[styles.headerText, styles.back]}>返回</Text>
-      </TouchableOpacity>
       <ScrollView>
         <ImageBackground style={styles.headerBox} source={img} />
         {
@@ -47,20 +43,6 @@ const styles = StyleSheet.create({
   },
   headerBox: {
     height: 300
-  },
-  headerBack: {
-    flexDirection: 'row',
-    top: 10,
-    left: 10,
-    position: 'absolute',
-    zIndex: 100
-  },
-  headerText: {
-    color: '#282828',
-    justifyContent: 'center'
-  },
-  back: {
-    paddingTop: 8
   }
 });
 export default PublicHouseDetail;
