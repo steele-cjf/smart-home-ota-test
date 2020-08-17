@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
@@ -14,9 +14,9 @@ import {
 } from 'native-base';
 import ImageUpload from '../../Component/imageUpload';
 import LabelSelect from '../../Component/labelSelect';
-import storage from '../../../util/storage';
 import Theme from '../../../style/colors';
 import houseFeeList from '../config/houseFee';
+import showToast from '../../../util/toast';
 
 export default function PublishHouse(props) {
   const [houseItem, setHouseItem] = useState([]);
@@ -29,6 +29,7 @@ export default function PublishHouse(props) {
   const [selectedTypeValue, setSelectedTypeValue] = useState('');
   const [selectedDecoratorValue, setSelectedDecoratorValue] = useState('');
   // 后台请求参数
+  const [publishId, setPublishId] = useState('');
   const [houseId, setHouseId] = useState('');
   const [title, setTitle] = useState('');
   const [houseType, setHouseType] = useState('');
@@ -50,18 +51,76 @@ export default function PublishHouse(props) {
   });
 
   useEffect(() => {
-    setHouseId(props.route.params.id);
-    console.log('room', props.roomList);
-    setRooms(props.roomList.data);
-    storage.get('code').then(res => {
-      setSelectedPros(res.house_item, 'houseItem');
-      setSelectedPros(res.house_spots, 'houseSpots');
-      setSelectedPros(res.rent_requirements, 'rentReq');
-      setHouseTypeList(handlerOptions(res.house_type));
-      setHouseDecorator(handlerOptions(res.house_decorator));
-    });
-  }, [props.roomList, props.route.params.id]);
+    init()
+  }, []);
 
+  const init = useCallback(
+    () => {
+      if (props.route.params.id) {
+        setHouseId(props.route.params.id);
+        setSelectedPros(props.codeInfo.house_item, 'houseItem');
+        setSelectedPros(props.codeInfo.house_spots, 'houseSpots');
+        setSelectedPros(props.codeInfo.rent_requirements, 'rentReq');
+        setRooms(props.roomList.data, 'rooms');
+      } else if (props.route.params.publishId) {
+        console.log('edit');
+        setPublishId(props.route.params.publishId)
+        getDetail(props.route.params.publishId);
+      }
+      setHouseTypeList(handlerOptions(props.codeInfo.house_type));
+      setHouseDecorator(handlerOptions(props.codeInfo.house_decorator));
+    }
+  );
+
+  const getDetail = (id) => {
+    props.getPublishHouseDetail(id, res => {
+      if (!res.code) {
+        const info = res.data;
+        setTitle(info.title);
+        setHouseRatePlan(info.houseRatePlan);
+        setSelectedPros(props.roomList.data, 'rooms', info.roomIds);
+        setHouseAddition({description: info.houseAddition.description});
+        setSelectedPros(props.codeInfo.house_item, 'houseItem', info.houseAmenity.items);
+        setSelectedPros(props.codeInfo.house_spots, 'houseSpots', info.houseAddition.spots);
+        setSelectedPros(props.codeInfo.rent_requirements, 'rentReq', info.houseAddition.requirements);
+        setHouseImages(info.houseAddition.images || []);
+
+        setSelectedTypeValue(props.dictionaryMappings.house_type[info.houseType])
+        setSelectedDecoratorValue(props.dictionaryMappings.house_decorator[info.houseAmenity.decoration])
+      } else {
+        showToast(res.message);
+      }
+    })
+  }
+  const setSelectedPros = (list, type, selectList) => {
+    list.map(item => {
+      item.selected = false;
+    });
+    if (selectList) {
+      list.map(item => {
+        selectList.map(set => {
+          if (item.code === set || item.id === set) {
+            item.selected = true
+          }
+        })
+      })
+    }
+    switch (type) {
+      case 'houseItem':
+        setHouseItem(list);
+        break;
+      case 'houseSpots':
+        setHouseSpots(list);
+        break;
+      case 'rentReq':
+        setRentRequirements(list);
+        break;
+      case 'rooms':
+        setRooms(list);
+        break;
+    }
+  }
+  // actionSheet下拉选项
   const handlerOptions = list => {
     list = list.map(item => {
       return {
@@ -72,7 +131,6 @@ export default function PublishHouse(props) {
     list.push({text: '取消', value: 'cancel'});
     return list;
   };
-
   const openSettings = (BUTTONS, CANCEL_INDEX, TYPE) => {
     ActionSheet.show(
       {
@@ -102,54 +160,37 @@ export default function PublishHouse(props) {
         break;
     }
   };
-
-  function setSelectedPros(list, type) {
-    list.map(item => {
-      item.selected = false;
-    });
-    switch (type) {
-      case 'houseItem':
-        setHouseItem(list);
-        break;
-      case 'houseSpots':
-        setHouseSpots(list);
-        break;
-      case 'rentReq':
-        setRentRequirements(list);
-        break;
-    }
-  }
-
-  function changeHouseItem(item, i) {
+  // 点击label
+  const changeHouseItem = (item, i) => {
     const newList = Object.assign([], houseItem);
     newList[i].selected = !item.selected;
     setHouseItem(newList);
   }
-  function changeHouseSpots(item, i) {
+  const changeHouseSpots = (item, i) => {
     const newList = Object.assign([], houseSpots);
     newList[i].selected = !item.selected;
     setHouseSpots(newList);
   }
-  function changeRentReq(item, i) {
+  const changeRentReq = (item, i) => {
     const newList = Object.assign([], rentRequirements);
     newList[i].selected = !item.selected;
     setRentRequirements(newList);
   }
-  function changeRooms(item, i) {
+  const changeRooms = (item, i) => {
     const newList = Object.assign([], rooms);
     newList[i].selected = !item.selected;
     setRooms(newList);
   }
-
-  function getSelectedItem(list) {
+  // 获取选中的label options
+  const getSelectedItem = (list) => {
     return list
       .filter(item => item.selected === true)
       .map((value, index) => {
         return value.code || value.id;
       });
   }
-
-  function handlerPublish() {
+  // 提交发布
+  const handlerPublish = () => {
     const items = getSelectedItem(houseItem);
     const spots = getSelectedItem(houseSpots);
     const requirements = getSelectedItem(rentRequirements);
@@ -165,8 +206,8 @@ export default function PublishHouse(props) {
     objToFormData('houseAddition', houseAddition, result);
     // 出租要求,亮点
     result.append('title', title);
-    result.append('houseId', houseId);
     result.append('houseType', houseType);
+    result.append('houseAmenity.decoration', houseAmenity.decoration);
 
     for (let c = 0; c < requirements.length; c++) {
       result.append('houseAddition.requirements', requirements[c]);
@@ -177,26 +218,49 @@ export default function PublishHouse(props) {
     for (let c = 0; c < items.length; c++) {
       result.append('houseAmenity.items', items[c]);
     }
+    console.log('roomIds', roomIds);
     for (let c = 0; c < roomIds.length; c++) {
       result.append('roomIds', roomIds[c]);
     }
-
+    console.log('houseImages', houseImages);
     for (let c = 0; c < houseImages.length; c++) {
       result.append('houseAddition.images', houseImages[c]);
     }
-
-    console.log('result', result);
     console.log('ids', roomIds);
-    props.publishHouse(result, res => {
-      console.log('res', res);
-      props.route.params.refresh();
-      props.navigation.goBack();
-    });
+
+    if (props.route.params.publishId) {
+      result.append('id', publishId);
+      console.log('result1', result);
+      props.updatePublishInfo(result, publishId, res => {
+        console.log('resEdit', res);
+        if (!res.code) {
+          props.route.params.refresh();
+          props.navigation.goBack();
+        } else {
+          showToast(res.message);
+        }
+      })
+    } else {
+      result.append('houseId', houseId);
+      console.log('result2', result);
+      props.publishHouse(result, res => {
+        console.log('resAdd', res);
+        if (!res.code) {
+          props.route.params.refresh();
+          props.navigation.goBack();
+        } else {
+          showToast(res.message);
+        }
+      });
+    }
+    
   }
 
   const objToFormData = (key, data, result) => {
     for (let d in data) {
-      result.append(key + '.' + d, data[d]);
+      console.log('hahah', data[d]);
+      result.append(key + '.' + d, data[d] + '');
+      console.log('reddd', result);
     }
   };
   const setImageForm = (key, obj) => {
@@ -216,7 +280,9 @@ export default function PublishHouse(props) {
       setHouseAddition(data);
     }
   };
-
+  const checkInputValue = (value) => {
+    return value ? '' + value : value                  
+  }
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -326,30 +392,37 @@ export default function PublishHouse(props) {
           <Item style={styles.marginLeft0} inlineLabel>
             <Label style={[styles.labelTitle, styles.defaultSize]}>房租</Label>
             <Input
-              value={houseRatePlan.rentPrice}
+              value={checkInputValue(houseRatePlan.rentPrice)}
               onChange={e => {
                 setData('rentPrice', e.nativeEvent.text, 'houseRatePlan');
               }}
               style={[styles.defaultSize, styles.textAlignR]}
             />
             <Text style={[styles.labelTitle, styles.defaultSize]}>元 / 月</Text>
-            <Text style={{width: 80}} />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>押</Text>
-            <Input
-              value={houseRatePlan.deposit}
-              onChange={e => {
-                setData('deposit', e.nativeEvent.text, 'houseRatePlan');
-              }}
-              style={[styles.defaultSize, styles.textAlignC]}
-            />
-            <Text style={[styles.labelTitle, styles.defaultSize]}>付</Text>
-            <Input
-              value={houseRatePlan.payment}
-              onChange={e => {
-                setData('payment', e.nativeEvent.text, 'houseRatePlan');
-              }}
-              style={[styles.defaultSize, styles.textAlignC]}
-            />
+          </Item>
+          <Item style={styles.marginLeft0} inlineLabel>
+            <Label style={[styles.labelTitle, styles.defaultSize, {flex: 3}]}>押金</Label>
+            <View style={{flexDirection: 'row', alignItems: 'center', flex: 2}}>
+              <Text style={[styles.labelTitle, styles.defaultSize]}>押</Text>
+              <Input
+                value={checkInputValue(houseRatePlan.deposit)}
+                onChange={e => {
+                  setData('deposit', e.nativeEvent.text, 'houseRatePlan');
+                }}
+                style={[styles.defaultSize, styles.textAlignC]}
+              />
+              <Text style={[styles.labelTitle, styles.defaultSize]}>月</Text>
+              <Text style={{color: '#E9E9E9'}}> | </Text>
+              <Text style={[styles.labelTitle, styles.defaultSize]}>付</Text>
+              <Input
+                value={checkInputValue(houseRatePlan.payment)}
+                onChange={e => {
+                  setData('payment', e.nativeEvent.text, 'houseRatePlan');
+                }}
+                style={[styles.defaultSize, styles.textAlignC]}
+              />
+              <Text style={[styles.labelTitle, styles.defaultSize]}>月</Text>
+            </View>
           </Item>
           {houseFeeList.map((item, index) => {
             return (
@@ -358,7 +431,7 @@ export default function PublishHouse(props) {
                   {item.name}
                 </Label>
                 <Input
-                  value={houseRatePlan[item.key]}
+                  value={checkInputValue(houseRatePlan[item.key])}
                   onChange={e => {
                     setData(item.key, e.nativeEvent.text, 'houseRatePlan');
                   }}
@@ -372,9 +445,13 @@ export default function PublishHouse(props) {
           })}
         </Form>
         {/* 房屋描述 */}
-        <Text style={styles.publishTitle}>房屋描述</Text>
+        <Text style={styles.publishTitle}>房屋描述{houseAddition.description}</Text>
         <Form>
           <Textarea
+            value={houseAddition.description}
+            onChange={e => {
+              setData('description', e.nativeEvent.text, 'houseAddition');
+            }}
             style={{backgroundColor: Theme.cardBackground}}
             rowSpan={5}
             placeholder="补充介绍房屋及其周边交通、生活环境"

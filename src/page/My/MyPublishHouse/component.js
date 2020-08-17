@@ -115,9 +115,13 @@ function MyPublishList(props) {
             handlerRepublish(item.id);
           }
         } else {
-          console.log('编辑');
+          NavigatorService.navigate(AppRoute.PUBLISH, {
+            publishId: item.id,
+            refresh: function() {
+              init();
+            },
+          });
         }
-        console.log('buttonIndex', buttonIndex);
       },
     );
   };
