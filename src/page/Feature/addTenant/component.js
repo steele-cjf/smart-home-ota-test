@@ -32,7 +32,6 @@ export default function AddTenant(props) {
   }
   useEffect(() => {
     const { params } = props.route;
-    console.log('*******2', props.route )
     props.getRoomList({ houseId: params.id })
   }, [props.route.params])
   // hose详情获取
