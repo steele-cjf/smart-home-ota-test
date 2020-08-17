@@ -20,9 +20,9 @@ const vertifyCn = [
     placeholder: '请选择性别',
     key: 'gender',
     type: 'RADIO',
-    initial: 1,
+    initial: 'male',
     required: true,
-    selectOptions: [{label: '男', value: 1}, {label: '女', value: 2}],
+    selectOptions: [{label: '男', value: 'male'}, {label: '女', value: 'female'}],
   },
   {
     name: '民族',

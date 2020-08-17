@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, TextInput} from 'react-native';
 //import {Input, Text} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -11,8 +11,14 @@ import RadioForm, {
 import Theme from '../../style/colors';
 
 export default function Form(props) {
-  const [config] = useState(props.config);
+  const [config, setConfig] = useState(props.config);
   const [isDatePickerVisible, setDatePickerVisibility] = useState({});
+  const [obj, setObj] = useState(props.oldData);
+
+  useEffect(() => {
+    setObj(props.oldData)
+  }, [props.oldData]);
+
   // 展示date时触发
   const showDatePicker = key => {
     let cache = Object.assign({}, isDatePickerVisible);
@@ -29,7 +35,10 @@ export default function Form(props) {
   const handleConfirm = (date, key) => {
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
+    month = month < 10 ? `0${month}` : month;
     let day = date.getDate();
+    day = day < 10 ? `0${day}` : day;
+
     hideDatePicker(key);
     setData(key, year + '-' + month + '-' + day);
   };
@@ -41,7 +50,7 @@ export default function Form(props) {
     // 父类回调
     props.changeForm && props.changeForm(data);
   };
-  const [obj, setObj] = useState({});
+
   return (
     <View style={props.class}>
       {config &&
