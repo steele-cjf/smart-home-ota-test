@@ -11,7 +11,8 @@ function mapStateToProps(state) {
     cameraOpt: state.cameraOpt,
     houseDetail: state.houseDetail,
     scanTenant: state.scanTenant,
-    roomList: state.roomList
+    roomList: state.roomList,
+    codeInfo: state.codeInfo
   };
 }
 function matchDispatchToProps(dispatch) {

@@ -466,7 +466,9 @@ function HouseDetail(props) {
                   />
                   <TouchableOpacity
                     onPress={() =>
-                      NavigatorService.navigate(AppRoute.ADDTENANT)
+                      NavigatorService.navigate(AppRoute.ADDTENANT, {
+                        id: houseInfo.id
+                      })
                     }>
                     <Text style={{fontSize: 14, color: Theme.textLink}}>
                       新增住户

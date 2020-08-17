@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { ListItem, Image, Card } from 'react-native-elements';
-import { Button, Item, Label, Input, Picker } from 'native-base';
+import { Button, Item, Label, Input, Picker, ActionSheet } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../../navigator/AppRoutes';
-import tenant_form from '../config/tenant'
+
+const authTypeList = [{text: '身份证', value: 'id_card'}, {text: '护照', value: 'passport'}, , {text: '取消', value: 'cancel'}]
 
 const image = require('../../../assets/images/scan.png')
 const data = {
   houseId: '',
-  houseType: '0',
+  houseType: 'full_rent',
   roomIds: [],
   userId: '',
-  authType: 'id'
+  authType: 'id_card',
+  identificationNo: '',
+  mobile: '',
+  name: ''
 }
 export default function AddTenant(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -21,17 +25,20 @@ export default function AddTenant(props) {
   const [house, setHouse] = useState({})
   const [houseTypeList, setHouseTypeList] = useState([])
   const [room, selectRoom] = useState({})
-
-  const [form, setForm] = useState(data)
+  const [form, setForm] = useState({})
 
   function updateIndex(index) {
     setSelectedIndex(index);
   }
+  useEffect(() => {
+    const { params } = props.route;
+    setForm(Object.assign({}, data))
+    props.getRoomList({ houseId: params.id })
+  }, [props.route.params])
   // hose详情获取
   useEffect(() => {
-    storage.get('code').then(res => {
-      setHouseTypeList(res.house_type);
-    });
+    console.log('props.codeInfo.house_type', props.codeInfo)
+    setHouseTypeList(props.codeInfo.house_type);
     props.openCamera({ open: false, result: null })
     setHouse(props.houseDetail.data)
   }, [props.houseDetail])
@@ -41,15 +48,10 @@ export default function AddTenant(props) {
     setCameraOptions(props.cameraOpt)
   }, [props.cameraOpt])
 
-  // 获取房间列表
-  useEffect(() => {
-    !roomList && props.getRoomList({ houseId: '488400405136433152' })
-    setRoomList(props.roomList)
-  }, [props.roomList])
-
   //保存
   const saveTenant = () => {
-    NavigatorService.navigate(AppRoute.HOUSEDETAIL)
+    props.route.params.refresh();
+    NavigatorService.goBack();
   }
   const onValueChange = (type, data) => {
     console.log(type, data)
@@ -58,6 +60,7 @@ export default function AddTenant(props) {
     setForm(obj)
   }
 
+  // 未扫码展示
   const renderScanContent = () => {
     return (
       <View style={{ alignItems: 'center' }}>
@@ -74,7 +77,7 @@ export default function AddTenant(props) {
       </View>)
   }
 
-
+  // 扫码后展示的内容
   const renderCameraContent = () => {
     if (cameraOptions && cameraOptions.result) {
       let { data } = cameraOptions.result
@@ -109,15 +112,18 @@ export default function AddTenant(props) {
     }
     return renderScanContent()
   }
-
-  const renderRightContext = () => {
-    return (<Text style={styles.dec}>{house && house.regionFullName || '--'}</Text>)
-  }
+  // 房屋类型选择
   const renderRightPicker = () => {
     return (<Picker
       iosHeader="房屋类型"
       mode="dropdown"
       placeholder='请选择房屋类型'
+      iosIcon={
+        <AntDesign
+          name="right"
+          style={{ fontSize: 12, color: Theme.textSecondary }}
+        />
+      }
       selectedValue={form.houseType}
       onValueChange={(val) => onValueChange('houseType', val)}>
       {houseTypeList.map((item) => {
@@ -125,7 +131,7 @@ export default function AddTenant(props) {
       })}
     </Picker>)
   }
-
+  // 房间渲染
   const renderRoomList = () => {
     if (roomList && roomList.data && roomList.data.length) {
       let result = roomList.data.map((item) => {
@@ -142,6 +148,24 @@ export default function AddTenant(props) {
       return (<Text style={styles.dec, { textAlign: 'center' }}>暂无房间</Text>)
     }
   }
+  // 证件类型选择
+  const showActionSheet = (BUTTONS, CANCEL_INDEX, TYPE) => {
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+        // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
+        // title: i18n.t("settings")
+      },
+      buttonIndex => {
+        if (buttonIndex === CANCEL_INDEX) {
+          return;
+        }
+        handleSetValue(buttonIndex, TYPE);
+        console.log('Logout was clicked ' + BUTTONS[buttonIndex]);
+      },
+    )
+  }
 
   return (
     <View style={styles.container}>
@@ -149,7 +173,7 @@ export default function AddTenant(props) {
         <Text style={styles.title}>房屋信息</Text>
         <ListItem
           leftElement={<Text>房屋地址</Text>}
-          rightElement={renderRightContext()}
+          rightElement={<Text style={styles.dec}>{house.regionFullName || '--'}</Text>}
           bottomDivider
         />
         <ListItem
@@ -166,43 +190,59 @@ export default function AddTenant(props) {
         </View>
         <View style={selectedIndex !== 1 ? { display: 'none' } : ''}>
           <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
-          {tenant_form.map((item, index) => {
-            if ((item.key === 'id' && form.authType === 'notId')
-              || (item.key === 'notId' && form.authType === 'id')) return
-            return (
-              <Item style={styles.marginLeft0} inlineLabel picker>
-                <Label style={[styles.labelTitle, styles.defaultSize, item.type === 'SELECT' && { flex: 1 }]}>
-                  {item.name}
-                </Label>
-                {
-                  item.type === 'SELECT' ? (
-                    <Picker
-                      iosHeader={item.name}
-                      mode="dropdown"
-                      style={{ textAlign: 'right' }}
-                      selectedValue={form.authType}
-                      iosIcon={
-                        <AntDesign
-                          name="right"
-                          style={{ fontSize: 12, color: Theme.textSecondary }}
-                        />
-                      }
-                      onValueChange={(val) => onValueChange('authType', val)}>
-                      <Item label="身份证" value="id" />
-                      <Item label="护照" value="notId" />
-                    </Picker>) :
-                    <Input
-                      // value={houseRatePlan[item.key]}
-                      // onChange={e => {
-                      //   setData(item.key, e.nativeEvent.text, 'houseRatePlan');
-                      // }}
-                      placeholder={item.desc}
-                      style={[styles.defaultSize, styles.textAlignR]}
-                    />
-                }
-              </Item>
-            );
-          })}
+          <Item style={styles.marginLeft0} inlineLabel picker>
+            <Label style={[styles.labelTitle, styles.defaultSize]}>
+              真实姓名
+            </Label>
+            <Input
+              placeholder="输入真实姓名"
+              value={form.name}
+              onChangeText={(val) => { onValueChange('name', val) }}
+              style={[styles.defaultSize, styles.textAlignR]}
+            />
+          </Item>
+          <Item style={styles.marginLeft0} inlineLabel picker>
+            <Label style={[styles.labelTitle, styles.defaultSize, { flex: 1 }]}>
+              证件类型
+            </Label>
+            <Button transparent onPress={() => { showActionSheet(authTypeList, 2, 'authType') }}>
+              <Text>{form.authType === 'id_card' ? '身份证' : '护照'}</Text>
+              <AntDesign name="right" style={{ fontSize: 12, color: Theme.textSecondary, paddingLeft: 10 }} />
+            </Button>
+          </Item>
+          {form.authType === 'id_card' ? <Item style={styles.marginLeft0} inlineLabel picker>
+            <Label style={[styles.labelTitle, styles.defaultSize]}>
+              身份证号
+            </Label>
+            <Input
+              placeholder="输入身份证号"
+              onChangeText={(val) => { onValueChange('identificationNo', val) }}
+              value={form.identificationNo}
+              style={[styles.defaultSize, styles.textAlignR]}
+            />
+          </Item> :
+            <Item style={styles.marginLeft0} inlineLabel picker>
+              <Label style={[styles.labelTitle, styles.defaultSize]}>
+                护照号
+            </Label>
+              <Input
+                value={form.identificationNo}
+                onChangeText={(val) => { onValueChange('identificationNo', val) }}
+                placeholder="输入护照号"
+                style={[styles.defaultSize, styles.textAlignR]}
+              />
+            </Item>}
+          <Item style={styles.marginLeft0} inlineLabel picker>
+            <Label style={[styles.labelTitle, styles.defaultSize]}>
+              手机号
+            </Label>
+            <Input
+              placeholder="输入手机号"
+              value={form.mobile}
+              onChangeText={(val) => { onValueChange('mobile', val) }}
+              style={[styles.defaultSize, styles.textAlignR]}
+            />
+          </Item>
           <View style={{ alignItems: 'center', paddingBottom: 60 }}>
             <Button rounded full style={styles.scanBtn} onPress={() => saveTenant()}>
               <Text style={{ color: '#fff' }}>添加住户并开始实名</Text>
@@ -263,7 +303,6 @@ const styles = StyleSheet.create({
   roomListBox: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
     borderTopColor: '#E9E9E9',
     backgroundColor: '#fff',
     borderTopWidth: 1,
@@ -280,7 +319,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 28,
     paddingVertical: 6,
     marginBottom: 15,
-    borderColor: '#C7C7C7'
+    borderColor: '#C7C7C7',
+    marginRight: 10
   },
   defaultSize: {
     fontSize: 14,

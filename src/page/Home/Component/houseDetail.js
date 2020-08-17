@@ -5,8 +5,8 @@ import { Icon, Button, Left, Header, Text, Spinner } from 'native-base'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Theme from '../../../style/colors';
 import LocationsMap from '../../../page/Component/map/locations';
-
 import { houseLayoutCn, houseItemCn, houseRatePlanCn } from '../config/houseDetailCn'
+import showToast from '../../../util/toast';
 
 const loc = {
     "name": "房子",
@@ -26,10 +26,22 @@ function HouseDetail(props) {
         }
     }, [props, props.data])
 
-    const changeData = (type, value) => {
+    const changeCollection = (type, value) => {
         let res = Object.assign({}, options)
         res[type] = value
         setOptions(res)
+        props.setCollection && props.setCollection({
+            publishInfoId: options.id,
+            add: value
+        }, (res) => {
+            if (!res.code && value) {
+                showToast('收藏成功')
+            } else if(!res.code && !value) {
+                showToast('已取消收藏成功')
+            } else {
+                showToast(res.message || '操作失败')
+            }
+        })
     }
     // 电话咨询
     const callPhone = () => {
@@ -42,7 +54,7 @@ function HouseDetail(props) {
                 }
                 return Linking.openURL(url);
             })
-            .catch(err => {showToast(`出错了：${err}`, 1.5);console.log(err)});
+            .catch(err => { showToast(`出错了：${err}`, 1.5); console.log(err) });
     }
     //建筑信息
     const renderHouseLayout = () => {
@@ -109,7 +121,7 @@ function HouseDetail(props) {
                         <Text style={styles.title}>{options.houseRatePlan.rentPrice}</Text>
                         <Text style={styles.desc}>元/月</Text>
                         <AntDesign style={[styles.rightBtn, options.collectedByMe && styles.activeBtn]}
-                            onPress={() => { changeData('collectedByMe', !options.collectedByMe) }}
+                            onPress={() => { changeCollection('collectedByMe', !options.collectedByMe) }}
                             name={options.collectedByMe ? 'heart' : 'hearto'}></AntDesign>
                     </View>
                     <Text style={styles.secondDes}>{code['house_type'][options.houseType]}·{options
