@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import { Spinner } from 'native-base'
+import {View, Text, Image, StyleSheet} from 'react-native';
+import {Spinner, Header, Button, Title, Left, Right, Icon, Body} from 'native-base';
 import Theme from '../../../style/colors';
 import {AppRoute} from '../../../navigator/AppRoutes'; 
 
@@ -24,14 +24,8 @@ const auth_status = {
 
 export default function VertifyDetailsPage(props) {
 
-  //test
-  function goPersonalInfo() {
-    //NavigatorService.navigate
-    props.navigation.navigate(AppRoute.PERSONALINFO);
-  }  
-
   function handleModify() {
-    props.navigation.navigate(AppRoute.AUTHENTICATION);
+    NavigatorService.navigate(AppRoute.AUTHENTICATION);
   }
 
   useEffect(() => {
@@ -46,7 +40,7 @@ export default function VertifyDetailsPage(props) {
     userId = info.data.id;
 
     props.getManualAuditInfo(userId, res => {
-      console.log('*******AuditInfo-kk:*******', res);
+      //console.log('*******AuditInfo-kk:*******', res);
       setLoading(false);
 
       if (!res.code) {
@@ -87,62 +81,83 @@ export default function VertifyDetailsPage(props) {
     setAuthOptions(auth_status[authStatus]);
     setData(actualDataArr);
 
-    let imageUrls = data.imageUrls;
-    let image1 = imageUrls[0];
-    //console.log('image1:  ', image1);
-    
-    // $getImage(image1, uri => {
-    //   //console.log('uri******kkkk:   ', uri);
-    //   setImageUrl(uri);
-    // });
+    $getImage(data.imageUrls[0], uri => {
+      setImageUrl1(uri);
+    });
+    $getImage(data.imageUrls[1], uri => {
+      setImageUrl2(uri);
+    });
+    $getImage(data.imageUrls[2], uri => {
+      setImageUrl3(uri);
+    });
   }
 
   const [authStatus, setAuthStatus] = useState('audit_pending');
   const [authOptions, setAuthOptions] = useState(auth_status['audit_pending']); 
   const [data, setData] = useState([]); 
-  //const [imageUrl, setImageUrl] = useState(''); 
   const [loading, setLoading] = useState(true);
+  const [imageUrl1, setImageUrl1] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
+  const [imageUrl2, setImageUrl2] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
+  const [imageUrl3, setImageUrl3] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
 
   return (
-    loading ? <Spinner></Spinner> :
-    <View style={styles.containerStyle}> 
-      <View style={[styles.topViewFail, authStatus === 'audit_pending' && styles.topViewWait]}>
-        <Text style={styles.topTextStyle1}>{authOptions.title}</Text>
-        <Text style={styles.topTextStyle2}>{authOptions.reasonDesc}</Text>
-      </View> 
-      {
-        data.map((item, index) => { 
-          return (
-            <View>
-              <Text style={styles.textTitle}>{item.title}</Text>
-              <Text style={styles.textContent} numberOfLines={2} ellipsizeMode={'tail'}>{item.content}</Text>
-            </View>
-          ); 
-        })
-      }
-      <Text style={[styles.topTextStyle1, styles.space]}>{'照片上传'}</Text> 
-      <View style={styles.ImageBox}>
-        <Image style={styles.imageStyle} source={{uri:'https://facebook.github.io/react-native/docs/assets/favicon.png',}}/> 
-        <Image style={styles.imageStyle} source={{uri:'blob:5041381E-22B0-4DA6-9E33-90D1607FAC0C?offset=0&size=55',}}/> 
-        {/* <Image style={styles.imageStyle} source={{uri: imageUrl,}} />  */}
-      </View>
-      
-      <TouchableOpacity style={[styles.btnStyle, styles.btnStyle2]} onPress={goPersonalInfo}> 
-        <Text style={styles.btnTextStyle}>进入个人中心</Text>
-      </TouchableOpacity>
+    <View style={{flex: 1}}>
+      <Header style={{backgroundColor: Theme.background, borderBottomColor: '#E9E9E9', height:44,}}>
+        <Left>
+          <Button transparent onPress={() => NavigatorService.goBack()} >
+            <Icon name="md-chevron-back" style={{justifyContent: 'center'}}/>
+            <Text style={[styles.headerText, {marginLeft: -7}]}>返回</Text>
+          </Button>
+        </Left> 
+        <Body>
+          <Title>实名详情</Title>
+        </Body>
+        <Right>
+          <Button transparent onPress={handleModify}>
+            <Text style={[styles.headerText]}>{authOptions.btnTitle}</Text>
+          </Button>
+        </Right>
+      </Header>
 
-      <TouchableOpacity style={styles.btnStyle} onPress={handleModify}> 
-        <Text style={styles.btnTextStyle}>{authOptions.btnTitle}</Text>
-      </TouchableOpacity>
+      {loading ? <Spinner></Spinner> :
+      <View style={styles.containerStyle}> 
+        <View style={[styles.topViewFail, authStatus === 'audit_pending' && styles.topViewWait]}>
+          <Text style={styles.topTextStyle1}>{authOptions.title}</Text>
+          <Text style={styles.topTextStyle2}>{authOptions.reasonDesc}</Text>
+        </View> 
+        {
+          data.map((item, index) => { 
+            return (
+              <View>
+                <Text style={styles.textTitle}>{item.title}</Text>
+                <Text style={styles.textContent} numberOfLines={2} ellipsizeMode={'tail'}>{item.content}</Text>
+              </View>
+            ); 
+          })
+        }
+        <Text style={[styles.topTextStyle1, styles.space]}>{'照片上传'}</Text> 
+        <View style={styles.ImageBox}>
+          <Image style={styles.imageStyle} source={{uri: imageUrl1}}/> 
+          <Image style={styles.imageStyle} source={{uri: imageUrl2}}/> 
+          <Image style={styles.imageStyle} source={{uri: imageUrl3}} /> 
+        </View>
+      </View> 
+      }  
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({  
+  headerText: {
+    color: '#527BDF', 
+    fontSize: 16,
+    justifyContent: 'center', 
+    paddingTop: 5, 
+  },
   containerStyle: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
     backgroundColor: Theme.background,
   },
   topViewFail: {
@@ -194,24 +209,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Theme.border,
     borderRadius: 4,
-  },
-  btnStyle: {
-    position: 'absolute',
-    left: 16,
-    right: 16,
-    bottom: 50,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#5C8BFF'
-  },
-  btnStyle2: {
-    bottom: 110,
-  },
-  btnTextStyle: {
-    height: 40,
-    lineHeight: 40,
-    textAlign: 'center',
-    fontSize: 16, 
-    color: '#FFFFFF', 
   },
 });

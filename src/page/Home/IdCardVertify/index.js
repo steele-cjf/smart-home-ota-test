@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { getUserInfo, verifyIdCard } from '../../../store/home/index';
+import {getManualAuditInfo} from '../../../store/user/index';
 
 import Component from './component';
 
@@ -12,7 +13,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserInfo, verifyIdCard }, dispatch);
+  return bindActionCreators({getUserInfo, verifyIdCard, getManualAuditInfo}, dispatch);
 }
 
 export default connect(

@@ -10,12 +10,52 @@ import Theme from '../../../style/colors';
 export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState([]);
-  const [userId, setUserId] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [userId, setUserId] = useState('');
+  const [oldData, setOldData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [imageUrl1, setImageUrl1] = useState(''); 
+  const [imageUrl2, setImageUrl2] = useState(''); 
+  const [imageUrl3, setImageUrl3] = useState(''); 
+
   // 初始化获取用户信息
   useEffect(() => {
     setUserId(props.userInfo.data.id);    //props.userInfo.id
+    getAuthInfo(); 
   }, [props.userInfo]);
+
+  function getAuthInfo() {
+    setLoading(true);
+    var userId = props.userInfo.data.id;
+
+    props.getManualAuditInfo(userId, res => {
+      //console.log('*******AuditInfo-modify:*******', res);
+      setLoading(false);
+
+      if (!res.code) {
+        if (res.data.identificationType !== 'id_card') { 
+          return;
+        }
+
+        let {name, identificationNo, gender,  nation, birthDate, identificationAddress} = res.data;
+        var oldData = {name, identificationNo, gender,  nation, birthDate, identificationAddress};
+        console.log(999, oldData)
+        setOldData(Object.assign({}, oldData));
+
+        $getImage(res.data.imageUrls[0], uri => {
+          setImageUrl1(uri);
+        });
+        $getImage(res.data.imageUrls[1], uri => {
+          setImageUrl2(uri);
+        });
+        $getImage(res.data.imageUrls[2], uri => {
+          setImageUrl3(uri);
+        });
+      } else {
+        showToast("90909"+res.message);
+      }
+    });
+  }
+
 
   // 检查并提交form
   const handleConfirm = () => {
@@ -85,20 +125,24 @@ export default function IdCardVertifyPage(props) {
             config={vertifyCn}
             class={styles.formBox}
             changeForm={changeForm}
+            oldData={oldData}
           />
           <Text style={styles.textTitle}>照片上传</Text>
           <View style={styles.ImageUploadBox}>
             <ImageUpload
               title="身份证正面"
               setImageForm={obj => setImageForm(0, obj)}
+              imgUrl={imageUrl1}
             />
             <ImageUpload
               title="身份证反面"
               setImageForm={obj => setImageForm(1, obj)}
+              imgUrl={imageUrl2}
             />
             <ImageUpload
               title="手持身份证"
               setImageForm={obj => setImageForm(2, obj)}
+              imgUrl={imageUrl3}
             />
           </View>
           <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
