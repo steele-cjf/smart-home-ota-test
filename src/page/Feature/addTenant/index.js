@@ -1,8 +1,9 @@
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {getHouseDetail} from '../../../store/house/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getHouseDetail } from '../../../store/house/index';
 import { openCamera } from '../../../store/common/index'
-import {getRoomList} from '../../../store/feature/index'
+import { getRoomList } from '../../../store/feature/index'
+import { addTenantForm } from '../../../store/tenant/index'
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
@@ -16,7 +17,7 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getHouseDetail, openCamera, getRoomList}, dispatch);
+  return bindActionCreators({ getHouseDetail, openCamera, getRoomList, addTenantForm }, dispatch);
 }
 export default connect(
   mapStateToProps,

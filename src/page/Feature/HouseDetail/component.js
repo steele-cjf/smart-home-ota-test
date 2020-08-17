@@ -35,6 +35,7 @@ function HouseDetail(props) {
     houseHolder: {},
   });
   const [rooms, setRooms] = useState([]);
+
   useEffect(() => {
     init();
   }, [init]);

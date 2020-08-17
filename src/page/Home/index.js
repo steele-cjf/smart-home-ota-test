@@ -22,7 +22,6 @@ function HomePage(props) {
   const [houseList, setHouseList] = useState({});
   const [selectHouse, setSelectHouse] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true)
-  const [loadingList, setLoadingList] = useState(true)
   const [actionSheet, setActionSheet] = useState(null);
 
   // 可以理解为componentDidMount
@@ -84,7 +83,7 @@ function HomePage(props) {
             setSelectHouse(houseList[buttonIndex])
           }
         }
-      );
+      )
     }
   }
   return (
