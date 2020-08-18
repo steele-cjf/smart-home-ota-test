@@ -39,7 +39,15 @@ export function addRoom(data, callback) {
 // 更新房间名
 export function updateRoomName(id, name, callback) {
   return $put(`/room/${id}?name=${name}`, {
-    // body: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
+// 家庭成员列表
+export function getTenantList(data, callback) {
+  return $get('/tenant/family/list', {
+    queryData: data,
     successConfig: {
       callback,
     },

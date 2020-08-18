@@ -39,24 +39,27 @@ function HouseDetail(props) {
 
   useFocusEffect(
     useCallback(() => {
-      const { params } = props.route;
-      props.getHouseDetail(params.id, res => {
-        if (!res.code) {
-          if (res.data) {
-            setHouseInfo(res.data);
-            setLoading(false);
-          }
-        }
-      });
-      props.getHouseTenantList(params.id, res => {
-        
-        setTenantList(res.data);
-      })
-      props.getRoomList({ houseId: params.id }, res => {
-        setRooms(res.data);
-      });
+      init()
     }, [props.route])
   )
+
+  const init = () => {
+    const { params } = props.route;
+    props.getHouseDetail(params.id, res => {
+      if (!res.code) {
+        if (res.data) {
+          setHouseInfo(res.data);
+          setLoading(false);
+        }
+      }
+    });
+    props.getHouseTenantList(params.id, res => {
+      setTenantList(res.data);
+    })
+    props.getRoomList({ houseId: params.id }, res => {
+      setRooms(res.data);
+    });
+  };
 
   const alertDeleteModal = () => {
     Alert.alert('确定删除？', '', [
@@ -95,10 +98,7 @@ function HouseDetail(props) {
   };
   const handleToRoomPage = () => {
     NavigatorService.navigate(AppRoute.ROOM, {
-      id: houseInfo.id,
-      refresh: function () {
-        init();
-      },
+      id: houseInfo.id
     });
   };
   // 渲染住户

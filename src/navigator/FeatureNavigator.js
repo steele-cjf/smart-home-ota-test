@@ -5,6 +5,7 @@ import HouseDetail from '../page/Feature/HouseDetail';
 import PublishHouse from '../page/Feature/publishHouse';
 import AddTenant from '../page/Feature/addTenant';
 import RoomPage from '../page/Feature/roomPage';
+import TenantList from '../page/Feature/TenantList';
 import AuthenticationPage from '../page/Home/AuthenticationPage';
 import ComponentTest from '../page/ComponentTest/index';
 import {AppRoute} from './AppRoutes';
@@ -56,10 +57,13 @@ export const FeatureStackComponent = () => {
         options={{
           headerShown: false,
         }}
-        // options={{
-        //   title: '房间管理',
-        //   headerBackTitle: '返回',
-        // }}
+      />
+      <HomeStack.Screen
+        name={AppRoute.TENANTLIST}
+        component={TenantList}
+        options={{
+          headerShown: false,
+        }}
       />
       <HomeStack.Screen
         name={AppRoute.COMPONENTTEST}

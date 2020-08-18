@@ -14,32 +14,43 @@ import {
   Text,
   Spinner,
 } from 'native-base';
-import DialogInput from '../../Component/dialogInput';
 import Theme from '../../../style/colors';
 import showToast from '../../../util/toast';
 
-export default function RoomPage(props) {
-  const [loading, setLoading] = useState(true);
-  const [RoomList, setRoomList] = useState([]);
-  const [isDialogVisible, setIsDialogVisible] = useState(false);
-  const [selectItem, setSelectItem] = useState({});
+export default function TenantList(props) {
+  const [loading, setLoading] = useState(false);
+  const [tenantList, setTenantList] = useState([
+    {gender: '女', status: '待审核', userName: 'xiaoming', userId: '3'},
+    {gender: '男', status: '审核失败', userName: 'xiaoming', userId: '2'},
+    {gender: '女', status: '待审核', userName: 'xiaoming', userId: '5'},
+  ]);
   const [houseId, setHouseId] = useState('');
+  const [tenantId, setTenantId] = useState('');
   const [houseInfo, setHouseInfo] = useState({});
 
   useEffect(() => {
-    fetchRoomList();
-  }, [fetchRoomList]);
+    init();
+  }, [init]);
 
-  const fetchRoomList = useCallback(() => {
+  const init = useCallback(() => {
     const {params} = props.route;
-    setHouseId(params.id);
-    props.getRoomList({houseId: params.id}, res => {
-      if (!res.code) {
-        setRoomList(res.data);
-        setLoading(false);
-      }
-    });
-    setHouseInfo(props.houseDetail.data);
+    setHouseId(params.houseId);
+    setTenantId(params.tenantId);
+    
+    // props.getHouseDetail(params.houseId, res => {
+    //     if (!res.code) {
+    //       if (res.data) {
+    //         setHouseInfo(res.data);
+    //         setLoading(false);
+    //       }
+    //     }
+    //   });
+    // props.getTenantList({houseId: params.id, tenantUserId: params.tenantId}, res => {
+    //   if (!res.code) {
+    //     setTenantList(res.data);
+    //     setLoading(false);
+    //   }
+    // });
   });
 
   const handlerDelete = item => {
@@ -71,59 +82,6 @@ export default function RoomPage(props) {
           ),
       },
     ]);
-  const editRoom = item => {
-    setSelectItem(item);
-    setIsDialogVisible(true);
-  };
-  const addRoom = () => {
-    setSelectItem({});
-    setIsDialogVisible(true);
-  };
-  const addRoomFunc = data => {
-    setLoading(true);
-    props.addRoom(data, res => {
-      console.log(res);
-      if (!res.code) {
-        setIsDialogVisible(false);
-        fetchRoomList();
-      } else {
-        showToast(res.message);
-      }
-    });
-  };
-  const editRoomFunc = (id, name) => {
-    setLoading(true);
-    props.updateRoomName(id, name, res => {
-      console.log(res);
-      if (!res.code) {
-        setIsDialogVisible(false);
-        fetchRoomList();
-      } else {
-        showToast(res.message);
-      }
-    });
-  };
-  const sendInput = value => {
-    console.log('vale', value);
-    console.log(selectItem.name);
-    if (!value && selectItem.name) {
-      showToast('请输入你要更改的房间名');
-      return;
-    }
-    if (!value) {
-      showToast('请输入房间名');
-      return;
-    }
-    if (selectItem.name) {
-      editRoomFunc(selectItem.id, value);
-    } else {
-      const data = {
-        houseId: houseId,
-        name: value,
-      };
-      addRoomFunc(data);
-    }
-  };
   const goToPage = () => {
     props.navigation.goBack();
   };
@@ -131,30 +89,18 @@ export default function RoomPage(props) {
     return (
       <View style={styles.room_item_style}>
         <View style={styles.left_content}>
-          <Text style={styles.main_color}>{item.name}</Text>
-          {/* <Input value={item.name} /> */}
-          <Text style={styles.status_color}>
-            {item.tenantCount > 0 ? '已入住' : '未入住'}
-          </Text>
+          <Text style={styles.main_color}>{item.userName}- {item.gender}</Text>
         </View>
-        <View style={styles.divider_style} />
         <View style={styles.icon_content}>
+          <Text style={styles.status_style}>{item.status}</Text>
           <AntDesign
-            name="edit"
-            size={14}
-            color="#666666"
-            onPress={() => editRoom(item)}
+          name="right"
+          size={12}
+          style={{
+              alignSelf: 'center',
+              color: '#7C7C7C',
+          }}
           />
-          {item.tenantCount === 0 ? (
-            <AntDesign
-              name="delete"
-              size={14}
-              color="#E7263E"
-              onPress={() => createTwoButtonAlert(item, index)}
-            />
-          ) : (
-            <AntDesign name="delete" size={14} color="#c7c7c7" />
-          )}
         </View>
       </View>
     );
@@ -168,11 +114,11 @@ export default function RoomPage(props) {
           </Button>
         </Left>
         <Body>
-          <Title>房间管理</Title>
+          <Title>家庭成员</Title>
         </Body>
         <Right>
           <Button transparent onPress={() => addRoom()}>
-            <Text>新增房屋</Text>
+            <Text>新增成员</Text>
           </Button>
         </Right>
       </Header>
@@ -194,22 +140,12 @@ export default function RoomPage(props) {
           {/* <Divider /> */}
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={RoomList}
+            data={tenantList}
             renderItem={_renderItem}
             keyExtractor={(_, index) => index.toString()}
           />
         </View>
       )}
-      <DialogInput
-        isDialogVisible={isDialogVisible}
-        title={'房间名'}
-        initValueTextInput={selectItem.name}
-        hintInput={'请输入房间名'}
-        submitInput={inputText => {
-          sendInput(inputText);
-        }}
-        closeDialog={() => setIsDialogVisible(false)}
-      />
     </View>
   );
 }
@@ -220,7 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   room_wrapper: {
-    padding: 10,
+    padding: 15,
     paddingTop: 0,
   },
   house_address: {
@@ -234,32 +170,25 @@ const styles = StyleSheet.create({
   main_color: {
     color: Theme.textDefault,
   },
-  status_color: {
-    color: Theme.textMuted,
-  },
   room_item_style: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
-    borderColor: Theme.textMuted,
-    borderWidth: 0.5,
-    borderRadius: 4,
-    marginTop: 15,
+    paddingVertical: 15,
+    borderTopColor: Theme.textMuted,
+    borderTopWidth: 0.5,
   },
   left_content: {
-    flex: 85,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  divider_style: {
-    width: 1,
-    height: 18,
-    backgroundColor: Theme.textMuted,
-    marginHorizontal: 20,
   },
   icon_content: {
-    flex: 15,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
   },
+  status_style: {
+    color: '#9C9C9C',
+    fontSize: 14,
+    paddingRight: 5,
+  }
 });
