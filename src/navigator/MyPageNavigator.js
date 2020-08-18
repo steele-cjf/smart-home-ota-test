@@ -10,6 +10,8 @@ import MyPublishHouse from '../page/My/MyPublishHouse';
 import PublishHouse from '../page/Feature/publishHouse';
 import RoomPage from '../page/Feature/roomPage';
 import TenantHouseList from '../page/My/TenantHouseList';
+import TenantList from '../page/Feature/TenantList';
+import AddTenant from '../page/Feature/addTenant';
 
 import {AppRoute} from './AppRoutes';
 
@@ -97,6 +99,21 @@ export const MyPageStackComponent = () => {
         options={{
           title: '我是租户',
           headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.ADDTENANT}
+        component={AddTenant}
+        options={{
+          title: '添加住户',
+          headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.TENANTLIST}
+        component={TenantList}
+        options={{
+          headerShown: false,
         }}
       />
     </MyPageNavigator.Navigator>

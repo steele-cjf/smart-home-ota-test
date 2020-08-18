@@ -1,16 +1,20 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getHouseDetail, deleteHouse, getHouseTenantList} from '../../../store/house/index';
-import {getRoomList} from '../../../store/feature/index';
+import {
+    getTenantList,
+} from '../../../store/feature/index';
+import { getHouseDetail } from '../../../store/house/index';
 
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
-  return {};
+  return {
+    houseDetail: state.houseDetail,
+  };
 }
 function matchDispatchToProps(dispatch) {
   return bindActionCreators(
-    {getHouseDetail, deleteHouse, getRoomList, getHouseTenantList},
+    {getTenantList, getHouseDetail},
     dispatch,
   );
 }

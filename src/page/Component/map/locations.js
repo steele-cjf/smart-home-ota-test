@@ -17,16 +17,16 @@ function LoactionMap(props) {
             }}
             title={center.name}
             coordinate={{
-                latitude: center.lat,
-                longitude: center.lng
+                latitude: center.lat || 0,
+                longitude: center.lng || 0
             }}
         />)
         return result
     }
     return (
         <MapView style={{ flex: 1 }} zoomLevel={6} center={{
-            latitude: center.lat,
-            longitude: center.lng
+            latitude: center.lat || 0,
+            longitude: center.lng || 0
         }}>
             {renderMarker()}
         </MapView >

@@ -13,6 +13,7 @@ import {
   Spinner,
   ActionSheet,
 } from 'native-base';
+import { useFocusEffect } from '@react-navigation/native';
 import {AppRoute} from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
 import {Divider} from 'react-native-elements';
@@ -25,11 +26,18 @@ function MyPublishList(props) {
   const [houseInfo, setHouseInfo] = useState({});
   const [houseList, setHouseList] = useState([]);
   const [mappings, setMappings] = useState({});
-  useEffect(() => {
-    init();
-  }, [init]);
+  // useEffect(() => {
+  //   init();
+  // }, [init]);
 
-  const init = useCallback(() => {
+  useFocusEffect(
+    useCallback(() => {
+      console.log('@@@@@@@@@@@@@')
+      init()
+    }, [props.route])
+  )
+
+  const init = () => {
     const {params} = props.route;
     setHouseId(params.id);
     props.getMyPublishList(
@@ -47,7 +55,7 @@ function MyPublishList(props) {
     );
     setHouseInfo(props.houseDetail.data);
     console.log('detail', props.houseDetail);
-  });
+  };
 
   useEffect(() => {
     storage.get('dictionaryMappings').then(res => {
@@ -115,9 +123,10 @@ function MyPublishList(props) {
             handlerRepublish(item.id);
           }
         } else {
-          console.log('编辑');
+          NavigatorService.navigate(AppRoute.PUBLISH, {
+            publishId: item.id,
+          });
         }
-        console.log('buttonIndex', buttonIndex);
       },
     );
   };

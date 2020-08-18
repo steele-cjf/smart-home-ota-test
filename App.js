@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from './src/store';
 import storage from './src/util/storage';
 import Camera from './src/page/Component/Camera';
-export default () => {
+export default (props) => {
   // This value is used to determine the initial screen1
   const [loading, setLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -21,6 +21,10 @@ export default () => {
       NavigatorService.setContainer(navigatorRef.current)
     })();
   }, []);
+
+  useEffect(() => {
+    console.log(999)
+  }, [props.AppRoute])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

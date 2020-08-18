@@ -22,12 +22,15 @@ function PublicHouseDetail(props) {
       setLoading(false)
     }
   }, [props.publishHouseDetail])
+  const setCollection = (data, callback) => {
+    props.publishSetCollection(data,callback)
+  }
   return (
     <View style={styles.container}>
       <ScrollView>
         <ImageBackground style={styles.headerBox} source={img} />
         {
-          loading ? <Spinner></Spinner> : <HouseDetail data={data} code={code} />
+          loading ? <Spinner></Spinner> : <HouseDetail data={data} code={code} setCollection={(data, callback) => setCollection(data, callback)} />
         }
       </ScrollView>
 

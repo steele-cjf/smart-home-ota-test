@@ -24,7 +24,6 @@ function reset(routeName, params) {
 }
 
 function navigate(routeName, params) {
-	// StackActions.push({ routeName, params })
 	_container.dispatch(
 		NavigationActions.navigate({
 			type: 'Navigation/NAVIGATE',
@@ -38,7 +37,6 @@ function navigate(routeName, params) {
 function goBack() {
 	_container.dispatch(StackActions.pop(1))
 }
-
 function navigateDeep(actions) {
 	_container.dispatch(
 		actions.reduceRight(
