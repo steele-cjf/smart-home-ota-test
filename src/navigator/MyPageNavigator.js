@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import MyPage from '../page/My/MyPage';
 import PersonalInfo from '../page/My/PersonalInfo';
+import Suggestion from '../page/My/SuggestionPage';
 import MyHouseList from '../page/My/MyHouseList';
 import HouseDetail from '../page/Feature/HouseDetail';
 import RecordHouse from '../page/My/RecordHouse';
@@ -35,6 +36,14 @@ export const MyPageStackComponent = () => {
         component={PersonalInfo}
         options={{
           title: '个人信息',
+          headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.SUGGESTION}
+        component={Suggestion}
+        options={{
+          title: '意见反馈',
           headerBackTitle: '返回',
         }}
       />

@@ -6,6 +6,7 @@ export const AppRoute = {
   FEATURE: 'FeaturePage',
   MY: 'MyPage',
   PERSONALINFO: 'PersonalInfo',
+  SUGGESTION: 'SuggestionPage',
   IDCARDVERTIFY: 'IdCardVertifyPage',
   PASSPORTVERTIFY: 'PassportVertifyPage',
   VERDETAILS: 'VertifyDetailsPage',
