@@ -10,6 +10,7 @@ import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
 import HouseListComponent from '../Component/housingList/list';
 import Theme from '../../style/colors';
+import { useFocusEffect } from '@react-navigation/native';
 
 const imgList = [ // 暂时写死
   require('../../assets/images/mock/home1.jpg'),
@@ -25,9 +26,11 @@ function HomePage(props) {
   const [actionSheet, setActionSheet] = useState(null);
 
   // 可以理解为componentDidMount
-  useEffect(() => {
-    props.getUserInfo(); // 获取个人信息
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      props.getUserInfo(); // 获取个人信息
+    }, [props.route])
+  )
   useEffect(() => {
     console.log('webSocketInfo 变了')
     props.getUserInfo();

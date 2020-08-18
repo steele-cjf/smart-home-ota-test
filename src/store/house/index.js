@@ -19,6 +19,15 @@ export function getHouseDetail(id, callback) {
     actionType: 'HOUSE_DETAIL',
   });
 }
+// 房源住户列表
+export function getHouseTenantList(id, callback) {
+  return $get(`/tenant/listByHouse?houseId=${id}`, {
+    successConfig: {
+      callback,
+    },
+    actionType: 'HOUSE_TENANT_LIST',
+  });
+}
 // 编辑房源审核信息
 export function updateHouse(id, data, callback) {
   return $put(`/house/${id}`, {

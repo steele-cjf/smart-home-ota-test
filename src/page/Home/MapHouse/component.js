@@ -9,7 +9,7 @@ import BottomSheet from 'reanimated-bottom-sheet'
 
 let h = Dimensions.get('window').height
 const snapPoints = [0.6 * h, 0.5 * h, 0.4 * h, 0.3 * h, 0.2 * h, 0.1 * h, 0]
-function MapHouse(props) {
+function MapHouse() {
   const [snapIndex] = useState(3)
   const [selectItem, setSelectItem] = useState()
   const bottomSheetRef = React.useRef(null)
@@ -26,6 +26,7 @@ function MapHouse(props) {
       let lng = item.center.split(',')[0]
       return (
         <MapView.Marker
+          key={item.name}
           icon={() => {
             return (<Entypo name='location-pin' style={{ color: 'blue', fontSize: 20 }}></Entypo>)
           }}

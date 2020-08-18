@@ -35,31 +35,28 @@ function HouseDetail(props) {
     houseHolder: {},
   });
   const [rooms, setRooms] = useState([]);
+  const [tenantList, setTenantList] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
-      console.log('@@@@@@@@@@@@@')
-    })
-  )
-  useEffect(() => {
-    console.log(77777)
-    init();
-  }, [init]);
-
-  const init = useCallback(() => {
-    const { params } = props.route;
-    props.getHouseDetail(params.id, res => {
-      if (!res.code) {
-        if (res.data) {
-          setHouseInfo(res.data);
-          setLoading(false);
+      const { params } = props.route;
+      props.getHouseDetail(params.id, res => {
+        if (!res.code) {
+          if (res.data) {
+            setHouseInfo(res.data);
+            setLoading(false);
+          }
         }
-      }
-    });
-    props.getRoomList({ houseId: params.id }, res => {
-      setRooms(res.data);
-    });
-  });
+      });
+      props.getHouseTenantList(params.id, res => {
+        
+        setTenantList(res.data);
+      })
+      props.getRoomList({ houseId: params.id }, res => {
+        setRooms(res.data);
+      });
+    }, [props.route])
+  )
 
   const alertDeleteModal = () => {
     Alert.alert('确定删除？', '', [
@@ -104,6 +101,37 @@ function HouseDetail(props) {
       },
     });
   };
+  // 渲染住户
+  const renderTenantList = () => {
+    const { params } = props.route;
+    let result = tenantList.length && tenantList.map(item => {
+      console.log('item', item)
+      return (<View style={styles.listBox} key={item.userId}>
+        <View style={[styles.leftContent, styles.flex]}>
+          <Text style={[styles.labelTitle, styles.mainColor, styles.fontSize14]}>
+            {item.username || '--'}
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.rightContent} onPress={() => {
+          NavigatorService.navigate(AppRoute.TENANTLIST, {
+            houseId: params.houseId,
+            tenantId: item.userId,
+            roomNames: item.rooms
+          });
+        }}>
+          <Text
+            style={styles.rightText}>
+            {(item.tenantCount || 0) + '位住户'}
+          </Text>
+          <AntDesign
+            name="right"
+            style={styles.rightIcon}
+          />
+        </TouchableOpacity>
+      </View>)
+    })
+    return result || null
+  }
   return (
     <View style={styles.container}>
       {loading ? (
@@ -385,24 +413,14 @@ function HouseDetail(props) {
                     </View>
                     <View style={styles.rightContent}>
                       <Text
-                        style={{
-                          color: Theme.textSecondary,
-                          paddingRight: 20,
-                          fontSize: 14,
-                        }}>
+                        style={styles.rightText}>
                         {houseInfo.publishStatus === 'publish_pending'
                           ? '未发布'
                           : '已发布'}
                       </Text>
                       <AntDesign
                         name="right"
-                        style={{
-                          fontSize: 14,
-                          color: Theme.textSecondary,
-                          position: 'absolute',
-                          right: 0,
-                          top: 2,
-                        }}
+                        style={styles.rightIcon}
                       />
                     </View>
                   </View>
@@ -483,6 +501,7 @@ function HouseDetail(props) {
                     </TouchableOpacity>
                   </View>
                 </View>
+                {renderTenantList()}
               </View>
               <Button
                 full
@@ -575,5 +594,17 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
   },
+  rightText: {
+    color: Theme.textSecondary,
+    paddingRight: 20,
+    fontSize: 14,
+  },
+  rightIcon: {
+    fontSize: 14,
+    color: Theme.textSecondary,
+    position: 'absolute',
+    right: 0,
+    top: 2,
+  }
 });
 export default HouseDetail;

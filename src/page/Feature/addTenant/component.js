@@ -21,7 +21,7 @@ const data = {
 export default function AddTenant(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [cameraOptions, setCameraOptions] = useState(null)
-  const [roomList] = useState(props.roomList)
+  const [roomList, setRoomList] = useState([])
   const [house, setHouse] = useState({})
   const [houseTypeList, setHouseTypeList] = useState([])
   const [form, setForm] = useState(data)
@@ -32,7 +32,9 @@ export default function AddTenant(props) {
   }
   useEffect(() => {
     const { params } = props.route;
-    props.getRoomList({ houseId: params.id })
+    props.getRoomList({ houseId: params.id }, (res) => {
+      setRoomList(res.data)
+    })
   }, [props.route.params])
   // hose详情获取
   useEffect(() => {
@@ -40,6 +42,10 @@ export default function AddTenant(props) {
     setHouseTypeList(props.codeInfo.house_type);
     props.openCamera({ open: false, result: null })
     setHouse(props.houseDetail.data)
+    let type = props.houseDetail.data.type
+    if (type) {
+      type === FULL_RENT ? setSelectedIndex(0) : setSelectedIndex(1)
+    }
   }, [props.houseDetail])
 
   // 扫描结果获取
@@ -53,7 +59,7 @@ export default function AddTenant(props) {
     const { params } = props.route;
     let { houseType, roomIds, identificationType, identificationNo, mobile, name } = form
     let houseId = params.id
-    if (selectedIndex == 1) { // 扫码
+    if (selectedIndex == 0) { // 扫码
     } else { // 手动
       result = {
         houseId,
@@ -84,7 +90,6 @@ export default function AddTenant(props) {
           style={{ width: 115, height: 115 }}
         />
         <Button rounded full style={styles.scanBtn} onPress={() => { NavigatorService.goBack() }}>
-        {/* <Button rounded full style={styles.scanBtn} onPress={() => { props.openCamera({ open: true }) }}> */}
           <Text style={{ color: '#fff' }}>扫码添加住户</Text>
         </Button>
         <TouchableOpacity onPress={() => updateIndex(1)}>
@@ -100,7 +105,7 @@ export default function AddTenant(props) {
       if (cameraOptions.result.error || !data) {
         return (
           <TouchableOpacity onPress={() => { props.openCamera({ open: true }) }} style={styles.errorDes}>
-            <Text style={styles.errorColor}> {(cameraOptions.result && cameraOptions.result.error) || '无该用户，点击重新扫描'}</Text>
+            <Text style={styles.errorColor}>{(cameraOptions.result && cameraOptions.result.error) || '无该用户，点击重新扫描'}</Text>
           </TouchableOpacity>)
       }
       return (
@@ -140,6 +145,10 @@ export default function AddTenant(props) {
       })
     })
     array.push(cancel)
+    if (house.type) {
+      return (
+        <Text style={styles.dec}>{house.type === FULL_RENT ? '整租' : '合租'}</Text>)
+    }
     return (
       <Button transparent onPress={() => { showActionSheet(array, 'houseType') }}>
         <Text>{form.houseType === FULL_RENT ? '整租' : '合租'}</Text>
@@ -149,15 +158,16 @@ export default function AddTenant(props) {
   }
   // 房间渲染
   const renderRoomList = () => {
-    if (roomList && roomList.data && roomList.data.length) {
-      let result = roomList.data.map((item) => {
+    if (roomList && roomList.length) {
+      let result = roomList.map((item) => {
         let active = form.roomIds && form.roomIds.indexOf(item.id) > -1 && styles.activeColor
         return (<Button
           style={[styles.roomList, active]}
           onPress={() => selectRoom(item.id)}
           key={item.id}
           bordered
-        ><Text style={[styles.btnColor, active]}>{item.name}</Text></Button>)
+          disabled={item.tenantCount > 0 ? true : null}
+        ><Text style={[styles.btnColor, active]}>{item.name + (item.tenantCount > 0 && '(已租)')}</Text></Button>)
       })
       return (<View style={styles.roomListBox}>{result}</View>)
     } else {

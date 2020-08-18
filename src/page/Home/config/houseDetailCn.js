@@ -1,5 +1,3 @@
-import HouseDetail from "../Component/houseDetail";
-
 const houseLayoutCn = [
     {
         name: '朝向',

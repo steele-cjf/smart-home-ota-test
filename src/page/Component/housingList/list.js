@@ -86,7 +86,6 @@ function HouseListComponent(props) {
     }
   };
   const handleToDetailPage = item => {
-    console.log('item', item);
     NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, {id: item.id});
   };
 
@@ -95,7 +94,6 @@ function HouseListComponent(props) {
     if (isLoading) {
       return null;
     }
-
     return (
       <View style={styles.centerContainer}>
         <Text style={styles.normalTitle}>当前数据为空</Text>

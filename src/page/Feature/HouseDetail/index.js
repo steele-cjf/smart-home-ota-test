@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getHouseDetail, deleteHouse} from '../../../store/house/index';
+import {getHouseDetail, deleteHouse, getHouseTenantList} from '../../../store/house/index';
 import {getRoomList} from '../../../store/feature/index';
 
 import Component from './component';
@@ -10,7 +10,7 @@ function mapStateToProps(state) {
 }
 function matchDispatchToProps(dispatch) {
   return bindActionCreators(
-    {getHouseDetail, deleteHouse, getRoomList},
+    {getHouseDetail, deleteHouse, getRoomList, getHouseTenantList},
     dispatch,
   );
 }
