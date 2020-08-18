@@ -38,13 +38,13 @@ export default function AddTenant(props) {
   }, [props.route.params])
   // hose详情获取
   useEffect(() => {
-    // console.log('props.codeInfo.house_type', props.codeInfo)
     setHouseTypeList(props.codeInfo.house_type);
     props.openCamera({ open: false, result: null })
     setHouse(props.houseDetail.data)
     let type = props.houseDetail.data.type
+    console.log(type, 5555)
     if (type) {
-      type === FULL_RENT ? setSelectedIndex(0) : setSelectedIndex(1)
+      handleSetValue('houseType', type)
     }
   }, [props.houseDetail])
 
