@@ -39,14 +39,15 @@ function HouseDetail(props) {
   useFocusEffect(
     useCallback(() => {
       console.log('@@@@@@@@@@@@@')
-    })
+      init()
+    }, [props.route])
   )
-  useEffect(() => {
-    console.log(77777)
-    init();
-  }, [init]);
+  // useEffect(() => {
+  //   console.log(77777)
+  //   init();
+  // }, [init]);
 
-  const init = useCallback(() => {
+  const init = () => {
     const { params } = props.route;
     props.getHouseDetail(params.id, res => {
       if (!res.code) {
@@ -59,7 +60,7 @@ function HouseDetail(props) {
     props.getRoomList({ houseId: params.id }, res => {
       setRooms(res.data);
     });
-  });
+  };
 
   const alertDeleteModal = () => {
     Alert.alert('确定删除？', '', [
@@ -98,10 +99,7 @@ function HouseDetail(props) {
   };
   const handleToRoomPage = () => {
     NavigatorService.navigate(AppRoute.ROOM, {
-      id: houseInfo.id,
-      refresh: function () {
-        init();
-      },
+      id: houseInfo.id
     });
   };
   return (

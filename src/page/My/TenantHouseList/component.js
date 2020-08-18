@@ -58,13 +58,6 @@ function TenantHouseList(props) {
     });
   });
 
-  const goPublishHousePage = () => {
-    NavigatorService.navigate(AppRoute.PUBLISH, {
-      refresh: function() {
-        init();
-      },
-    });
-  };
   const openSettings = item => {
     const CANCEL_INDEX = 2;
     const BUTTONS = ['家庭成员', '临时钥匙', '取消'];
@@ -78,6 +71,13 @@ function TenantHouseList(props) {
       buttonIndex => {
         if (buttonIndex === CANCEL_INDEX) {
           return;
+        }
+        if (buttonIndex === 0) {
+          props.navigation.navigate(AppRoute.TENANTLIST, {
+            houseId: item.houseId,
+            tenantId: item.tenantUserId,
+            roomNames: item.roomNames
+          });
         }
         console.log('buttonIndex', buttonIndex);
       },

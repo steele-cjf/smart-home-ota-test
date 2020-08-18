@@ -234,7 +234,7 @@ export default function PublishHouse(props) {
       props.updatePublishInfo(result, publishId, res => {
         console.log('resEdit', res);
         if (!res.code) {
-          props.route.params.refresh();
+          // props.route.params.refresh();
           props.navigation.goBack();
         } else {
           showToast(res.message);
