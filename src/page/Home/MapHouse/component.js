@@ -38,6 +38,10 @@ function MapHouse(props) {
   const selectMarker = (item) => {
     setSelectItem(item)
     if (item) {
+      props.getMarkerList({
+        formattedAddress: item.formattedAddress}, res => {
+        console.log(3333, res.data.list)
+      })
       bottomSheetRef.current.snapTo(3)
     } else {
       bottomSheetRef.current.snapTo(snapIndex)

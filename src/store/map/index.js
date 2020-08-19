@@ -12,3 +12,29 @@ export function getSearchSummaries(data, callback) {
       }
     });
   }
+  export function getMarkerList(data, callback) {
+    let url = setUrlParams('/publish/search', data)
+    console.log('********', url)
+    return $get(url, {
+      actionType: 'MARKER_LIST',
+      successConfig: {
+        callback
+      },
+      failConfig: {
+        callback
+      }
+    });
+  }
+  export function getRecommandList(data, callback) {
+    let url = setUrlParams('/publish/recommand', data)
+    console.log('********', url)
+    return $get(url, {
+      actionType: 'RECOMMAND_LIST',
+      successConfig: {
+        callback
+      },
+      failConfig: {
+        callback
+      }
+    });
+  }

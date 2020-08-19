@@ -35,14 +35,6 @@ export function publishSetCollection(data, callback) {
     }
   });
 }
-// user info
-export function publishHouseDetail(state = null, action) {
-  if (action.type === 'PUBLISH_HOUSE_DETAIL') {
-    return action.data || null;
-  }
-  return state;
-}
 export default {
-  publishHouseDetail
 };
 

@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getSearchSummaries } from '../../../store/map/index';
+import { getSearchSummaries, getMarkerList } from '../../../store/map/index';
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
     return {};
 }
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({ getSearchSummaries }, dispatch);
+    return bindActionCreators({ getSearchSummaries, getMarkerList }, dispatch);
 }
 export default connect(
     mapStateToProps,

@@ -10,14 +10,12 @@ import {
   dictionaryMappings
 } from './common/index';
 import {roomList} from './feature/index';
-import {publishHouseDetail} from './publish/index';
 const allReducers = combineReducers({
   userInfo,
   houseDetail,
   cameraOpt,
   roomList,
   myHouseList,
-  publishHouseDetail,
   webSocketInfo,
   codeInfo,
   dictionaryMappings

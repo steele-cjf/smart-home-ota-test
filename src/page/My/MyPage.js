@@ -27,7 +27,7 @@ function MyPage(props) {
     // eslint-disable-next-line no-undef
     storage.get('info').then(res => {
       console.log('info', res);
-      // res.status = 'audit_pass';
+      res.status = 'audit_pass';
       setUserInfo(res);
     });
     storage.get('dictionaryMappings').then(res => {
@@ -54,7 +54,9 @@ function MyPage(props) {
         });
         break;
       case MORE_MENU.House_Collect:
-        RouteName = 'OperatingPage';
+        NavigatorService.navigate(AppRoute.HOUSECOLLECTIONLIST, {
+          screen: 'HouseCollectionList',
+        });
         break;
       case MORE_MENU.Setting:
         RouteName = 'SettingPage';

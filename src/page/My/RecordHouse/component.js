@@ -248,14 +248,6 @@ function RecordHouse(props) {
                     onPress={() => {
                       setModalVisible(true);
                     }}>
-                    {/* <Input
-                    value={regionName}
-                    disabled={true}
-                    onChangeText={setRegionId}
-                    placeholder="请选择 - 省 - 市 - 区"
-                    placeholderTextColor={Theme.textMuted}
-                    style={[{fontSize: 14}, styles.textAlignR]}
-                  /> */}
                     <Text
                       style={[
                         {fontSize: 14, paddingRight: 10},

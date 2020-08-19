@@ -5,25 +5,30 @@ import { Icon, Button, Left, Header, Text, Spinner } from 'native-base'
 import HouseDetail from '../Component/houseDetail'
 import { ScrollView } from 'react-native-gesture-handler';
 
-const img = require('../../../assets/images/mock/home1.jpg')
+const image = require('../../../assets/images/mock/home1.jpg')
 function PublicHouseDetail(props) {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
   const [code, setCode] = useState(true)
+  const [img, setImg] = useState(null)
   useEffect(() => {
     let { id } = props.route.params
-    props.getPublishHouseDetail(id)
+    props.getPublishHouseDetail(id, res => {
+      if (res && !res.code && res.data) {
+        setData(Object.assign({}, res.data))
+        setLoading(false)
+        let picture = res.data.houseAddition.images
+        if(picture && picture.length) {
+          setImg({uri: picture[0]})
+        } else {
+          setImg(image)
+        }
+      }
+    })
     setCode(props.dictionaryMappings)
   }, [])
-  useEffect(() => {
-    let res = props.publishHouseDetail
-    if (res && !res.code && res.data) {
-      setData(Object.assign({}, res.data))
-      setLoading(false)
-    }
-  }, [props.publishHouseDetail])
   const setCollection = (data, callback) => {
-    props.publishSetCollection(data,callback)
+    props.publishSetCollection(data, callback)
   }
   return (
     <View style={styles.container}>
