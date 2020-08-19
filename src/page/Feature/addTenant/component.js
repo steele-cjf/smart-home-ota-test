@@ -42,7 +42,6 @@ export default function AddTenant(props) {
     props.openCamera({ open: false, result: null })
     setHouse(props.houseDetail.data)
     let type = props.houseDetail.data.type
-    console.log(type, 5555)
     if (type) {
       handleSetValue('houseType', type)
     }

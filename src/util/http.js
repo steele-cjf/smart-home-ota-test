@@ -55,7 +55,7 @@ export const httpService = (url, config) => {
     }
     console.log(config.headers.Authorization, url, 'token');
     return fetch(appApi + url, config)
-      .then(response => response.json())
+      .then(response => {console.log(1111, response);return response.json()})
       .then(response => {
         // console.log('response', response);
         if (config.actionType) {

@@ -20,7 +20,6 @@ import {
 } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import HouseBaseInfo from '../../Component/houseBaseInfo';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import { Divider } from 'react-native-elements';
 import Theme from '../../../style/colors';
@@ -80,7 +79,6 @@ function HouseDetail(props) {
   };
   const handlerDelete = () => {
     props.deleteHouse({ id: props.route.params.id }, res => {
-      console.log('res', res);
       if (!res.code) {
         showToast('删除成功');
         props.route.params.refresh();
@@ -105,7 +103,6 @@ function HouseDetail(props) {
   const renderTenantList = () => {
     const { params } = props.route;
     let result = tenantList.length && tenantList.map(item => {
-      console.log('item', item)
       return (<View style={styles.listBox} key={item.userId}>
         <View style={[styles.leftContent, styles.flex]}>
           <Text style={[styles.labelTitle, styles.mainColor, styles.fontSize14]}>

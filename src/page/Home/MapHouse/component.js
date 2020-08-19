@@ -9,15 +9,29 @@ import BottomSheet from 'reanimated-bottom-sheet'
 
 let h = Dimensions.get('window').height
 const snapPoints = [0.6 * h, 0.5 * h, 0.4 * h, 0.3 * h, 0.2 * h, 0.1 * h, 0]
-function MapHouse() {
+function MapHouse(props) {
   const [snapIndex] = useState(3)
   const [selectItem, setSelectItem] = useState()
+  const mapRef = useRef()
   const bottomSheetRef = React.useRef(null)
   useEffect(() => {
-  }, [])
+    console.log(888, mapRef.current.getWest)
+  }, [mapRef])
   const selectMarker = (item) => {
     setSelectItem(item)
     bottomSheetRef.current.snapTo(snapIndex)
+  }
+  const searchMarker = (loc) => {
+    let { latitude, longitude, latitudeDelta, longitudeDelta } = loc.region
+    let bottom = latitude - latitudeDelta / 2
+    let left = longitude - longitudeDelta / 2
+    let right = longitude + longitudeDelta / 2
+    let top = latitude + latitudeDelta / 2
+    let data = { bottom, left, top, right, bottom }
+    console.log(88, data)
+    props.getSearchSummaries(data, res => {
+      console.log(res, 333333)
+    })
   }
   const renderMarker = () => {
     var markers = []
@@ -52,8 +66,15 @@ function MapHouse() {
   }
   return (
     <View style={{ flex: 1 }}>
-      <Text>dfsadfsa</Text>
-      <MapView style={{ flex: 1 }} zoomLevel={6}>
+      <Button onPress={() => {
+        console.log(mapRef)
+      }}><Text>dfsadfsa</Text></Button>
+      <MapView style={{ flex: 1 }}
+        zoomLevel={6}
+        onStatusChangeComplete={(region) => {
+          searchMarker(region)
+        }}
+        ref={mapRef}>
         {renderMarker()}
       </MapView >
       <BottomSheet
