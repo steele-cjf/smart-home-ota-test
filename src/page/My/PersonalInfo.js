@@ -29,8 +29,6 @@ const PersonalInfoPage = (props) => {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('ImagePicker_Response = ', response);
-    
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -38,12 +36,14 @@ const PersonalInfoPage = (props) => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.uri };
-        console.log('source*******kkk: ', source);
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-        //setImageForm();
-        setAvatarSource(source);
+        setHeadImage({uri: response.uri});
+
+        let imageObj = {
+          uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
+          name: response.fileName || 'upload.jpg',
+          type: response.type,
+        };
+        setImageObj(imageObj);
       }
     });
   }
@@ -55,7 +55,6 @@ const PersonalInfoPage = (props) => {
   function handleInfo() {
     props.getUserInfo(res => {
       console.log('getPersonalInfo_userInfo:', res);
-      console.log(6666, res.message);
       setLoading(false);
 
       if (!res.code) {
@@ -67,40 +66,42 @@ const PersonalInfoPage = (props) => {
   }
 
   function dealDataRefresh(data) { 
+    var sex = props.dictionaryMappings.gender[data.gender];
+    
     const actualBasicData = [
       {title: "真实姓名", content: data.name},
-      {title: "性别", content: data.gender},
+      {title: "性别", content: sex},
       {title: "出生日期", content: data.birthDate},
       {title: "证件号", content: data.identificationNo},
       {title: "手机号码", content: data.mobile},
     ];
 
-    const actualOtherData = [
-      {title: "教育程度", content: data.educationLevel},
-      {title: "所在区域", content: data.regionId},
-      {title: "详细地址", content: data.address}, //identificationAddress
-    ];
+    const actualOtherData = {
+      "教育程度": data.educationLevel,
+      "所在区域": data.regionId,
+      "详细地址": data.address, 
+    };
 
     setBasicData(actualBasicData);
     setOtherData(actualOtherData);
+
+    if (data.avatarImageUrl) {
+      setHeadImage({uri: data.avatarImageUrl});
+    }
   }
 
   //请求保存数据
   function saveOtherDataInfo() {
-
     var result = new FormData();
-    result.append('address', 'Test地址随便1');
-
-    const result2 = {
-      address: 'Test地址随便1',
-    };
-
-    //changeToForm(result); //???
-    //result.append('userId', props.userInfo.data.id);
-    //result.append('userImage', avatarSource); //headImage
-
-    // result.append('address', 'Test地址随便1');
-    console.log('result: ******:  ', result);
+    result.append('educationLevel', otherData['教育程度']);
+    result.append('regionId', otherData['所在区域']);
+    result.append('address', otherData['详细地址']);
+  
+    if (imageObj) {
+      result.append('avatarImage', imageObj);
+    }
+    
+    console.log('传入avatarImage: **:  ', imageObj);
 
     const userId = props.userInfo.data.id;
     props.modifyPersonalInfo(userId, result, res => {
@@ -108,7 +109,7 @@ const PersonalInfoPage = (props) => {
 
       if (!res.code) {
         showToast("修改成功");
-        dealDataRefresh(res.data);
+        NavigatorService.goBack();
       } else {
         showToast("90909"+res.message);
       }
@@ -116,10 +117,16 @@ const PersonalInfoPage = (props) => {
 
   }
   
+  const setSaveData = (key, value) => {
+    let data = Object.assign({}, otherData);
+    data[key] = value;
+    setOtherData(data);
+  };
+
   const [basicData, setBasicData] = useState([]);
-  const [otherData, setOtherData] = useState([]);
-  const [avatarSource, setAvatarSource] = useState(null);
-  //const [headImage, setHeadImage] = useState([]);
+  const [otherData, setOtherData] = useState({});
+  const [headImage, setHeadImage] = useState({});
+  const [imageObj, setImageObj] = useState(null);
   const [loading, setLoading] = useState(true);
 
   return (
@@ -127,10 +134,10 @@ const PersonalInfoPage = (props) => {
     <View style={styles.containerStyle}>
       <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
         <Text style={styles.textTitle}>头像</Text>
-        <Image style={styles.headImageStyle} source={avatarSource} />
+        <Image style={styles.headImageStyle} source={headImage} />
         <AntDesign name="right" style={styles.rightArrow} />
       </TouchableOpacity>
-      <View style={styles.sigContainer}>
+      <View style={[styles.sigContainer, {paddingBottom: 10}]}>
         <Text style={[styles.textTitle, styles.fontSize16]}>基本资料</Text>
         {
           basicData.map((item, index) => { 
@@ -143,13 +150,15 @@ const PersonalInfoPage = (props) => {
           })
         }
       </View>
-      {
-        otherData.map((item, index) => { 
+      { 
+        Object.keys(otherData).map((item, index) => { 
           return (
             <View style={styles.sigContainer}>
-              <Text style={[styles.textTitle, styles.colorDefault]}>{item.title}</Text>
-              <TextInput style={[styles.textContent, styles.rightInput]}>{item.content}</TextInput>
-              {/* {(index === 0 || index === 1) && <AntDesign name="right" style={styles.rightArrow} /> } */}
+              <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
+              <TextInput style={[styles.textContent,]} //styles.rightInput
+                onChangeText={(text) => {setSaveData(item, text);}}
+                value={otherData[item]}
+             />
             </View>
           ); 
         })
@@ -170,9 +179,8 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.background,
   },
   headContainer: {
-    //marginBottom: 10,
-    marginVertical: 10,
-    //backgroundColor: '#FFECEC',
+    marginTop: 16,
+    marginBottom: 16,
   },
   headImageStyle: {
     position: 'absolute',
@@ -180,30 +188,29 @@ const styles = StyleSheet.create({
     height: 48, 
     width: 48,
     borderRadius: 24,
-    backgroundColor: 'yellow',
+    backgroundColor: 'gray',
   },
   sigContainer: {
     borderBottomWidth: 1,
     borderBottomColor: '#E9E9E9',
-    //backgroundColor: 'yellow',
   },
   textTitle: {
-    paddingVertical: 16,
+    paddingVertical: 18,
     fontSize: 14,
     color: Theme.textDefault,
-    //backgroundColor: 'red',
   },
   fontSize16: {
     fontSize: 16,
   },
   colorSecondary: {
     color: Theme.textSecondary,
+    paddingVertical: 10,
   },
   textContent: {
     position: 'absolute',
     left: 80,
     right: 0,
-    paddingVertical: 10,
+    paddingVertical: 18,
     textAlign: 'right',
     fontSize: 14,
     color: Theme.textDefault,
@@ -211,15 +218,14 @@ const styles = StyleSheet.create({
   rightInput: {
     fontSize: 14,
     paddingRight: 24,
-    //backgroundColor: 'red',
   },
   rightArrow: {
     position: 'absolute', 
-    right: 0, 
-    top: 10,
+    right: -3, 
+    top: 17,
     fontSize: 14, 
     color: Theme.textSecondary, 
-    //backgroundColor: 'red'
+    textAlign: 'right',
   },
   btnStyle: {
     position: 'absolute',
@@ -244,6 +250,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     userInfo: state.userInfo,
+    dictionaryMappings: state.dictionaryMappings
   };
 }
 

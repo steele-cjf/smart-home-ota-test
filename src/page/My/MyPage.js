@@ -63,7 +63,10 @@ function MyPage(props) {
         RouteName = 'PrivacyPage';
         break;
       case MORE_MENU.Feedback:
-        RouteName = 'FeedbackPage';
+        //RouteName = 'FeedbackPage';
+        NavigatorService.navigate(AppRoute.SUGGESTION, {
+          screen: 'SuggestionPage',
+        });
         break;
     }
   }
