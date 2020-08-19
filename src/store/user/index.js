@@ -17,3 +17,15 @@ export function modifyPersonalInfo(id, data, callback) {
     },
   });
 }
+
+export function addUserFeedback(data, callback) {
+  return $post('/feedback', {
+    body: data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    successConfig: {
+      callback,
+    },
+  });
+}

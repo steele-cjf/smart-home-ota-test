@@ -46,7 +46,10 @@ function MyPage(props) {
         // RouteName = 'Owner';
         break;
       case MORE_MENU.About:
-        RouteName = 'AboutPage';
+        //RouteName = 'AboutPage';
+        NavigatorService.navigate(AppRoute.ABOUT, {
+          screen: 'AboutPage',
+        });
         break;
       case MORE_MENU.Tenement:
         NavigatorService.navigate(AppRoute.TENANTHOUSELIST, {
@@ -60,7 +63,10 @@ function MyPage(props) {
         RouteName = 'SettingPage';
         break;
       case MORE_MENU.Privacy_Policy:
-        RouteName = 'PrivacyPage';
+        //RouteName = 'PrivacyPage';
+        NavigatorService.navigate(AppRoute.AGREEMENT, {
+          screen: 'AgreementPage',
+        });
         break;
       case MORE_MENU.Feedback:
         //RouteName = 'FeedbackPage';
