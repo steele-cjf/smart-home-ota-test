@@ -1,98 +1,143 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
-import {Form, Textarea} from 'native-base'
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Spinner, Form, Textarea } from 'native-base'
 import ImageUpload from '../Component/imageUpload'
 import Theme from '../../style/colors';
- 
 
-// import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
-// import {getUserInfo} from '../../store/home/index';
-// import {modifyPersonalInfo} from '../../store/user/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addUserFeedback } from '../../store/user/index';
+import showToast from '../../util/toast';
 
+//问题1. 图片超过4张容易出错
+const SuggestionPage = (props) => {
 
-export default SuggestionPage = (props) => { 
+  const setImageForm = (index, obj) => {
+    let dataArr = Object.assign([], formImages);
+    if (!obj) {
+      if (dataArr.length === 6 && dataArr[5] !== '') {
+        console.log('&&&&&&&&&&&&&&&')
+        dataArr.push('');
+      }  
+      dataArr.splice(index, 1); 
+    } else {
+      dataArr[index] = obj;
+      if (dataArr.length < 6) {
+        dataArr.push('');
+      }
+    }
 
-  const setImageForm = (type, obj) => {
-    let data = Object.assign([], formImage);
-    data[type] = obj;
-    setFormImage(data);
+    setFormImages(dataArr);
   };
-
-  function setContactInfo2(text) {
-    setContactInfo(text);
-  }
 
   function submitInfo() {
 
-    //console.log('formImage***: ', formImage);
-
-    var result = new FormData();
-    result.append('contactInfo', contactInfo);
-
-    for (var i in formImage) {
-      result.append('images', formImage[i]);
+    if (describeInfo.length === 0) {
+      showToast('请输入具体内容')
+      return;
+    } else if (contactInfo.length === 0) {
+      console.log(551, contactInfo)
+      showToast('请输入联系方式')
+      return;
+    } else if (formImages.length < 2) {
+      showToast('请至少上传一张图片')
+      return;
     }
 
+    const userId = props.userInfo.data.id;
+
+    var result = new FormData();
+    result.append('userId', userId);
+    result.append('contactInfo', contactInfo);
+    result.append('content', describeInfo);
+
+    for (var i in formImages) {
+      result.append('images', formImages[i]);
+    }
+
+    console.log('formImages***: ', formImages);
     console.log('result***: ', result);
+
+    setLoading(true);
+
+    props.addUserFeedback(result, res => {
+      setLoading(false);
+      console.log('addUserFeedback****kkkk:', res);
+      
+      if (!res.code) {
+        showToast("提交成功");
+        NavigatorService.goBack();
+      } else {
+        showToast("90909" + res.message);
+      }
+    });
 
   }
 
   
-
   const [contactInfo, setContactInfo] = useState('');
-  const [formImage, setFormImage] = useState([]);
+  const [describeInfo, setDescribeInfo] = useState('');
+  const [formImages, setFormImages] = useState(['']);
+  const [loading, setLoading] = useState(false);
+
+  const renderImage = () => {
+    return (
+      formImages.map((item, index) => {
+        //console.log(item.uri, '777777')
+        return (
+          <ImageUpload setImageForm={(obj) => setImageForm(index, obj)} imgUrl={item.uri || ''}/>
+        )
+      })
+    );
+  }
 
   return (
-    <View style={styles.containerStyle}> 
+    loading ? <Spinner></Spinner> :
+    <View style={styles.containerStyle}>
       <Text style={styles.topTextStyle1}>反馈详情</Text>
       <Text style={styles.topTextStyle1}>反馈描述</Text>
       <Form>
-          <Textarea
-            style={{backgroundColor: Theme.cardBackground}}
-            rowSpan={5}
-            placeholder="请输入具体反馈内容"
-          />
+        <Textarea
+          style={{ backgroundColor: Theme.cardBackground }}
+          rowSpan={5}
+          placeholder="请输入具体反馈内容"
+          onChangeText={(text) => { setDescribeInfo(text); }}
+        //onChange={e => {setData('description', e.nativeEvent.text, 'houseAddition');}}
+        //value={}
+        />
       </Form>
       <View>
         <Text style={[styles.textTitle, styles.colorDefault]}>联系方式</Text>
         <TextInput style={styles.textContent}
           placeholder='手机/邮箱/QQ'
           placeholderTextColor={Theme.textMuted}
-          onChangeText={(text) => {setContactInfo2(text);}}
-          //value=''
+          onChangeText={(text) => { setContactInfo(text); }}
+          // onChangeText={(e) => { setContactInfo(e.nativeEvent.text); }} ???
+          // value={'ddd'}
         />
       </View>
-      <Text style={[styles.topTextStyle1, styles.space]}>{'照片上传'}</Text> 
-      <Text style={[styles.topTextStyle1, styles.space]}>{'最多6张'}</Text> 
+      <Text style={[styles.topTextStyle1, styles.space]}>{'照片上传'}</Text>
+      <Text style={[styles.topTextStyle1, styles.space]}>{'最多6张'}</Text>
       <View style={styles.ImageBox}>
-        <ImageUpload setImageForm={(obj) => setImageForm(0, obj)} />
-        <ImageUpload setImageForm={(obj) => setImageForm(1, obj)} />
-        <ImageUpload setImageForm={(obj) => setImageForm(2, obj)} />
+        {
+          renderImage()
+        }
       </View>
-      <View style={styles.ImageBox}>
-        <ImageUpload setImageForm={(obj) => setImageForm(3, obj)} />
-        <ImageUpload setImageForm={(obj) => setImageForm(4, obj)} />
-        <ImageUpload setImageForm={(obj) => setImageForm(5, obj)} />
-      </View>
-
-      <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}> 
+      <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}>
         <Text style={styles.btnTextStyle}>提交</Text>
       </TouchableOpacity>
     </View>
-
-
   );
 
 }
 
 
-const styles = StyleSheet.create({  
+const styles = StyleSheet.create({
   headerText: {
-    color: '#527BDF', 
+    color: '#527BDF',
     fontSize: 16,
-    justifyContent: 'center', 
-    paddingTop: 5, 
+    justifyContent: 'center',
+    paddingTop: 5,
   },
   containerStyle: {
     flex: 1,
@@ -101,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.background,
   },
   topViewFail: {
-    height: 70, 
+    height: 70,
     padding: 12,
     borderRadius: 4,
     marginBottom: 10,
@@ -138,9 +183,16 @@ const styles = StyleSheet.create({
     marginTop: 45,
   },
   ImageBox: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
+    // flexDirection: "row",
+    // justifyContent: "space-between",
+    // marginTop: 20,
+
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    // justifyContent: 'space-around',
+    //justifyContent: "space-between",
+    paddingTop: 16,
+    //backgroundColor: 'red',
   },
   imageStyle: {
     width: 116,
@@ -164,7 +216,26 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16, 
-    color: '#FFFFFF', 
+    fontSize: 16,
+    color: '#FFFFFF',
   },
 });
+
+
+// reducer获取
+function mapStateToProps(state) {
+  return {
+    userInfo: state.userInfo,
+  };
+}
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ addUserFeedback }, dispatch);
+}
+
+const VSuggestionPage = connect(
+  mapStateToProps,
+  matchDispatchToProps
+)(SuggestionPage);
+
+export default VSuggestionPage;

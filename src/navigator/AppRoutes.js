@@ -7,6 +7,8 @@ export const AppRoute = {
   MY: 'MyPage',
   PERSONALINFO: 'PersonalInfo',
   SUGGESTION: 'SuggestionPage',
+  ABOUT: 'AboutPage',
+  AGREEMENT: 'AgreementPage',
   IDCARDVERTIFY: 'IdCardVertifyPage',
   PASSPORTVERTIFY: 'PassportVertifyPage',
   VERDETAILS: 'VertifyDetailsPage',

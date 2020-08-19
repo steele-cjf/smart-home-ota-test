@@ -3,6 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import MyPage from '../page/My/MyPage';
 import PersonalInfo from '../page/My/PersonalInfo';
 import Suggestion from '../page/My/SuggestionPage';
+import About from '../page/My/AboutPage';
+import Agreement from '../page/Login/Agreement';
 import MyHouseList from '../page/My/MyHouseList';
 import HouseDetail from '../page/Feature/HouseDetail';
 import RecordHouse from '../page/My/RecordHouse';
@@ -47,6 +49,22 @@ export const MyPageStackComponent = () => {
         component={Suggestion}
         options={{
           title: '意见反馈',
+          headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.ABOUT}
+        component={About}
+        options={{
+          title: '关于我们',
+          headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.AGREEMENT}
+        component={Agreement}
+        options={{
+          title: '房屋租赁服务协议',
           headerBackTitle: '返回',
         }}
       />
