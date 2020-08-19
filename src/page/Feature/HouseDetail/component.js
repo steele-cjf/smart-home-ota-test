@@ -20,7 +20,6 @@ import {
 } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import HouseBaseInfo from '../../Component/houseBaseInfo';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import { Divider } from 'react-native-elements';
 import Theme from '../../../style/colors';
@@ -105,7 +104,8 @@ function HouseDetail(props) {
   const renderTenantList = () => {
     const { params } = props.route;
     let result = tenantList.length && tenantList.map(item => {
-      console.log('item', item)
+      const rooms = item.rooms.map(item => {return item.name});
+      console.log('rooms', item);
       return (<View style={styles.listBox} key={item.userId}>
         <View style={[styles.leftContent, styles.flex]}>
           <Text style={[styles.labelTitle, styles.mainColor, styles.fontSize14]}>
@@ -114,9 +114,9 @@ function HouseDetail(props) {
         </View>
         <TouchableOpacity style={styles.rightContent} onPress={() => {
           NavigatorService.navigate(AppRoute.TENANTLIST, {
-            houseId: params.houseId,
+            houseId: params.id,
             tenantId: item.userId,
-            roomNames: item.rooms
+            roomNames: rooms
           });
         }}>
           <Text

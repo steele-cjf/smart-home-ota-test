@@ -8,46 +8,15 @@ import Feather from 'react-native-vector-icons/Feather';
 import showToast from '../../../util/toast';
 
 function TenantHouseList(props) {
-  const [loading, setLoading] = useState(false);
-  const [houseList, setHouseList] = useState([
-    {
-      address: '天健时尚空间',
-      regionFullName: '深圳市宝安区',
-      status: true,
-      houseLayout: {
-        direction: 'east',
-        floor: 2,
-        floorCount: 5,
-        hallCount: 1,
-        hasElevator: true,
-        roomCount: 1,
-        toiletCount: 1,
-        area: 20,
-      },
-    },
-    {
-      address: '天健时尚空间',
-      regionFullName: '深圳市宝安区',
-      status: false,
-      houseLayout: {
-        direction: 'east',
-        floor: 2,
-        floorCount: 5,
-        hallCount: 1,
-        hasElevator: true,
-        roomCount: 1,
-        toiletCount: 1,
-        area: 20,
-      },
-    },
-  ]);
+  const [loading, setLoading] = useState(true);
+  const [houseList, setHouseList] = useState([]);
   useEffect(() => {
-    // init();
+    init();
   }, [init]);
 
   const init = useCallback(() => {
     props.getTenantHouseList({pageNum: 1, pageSize: 100}, res => {
-      console.log('houseList', res.data.list);
+      console.log('houseList', res);
       if (!res.code) {
         if (res.data) {
           const list = res.data.list;

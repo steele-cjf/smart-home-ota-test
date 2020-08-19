@@ -58,6 +58,15 @@ export function getTenantHouseList(data, callback) {
     },
   });
 }
+// 房源收藏列表
+export function getHouseCollectionList(data, callback) {
+  return $get('houseCollection/listMine', {
+    queryData: data,
+    successConfig: {
+      callback,
+    }
+  })
+}
 // HOUSE_DETAIL
 export function houseDetail(state = null, action) {
   if (action.type === 'HOUSE_DETAIL') {

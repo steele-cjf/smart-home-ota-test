@@ -9,7 +9,7 @@ import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
   return {
-    houseDetail: state.houseDetail,
+    dictionaryMappings: state.dictionaryMappings,
   };
 }
 function matchDispatchToProps(dispatch) {
