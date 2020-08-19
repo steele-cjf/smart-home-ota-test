@@ -14,6 +14,7 @@ import RoomPage from '../page/Feature/roomPage';
 import TenantHouseList from '../page/My/TenantHouseList';
 import TenantList from '../page/Feature/TenantList';
 import AddTenant from '../page/Feature/addTenant';
+import HouseCollectionList from '../page/My/HouseCollectionList'
 
 import {AppRoute} from './AppRoutes';
 
@@ -132,6 +133,14 @@ export const MyPageStackComponent = () => {
         component={TenantList}
         options={{
           headerShown: false,
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.HOUSECOLLECTIONLIST}
+        component={HouseCollectionList}
+        options={{
+          title: '房源收藏',
+          headerBackTitle: '返回',
         }}
       />
     </MyPageNavigator.Navigator>

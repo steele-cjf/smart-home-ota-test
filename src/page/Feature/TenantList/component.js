@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList, Alert} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   Header,
@@ -16,14 +16,11 @@ import {
 } from 'native-base';
 import Theme from '../../../style/colors';
 import showToast from '../../../util/toast';
+import { AppRoute } from '../../../navigator/AppRoutes';
 
 export default function TenantList(props) {
-  const [loading, setLoading] = useState(false);
-  const [tenantList, setTenantList] = useState([
-    {gender: '女', status: '待审核', userName: 'xiaoming', userId: '3'},
-    {gender: '男', status: '审核失败', userName: 'xiaoming', userId: '2'},
-    {gender: '女', status: '待审核', userName: 'xiaoming', userId: '5'},
-  ]);
+  const [loading, setLoading] = useState(true);
+  const [tenantList, setTenantList] = useState([]);
   const [houseId, setHouseId] = useState('');
   const [tenantId, setTenantId] = useState('');
   const [houseInfo, setHouseInfo] = useState({});
@@ -34,54 +31,27 @@ export default function TenantList(props) {
 
   const init = useCallback(() => {
     const {params} = props.route;
+    console.log('params', props.dictionaryMappings);
     setHouseId(params.houseId);
     setTenantId(params.tenantId);
     
-    // props.getHouseDetail(params.houseId, res => {
-    //     if (!res.code) {
-    //       if (res.data) {
-    //         setHouseInfo(res.data);
-    //         setLoading(false);
-    //       }
-    //     }
-    //   });
-    // props.getTenantList({houseId: params.id, tenantUserId: params.tenantId}, res => {
-    //   if (!res.code) {
-    //     setTenantList(res.data);
-    //     setLoading(false);
-    //   }
-    // });
-  });
-
-  const handlerDelete = item => {
-    setLoading(true);
-    console.log('ddd', item.id);
-    props.deleteRoom(item.id, res => {
+    props.getHouseDetail(params.houseId, res => {
+        if (!res.code) {
+          if (res.data) {
+            setHouseInfo(res.data);
+            setLoading(false);
+          }
+        }
+      });
+    props.getTenantList({houseId: params.houseId, tenantUserId: params.tenantId}, res => {
+      console.log('tenant', res)
       if (!res.code) {
-        showToast('删除成功');
-        fetchRoomList();
-      } else {
-        showToast(res.message);
+        console.log('tenant', res.data)
+        setTenantList(res.data);
         setLoading(false);
       }
     });
-  };
-  const createTwoButtonAlert = (item, index) =>
-    Alert.alert('确定删除？', '', [
-      {
-        text: '取消',
-        onPress: () => console.log('Cancel Pressed'),
-      },
-      {text: '确定', onPress: () => handlerDelete(item)},
-      {
-        // cancelable and onDismiss only work on Android.
-        cancelable: true,
-        onDismiss: () =>
-          console.log(
-            'This alert was dismissed by tapping outside of the alert dialog.',
-          ),
-      },
-    ]);
+  });
   const goToPage = () => {
     props.navigation.goBack();
   };
@@ -89,10 +59,10 @@ export default function TenantList(props) {
     return (
       <View style={styles.room_item_style}>
         <View style={styles.left_content}>
-          <Text style={styles.main_color}>{item.userName}- {item.gender}</Text>
+          <Text style={styles.main_color}>{item.userName} - {item.gender}</Text>
         </View>
         <View style={styles.icon_content}>
-          <Text style={styles.status_style}>{item.status}</Text>
+          <Text style={styles.status_style}>{props.dictionaryMappings.tenant_status[item.status]}</Text>
           <AntDesign
           name="right"
           size={12}
@@ -117,7 +87,7 @@ export default function TenantList(props) {
           <Title>家庭成员</Title>
         </Body>
         <Right>
-          <Button transparent onPress={() => addRoom()}>
+          <Button transparent onPress={() => NavigatorService.navigate(AppRoute.ADDTENANT, {id: houseId})}>
             <Text>新增成员</Text>
           </Button>
         </Right>
@@ -135,6 +105,18 @@ export default function TenantList(props) {
                 {houseInfo.regionFullName}
               </Text>
               <Text style={styles.main_color}>{houseInfo.address}</Text>
+            </View>
+          </View>
+          <View style={styles.house_address}>
+            <View style={{width: 70}}>
+              <Text style={{color: '#7C7C7C'}}>所属房间</Text>
+            </View>
+            <View style={{alignItems: 'flex-end'}}>
+              {props.route.params.roomNames.map(item => {
+                return (
+                  <Text style={[styles.main_color, styles.MT_5]}>{item}</Text>
+                )
+              })}
             </View>
           </View>
           {/* <Divider /> */}
