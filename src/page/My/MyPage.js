@@ -111,6 +111,7 @@ function MyPage(props) {
                 />
               </View>
               <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
+              {/* <TouchableOpacity TouchableOpacity onPress={() => {NavigatorService.navigate(AppRoute.VERDETAILS, {userId: "488370132808122368"});}} > */}
                 <View style={[styles.flex, styles.InfoBox]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Thumbnail

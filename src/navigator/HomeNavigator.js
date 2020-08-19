@@ -80,14 +80,6 @@ export const HomeStackComponent = () => {
         }}
       />
       <HomeStack.Screen
-        name={AppRoute.PERSONALINFO}
-        component={PersonalInfo}
-        options={{
-          title: '个人信息',
-          headerBackTitle: '返回',
-        }}
-      />
-      <HomeStack.Screen
         name={AppRoute.UNRECORD}
         component={UnrecordedHouse}
         options={{

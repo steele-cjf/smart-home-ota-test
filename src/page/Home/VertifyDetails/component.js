@@ -20,6 +20,11 @@ const auth_status = {
     reasonDesc: '',
     btnTitle: '',
   },
+  'audit_pass': {
+    title: '实名认证通过',
+    reasonDesc: '',
+    btnTitle: 'Test',
+  },
 }
 
 export default function VertifyDetailsPage(props) {
@@ -35,12 +40,19 @@ export default function VertifyDetailsPage(props) {
   //async function getAuthInfo() {
   function getAuthInfo() {
     // var info = await storage.get('info');
-    // userId = info.id;
-    var info = props.userInfo;
-    userId = info.data.id;
+    // userId = info.id;  
 
+    var info = props.userInfo;
+    let userId = info.data.id;
+
+    const {params} = props.route;
+    console.log('params******', params);
+    if (params) {
+      userId = params.userId;
+    } 
+    
     props.getManualAuditInfo(userId, res => {
-      //console.log('*******AuditInfo-kk:*******', res);
+      console.log('*******AuditInfo-kk:*******', res);
       setLoading(false);
 
       if (!res.code) {
