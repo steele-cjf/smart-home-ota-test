@@ -1,6 +1,6 @@
-import {stringify} from 'query-string';
-import {appApi} from '../config';
-import {showToast} from './toast';
+import { stringify } from 'query-string';
+import { appApi } from '../config';
+import { showToast } from './toast';
 import storage from './storage';
 
 // 默认配置
@@ -55,9 +55,8 @@ export const httpService = (url, config) => {
     }
     console.log(config.headers.Authorization, url, 'token');
     return fetch(appApi + url, config)
-      .then(response => {console.log(1111, response);return response.json()})
+      .then(response => response.json())
       .then(response => {
-        // console.log('response', response);
         if (config.actionType) {
           dispatch({
             type: config.actionType,

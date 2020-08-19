@@ -10,7 +10,6 @@ function matchDispatchToProps(dispatch) {
     return bindActionCreators({ getSearchSummaries }, dispatch);
 }
 export default connect(
-    //   mapStateToProps,
-    //   matchDispatchToProps,
-    mapStateToProps, matchDispatchToProps
+    mapStateToProps,
+    matchDispatchToProps
 )(Component);
