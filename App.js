@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, forwardRef } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text, AppState } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 // import {SafeAreaProvider} from 'react-native-safe-area-context';
 import { AppNavigator } from './src/navigator/AppNavigator';
@@ -20,11 +20,27 @@ export default (props) => {
       setLoading(false);
       NavigatorService.setContainer(navigatorRef.current)
     })();
+    console.log()
   }, []);
 
   useEffect(() => {
     console.log(999)
   }, [props.AppRoute])
+
+  // test appState
+  const [appState, setAppState] = useState(AppState.currentState);
+  const handleAppStateChange = (state) => {
+    setAppState(state);
+  }
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange);
+    return (() => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    })
+  }, []);
+  useEffect(() => {
+    console.log(appState);
+  });
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
