@@ -54,7 +54,9 @@ function MyPage(props) {
         });
         break;
       case MORE_MENU.House_Collect:
-        RouteName = 'OperatingPage';
+        NavigatorService.navigate(AppRoute.HOUSECOLLECTIONLIST, {
+          screen: 'HouseCollectionList',
+        });
         break;
       case MORE_MENU.Setting:
         RouteName = 'SettingPage';

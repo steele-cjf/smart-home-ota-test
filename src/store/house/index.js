@@ -60,7 +60,7 @@ export function getTenantHouseList(data, callback) {
 }
 // 房源收藏列表
 export function getHouseCollectionList(data, callback) {
-  return $get('houseCollection/listMine', {
+  return $get('/houseCollection/listMine', {
     queryData: data,
     successConfig: {
       callback,
