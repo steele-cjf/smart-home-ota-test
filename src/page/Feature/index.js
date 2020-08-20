@@ -20,18 +20,19 @@ function FeaturePage(props) {
   const [actionSheet, setActionSheet] = useState(null);
 
   useEffect(() => {
-    getHouseList();
-  }, [getHouseList]);
+    props.getMyHouseList() // 获取本人的房源
+  }, []);
 
-  const getHouseList = useCallback(() => {
+  useEffect(() => {
     // 获取本人的房源
     if (props.myHouseList && props.myHouseList.data) {
-      let {data} = props.myHouseList;
-      setHouseList(data);
-      data.length && setSelectHouse(data[0]);
+      let { data } = props.myHouseList
+      setHouseList(data)
+      data.length && setSelectHouse(data[0])
     }
     setLoading(false);
-  });
+  }, [props.myHouseList])
+
   useEffect(() => {
     let user = props.userInfo && props.userInfo.data && props.userInfo.data.status === 'audit_pass'
     console.log('user', user);
