@@ -43,6 +43,9 @@ export function getHousingList(data, callback) {
     successConfig: {
       callback,
     },
+    failConfig: {
+      callback
+    }
   });
 }
 // 获取区域列表

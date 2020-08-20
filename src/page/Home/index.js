@@ -39,13 +39,11 @@ function HomePage(props) {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: true
     });
-    console.log(5555555)
     Geolocation.getCurrentPosition(
       position => {
         console.log('position: ' + JSON.stringify(position))
         if (position.coords) {
           props.getRecommandList(position.coords, res => {
-            console.log(22222, res)
             setRecommandList(res.data)
           })
         }
@@ -53,10 +51,6 @@ function HomePage(props) {
       error => showToast('Error', JSON.stringify(error))
     )
   }
-  // useEffect(() => {
-  //   console.log('webSocketInfo 变了')
-  //   props.getUserInfo();
-  // }, [props.webSocketInfo])
 
   // 获取用户信息
   useEffect(() => {
@@ -134,7 +128,7 @@ function HomePage(props) {
               <Text style={{ color: Theme.textLink }} >查看更多</Text>
             </Button>
           </View>
-          <HouseListComponent />
+          <HouseListComponent list={recommandList} />
         </View>
       </View>
     </Root>
