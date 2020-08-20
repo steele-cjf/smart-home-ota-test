@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Spinner, Form, Textarea } from 'native-base'
 import ImageUpload from '../Component/imageUpload'
 import Theme from '../../style/colors';
@@ -93,7 +93,7 @@ const SuggestionPage = (props) => {
 
   return (
     loading ? <Spinner></Spinner> :
-    <View style={styles.containerStyle}>
+    <ScrollView style={styles.containerStyle}>
       <Text style={styles.textTitle}>反馈详情</Text>
       <Text style={styles.textTitle2}>反馈描述</Text>
       <Form>
@@ -127,7 +127,7 @@ const SuggestionPage = (props) => {
       <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}>
         <Text style={styles.btnTextStyle}>提交</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 
 }
@@ -180,12 +180,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingHorizontal: 0,
     justifyContent: "space-between",
+    height: 260
   },
   btnStyle: {
-    position: 'absolute',
-    left: 16,
-    right: 16,
-    bottom: 50,
+    // position: 'absolute',
+    // left: 16,
+    // right: 16,
+    // bottom: 50,
+    marginTop: 40,
     height: 40,
     borderRadius: 20,
     backgroundColor: '#5C8BFF'

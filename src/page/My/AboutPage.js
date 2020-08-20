@@ -10,26 +10,30 @@ export default AboutPage = (props) => {
     {title: "企业邮箱", content: '12312431433@qq.com'},
     {title: "官方网址", content: 'www.asdasdad123123.com'},
     {title: "客服微信", content: 'dasdasdasd'},
-    {title: "地址", content: '深圳市市南区沿山社区 网谷科技大厦501'},
+    {title: "地址", content: '深圳市市南区沿山社区网谷科技大厦501'},
   ];
 
   return(
     
     <View style={styles.containerStyle}>
-      <Image style={styles.headImageStyle} />
-      <Text style={[styles.textTitle]}>房屋租赁v1.0</Text>
+      <View style={styles.imageContainerStyle}>
+        <Image style={styles.imageStyle} />
+      </View>
+      <Text style={[styles.textTitle, {color: Theme.textDefault, textAlign: 'center'}]}>房屋租赁v1.0</Text>
       {
         basicData.map((item, index) => { 
           return (
             <View>
-              <Text style={[styles.textTitle, styles.colorSecondary]}>{item.title}</Text>
-              <Text style={[styles.textContent, styles.colorSecondary]}>{item.content}</Text>
+              <Text style={styles.textTitle}>{item.title}</Text>
+              <Text style={styles.textContent}>{item.content}</Text>
             </View>
           ); 
         })
       }
-      <Image style={styles.headImageStyle} />
-      <Text style={[styles.textTitle]}>公众号：fangwuzuling2020</Text>
+      <View style={styles.imageContainerStyle}>
+        <Image style={[styles.imageStyle, {marginTop: 20, marginBottom: 2}]} />
+      </View>
+      <Text style={[styles.textTitle, {textAlign: 'center'}]}>公众号：fangwuzuling2020</Text>
     </View>
 
   );
@@ -42,69 +46,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: Theme.background,
   },
-  headContainer: {
-    marginTop: 16,
-    marginBottom: 16,
+  imageContainerStyle: {
+    alignItems: 'center',
+    marginTop: 24,
   },
-  headImageStyle: {
-    // position: 'absolute',
-    // right: 28,
+  imageStyle: {
     height: 128, 
     width: 128,
     borderRadius: 4,
-    backgroundColor: 'gray',
-  },
-  sigContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#E9E9E9',
+    backgroundColor: '#E0E0E0',
   },
   textTitle: {
-    paddingVertical: 18,
+    paddingVertical: 11,
     fontSize: 14,
-    color: Theme.textDefault,
-  },
-  fontSize16: {
-    fontSize: 16,
-  },
-  colorSecondary: {
     color: Theme.textSecondary,
-    paddingVertical: 10,
   },
   textContent: {
     position: 'absolute',
     left: 80,
     right: 0,
-    paddingVertical: 18,
+    paddingVertical: 11,
     textAlign: 'right',
     fontSize: 14,
     color: Theme.textDefault,
-  },
-  rightInput: {
-    fontSize: 14,
-    paddingRight: 24,
-  },
-  rightArrow: {
-    position: 'absolute', 
-    right: -3, 
-    top: 17,
-    fontSize: 14, 
-    color: Theme.textSecondary, 
-    textAlign: 'right',
-  },
-  btnStyle: {
-    position: 'absolute',
-    left: 16,
-    right: 16,
-    bottom: 50,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#5C8BFF'
-  },
-  btnTextStyle: {
-    height: 40,
-    lineHeight: 40,
-    textAlign: 'center',
-    fontSize: 16, 
-    color: '#FFFFFF', 
   },
 });
