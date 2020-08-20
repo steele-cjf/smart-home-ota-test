@@ -18,7 +18,7 @@ const auth_status = {
   null: {
     title: '服务返回认证状态null',
     reasonDesc: '',
-    btnTitle: '',
+    btnTitle: '重新提交',
   },
   'audit_pass': {
     title: '实名认证通过',
@@ -46,11 +46,12 @@ export default function VertifyDetailsPage(props) {
     let userId = info.data.id;
 
     const {params} = props.route;
-    console.log('params******', params);
-    if (params) {
+    if (params && params.userId) {
       userId = params.userId;
     } 
-    
+    console.log('params******', params);
+    console.log('userId******', userId);
+
     props.getManualAuditInfo(userId, res => {
       console.log('*******AuditInfo-kk:*******', res);
       setLoading(false);
