@@ -1,0 +1,167 @@
+smart-home-app
+├─.DS_Store
+├─.buckconfig
+├─.eslintrc.js
+├─.flowconfig
+├─.prettierrc.js
+├─.watchmanconfig      
+├─App.js              // 入口组件
+├─app.json
+├─babel.config.js
+├─index.js            //  程序入口文件
+├─metro.config.js
+├─package.json
+├─yarn.lock
+├─src            // 业务代码
+|  ├─config.js             // 全局配置文件
+|  ├─util                  // 全局方法
+|  |  ├─ViewUtil.js
+|  |  ├─changeUrl.js
+|  |  ├─global.js
+|  |  ├─http.js
+|  |  ├─navigatorService.js
+|  |  ├─storage.js
+|  |  └toast.js
+|  ├─style                // 全局样式
+|  |   ├─colors.js
+|  |   ├─fonts.js
+|  |   └sizes.js
+|  ├─store              // redux  请求
+|  |   ├─index.js
+|  |   ├─user
+|  |   |  └index.js
+|  |   ├─tenant
+|  |   |   └index.js
+|  |   ├─publish
+|  |   |    └index.js
+|  |   ├─map
+|  |   |  └index.js
+|  |   ├─login
+|  |   |   └index.js
+|  |   ├─house
+|  |   |   └index.js
+|  |   ├─home
+|  |   |  └index.js
+|  |   ├─feature
+|  |   |    └index.js
+|  |   ├─common
+|  |   |   └index.js
+|  ├─page                  // 主页面
+|  |  ├─DynamicPage.js
+|  |  ├─WelcomePage.js
+|  |  ├─My                  // 我的
+|  |  | ├─AboutPage.js
+|  |  | ├─MyPage.js
+|  |  | ├─PersonalInfo.js
+|  |  | ├─SuggestionPage.js
+|  |  | ├─TenantHouseList        // 我是租客（房源列表）
+|  |  | |        ├─component.js
+|  |  | |        └index.js
+|  |  | ├─RecordHouse          // 添加房源
+|  |  | |      ├─component.js
+|  |  | |      └index.js
+|  |  | ├─MyPublishHouse         // 我发布的房源列表
+|  |  | |       ├─component.js
+|  |  | |       └index.js
+|  |  | ├─MyHouseList              // 我是房东（房源列表）
+|  |  | |      ├─component.js
+|  |  | |      └index.js
+|  |  | ├─HouseCollectionList
+|  |  | |          ├─component.js
+|  |  | |          └index.js
+|  |  ├─Login                       // 登陆
+|  |  |   ├─Agreement.js
+|  |  |   ├─component.js
+|  |  |   └index.js
+|  |  ├─Home                        // 主页
+|  |  |  ├─AuditHouse.js
+|  |  |  ├─AuthenticationPage.js
+|  |  |  ├─UnrecordedHouse.js
+|  |  |  ├─index.js
+|  |  |  ├─config
+|  |  |  |   ├─IdCardVertifyCn.js
+|  |  |  |   ├─PassportVertify.js
+|  |  |  |   └houseDetailCn.js
+|  |  |  ├─VertifyDetails         // 用户信息
+|  |  |  |       ├─component.js
+|  |  |  |       └index.js
+|  |  |  ├─PublishHouseDetail      // 房源发布详情
+|  |  |  |         ├─component.js
+|  |  |  |         └index.js
+|  |  |  ├─PassportVertify      // 护照认证
+|  |  |  |        ├─component.js
+|  |  |  |        └index.js
+|  |  |  ├─MapHouse             // 地图找房
+|  |  |  |    ├─component.js
+|  |  |  |    └index.js
+|  |  |  ├─IdCardVertify        // 身份证认证
+|  |  |  |       ├─component.js
+|  |  |  |       └index.js
+|  |  |  ├─HouseList             // 房源推荐列表
+|  |  |  |     ├─component.js
+|  |  |  |     └index.js
+|  |  |  ├─Component
+|  |  |  |     ├─houseDetail.js
+|  |  |  |     ├─searchHeader.js
+|  |  |  |     └statusCard.js
+|  |  ├─Feature                 功能页面
+|  |  |    ├─index.js
+|  |  |    ├─roomPage            // 房间管理
+|  |  |    |    ├─component.js
+|  |  |    |    └index.js
+|  |  |    ├─publishHouse        // 发布房源
+|  |  |    |      ├─component.js
+|  |  |    |      └index.js
+|  |  |    ├─config
+|  |  |    |   └houseFee.js
+|  |  |    ├─addTenant           // 添加租客和家庭成员
+|  |  |    |     ├─component.js
+|  |  |    |     └index.js
+|  |  |    ├─TenantList          // 租客列表
+|  |  |    |     ├─component.js
+|  |  |    |     └index.js
+|  |  |    ├─HouseDetail         // 房源详情
+|  |  |    |      ├─component.js
+|  |  |    |      └index.js
+|  |  ├─ComponentTest
+|  |  |       └index.js
+|  |  ├─Component                公用组件
+|  |  |     ├─Camera.js
+|  |  |     ├─CustomizedSheet.js
+|  |  |     ├─Swiper.js
+|  |  |     ├─WebSocket.js
+|  |  |     ├─citySelect.js
+|  |  |     ├─cityTabView.js
+|  |  |     ├─dialogInput.js
+|  |  |     ├─form.js
+|  |  |     ├─houseBaseInfo.js
+|  |  |     ├─imageUpload.js
+|  |  |     ├─labelSelect.js
+|  |  |     ├─map
+|  |  |     |  └locations.js
+|  |  |     ├─housingList
+|  |  |     |      ├─item.js
+|  |  |     |      └list.js
+|  |  |     ├─cityTabView
+|  |  |     |      ├─select.js
+|  |  |     |      └tab.js
+|  ├─navigator                     // 导航
+|  |     ├─AppNavigator.js
+|  |     ├─AppRoutes.js
+|  |     ├─AuthNavigator.js
+|  |     ├─FeatureNavigator.js
+|  |     ├─HomeNavigator.js
+|  |     ├─MyPageNavigator.js
+|  |     └TabNavigator.js
+|  ├─common
+|  |   └MORE_MENU.js
+|  ├─assets                  
+|  |   ├─images
+|  |   |   ├─scan.png
+|  |   |   ├─mock
+|  |   |   |  ├─home1.jpg
+|  |   |   |  ├─home2.jpg
+|  |   |   |  ├─home3.jpg
+|  |   |   |  └home4.jpg
+├─__tests__
+|     └App-test.js
