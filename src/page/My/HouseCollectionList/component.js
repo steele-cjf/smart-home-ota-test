@@ -63,7 +63,7 @@ function HouseCollectionList(props) {
               name={'heart'}></AntDesign>
           </View>
           <Text style={styles.houseName} numberOfLines={1}>
-            {item.regionFullName}
+            {/* {item.regionFullName} */}
             {item.address}
           </Text>
           <View

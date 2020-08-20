@@ -129,7 +129,7 @@ function RecordHouse(props) {
     );
 
     result.append('regionId', regionId);
-    result.append('address', address);
+    result.append('address', regionName + address);
 
     if (houseId) {
       console.log('edit');

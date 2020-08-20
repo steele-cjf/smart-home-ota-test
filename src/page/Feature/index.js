@@ -64,7 +64,10 @@ function FeaturePage(props) {
         </View>
       )
     } else {
-      renderContent()
+      // renderContent()
+      return(
+        renderContent()
+      )
     }
   }
 

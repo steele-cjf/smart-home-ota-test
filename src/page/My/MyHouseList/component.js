@@ -75,7 +75,7 @@ function MyHouseList(props) {
         onPress={() => handleToDetailPage(item)}>
         <View style={styles.rightContainer}>
           <Text style={styles.houseName} numberOfLines={1}>
-            {item.regionFullName}
+            {/* {item.regionFullName} */}
             {item.address}
           </Text>
           <View
