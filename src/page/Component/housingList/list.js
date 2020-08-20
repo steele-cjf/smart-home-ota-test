@@ -1,9 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect, useCallback } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { StyleSheet, View, Text } from 'react-native';
-import { getHousingList } from '../../../store/home/index';
 import HouseItem from './item';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import { FlatList } from 'react-native-gesture-handler';
@@ -33,7 +30,10 @@ function HouseListComponent(props) {
   };
 
   const houseListData = () => {
-    return houses.slice() || [];
+    if (houses && Object.prototype.toString.call(houses) === "[object Array]") {
+      return houses.slice()
+    }
+    return [];
   };
   const isNoMoreData = () => {
     return !!pagination && pagination.pageNum === pagination.pages;
@@ -42,33 +42,33 @@ function HouseListComponent(props) {
     setIsLoading(loading);
   };
   const updateResultData = resultData => {
-    const data = resultData.list;
-    const page = {
-      pageNum: resultData.pageNum,
-      pageSize: resultData.pageSize,
-      pages: resultData.pages,
-      total: resultData.total,
-    };
-    setPagination(page);
-    if (resultData.pageNum > 1) {
-      let list = houseListData;
-      list.push(...data);
-      setHouses(list);
+    if (resultData && resultData.list) {
+      const data = resultData.list;
+      const page = {
+        pageNum: resultData.pageNum,
+        pageSize: resultData.pageSize,
+        pages: resultData.pages,
+        total: resultData.total,
+      };
+      setPagination(page);
+      if (resultData.pageNum > 1) {
+        let list = houseListData;
+        list.push(...data);
+        setHouses(list);
+      } else {
+        setHouses(data);
+      }
     } else {
-      setHouses(data);
+      setHouses(resultData);
     }
   };
 
   const fetchHouseList = (page = 1) => {
     updateLoadingState(true);
-    props.getHousingList({ pageNum: page }, async (res) => {
-      console.log(9999, res.data)
-      updateResultData(res.data);
-    });
   }
   useEffect(() => {
-    fetchHouseList(1)
-  }, [])
+    updateResultData(props.list)
+  }, [props.list])
 
   const getHouseIdKey = (house, index) => {
     return `index:${index}:sep:${house.id}`;
@@ -87,7 +87,7 @@ function HouseListComponent(props) {
     }
   };
   const handleToDetailPage = item => {
-    NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, {id: item.id});
+    NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, { id: item.id });
   };
 
   // 渲染列表为空时的状态：无数据
@@ -148,6 +148,7 @@ function HouseListComponent(props) {
       refreshing={isLoading}
       // 刷新
       onRefresh={fetchHouseList}
+      scrollsToTop={scrollToListTop}
       // 加载更多安全距离（相对于屏幕高度的比例）
       onEndReachedThreshold={IS_IOS ? 0.05 : 0.2}
       // 加载更多
@@ -190,16 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// reducer获取
-function mapStateToProps(state) {
-  return {};
-}
-
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getHousingList }, dispatch);
-}
-
-export default connect(
-  mapStateToProps,
-  matchDispatchToProps,
-)(HouseListComponent);
+export default HouseListComponent

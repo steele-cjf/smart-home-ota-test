@@ -10,8 +10,8 @@ import showToast from '../../../util/toast';
 
 const loc = {
     "name": "房子",
-    lat: 39.904989,
-    lng: 116.40,
+    latitude: 39.904989,
+    longitude: 116.40,
     "type": 0
 }
 function HouseDetail(props) {
@@ -135,7 +135,11 @@ function HouseDetail(props) {
                     {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>
                     <View style={styles.mapBox}>
-                        <LocationsMap loc={loc} />
+                        <LocationsMap loc={{
+                            latitude: options.latitude || loc.latitude,
+                            longitude: options.longitude || loc.longitude,
+                            name: options.address || loc.name
+                        }} />
                     </View>
                     <Button full style={styles.btn} onPress={() => callPhone()}>
                         <Text>电话咨询</Text>
