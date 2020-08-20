@@ -39,7 +39,6 @@ function FeaturePage(props) {
   }, [props.userInfo])
   useEffect(() => {
     let hasHouse = props.myHouseList && props.myHouseList.data && props.myHouseList.data.length
-    console.log(111)
     setHasHouse(hasHouse)
   }, [props.myHouseList])
   const renderSpinner = () => {

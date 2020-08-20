@@ -9,3 +9,15 @@ export function addTenantForm(data, callback) {
         }
     });
 }
+
+export function addFamilyForm(data, callback) {
+    return $post("/tenant/family/form", {
+        body: data,
+        successConfig: {
+            callback
+        },
+        failConfig: {
+            callback
+        }
+    });
+}

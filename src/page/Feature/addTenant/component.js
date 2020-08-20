@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import { ListItem, Image, Card } from 'react-native-elements';
 import { Button, Item, Label, Input, Picker, ActionSheet } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { AppRoute } from '../../../navigator/AppRoutes';
 const ID_CARD = 'id_card'
 const FULL_RENT = 'full_rent'
 
@@ -26,12 +25,17 @@ export default function AddTenant(props) {
   const [houseTypeList, setHouseTypeList] = useState([])
   const [form, setForm] = useState(data)
   const [actionSheet, setActionSheet] = useState(null);
+  const [type, setType] = useState('');
 
   function updateIndex(index) {
     setSelectedIndex(index);
   }
   useEffect(() => {
     const { params } = props.route;
+    if (params.type === 'member') {
+      setType(params.type)
+      return
+    }
     props.getRoomList({ houseId: params.id }, (res) => {
       setRoomList(res.data)
     })
@@ -42,7 +46,6 @@ export default function AddTenant(props) {
     props.openCamera({ open: false, result: null })
     setHouse(props.houseDetail.data)
     let type = props.houseDetail.data.type
-    console.log(type, 5555)
     if (type) {
       handleSetValue('houseType', type)
     }
@@ -61,24 +64,43 @@ export default function AddTenant(props) {
     let houseId = params.id
     if (selectedIndex == 0) { // 扫码
     } else { // 手动
-      result = {
-        houseId,
-        houseType,
-        identificationType,
-        identificationNo,
-        roomIds: houseType !== FULL_RENT && roomIds || [],
-        mobile,
-        name
+      // 租客或家庭成员
+      if (type === 'member') {
+        result = {
+          houseId,
+          identificationType,
+          identificationNo,
+          mobile,
+          name
+        }
+        props.addFamilyForm(result, (res) => {
+          if (!res.code) {
+            showToast('添加成功')
+            NavigatorService.goBack();
+          } else {
+            showToast(res.message)
+          }
+        })
+      } else {
+        result = {
+          houseId,
+          houseType,
+          identificationType,
+          identificationNo,
+          roomIds: houseType !== FULL_RENT && roomIds || [],
+          mobile,
+          name
+        }
+        props.addTenantForm(result, (res) => {
+          if (!res.code) {
+            showToast('添加成功')
+            NavigatorService.goBack();
+          } else {
+            showToast(res.message)
+          }
+        })
       }
     }
-    props.addTenantForm(result, (res) => {
-      if (!res.code) {
-        showToast('添加成功')
-        NavigatorService.goBack();
-      } else {
-        showToast(res.message)
-      }
-    })
   }
 
   // 未扫码展示
@@ -170,7 +192,7 @@ export default function AddTenant(props) {
         ><Text style={[styles.btnColor, active]}>{item.name + (item.tenantCount > 0 && '(已租)')}</Text></Button>)
       })
       return (<View style={styles.roomListBox}>{result}</View>)
-    } else {
+    } else  {
       return (<Text style={styles.dec, { textAlign: 'center', color: 'red' }}>暂无房间</Text>)
     }
   }
@@ -216,16 +238,32 @@ export default function AddTenant(props) {
       <ActionSheet ref={(c) => { setActionSheet(c) }} />
       <View style={{ flex: 1 }}>
         <Text style={styles.title}>房屋信息</Text>
-        <ListItem
+        <Item style={styles.marginLeft0} inlineLabel picker>
+          <Label style={[styles.labelTitle, styles.defaultSize]}>
+            房屋地址
+          </Label>
+          <Input
+            value={house.regionFullName || '--'}
+            disabled={true}
+            style={[styles.defaultSize, styles.textAlignR]}
+          />
+        </Item>
+        <Item style={[styles.marginLeft0, {paddingVertical: 14, display: props.route.params.type === 'member' ? 'none' : 'flex'}]} inlineLabel picker>
+          <Label style={[styles.labelTitle, styles.defaultSize]}>
+            房屋类型
+          </Label>
+          {renderRightPicker()}
+        </Item>
+        {/* <ListItem
           leftElement={<Text>房屋地址</Text>}
           rightElement={<Text style={styles.dec}>{house.regionFullName || '--'}</Text>}
           bottomDivider
-        />
-        <ListItem
+        /> */}
+        {/* <ListItem
           leftElement={<Text>房屋类型</Text>}
           rightElement={renderRightPicker()}
-        />
-        {form.houseType !== FULL_RENT && renderRoomList()}
+        /> */}
+        {form.houseType !== FULL_RENT && props.route.params.type !== 'member' && renderRoomList()}
         <View
           style={
             ({ paddingHorizontal: 10 }, selectedIndex ? { display: 'none' } : '')
@@ -375,6 +413,7 @@ const styles = StyleSheet.create({
   },
   labelTitle: {
     color: Theme.textDefault,
+    flex: 1,
   },
   textAlignR: {
     textAlign: 'right',

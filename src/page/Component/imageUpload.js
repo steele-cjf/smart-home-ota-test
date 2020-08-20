@@ -56,7 +56,6 @@ export default function ImageUpload(props) {
           name: response.fileName || 'upload.jpg',
           type: response.type,
         };
-        console.log(8888, imageObj, source)
         props.setImageForm(imageObj);
       }
     });

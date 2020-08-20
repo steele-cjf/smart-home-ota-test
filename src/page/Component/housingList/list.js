@@ -62,6 +62,7 @@ function HouseListComponent(props) {
   const fetchHouseList = (page = 1) => {
     updateLoadingState(true);
     props.getHousingList({ pageNum: page }, async (res) => {
+      console.log(9999, res.data)
       updateResultData(res.data);
     });
   }

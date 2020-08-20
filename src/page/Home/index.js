@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import WebsocketComponent from '../Component/WebSocket'
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
+import { getRecommandList } from '../../store/map/index';
 import { Button, ActionSheet, Root, Spinner } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
@@ -11,6 +12,7 @@ import StatusCard from './Component/statusCard'
 import HouseListComponent from '../Component/housingList/list';
 import Theme from '../../style/colors';
 import { useFocusEffect } from '@react-navigation/native';
+import Geolocation from '@react-native-community/geolocation';
 
 const imgList = [ // 暂时写死
   require('../../assets/images/mock/home1.jpg'),
@@ -24,17 +26,37 @@ function HomePage(props) {
   const [selectHouse, setSelectHouse] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true)
   const [actionSheet, setActionSheet] = useState(null);
+  const [recommandList, setRecommandList] = useState(null);
 
   // 可以理解为componentDidMount
   useFocusEffect(
     useCallback(() => {
       props.getUserInfo(); // 获取个人信息
+      initRemmcondList(); // 获取房源推荐
     }, [props.route])
   )
-  useEffect(() => {
-    console.log('webSocketInfo 变了')
-    props.getUserInfo();
-  }, [props.webSocketInfo])
+  const initRemmcondList = () => {
+    Geolocation.setRNConfiguration({
+      skipPermissionRequests: true
+    });
+    console.log(5555555)
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log('position: ' + JSON.stringify(position))
+        if (position.coords) {
+          props.getRecommandList(position.coords, res => {
+            console.log(22222, res)
+            setRecommandList(res.data)
+          })
+        }
+      },
+      error => showToast('Error', JSON.stringify(error))
+    )
+  }
+  // useEffect(() => {
+  //   console.log('webSocketInfo 变了')
+  //   props.getUserInfo();
+  // }, [props.webSocketInfo])
 
   // 获取用户信息
   useEffect(() => {
@@ -128,7 +150,7 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserInfo, getMyHouseList }, dispatch);
+  return bindActionCreators({ getUserInfo, getMyHouseList, getRecommandList }, dispatch);
 }
 export default connect(
   mapStateToProps,

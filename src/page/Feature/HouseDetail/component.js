@@ -79,7 +79,6 @@ function HouseDetail(props) {
   };
   const handlerDelete = () => {
     props.deleteHouse({ id: props.route.params.id }, res => {
-      console.log('res', res);
       if (!res.code) {
         showToast('删除成功');
         props.route.params.refresh();

@@ -1,3 +1,5 @@
+import { setUrlParams } from '../../util/changeUrl'
+
 /* eslint-disable no-undef */
 export function getPublishHouseDetail(id, callback) {
   return $get(`/publish/${id}`, {
@@ -22,7 +24,8 @@ export function updatePublishInfo(data, id, callback) {
 
 // 收藏房源
 export function publishSetCollection(data, callback) {
-  return $post("/houseCollection?add=" + data.add + '&publishInfoId=' + data.publishInfoId, {
+  let url = setUrlParams('/houseCollection', data)
+  return $post(url, {
     actionType: 'PUBLISH_SET_COLLECTION',
     successConfig: {
       callback
@@ -32,14 +35,6 @@ export function publishSetCollection(data, callback) {
     }
   });
 }
-// user info
-export function publishHouseDetail(state = null, action) {
-  if (action.type === 'PUBLISH_HOUSE_DETAIL') {
-    return action.data || null;
-  }
-  return state;
-}
 export default {
-  publishHouseDetail
 };
 

@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   Header,
@@ -15,7 +16,6 @@ import {
   Spinner,
 } from 'native-base';
 import Theme from '../../../style/colors';
-import showToast from '../../../util/toast';
 import { AppRoute } from '../../../navigator/AppRoutes';
 
 export default function TenantList(props) {
@@ -25,11 +25,13 @@ export default function TenantList(props) {
   const [tenantId, setTenantId] = useState('');
   const [houseInfo, setHouseInfo] = useState({});
 
-  useEffect(() => {
-    init();
-  }, [init]);
+  useFocusEffect(
+    useCallback(() => {
+      init()
+    }, [props.route])
+  )
 
-  const init = useCallback(() => {
+  const init = () => {
     const {params} = props.route;
     console.log('params', props.dictionaryMappings);
     setHouseId(params.houseId);
@@ -51,13 +53,13 @@ export default function TenantList(props) {
         setLoading(false);
       }
     });
-  });
+  };
   const goToPage = () => {
     props.navigation.goBack();
   };
-  const _renderItem = ({item, index}) => {
+  const _renderItem = ({item}) => {
     return (
-      <View style={styles.room_item_style}>
+      <TouchableOpacity style={styles.room_item_style} onPress={() => NavigatorService.navigate(AppRoute.VERDETAILS, {userId: item.userId})}>
         <View style={styles.left_content}>
           <Text style={styles.main_color}>{item.userName} - {item.gender}</Text>
         </View>
@@ -72,7 +74,7 @@ export default function TenantList(props) {
           }}
           />
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
@@ -87,7 +89,7 @@ export default function TenantList(props) {
           <Title>家庭成员</Title>
         </Body>
         <Right>
-          <Button transparent onPress={() => NavigatorService.navigate(AppRoute.ADDTENANT, {id: houseId})}>
+          <Button transparent onPress={() => NavigatorService.navigate(AppRoute.ADDTENANT, {id: houseId, type: 'member'})}>
             <Text>新增成员</Text>
           </Button>
         </Right>
