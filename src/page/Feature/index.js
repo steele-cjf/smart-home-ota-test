@@ -26,15 +26,15 @@ function FeaturePage(props) {
   const getHouseList = useCallback(() => {
     // 获取本人的房源
     if (props.myHouseList && props.myHouseList.data) {
-      console.log('fullhouse', props.myHouseList.data);
       let {data} = props.myHouseList;
       setHouseList(data);
       data.length && setSelectHouse(data[0]);
-      setLoading(false);
     }
+    setLoading(false);
   });
   useEffect(() => {
     let user = props.userInfo && props.userInfo.data && props.userInfo.data.status === 'audit_pass'
+    console.log('user', user);
     setUser(user)
   }, [props.userInfo])
   useEffect(() => {
@@ -44,6 +44,7 @@ function FeaturePage(props) {
   const renderSpinner = () => {
     console.log(9876543)
     console.log(hasHouse, 777)
+    console.log('user2', user);
     if (!user) {
       return(
         <View style={{paddingTop: 200, alignItems: 'center' }}>
@@ -63,7 +64,7 @@ function FeaturePage(props) {
         </View>
       )
     } else {
-      return (<Spinner color="#5C8BFF" />)
+      renderContent()
     }
   }
 
@@ -120,13 +121,8 @@ function FeaturePage(props) {
       );
     }
   }
-
-  return (
-    <View>
-      {loading ? (
-        renderSpinner()
-      ) : (
-        <View style={styles.container}>
+  const renderContent = () => {
+    return (<View style={styles.container}>
           <View style={styles.headerContent}>
             <View style={[styles.flex, styles.topBox]}>
               <Text style={styles.topTitle}>功能</Text>
@@ -163,7 +159,14 @@ function FeaturePage(props) {
               <View style={styles.line} />
             </View>
           </ScrollView>
-        </View>
+        </View>)
+  }
+  return (
+    <View>
+      {loading ? (
+        <Spinner color="#5C8BFF" />
+      ) : (
+        renderSpinner()
       )}
     </View>
   );
