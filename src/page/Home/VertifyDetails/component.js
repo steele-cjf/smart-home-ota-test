@@ -18,7 +18,7 @@ const auth_status = {
   null: {
     title: '服务返回认证状态null',
     reasonDesc: '',
-    btnTitle: '重新提交',
+    btnTitle: '',
   },
   'audit_pass': {
     title: '实名认证通过',
@@ -70,6 +70,8 @@ export default function VertifyDetailsPage(props) {
     console.log('authStatus********: ', authStatus);
 
     var sex = props.dictionaryMappings.gender[data.gender];
+    console.log('sex***', sex);
+    
     let actualDataArr;
     if (data.identificationType === 'id_card') { 
       actualDataArr = [   
@@ -94,15 +96,25 @@ export default function VertifyDetailsPage(props) {
     setAuthOptions(auth_status[authStatus]);
     setData(actualDataArr);
 
-    $getImage(data.imageUrls[0], uri => {
-      setImageUrl1(uri);
-    });
-    $getImage(data.imageUrls[1], uri => {
-      setImageUrl2(uri);
-    });
-    $getImage(data.imageUrls[2], uri => {
-      setImageUrl3(uri);
-    });
+    console.log('data.imageUrls***', data.imageUrls);
+
+    if (data.imageUrls && data.imageUrls[0]) {
+      $getImage(data.imageUrls[0], uri => {
+        setImageUrl1(uri);
+      });
+    }
+   
+    if (data.imageUrls && data.imageUrls[1]) {
+      $getImage(data.imageUrls[1], uri => {
+        setImageUrl2(uri);
+      });
+    }
+    
+    if (data.imageUrls && data.imageUrls[2]) {
+      $getImage(data.imageUrls[2], uri => {
+        setImageUrl3(uri);
+      });
+    }
   }
 
   const [authStatus, setAuthStatus] = useState('audit_pending');
