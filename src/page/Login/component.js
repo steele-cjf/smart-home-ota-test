@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef} from 'react';
-import {View, Keyboard, StyleSheet} from 'react-native';
+import {View, Keyboard, ScrollView, StyleSheet} from 'react-native';
 import {Text, Input, Button, CheckBox} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 // import {Button} from 'native-base';
@@ -10,7 +10,7 @@ import storage from '../../util/storage';
 import Theme from '../../style/colors';
 
 function LoginPage(props) {
-  function validateField(field) {
+  function validateField(field) {    
     switch (field) {
       case 'mobile': {
         let phoneReg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
@@ -118,7 +118,7 @@ function LoginPage(props) {
   const [checked, setChecked] = useState(true);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
       <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
       <Input
@@ -190,7 +190,7 @@ function LoginPage(props) {
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
       <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户</Text>
-    </View>
+    </ScrollView>
   );
 }
 
