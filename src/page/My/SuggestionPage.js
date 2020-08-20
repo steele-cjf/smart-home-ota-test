@@ -94,20 +94,21 @@ const SuggestionPage = (props) => {
   return (
     loading ? <Spinner></Spinner> :
     <View style={styles.containerStyle}>
-      <Text style={styles.topTextStyle1}>反馈详情</Text>
-      <Text style={styles.topTextStyle1}>反馈描述</Text>
+      <Text style={styles.textTitle}>反馈详情</Text>
+      <Text style={styles.textTitle2}>反馈描述</Text>
       <Form>
         <Textarea
-          style={{ backgroundColor: Theme.cardBackground }}
+          style={styles.textareaContent}
           rowSpan={5}
           placeholder="请输入具体反馈内容"
+          placeholderTextColor={Theme.textMuted}
           onChangeText={(text) => { setDescribeInfo(text); }}
         //onChange={e => {setData('description', e.nativeEvent.text, 'houseAddition');}}
         //value={}
         />
       </Form>
       <View>
-        <Text style={[styles.textTitle, styles.colorDefault]}>联系方式</Text>
+        <Text style={[styles.textTitle2]}>联系方式</Text>
         <TextInput style={styles.textContent}
           placeholder='手机/邮箱/QQ'
           placeholderTextColor={Theme.textMuted}
@@ -116,8 +117,8 @@ const SuggestionPage = (props) => {
           // value={'ddd'}
         />
       </View>
-      <Text style={[styles.topTextStyle1, styles.space]}>{'照片上传'}</Text>
-      <Text style={[styles.topTextStyle1, styles.space]}>{'最多6张'}</Text>
+      <Text style={[styles.textTitle, styles.space]}>{'照片上传'}</Text>
+      <Text style={[styles.textTitle3]}>{'最多6张'}</Text>
       <View style={styles.ImageBox}>
         {
           renderImage()
@@ -133,75 +134,52 @@ const SuggestionPage = (props) => {
 
 
 const styles = StyleSheet.create({
-  headerText: {
-    color: '#527BDF',
-    fontSize: 16,
-    justifyContent: 'center',
-    paddingTop: 5,
-  },
   containerStyle: {
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 16,
     backgroundColor: Theme.background,
   },
-  topViewFail: {
-    height: 70,
-    padding: 12,
-    borderRadius: 4,
-    marginBottom: 10,
-    backgroundColor: '#FFECEC',
-  },
-  topViewWait: {
-    backgroundColor: '#ECF2FF',
-  },
-  topTextStyle1: {
+  textTitle: {
     fontSize: 16,
     color: Theme.textDefault,
   },
-  topTextStyle2: {
+  textTitle2: {
     fontSize: 14,
-    color: Theme.textSecondary,
-    marginTop: 10,
+    color: Theme.textDefault,
+    marginTop: 32,
+    marginBottom: 15,
   },
-  textTitle: {
-    paddingVertical: 10,
-    fontSize: 14,
-    color: Theme.textSecondary,
+  textareaContent: {
+    fontSize: 14, 
+    color: Theme.textDefault,
+    height: 146,
+    borderRadius: 4,
+    backgroundColor: Theme.cardBackground,
   },
   textContent: {
     position: 'absolute',
     left: 80,
-    right: 0,
-    paddingVertical: 10,
+    right: 24,
+    paddingVertical: 31,
     textAlign: 'right',
     fontSize: 14,
     color: Theme.textDefault,
-    backgroundColor: 'yellow',
+  },
+  textTitle3: {
+    fontSize: 12,
+    color: Theme.textSecondary,
+    marginTop: 6,
+    marginBottom: 16,
   },
   space: {
-    marginTop: 45,
+    marginTop: 22,
   },
   ImageBox: {
-    // flexDirection: "row",
-    // justifyContent: "space-between",
-    // marginTop: 20,
-
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // justifyContent: 'space-around',
-    //justifyContent: "space-between",
-    paddingTop: 16,
-    //backgroundColor: 'red',
-  },
-  imageStyle: {
-    width: 116,
-    height: 87,
-    resizeMode: 'cover',
-    backgroundColor: '#f4f4f4',
-    borderWidth: 1,
-    borderColor: Theme.border,
-    borderRadius: 4,
+    paddingHorizontal: 0,
+    justifyContent: "space-between",
   },
   btnStyle: {
     position: 'absolute',
