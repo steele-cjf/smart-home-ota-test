@@ -124,7 +124,7 @@ function FeaturePage(props) {
   return (
     <View>
       {loading ? (
-        <Spinner color="#5C8BFF" />
+        renderSpinner()
       ) : (
         <View style={styles.container}>
           <View style={styles.headerContent}>

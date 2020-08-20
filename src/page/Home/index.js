@@ -44,6 +44,7 @@ function HomePage(props) {
         console.log('position: ' + JSON.stringify(position))
         if (position.coords) {
           props.getRecommandList(position.coords, res => {
+            console.log('home', res.data);
             setRecommandList(res.data)
           })
         }
