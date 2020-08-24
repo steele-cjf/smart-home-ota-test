@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     },
     rentBox: {
         flexDirection: 'row',
-        marginVertical: 15,
+        marginVertical: 10,
     },
     cardList: {
         marginRight: 20,
