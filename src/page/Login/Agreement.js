@@ -1,8 +1,27 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, TouchableOpacity, StyleSheet, NativeModules } from 'react-native';
 import Theme from '../../style/colors';
 
 export default AgreementPage = (props) => {
+
+  //test
+  function submitInfo() {
+
+    NativeModules.WifiInfo.getWifi((ssid) => {
+
+
+      //返回结果
+      console.log("******ssid: *****", ssid);
+
+    });
+
+
+    return;
+
+  }
+
+
+
 
   const sp = "        ";
 
@@ -50,6 +69,16 @@ export default AgreementPage = (props) => {
       <Text style={styles.tipText}>
         {sp+g+sp+h+sp+i+sp+j+sp+k+sp+l}
       </Text>
+
+      <Text>{'TestWifi' || '未能获取wifi'}</Text>
+      <Text>{'' || '未能获取wifi'}</Text>
+      <Text>{'' || ''}</Text>
+      <Text>{0 || '未能获取wifi'}</Text>
+
+      <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}>
+        <Text style={styles.btnTextStyle}>提交</Text>
+      </TouchableOpacity>
+
     </ScrollView>
   );
 }
@@ -70,5 +99,17 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     backgroundColor: '#F0F0F0',
   },
-  
+  btnStyle: {
+    marginTop: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#5C8BFF'
+  },
+  btnTextStyle: {
+    height: 40,
+    lineHeight: 40,
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#FFFFFF',
+  },
 });

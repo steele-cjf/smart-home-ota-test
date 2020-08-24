@@ -129,6 +129,22 @@ const PersonalInfoPage = (props) => {
   const [imageObj, setImageObj] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const renderBasicView = () => {
+    let arr = [];
+    for (let index = 0; index < basicData.length; index++) {
+      const item = basicData[index];
+      let a = (
+        <View>
+          <Text style={[styles.textTitle, styles.colorSecondary]}>{item.title}</Text>
+          <Text style={[styles.textContent, styles.colorSecondary]}>{item.content}</Text>
+        </View>
+      );
+      arr.push(a);
+    }
+
+    return arr;
+  }
+
   return (
     loading ? <Spinner></Spinner> :
     <View style={styles.containerStyle}>
@@ -140,14 +156,7 @@ const PersonalInfoPage = (props) => {
       <View style={[styles.sigContainer, {paddingBottom: 10}]}>
         <Text style={[styles.textTitle, styles.fontSize16]}>基本资料</Text>
         {
-          basicData.map((item, index) => { 
-            return (
-              <View>
-                <Text style={[styles.textTitle, styles.colorSecondary]}>{item.title}</Text>
-                <Text style={[styles.textContent, styles.colorSecondary]}>{item.content}</Text>
-              </View>
-            ); 
-          })
+          renderBasicView()
         }
       </View>
       { 
@@ -247,10 +256,10 @@ const styles = StyleSheet.create({
 
 
 // reducer获取
-function mapStateToProps(state) {
+function mapStateToProps(state2) {
   return {
-    userInfo: state.userInfo,
-    dictionaryMappings: state.dictionaryMappings
+    userInfo: state2.userInfo,
+    dictionaryMappings: state2.dictionaryMappings
   };
 }
 
