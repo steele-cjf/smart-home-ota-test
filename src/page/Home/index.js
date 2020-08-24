@@ -75,7 +75,7 @@ function HomePage(props) {
     if (props.myHouseList && props.myHouseList.data) {
       let { data } = props.myHouseList
       setHouseList(data)
-      data.length && selectHouse.id && setSelectHouse(data[0])
+      data.length && setSelectHouse(data[0])
     }
     setLoadingStatus(false)
   }, [props.myHouseList])

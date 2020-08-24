@@ -74,6 +74,7 @@ export default function StatusCard(props) {
     }, [props.status])
 
     useEffect(() => {
+        console.log(1111111, props.item)
         if (props.status === 'audit_pass' && props.item && props.item.houseId) {
             let { status, regionFullName, houseId, houseRole } = props.item
             let data = Object.assign({}, houseStatus[status || 'audit_pending'])
