@@ -7,15 +7,16 @@ import { View, Text, Button } from 'native-base'
 function WebsocketComponent(props) {
     const wsRef = useRef(null)
     useEffect(() => {
-        if (props.id) {
-            let { id } = props
-            let url = "ws://10.10.11.244:9700/websocket/" + id
-            console.log('userId:' + id + ', url: ' + url)
-            var ws = new WebSocket(url);
-            ws.onopen = () => onopen()
-            ws.onmessage = (evt) => onMessage(evt)
-            ws.onclose = () => onClose()
-        }
+        // if (props.id) {
+        //     let { id } = props
+        //     let url = "ws://10.10.11.244:9700/websocket/" + id
+        //     console.log('userId:' + id + ', url: ' + url)
+        //     var ws = new WebSocket(url);
+        //     ws.onopen = () => onopen()
+        //     ws.onmessage = (evt) => onMessage(evt)
+        //     ws.onclose = () => onClose()
+        // }
+        
     }, [props.id])
     const onMessage = (res) => {
         console.log('setWebSocketInfo', res.data)

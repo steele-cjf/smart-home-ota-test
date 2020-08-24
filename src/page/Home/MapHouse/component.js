@@ -14,7 +14,10 @@ function MapHouse(props) {
   const [snapIndex] = useState(snapPoints.length - 1)
   const [selectItem, setSelectItem] = useState()
   const [markers, setMarker] = useState([])
-  const [center, setCenter] = useState({})
+  const [center, setCenter] = useState({
+    latitude: 39.904989,
+    longitude: 116.40
+  })
   const [houseList, setHouseList] = useState({})
   const mapRef = useRef()
   const bottomSheetRef = React.useRef(null)
@@ -38,7 +41,8 @@ function MapHouse(props) {
     setSelectItem(item)
     if (item) {
       props.getHousingList({
-        formattedAddress: item.formattedAddress}, res => {
+        formattedAddress: item.formattedAddress
+      }, res => {
         setHouseList(res.data.list)
       })
       bottomSheetRef.current.snapTo(3)
@@ -95,7 +99,7 @@ function MapHouse(props) {
           <Text style={styles.contentTitle}>{selectItem.formattedAddress}</Text>
           <Text style={styles.contentDes}>{'在租' + selectItem.houseCount + '套'}</Text>
         </View>
-        <HouseListComponent list={houseList} getList={(obj) => {getList(obj)}}/>
+        <HouseListComponent list={houseList} getList={(obj) => { getList(obj) }} />
       </View>)
   }
   return (

@@ -63,6 +63,22 @@ export default function AddTenant(props) {
     let { houseType, roomIds, identificationType, identificationNo, mobile, name } = form
     let houseId = params.id
     if (selectedIndex == 0) { // 扫码
+      let { code, data } = cameraOptions.result
+      if (!code) {
+        let url = '/tenant/family/qrcode'
+        let formData = {
+          houseId,
+          userId: data.id
+        }
+        if (type !== 'member') {
+          formData['houseType'] = houseType
+          formData['roomIds'] = houseType !== FULL_RENT && roomIds || []
+          url = '/tenant/qrcode'
+        }
+        props.scanAddTenant(url, formData, res => requestCalBack(res))
+      } else {
+        showToast('请先扫描二维码')
+      }
     } else { // 手动
       // 租客或家庭成员
       if (type === 'member') {
@@ -73,14 +89,7 @@ export default function AddTenant(props) {
           mobile,
           name
         }
-        props.addFamilyForm(result, (res) => {
-          if (!res.code) {
-            showToast('添加成功')
-            NavigatorService.goBack();
-          } else {
-            showToast(res.message)
-          }
-        })
+        props.addFamilyForm(result, (res) => requestCalBack(res))
       } else {
         result = {
           houseId,
@@ -91,15 +100,17 @@ export default function AddTenant(props) {
           mobile,
           name
         }
-        props.addTenantForm(result, (res) => {
-          if (!res.code) {
-            showToast('添加成功')
-            NavigatorService.goBack();
-          } else {
-            showToast(res.message)
-          }
-        })
+        props.addTenantForm(result, (res) => requestCalBack(res))
       }
+    }
+  }
+  const requestCalBack = (res) => {
+    console.log(888, res)
+    if (!res.code) {
+      showToast('添加成功')
+      NavigatorService.goBack();
+    } else {
+      showToast(res.message)
     }
   }
 
@@ -111,7 +122,7 @@ export default function AddTenant(props) {
           source={image}
           style={{ width: 115, height: 115 }}
         />
-        <Button rounded full style={styles.scanBtn} onPress={() => { NavigatorService.goBack() }}>
+        <Button rounded full style={styles.scanBtn} onPress={() => { props.openCamera({ open: true, result: null }) }}>
           <Text style={{ color: '#fff' }}>扫码添加住户</Text>
         </Button>
         <TouchableOpacity onPress={() => updateIndex(1)}>
@@ -147,7 +158,7 @@ export default function AddTenant(props) {
             <Button rounded full style={styles.scanBtn} onPress={() => saveTenant()}>
               <Text style={{ color: '#fff' }}>添加成员</Text>
             </Button>
-            <TouchableOpacity onPress={() => updateIndex(0)}>
+            <TouchableOpacity onPress={() => props.openCamera({ open: true })}>
               <Text style={styles.scanText}>重新扫描</Text>
             </TouchableOpacity>
           </View>
@@ -192,7 +203,7 @@ export default function AddTenant(props) {
         ><Text style={[styles.btnColor, active]}>{item.name + (item.tenantCount > 0 && '(已租)')}</Text></Button>)
       })
       return (<View style={styles.roomListBox}>{result}</View>)
-    } else  {
+    } else {
       return (<Text style={styles.dec, { textAlign: 'center', color: 'red' }}>暂无房间</Text>)
     }
   }
@@ -248,7 +259,7 @@ export default function AddTenant(props) {
             style={[styles.defaultSize, styles.textAlignR]}
           />
         </Item>
-        <Item style={[styles.marginLeft0, {paddingVertical: 14, display: props.route.params.type === 'member' ? 'none' : 'flex'}]} inlineLabel picker>
+        <Item style={[styles.marginLeft0, { paddingVertical: 14, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>
           <Label style={[styles.labelTitle, styles.defaultSize]}>
             房屋类型
           </Label>

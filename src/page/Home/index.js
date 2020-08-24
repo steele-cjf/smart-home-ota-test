@@ -39,6 +39,7 @@ function HomePage(props) {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: true
     });
+    console.log('get location start:')
     Geolocation.getCurrentPosition(
       position => {
         console.log('position: ' + JSON.stringify(position))
@@ -74,7 +75,7 @@ function HomePage(props) {
     if (props.myHouseList && props.myHouseList.data) {
       let { data } = props.myHouseList
       setHouseList(data)
-      data.length && setSelectHouse(data[0])
+      data.length && selectHouse.id && setSelectHouse(data[0])
     }
     setLoadingStatus(false)
   }, [props.myHouseList])

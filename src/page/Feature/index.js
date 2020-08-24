@@ -43,9 +43,6 @@ function FeaturePage(props) {
     setHasHouse(hasHouse)
   }, [props.myHouseList])
   const renderSpinner = () => {
-    console.log(9876543)
-    console.log(hasHouse, 777)
-    console.log('user2', user);
     if (!user) {
       return(
         <View style={{paddingTop: 200, alignItems: 'center' }}>

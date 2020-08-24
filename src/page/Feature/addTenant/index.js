@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { getHouseDetail } from '../../../store/house/index';
 import { openCamera } from '../../../store/common/index'
 import { getRoomList } from '../../../store/feature/index'
-import { addTenantForm, addFamilyForm } from '../../../store/tenant/index'
+import { addTenantForm, addFamilyForm, scanAddTenant } from '../../../store/tenant/index'
 import Component from './component';
 // reducer获取
 function mapStateToProps(state) {
@@ -17,7 +17,13 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getHouseDetail, openCamera, getRoomList, addTenantForm, addFamilyForm }, dispatch);
+  return bindActionCreators({ 
+    getHouseDetail, 
+    openCamera, 
+    getRoomList, 
+    addTenantForm, 
+    addFamilyForm,
+    scanAddTenant }, dispatch);
 }
 export default connect(
   mapStateToProps,

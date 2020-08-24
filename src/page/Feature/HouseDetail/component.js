@@ -564,7 +564,7 @@ const styles = StyleSheet.create({
   listBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16,
+    marginTop: 16
   },
   rightContent: {},
   item_content: {
