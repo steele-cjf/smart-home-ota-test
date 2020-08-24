@@ -29,3 +29,11 @@ export function addUserFeedback(data, callback) {
     },
   });
 }
+
+export function getUserInfoUrl(id, callback) {
+  return $post2(`/qrcode/${id}/genUserInfoUrl`, {
+    successConfig: {
+      callback,
+    },
+  });
+}

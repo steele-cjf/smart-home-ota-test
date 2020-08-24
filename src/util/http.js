@@ -114,9 +114,35 @@ export const getImage = (url, callback) => {
   });
 };
 
+export function post2(url, config) {
+  return (dispatch => {
+    config.method = 'POST';
+    config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
+    config = Object.assign({}, DEFAULT_CONFIG, config);
+
+    return fetch(appApi + url, config)
+      .then(response => {return response.blob();})
+      .then(blob => {
+        const objectURL = URL.createObjectURL(blob);
+
+        if (config.successConfig && config.successConfig.callback) {
+          config.successConfig.callback(objectURL);
+        }
+
+        return objectURL;
+      })
+      .catch(error => {
+        console.log(error);
+        showToast('networkError2');
+      });
+  });
+}
+
+
 export default {
   get,
   post,
+  post2,
   put,
   remove,
   getImage,

@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import MyPage from '../page/My/MyPage';
 import PersonalInfo from '../page/My/PersonalInfo';
+import MyQRCode from '../page/My/MyQRCode';
 import VertifyDetailsPage from '../page/Home/VertifyDetails';
 import Suggestion from '../page/My/SuggestionPage';
 import About from '../page/My/AboutPage';
@@ -42,6 +43,14 @@ export const MyPageStackComponent = () => {
         component={PersonalInfo}
         options={{
           title: '个人信息',
+          headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.MYQRCODE}
+        component={MyQRCode}
+        options={{
+          title: '二维码',
           headerBackTitle: '返回',
         }}
       />
