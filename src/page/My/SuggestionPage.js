@@ -83,7 +83,6 @@ const SuggestionPage = (props) => {
   const renderImage = () => {
     return (
       formImages.map((item, index) => {
-        //console.log(item.uri, '777777')
         return (
           <ImageUpload setImageForm={(obj) => setImageForm(index, obj)} imgUrl={item.uri || ''}/>
         )

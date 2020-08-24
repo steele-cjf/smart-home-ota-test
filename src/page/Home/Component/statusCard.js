@@ -4,7 +4,7 @@ import Theme from '../../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { AppRoute } from '../../../navigator/AppRoutes';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; 
 
 const status_cf = {
     'not_audit': {
@@ -74,14 +74,43 @@ export default function StatusCard(props) {
     }, [props.status])
 
     useEffect(() => {
+        console.log(1111111, props.item)
         if (props.status === 'audit_pass' && props.item && props.item.houseId) {
-            let { status, regionFullName, houseId } = props.item
+            let { status, regionFullName, houseId, houseRole } = props.item
             let data = Object.assign({}, houseStatus[status || 'audit_pending'])
             data.name = regionFullName.replace(/\//g, '')
             data.id = houseId
+            data.houseRole = houseRole
             setOptions(data)
         }
     }, [props.item])
+    const renderStatus = () => {
+        var aa = [
+            { icon: 'paper-plane', name: 1, text: '开启' },
+            { icon: '500px-with-circle', name: 2, text: '开启' },
+            { icon: 'progress-one', name: 3, text: '75%'},
+            { icon: 'signal', name: 4, text: '开启'}
+        ]
+        return aa.map((item) => {
+            return (
+                <View key={item.name} style={styles.cardList}>
+                    <Entypo style={styles.LeftIcon} name={item.icon} />
+                    <Text style={styles.cardText}>{item.text}</Text>
+                </View>
+            )
+        })
+
+    }
+    const renderRent = () => {
+        return (
+            <View style={styles.rentBox}>
+                {renderStatus()}
+                <TouchableOpacity style={styles.rightBox}>
+                    <MaterialCommunityIcons style={[styles.LeftIcon, styles.rightText]} name='door' />
+                    <Text style={styles.rightText}>开门</Text>
+                </TouchableOpacity>
+            </View>)
+    }
     return (
         <View style={styles.container}>
             {options && options.showLocation &&
@@ -91,7 +120,7 @@ export default function StatusCard(props) {
                     <AntDesign name='caretdown' style={styles.RightIcon} />
                 </TouchableOpacity>
             }
-            <View style={styles.bottomBox}>
+            {options && options.houseRole === 'holder' ? <View style={styles.bottomBox}>
                 <View style={styles.Leftcontent}>
                     <Text style={styles.title}>{options.title || '--'}</Text>
                     <Text style={styles.des} note>{options.desc || '--'}</Text>
@@ -102,7 +131,7 @@ export default function StatusCard(props) {
                     <AntDesign name={options.iconName} style={styles.iconBox} />
                     <Text style={{ color: Theme.primary }}>{options.btnDesc || '--'}</Text>
                 </TouchableOpacity>
-            </View>
+            </View> : renderRent()}
         </View>
     );
 }
@@ -132,7 +161,9 @@ const styles = StyleSheet.create({
     LeftIcon: {
         color: '#7C7C7C',
         paddingRight: 5,
-        fontSize: 17
+        fontSize: 17,
+        textAlign: 'center',
+        top: 3
     },
     bottomBox: {
         flexDirection: 'row'
@@ -159,5 +190,29 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingTop: 10,
         paddingBottom: 2
+    },
+    rentBox: {
+        flexDirection: 'row',
+        marginVertical: 10,
+    },
+    cardList: {
+        marginRight: 20,
+        textAlign: 'center',
+    },
+    cardText: {
+        color: '#7C7C7C',
+        marginTop: 5
+    },
+    rightBox: {
+        flexDirection: 'row',
+        borderLeftWidth: 1,
+        borderLeftColor: '#E9E9E9',
+        paddingLeft: 15
+    },
+    rightText: {
+        color: '#5C8BFF',
+        fontSize: 16,
+        paddingTop: 10,
+        padding: 5
     }
 });
