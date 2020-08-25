@@ -26,15 +26,15 @@ export default function HeaderCommon(props) {
         return (
             <TouchableOpacity transparent display={options.rightShow || 'none'}
                 onPress={() => PropsRightPress()}>
-                <Text style={{ color: Theme.textLink }}>{options.rightTitle || '--'}</Text>
+                <Text style={styles.rightText}>{options.rightTitle || '--'}</Text>
             </TouchableOpacity>
         )
     }
     return (
         <Header style={styles.container}>
             <Left>
-                <TouchableOpacity style={{ flexDirection: 'row' }}>
-                    <Icon style={styles.actionColor} name="arrow-back" onPress={() => NavigatorService.goBack()} />
+                <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => NavigatorService.goBack()}>
+                    <Icon style={styles.actionColor} name="arrow-back" />
                     {renderBackTitle()}
                 </TouchableOpacity>
             </Left>
@@ -64,5 +64,10 @@ const styles = StyleSheet.create({
     backText: {
         color: Theme.textLink,
         top: 5
+    },
+    rightText: {
+        color: Theme.textLink,
+        flexWrap: 'wrap',
+        width: 40
     }
 })
