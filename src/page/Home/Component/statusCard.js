@@ -4,7 +4,7 @@ import Theme from '../../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { AppRoute } from '../../../navigator/AppRoutes';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; 
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const status_cf = {
     'not_audit': {
@@ -74,7 +74,6 @@ export default function StatusCard(props) {
     }, [props.status])
 
     useEffect(() => {
-        console.log(1111111, props.item)
         if (props.status === 'audit_pass' && props.item && props.item.houseId) {
             let { status, regionFullName, houseId, houseRole } = props.item
             let data = Object.assign({}, houseStatus[status || 'audit_pending'])
@@ -88,8 +87,9 @@ export default function StatusCard(props) {
         var aa = [
             { icon: 'paper-plane', name: 1, text: '开启' },
             { icon: '500px-with-circle', name: 2, text: '开启' },
-            { icon: 'progress-one', name: 3, text: '75%'},
-            { icon: 'signal', name: 4, text: '开启'}
+            { icon: 'progress-one', name: 3, text: '75%' },
+            { icon: 'signal', name: 4, text: '开启' },
+            { icon: 'paper-plane', name: 5, text: '开启' }
         ]
         return aa.map((item) => {
             return (
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     cardList: {
-        marginRight: 20,
+        marginRight: 15,
         textAlign: 'center',
     },
     cardText: {
@@ -207,7 +207,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderLeftWidth: 1,
         borderLeftColor: '#E9E9E9',
-        paddingLeft: 15
+        paddingLeft: 15,
+        position: 'absolute',
+        right: 0
     },
     rightText: {
         color: '#5C8BFF',

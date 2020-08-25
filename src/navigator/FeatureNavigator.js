@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import FeaturePage from '../page/Feature/index';
 import HouseDetail from '../page/Feature/HouseDetail';
 import PublishHouse from '../page/Feature/publishHouse';
@@ -8,34 +8,35 @@ import RoomPage from '../page/Feature/roomPage';
 import TenantList from '../page/Feature/TenantList';
 import AuthenticationPage from '../page/Home/AuthenticationPage';
 import ComponentTest from '../page/ComponentTest/index';
-import {AppRoute} from './AppRoutes';
+import { AppRoute } from './AppRoutes';
+import MyPublishHouse from '../page/My/MyPublishHouse';
 
-const HomeStack = createStackNavigator();
+const FeatureStack = createStackNavigator();
 
 export const FeatureStackComponent = () => {
   return (
-    <HomeStack.Navigator
+    <FeatureStack.Navigator
       screenOptions={{
         cardStyle: {
           fontSize: 16,
           backgroundColor: '#fff',
         },
       }}>
-      <HomeStack.Screen
+      <FeatureStack.Screen
         name={AppRoute.FEATURE}
         component={FeaturePage}
         options={{
           headerShown: false,
         }}
       />
-      <HomeStack.Screen
+      <FeatureStack.Screen
         name={AppRoute.HOUSEDETAIL}
         component={HouseDetail}
         options={{
           headerShown: false,
         }}
       />
-      <HomeStack.Screen
+      <FeatureStack.Screen
         name={AppRoute.PUBLISH}
         component={PublishHouse}
         options={{
@@ -43,7 +44,7 @@ export const FeatureStackComponent = () => {
           headerBackTitle: '返回',
         }}
       />
-      <HomeStack.Screen
+      <FeatureStack.Screen
         name={AppRoute.ADDTENANT}
         component={AddTenant}
         options={{
@@ -51,21 +52,21 @@ export const FeatureStackComponent = () => {
           headerBackTitle: '返回',
         }}
       />
-      <HomeStack.Screen
+      <FeatureStack.Screen
         name={AppRoute.ROOM}
         component={RoomPage}
         options={{
           headerShown: false,
         }}
       />
-      <HomeStack.Screen
+      <FeatureStack.Screen
         name={AppRoute.TENANTLIST}
         component={TenantList}
         options={{
           headerShown: false,
         }}
       />
-      <HomeStack.Screen
+      <FeatureStack.Screen
         name={AppRoute.COMPONENTTEST}
         component={ComponentTest}
         options={{
@@ -73,7 +74,7 @@ export const FeatureStackComponent = () => {
           headerBackTitle: '返回',
         }}
       />
-      <HomeStack.Screen
+      <FeatureStack.Screen
         name={AppRoute.AUTHENTICATION}
         component={AuthenticationPage}
         options={{
@@ -81,6 +82,13 @@ export const FeatureStackComponent = () => {
           headerBackTitle: '返回',
         }}
       />
-    </HomeStack.Navigator>
+      <FeatureStack.Screen
+        name={AppRoute.PUBLISHLISE}
+        component={MyPublishHouse}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </FeatureStack.Navigator>
   );
 };

@@ -37,7 +37,7 @@ export default function PassportVertifyPage(props) {
 
                 let {name, identificationNo, gender, birthDate, country} = res.data;
                 var oldData = {name, identificationNo, gender, birthDate, country} ;
-                console.log(999, oldData)
+                // console.log(999, oldData)
                 setOldData(Object.assign({}, oldData));
 
                 $getImage(res.data.imageUrls[0], uri => {

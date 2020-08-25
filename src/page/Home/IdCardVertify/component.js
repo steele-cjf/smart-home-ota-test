@@ -38,7 +38,7 @@ export default function IdCardVertifyPage(props) {
 
         let {name, identificationNo, gender,  nation, birthDate, identificationAddress} = res.data;
         var oldData = {name, identificationNo, gender,  nation, birthDate, identificationAddress};
-        console.log(999, oldData)
+        // console.log(999, oldData)
         setOldData(Object.assign({}, oldData));
 
         $getImage(res.data.imageUrls[0], uri => {

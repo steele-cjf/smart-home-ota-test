@@ -135,6 +135,7 @@ function HouseListComponent(props) {
   return (
     <FlatList
       data={houseListData()}
+      ListHeaderComponent={props.ListHeaderComponent}
       ref={listElement}
       // 首屏渲染多少个数据
       initialNumToRender={5}

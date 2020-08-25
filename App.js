@@ -20,11 +20,11 @@ export default (props) => {
       setLoading(false);
       NavigatorService.setContainer(navigatorRef.current)
     })();
-    console.log()
+    // console.log()
   }, []);
 
   useEffect(() => {
-    console.log(999)
+    
   }, [props.AppRoute])
 
   // test appState

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList, Text, Image} from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, FlatList, Text, Image } from 'react-native';
 import {
   Header,
   Left,
@@ -14,11 +14,12 @@ import {
   ActionSheet,
 } from 'native-base';
 import { useFocusEffect } from '@react-navigation/native';
-import {AppRoute} from '../../../navigator/AppRoutes';
+import { AppRoute } from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
-import {Divider} from 'react-native-elements';
+import { Divider } from 'react-native-elements';
 import Feather from 'react-native-vector-icons/Feather';
 import showToast from '../../../util/toast';
+import HeaderCommon from '../../Component/HeaderCommon'
 
 function MyPublishList(props) {
   const [loading, setLoading] = useState(true);
@@ -26,22 +27,18 @@ function MyPublishList(props) {
   const [houseInfo, setHouseInfo] = useState({});
   const [houseList, setHouseList] = useState([]);
   const [mappings, setMappings] = useState({});
-  // useEffect(() => {
-  //   init();
-  // }, [init]);
 
   useFocusEffect(
     useCallback(() => {
-      console.log('@@@@@@@@@@@@@')
       init()
     }, [props.route])
   )
 
   const init = () => {
-    const {params} = props.route;
+    const { params } = props.route;
     setHouseId(params.id);
     props.getMyPublishList(
-      {houseId: params.id, pageNum: 1, pageSize: 100},
+      { houseId: params.id, pageNum: 1, pageSize: 100 },
       res => {
         console.log('houseList', res.data.list);
         if (!res.code) {
@@ -67,14 +64,14 @@ function MyPublishList(props) {
   const goPublishHousePage = () => {
     NavigatorService.navigate(AppRoute.PUBLISH, {
       id: houseId,
-      refresh: function() {
+      refresh: function () {
         init();
       },
     });
   };
   const handlerOffShelf = id => {
     setLoading(true);
-    props.offShelf({id: id}, res => {
+    props.offShelf({ id: id }, res => {
       console.log('off', res);
       if (!res.code) {
         showToast('已下架');
@@ -86,7 +83,7 @@ function MyPublishList(props) {
   };
   const handlerRepublish = id => {
     setLoading(true);
-    props.republish({id: id}, res => {
+    props.republish({ id: id }, res => {
       console.log('pub', res);
       if (!res.code) {
         showToast('已重新发布');
@@ -130,7 +127,7 @@ function MyPublishList(props) {
       },
     );
   };
-  const _houseItem = ({item, index}) => {
+  const _houseItem = ({ item, index }) => {
     return (
       <View key={index} style={styles.container}>
         <View style={styles.leftContainer}>
@@ -141,7 +138,7 @@ function MyPublishList(props) {
               backgroundColor: '#ccc',
               marginRight: 16,
             }}
-            source={{uri: item.imgUrl}}
+            source={{ uri: item.imgUrl }}
           />
         </View>
         <View style={styles.rightContainer}>
@@ -165,7 +162,7 @@ function MyPublishList(props) {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <Text style={[styles.rentPrice, styles.highColor, {flex: 1}]}>
+            <Text style={[styles.rentPrice, styles.highColor, { flex: 1 }]}>
               {mappings.publishinfo_status[item.status]} |{' '}
               {!item.roomNames.length ? '整租' : item.roomNames[0]}
             </Text>
@@ -185,45 +182,36 @@ function MyPublishList(props) {
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-        <View style={{backgroundColor: '#fff', flex: 1}}>
-          <Header style={{backgroundColor: '#fff'}}>
-            <Left>
-              <Button transparent>
-                <Icon
-                  name="arrow-back"
-                  onPress={() => NavigatorService.goBack()}
-                />
-              </Button>
-            </Left>
-            <Body>
-              <Title>发布情况</Title>
-            </Body>
-            <Right>
-              <Button transparent onPress={() => goPublishHousePage()}>
-                <Text style={{color: Theme.textLink}}>新增发布</Text>
-              </Button>
-            </Right>
-          </Header>
-          <View style={styles.house_address}>
-            <View style={{width: 70}}>
-              <Text style={{color: '#7C7C7C'}}>房屋地址</Text>
+          <View>
+            <HeaderCommon
+              options={{
+                backTitle: '返回',
+                title: '发布情况',
+                rightShow: 'flex',
+                rightTitle: '新增发布',
+                rightPress: () => goPublishHousePage()
+              }}
+            />
+            <View style={styles.house_address}>
+              <View style={{ width: 70 }}>
+                <Text style={{ color: '#7C7C7C' }}>房屋地址</Text>
+              </View>
+              <View style={{ alignItems: 'flex-end' }}>
+                <Text style={[styles.main_color, styles.MT_5]}>
+                  {houseInfo.regionFullName}
+                </Text>
+                <Text style={styles.main_color}>{houseInfo.address}</Text>
+              </View>
             </View>
-            <View style={{alignItems: 'flex-end'}}>
-              <Text style={[styles.main_color, styles.MT_5]}>
-                {houseInfo.regionFullName}
-              </Text>
-              <Text style={styles.main_color}>{houseInfo.address}</Text>
-            </View>
+            <Divider style={{ marginHorizontal: 15 }} />
+            <FlatList
+              data={houseList}
+              // 唯一 ID
+              keyExtractor={item => item.id}
+              renderItem={_houseItem}
+            />
           </View>
-          <Divider style={{marginHorizontal: 15}} />
-          <FlatList
-            data={houseList}
-            // 唯一 ID
-            keyExtractor={item => item.id}
-            renderItem={_houseItem}
-          />
-        </View>
-      )}
+        )}
     </Root>
   );
 }

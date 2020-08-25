@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View, Image, StyleSheet } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Image, StyleSheet } from 'react-native'
 import Swiper from 'react-native-swiper'
 
 var styles = StyleSheet.create({
@@ -17,9 +17,12 @@ var styles = StyleSheet.create({
 })
 
 export default (props) => {
-    const [items] = useState(props.items)
+    const [items, setItems] = useState(props.items)
+    useEffect(() => {
+        setItems(props.items)
+    }, [props.items])
     return (
-        <Swiper style={styles.wrapper} autoplay autoplayTimeout={1} loop={true}>
+        <Swiper style={styles.wrapper} autoplay={true} autoplayTimeout={1} loop={true} showsPagination={false}>
             {items && items.map((item) => {
                 return (
                     <View testID="Hello" style={styles.slide}>

@@ -36,7 +36,7 @@ function HouseDetail(props) {
         }, (res) => {
             if (!res.code && value) {
                 showToast('收藏成功')
-            } else if(!res.code && !value) {
+            } else if (!res.code && !value) {
                 showToast('已取消收藏成功')
             } else {
                 showToast(res.message || '操作失败')
@@ -124,8 +124,9 @@ function HouseDetail(props) {
                             onPress={() => { changeCollection('collectedByMe', !options.collectedByMe) }}
                             name={options.collectedByMe ? 'heart' : 'hearto'}></AntDesign>
                     </View>
-                    <Text style={styles.secondDes}>{code['house_type'][options.houseType]}·{options
-                        .regionFullName}·{options.houseLayout.roomCount}房·{options.houseLayout.hallCount}厅·{options.houseLayout.toiletCount}卫</Text>
+                    <Text style={styles.secondDes}>
+                        {code['house_type'][options.houseType]}·{options
+                            .regionFullName}·{options.houseLayout.roomCount}房·{options.houseLayout.hallCount}厅·{options.houseLayout.toiletCount}卫</Text>
                     {renderHouseLayout()}
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>
