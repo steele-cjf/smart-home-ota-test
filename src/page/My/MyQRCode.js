@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   },
 });
 
+
 // reducer获取
 function mapStateToProps(state) {
   return {
