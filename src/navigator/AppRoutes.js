@@ -6,6 +6,7 @@ export const AppRoute = {
   FEATURE: 'FeaturePage',
   MY: 'MyPage',
   PERSONALINFO: 'PersonalInfo',
+  MYQRCODE: 'MyQRCodePage',
   SUGGESTION: 'SuggestionPage',
   ABOUT: 'AboutPage',
   AGREEMENT: 'AgreementPage',

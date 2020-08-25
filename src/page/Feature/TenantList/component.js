@@ -59,7 +59,7 @@ export default function TenantList(props) {
   };
   const _renderItem = ({item}) => {
     return (
-      <TouchableOpacity style={styles.room_item_style} onPress={() => NavigatorService.navigate(AppRoute.VERDETAILS, {userId: item.userId})}>
+      <TouchableOpacity style={styles.room_item_style} onPress={() => NavigatorService.navigate(AppRoute.VERDETAILS, {userId: item.userId, tenantUserId: tenantId, houseId: houseId})}>
         <View style={styles.left_content}>
           <Text style={styles.main_color}>{item.userName} - {item.gender}</Text>
         </View>

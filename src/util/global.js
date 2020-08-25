@@ -1,4 +1,4 @@
-import {get, post, remove, put, getImage, DEFAULT_CONFIG, appApi} from './http';
+import {get, post, post2, remove, put, getImage, DEFAULT_CONFIG, appApi} from './http';
 import {showToast} from './toast';
 import Theme from '../style/colors';
 import screen from '../style/sizes';
@@ -8,6 +8,7 @@ import NavigatorService from './navigatorService';
 
 global.$get = get;
 global.$post = post;
+global.$post2 = post2;
 global.$remove = remove;
 global.$put = put;
 global.$getImage = getImage;

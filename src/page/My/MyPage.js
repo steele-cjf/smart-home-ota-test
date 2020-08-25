@@ -100,8 +100,16 @@ function MyPage(props) {
           <View>
             <View style={styles.headerContent}>
               <View style={[styles.flex, styles.topBox]}>
-                <Text style={styles.topTitle}>我的</Text>
-                <AntDesign name="bells" style={{ fontSize: 20, color: '#fff' }} />
+                <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.MYQRCODE)}>
+                  <Text style={styles.topTitle}>我的</Text>
+                </TouchableOpacity>
+                <AntDesign
+                  name="bells"
+                  style={{
+                    fontSize: 20,
+                    color: '#fff',
+                  }}
+                />
               </View>
               <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
                 <View style={[styles.flex, styles.InfoBox]}>

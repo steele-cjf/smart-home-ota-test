@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {View, Keyboard, ScrollView, StyleSheet} from 'react-native';
 import {Text, Input, Button, CheckBox} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -10,6 +10,27 @@ import storage from '../../util/storage';
 import Theme from '../../style/colors';
 
 function LoginPage(props) {
+
+  useEffect(() => {
+    return () => {
+      clearInterval(timerId); 
+    };
+  }, []);
+
+  function startTimer(count) {
+    setIsSend(true);
+
+    timerId = setInterval(() => {
+      count--;
+      setCount(count)
+      if (count === 0) {
+        setIsSend(false);
+        clearInterval(timerId);
+        setCount(times);
+      }
+    }, 1000);    
+  }
+
   function validateField(field) {    
     switch (field) {
       case 'mobile': {
@@ -18,7 +39,7 @@ function LoginPage(props) {
         return validateFlag;
       }
       case 'verifyCode': {
-        let verCodeReg = /^\d{4,6}$/;
+        let verCodeReg = /^\d{6}$/;
         const validateFlag2 = verCodeReg.test(verifyCode);
         return validateFlag2;
       }
@@ -103,20 +124,23 @@ function LoginPage(props) {
       console.log('code', res);
       if (!res.code) {
         showToast('验证码已发送，请注意查收！');
-        setSendStatus(true);
+        startTimer(count);
       } else {
         showToast(res.message);
       }
     });
   }
 
-  const [isSend, setSendStatus] = useState(false);
+  
+  const [isSend, setIsSend] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(13661992793); //13661992793
   const [verifyCode, setVerifyCode] = useState(107272); //560657
-  const [checked, setChecked] = useState(true);
-
+  const [checked, setChecked] = useState(false);
+  let times = 90;
+  const [count, setCount] = useState(times);
+  
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
@@ -163,7 +187,7 @@ function LoginPage(props) {
           containerStyle={styles.codeBtnPosition}
           buttonStyle={styles.verCodeBtn}
           titleStyle={styles.verCodeTitle}
-          title="发送短信验证码"
+          title= {isSend ? "剩余"+count+"秒" : "发送短信验证码"}
           disabled={isSend}
           type="solid"
           onPress={handleGetCode}
