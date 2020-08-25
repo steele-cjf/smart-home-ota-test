@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList, Alert} from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, FlatList, Alert } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   Header,
@@ -17,6 +17,7 @@ import {
 import DialogInput from '../../Component/dialogInput';
 import Theme from '../../../style/colors';
 import showToast from '../../../util/toast';
+import HeaderCommon from '../../Component/HeaderCommon'
 
 export default function RoomPage(props) {
   const [loading, setLoading] = useState(true);
@@ -31,9 +32,9 @@ export default function RoomPage(props) {
   }, [fetchRoomList]);
 
   const fetchRoomList = useCallback(() => {
-    const {params} = props.route;
+    const { params } = props.route;
     setHouseId(params.id);
-    props.getRoomList({houseId: params.id}, res => {
+    props.getRoomList({ houseId: params.id }, res => {
       if (!res.code) {
         setRoomList(res.data);
         setLoading(false);
@@ -61,7 +62,7 @@ export default function RoomPage(props) {
         text: '取消',
         onPress: () => console.log('Cancel Pressed'),
       },
-      {text: '确定', onPress: () => handlerDelete(item)},
+      { text: '确定', onPress: () => handlerDelete(item) },
       {
         // cancelable and onDismiss only work on Android.
         cancelable: true,
@@ -127,7 +128,7 @@ export default function RoomPage(props) {
   const goToPage = () => {
     props.navigation.goBack();
   };
-  const _renderItem = ({item, index}) => {
+  const _renderItem = ({ item, index }) => {
     return (
       <View style={styles.room_item_style}>
         <View style={styles.left_content}>
@@ -153,53 +154,46 @@ export default function RoomPage(props) {
               onPress={() => createTwoButtonAlert(item, index)}
             />
           ) : (
-            <AntDesign name="delete" size={14} color="#c7c7c7" />
-          )}
+              <AntDesign name="delete" size={14} color="#c7c7c7" />
+            )}
         </View>
       </View>
     );
   };
   return (
     <View style={styles.room_content}>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name="arrow-back" onPress={() => goToPage()} />
-          </Button>
-        </Left>
-        <Body>
-          <Title>房间管理</Title>
-        </Body>
-        <Right>
-          <Button transparent onPress={() => addRoom()}>
-            <Text>新增房屋</Text>
-          </Button>
-        </Right>
-      </Header>
+      <HeaderCommon
+        options={{
+          backTitle: '返回',
+          title: '房间管理',
+          rightShow: 'flex',
+          rightTitle: '新增房屋',
+          rightPress: () => addRoom()
+        }} />
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-        <View style={styles.room_wrapper}>
-          <View style={styles.house_address}>
-            <View style={{width: 70}}>
-              <Text style={{color: '#7C7C7C'}}>房屋地址</Text>
+          <View style={styles.room_wrapper}>
+            <View style={styles.house_address}>
+              <View style={{ width: 70 }}>
+                <Text style={{ color: '#7C7C7C' }}>房屋地址</Text>
+              </View>
+              <View style={{ alignItems: 'flex-end' }}>
+                <Text style={[styles.main_color, styles.MT_5]}>
+                  {houseInfo.regionFullName}
+                </Text>
+                <Text style={styles.main_color}>{houseInfo.address}</Text>
+              </View>
             </View>
-            <View style={{alignItems: 'flex-end'}}>
-              <Text style={[styles.main_color, styles.MT_5]}>
-                {houseInfo.regionFullName}
-              </Text>
-              <Text style={styles.main_color}>{houseInfo.address}</Text>
-            </View>
+            {/* <Divider /> */}
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={RoomList}
+              renderItem={_renderItem}
+              keyExtractor={(_, index) => index.toString()}
+            />
           </View>
-          {/* <Divider /> */}
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={RoomList}
-            renderItem={_renderItem}
-            keyExtractor={(_, index) => index.toString()}
-          />
-        </View>
-      )}
+        )}
       <DialogInput
         isDialogVisible={isDialogVisible}
         title={'房间名'}

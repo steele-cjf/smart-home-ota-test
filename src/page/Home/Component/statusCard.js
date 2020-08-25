@@ -74,7 +74,6 @@ export default function StatusCard(props) {
     }, [props.status])
 
     useEffect(() => {
-        console.log(1111111, props.item)
         if (props.status === 'audit_pass' && props.item && props.item.houseId) {
             let { status, regionFullName, houseId, houseRole } = props.item
             let data = Object.assign({}, houseStatus[status || 'audit_pending'])
@@ -90,7 +89,7 @@ export default function StatusCard(props) {
             { icon: '500px-with-circle', name: 2, text: '开启' },
             { icon: 'progress-one', name: 3, text: '75%' },
             { icon: 'signal', name: 4, text: '开启' },
-            { icon: 'signal', name: 4, text: '开启' }
+            { icon: 'paper-plane', name: 5, text: '开启' }
         ]
         return aa.map((item) => {
             return (

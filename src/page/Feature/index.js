@@ -35,7 +35,6 @@ function FeaturePage(props) {
 
   useEffect(() => {
     let user = props.userInfo && props.userInfo.data && props.userInfo.data.status === 'audit_pass'
-    console.log('user', user);
     setUser(user)
   }, [props.userInfo])
   useEffect(() => {
@@ -62,7 +61,6 @@ function FeaturePage(props) {
         </View>
       )
     } else {
-      // renderContent()
       return(
         renderContent()
       )

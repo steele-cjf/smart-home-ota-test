@@ -8,14 +8,8 @@ import {
   Alert,
 } from 'react-native';
 import {
-  Header,
   Button,
-  Title,
   Text,
-  Left,
-  Right,
-  Icon,
-  Body,
   Spinner,
 } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -25,6 +19,7 @@ import { Divider } from 'react-native-elements';
 import Theme from '../../../style/colors';
 import showToast from '../../../util/toast';
 import { useFocusEffect } from '@react-navigation/native';
+import HeaderCommon from '../../Component/HeaderCommon'
 function HouseDetail(props) {
   const [loading, setLoading] = useState(true);
   const [houseInfo, setHouseInfo] = useState({
@@ -103,8 +98,7 @@ function HouseDetail(props) {
   const renderTenantList = () => {
     const { params } = props.route;
     let result = tenantList.length && tenantList.map(item => {
-      const rooms = item.rooms.map(item => {return item.name});
-      console.log('rooms', item);
+      const rooms = item.rooms.map(item => { return item.name });
       return (<View style={styles.listBox} key={item.userId}>
         <View style={[styles.leftContent, styles.flex]}>
           <Text style={[styles.labelTitle, styles.mainColor, styles.fontSize14]}>
@@ -137,29 +131,15 @@ function HouseDetail(props) {
         <Spinner color="#5C8BFF" />
       ) : (
           <ScrollView>
-            <Header transparent>
-              <Left>
-                <Button transparent>
-                  <Icon
-                    name="arrow-back"
-                    onPress={() => props.navigation.goBack()}
-                  />
-                </Button>
-              </Left>
-              <Body>
-                <Title>房屋详情</Title>
-              </Body>
-              <Right>
-                <Button
-                  transparent
-                  onPress={() => handleToPage()}
-                  style={{
-                    display: houseInfo.status === 'audit_pass' ? 'none' : 'flex',
-                  }}>
-                  <Text>修改</Text>
-                </Button>
-              </Right>
-            </Header>
+            <HeaderCommon
+              options={{
+                backTitle: '返回',
+                title: '房屋详情',
+                rightShow: houseInfo.status === 'audit_pass' ? 'none' : 'flex',
+                rightTitle: '修改',
+                rightPress: () => handleToPage()
+              }}
+            />
             <Divider />
             <View style={styles.padding}>
               {houseInfo.status === 'audit_pending' ? (

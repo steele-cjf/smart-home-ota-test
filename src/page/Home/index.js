@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import WebsocketComponent from '../Component/WebSocket'
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { getRecommandList } from '../../store/map/index';
 import { Button, ActionSheet, Root, Spinner } from 'native-base'
@@ -13,7 +12,7 @@ import HouseListComponent from '../Component/housingList/list';
 import Theme from '../../style/colors';
 import { useFocusEffect } from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
-
+import StickyHeader from 'react-native-stickyheader';
 const imgList = [ // 暂时写死
   require('../../assets/images/mock/home1.jpg'),
   require('../../assets/images/mock/home2.jpg'),
@@ -21,6 +20,9 @@ const imgList = [ // 暂时写死
   require('../../assets/images/mock/home4.jpg')]
 
 function HomePage(props) {
+  const [scrollY] = useState(new Animated.Value(0))
+  const [headHeight] = useState(-1)
+
   const [userInfo, setUserInfo] = useState({});
   const [houseList, setHouseList] = useState({});
   const [selectHouse, setSelectHouse] = useState({});
@@ -109,29 +111,48 @@ function HomePage(props) {
   }
   return (
     <Root style={styles.container}>
-      {userInfo && <WebsocketComponent id={userInfo.id} />}
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>首页</Text>
-          <View style={styles.SwiperBox} >
-            <Swiper items={imgList} />
-          </View>
-          {
-            loadingStatus ?
-              <Spinner></Spinner> :
-              <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
+        <Animated.ScrollView
+          style={{ flex: 1 }}
+          onScroll={
+            Animated.event(
+              [{
+                nativeEvent: { contentOffset: { y: scrollY } } // 记录滑动距离
+              }],
+              { useNativeDriver: true }) // 使用原生动画驱动
           }
-        </View>
-        <ActionSheet ref={(c) => { setActionSheet(c) }} />
-        <View style={styles.listContent}>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.listTitle}>房源推荐</Text>
-            <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
-              <Text style={{ color: Theme.textLink }} >查看更多</Text>
-            </Button>
+          scrollEventThrottle={1}
+        >
+          <View style={styles.header}>
+            <Text style={styles.title}>首页</Text>
+            <View style={styles.SwiperBox} >
+              <Swiper items={imgList} />
+            </View>
+            {
+              loadingStatus ?
+                <Spinner></Spinner> :
+                <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
+            }
           </View>
-          <HouseListComponent list={recommandList} />
-        </View>
+          <ActionSheet ref={(c) => { setActionSheet(c) }} />
+          <StickyHeader
+            stickyHeaderY={headHeight} // 把头部高度传入
+            stickyScrollY={scrollY}  // 把滑动距离传入
+          >
+            <View style={styles.listContent}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.listTitle}>房源推荐</Text>
+                <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
+                  <Text style={{ color: Theme.textLink }} >查看更多</Text>
+                </Button>
+              </View>
+
+            </View>
+          </StickyHeader>
+          <View style={{ backgroundColor: '#fff' }}>
+            <HouseListComponent list={recommandList} />
+          </View>
+        </Animated.ScrollView>
       </View>
     </Root>
   );

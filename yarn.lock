@@ -5442,6 +5442,11 @@ react-native-status-bar-height@^2.5.0:
   resolved "https://registry.npm.taobao.org/react-native-status-bar-height/download/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"
   integrity sha1-vA+4UjBgOFCquWZ+6BEaYpVN6Qw=
 
+react-native-stickyheader@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/react-native-stickyheader/download/react-native-stickyheader-1.1.2.tgz#b07a01a3c01cb6e99b9701da70cb09696f95daf3"
+  integrity sha1-sHoBo8ActumblwHacMsJaW+V2vM=
+
 react-native-swiper@^1.6.0:
   version "1.6.0"
   resolved "https://registry.npm.taobao.org/react-native-swiper/download/react-native-swiper-1.6.0.tgz#59fdbdf95addee49630312f27077622c27776819"

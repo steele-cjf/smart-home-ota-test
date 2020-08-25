@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { ListItem, Image, Card } from 'react-native-elements';
-import { Button, Item, Label, Input, Picker, ActionSheet } from 'native-base';
+import { Button, Item, Label, Input, ActionSheet } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const ID_CARD = 'id_card'
 const FULL_RENT = 'full_rent'

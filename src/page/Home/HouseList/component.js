@@ -10,7 +10,7 @@ function HouseList(props) {
   const [houseList, setHouseList] = useState()
   useFocusEffect(useCallback(() => {
     props.getHousingList({ pageNum: 1 }, async (res) => {
-      console.log(9999, res.data)
+      // console.log(9999, res.data)
       setHouseList(res.data)
     });
   }, [props.route]))
