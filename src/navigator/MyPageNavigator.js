@@ -4,6 +4,7 @@ import MyPage from '../page/My/MyPage';
 import PersonalInfo from '../page/My/PersonalInfo';
 import MyQRCode from '../page/My/MyQRCode';
 import VertifyDetailsPage from '../page/Home/VertifyDetails';
+import UserPassedPage from '../page/Home/VertifyDetails/UserPassedPage';
 import Suggestion from '../page/My/SuggestionPage';
 import About from '../page/My/AboutPage';
 import Agreement from '../page/Login/Agreement';
@@ -61,6 +62,14 @@ export const MyPageStackComponent = () => {
           title: '实名详情',
           headerBackTitle: '返回',
           headerShown: false,
+        }}
+      />
+       <MyPageNavigator.Screen
+        name={AppRoute.USERPASSED}
+        component={UserPassedPage}
+        options={{
+          title: '成员详情',
+          headerBackTitle: '返回',
         }}
       />
       <MyPageNavigator.Screen

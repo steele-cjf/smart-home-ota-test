@@ -10,8 +10,15 @@ import {getUserInfoUrl} from '../../store/user/index';
 const MyQRCodePage = (props) => {
 
   useEffect(() => {
+    getUserInfo(); 
     getUserInfoUrl(); 
-  }, []);
+  }, [props.userInfo]);
+
+  function getUserInfo() {
+    var userInfoData = props.userInfo.data;
+    let {name, mobile, avatarImageUrl} = userInfoData;
+    setUserInfo({name, mobile, avatarImageUrl});
+  }
 
   function getUserInfoUrl() {
     var userId = props.userInfo.data.id;
@@ -19,20 +26,23 @@ const MyQRCodePage = (props) => {
     props.getUserInfoUrl(userId, url => {
       console.log('******getUserInfoUrl:', url);
       if (url) {
-        setImageUrl1(url);
+        setImageUrl(url);
       } else {
         showToast("90909");
       }
     });
   }
 
-
-  const [imageUrl1, setImageUrl1] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
+  const [userInfo, setUserInfo] = useState({});
+  const [imageUrl, setImageUrl] = useState(''); 
   
   return(
     <View style={styles.containerStyle}>
-      <Text>sdffsadsadafsdsaffadsfsdfadsfsdafdsa</Text>
-      <Image style={styles.imageStyle} source={{uri: imageUrl1}} />
+      <Image style={styles.headImageStyle} source={{uri: userInfo.avatarImageUrl}} />
+      <Text>{userInfo.name}</Text>
+      <Text>{userInfo.mobile}</Text>
+      <Image style={styles.imageStyle} source={{uri: imageUrl}} />
+      <Text>扫一扫上面的二维码图案，将我加入</Text>
     </View>
   );
   
@@ -45,12 +55,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: Theme.background,
   },
+  headImageStyle: {
+    height: 48, 
+    width: 48,
+    backgroundColor: 'gray',
+  },
   imageStyle: {
-    // position: 'absolute',
-    // right: 28,
     height: 148, 
     width: 148,
-    //borderRadius: 24,
     backgroundColor: 'gray',
   },
 });

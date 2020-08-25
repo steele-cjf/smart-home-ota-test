@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {Spinner, Header, Button, Title, Left, Right, Icon, Body} from 'native-base';
 import Theme from '../../../style/colors';
 import {AppRoute} from '../../../navigator/AppRoutes'; 
@@ -44,18 +44,17 @@ export default function VertifyDetailsPage(props) {
 
     var info = props.userInfo;
     let userId = info.data.id;
-
+   
     const {params} = props.route;
-    if (params && params.userId) {
+    if (params && params.userId && userId !== params.userId) {
       userId = params.userId;
+      setCanDelete(true);
+      console.log('params******', params);
     } 
-    console.log('params******', params);
-    console.log('userId******', userId);
 
     props.getManualAuditInfo(userId, res => {
       console.log('*******AuditInfo-kk:*******', res);
       setLoading(false);
-
       if (!res.code) {
         dealDataRefresh(res.data);
       } else {
@@ -117,6 +116,11 @@ export default function VertifyDetailsPage(props) {
     }
   }
 
+  function deleteTenant() {
+    //test
+    NavigatorService.navigate(AppRoute.USERPASSED)
+  }
+
   const [authStatus, setAuthStatus] = useState('audit_pending');
   const [authOptions, setAuthOptions] = useState(auth_status['audit_pending']); 
   const [data, setData] = useState([]); 
@@ -124,6 +128,7 @@ export default function VertifyDetailsPage(props) {
   const [imageUrl1, setImageUrl1] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
   const [imageUrl2, setImageUrl2] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
   const [imageUrl3, setImageUrl3] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
+  const [canDelete, setCanDelete] = useState(false); 
 
   return (
     <View style={{flex: 1}}>
@@ -166,6 +171,11 @@ export default function VertifyDetailsPage(props) {
           <Image style={styles.imageStyle} source={{uri: imageUrl2}}/> 
           <Image style={styles.imageStyle} source={{uri: imageUrl3}} /> 
         </View>
+        {!canDelete ?  null :
+          <TouchableOpacity style={styles.btnStyle} onPress={deleteTenant}>
+            <Text style={styles.btnTextStyle}>删除</Text>
+          </TouchableOpacity>
+        }
       </View> 
       }  
     </View>
@@ -234,5 +244,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Theme.border,
     borderRadius: 4,
+  },
+  btnStyle: {
+    position: 'absolute',
+    left: 16,
+    right: 16,
+    bottom: 50,
+    //marginTop: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#5C8BFF'
+  },
+  btnTextStyle: {
+    height: 40,
+    lineHeight: 40,
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#FFFFFF',
   },
 });

@@ -13,6 +13,7 @@ export const AppRoute = {
   IDCARDVERTIFY: 'IdCardVertifyPage',
   PASSPORTVERTIFY: 'PassportVertifyPage',
   VERDETAILS: 'VertifyDetailsPage',
+  USERPASSED: 'UserPassedPage',
   UNRECORD: 'UnrecordedHouse',
   RECORD: 'RecordHouse',
   AUDIT: 'AuditHouse',
