@@ -1,20 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList, Text, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native';
 import {
-  Header,
-  Left,
-  Right,
-  Body,
-  Icon,
-  Button,
-  Title,
   Root,
   Spinner,
 } from 'native-base';
-import {AppRoute} from '../../../navigator/AppRoutes';
+import { AppRoute } from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
-
+import HeaderCommon from '../../Component/HeaderCommon'
 function MyHouseList(props) {
   const statusColor = {
     audit_pending: '#5C8BFF',
@@ -40,7 +33,7 @@ function MyHouseList(props) {
     });
   }, []);
   const init = useCallback(() => {
-    props.getHouseListByHolder({pageNum: 1, pageSize: 100}, res => {
+    props.getHouseListByHolder({ pageNum: 1, pageSize: 100 }, res => {
       console.log('refresh');
       if (!res.code) {
         if (res.data) {
@@ -54,20 +47,20 @@ function MyHouseList(props) {
   const handleToDetailPage = item => {
     NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
       id: item.id,
-      refresh: function() {
+      refresh: function () {
         init();
       },
     });
   };
   const goAddHousePage = () => {
     NavigatorService.navigate(AppRoute.RECORD, {
-      refresh: function() {
+      refresh: function () {
         init();
       },
     });
   };
 
-  const _houseItem = ({item, index}) => {
+  const _houseItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         key={index}
@@ -93,18 +86,18 @@ function MyHouseList(props) {
               {item.houseLayout.hasElevator ? ' - 电梯房' : ''}
             </Text>
           </View>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
             {item.status === 'audit_pass' ? (
               <Text style={[styles.rentPrice, styles.highColor]}>
                 {mappings.rent_status[item.rentStatus]} |{' '}
                 {mappings.publish_status[item.publishStatus]}
               </Text>
             ) : (
-              <Text
-                style={[styles.rentPrice, {color: statusColor[item.status]}]}>
-                {mappings.house_status[item.status]}
-              </Text>
-            )}
+                <Text
+                  style={[styles.rentPrice, { color: statusColor[item.status] }]}>
+                  {mappings.house_status[item.status]}
+                </Text>
+              )}
           </View>
         </View>
       </TouchableOpacity>
@@ -115,33 +108,24 @@ function MyHouseList(props) {
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-        <View style={{backgroundColor: '#fff', flex: 1}}>
-          <Header style={{backgroundColor: '#fff'}}>
-            <Left>
-              <Button transparent>
-                <Icon
-                  name="arrow-back"
-                  onPress={() => NavigatorService.goBack()}
-                />
-              </Button>
-            </Left>
-            <Body>
-              <Title>房源列表</Title>
-            </Body>
-            <Right>
-              <Button transparent onPress={() => goAddHousePage()}>
-                <Text style={{color: Theme.textLink}}>新增房源</Text>
-              </Button>
-            </Right>
-          </Header>
-          <FlatList
-            data={houseList}
-            // 唯一 ID
-            keyExtractor={item => item.id}
-            renderItem={_houseItem}
-          />
-        </View>
-      )}
+          <View>
+            <HeaderCommon
+              options={{
+                backTitle: '返回',
+                title: '房源列表',
+                rightShow: 'flex',
+                rightTitle: '新增房源',
+                rightPress: () => goAddHousePage()
+              }}
+            />
+            <FlatList
+              data={houseList}
+              // 唯一 ID
+              keyExtractor={item => item.id}
+              renderItem={_houseItem}
+            />
+          </View>
+        )}
     </Root>
   );
 }

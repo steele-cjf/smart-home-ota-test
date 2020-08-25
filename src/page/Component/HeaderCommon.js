@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 import {
     Header,
     Left,
@@ -18,25 +18,25 @@ export default function HeaderCommon(props) {
     }
     const renderBackTitle = () => {
         if (options.backTitle) {
-            return (<Text style={styles.actionColor}>{options.backTitle}</Text>)
+            return (<Text style={styles.backText}>{options.backTitle}</Text>)
         }
         return null
     }
     const renderRightButton = () => {
         return (
-            <Button transparent display={options.rightShow || 'none'}
+            <TouchableOpacity transparent display={options.rightShow || 'none'}
                 onPress={() => PropsRightPress()}>
                 <Text style={{ color: Theme.textLink }}>{options.rightTitle || '--'}</Text>
-            </Button>
+            </TouchableOpacity>
         )
     }
     return (
         <Header style={styles.container}>
             <Left>
-                <Button transparent>
+                <TouchableOpacity style={{ flexDirection: 'row' }}>
                     <Icon style={styles.actionColor} name="arrow-back" onPress={() => NavigatorService.goBack()} />
                     {renderBackTitle()}
-                </Button>
+                </TouchableOpacity>
             </Left>
             <Body style={styles.BodyBox}>
                 <Text style={styles.BodyTitle}>{options.title || '--'}</Text>
@@ -52,15 +52,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     actionColor: {
-        color: '#527BDF'
+        color: Theme.textLink
     },
     BodyBox: {
-        alignItems: 'center',
-        // backgroundColor: 'red'
+        alignItems: 'center'
     },
     BodyTitle: {
         color: '#282828',
-        fontSize: 16,
-        // fontWeight: 'bold'
+        fontSize: 16
+    },
+    backText: {
+        color: Theme.textLink,
+        top: 5
     }
 })
