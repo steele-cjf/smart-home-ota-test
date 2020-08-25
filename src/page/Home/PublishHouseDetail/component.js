@@ -4,13 +4,13 @@ import { View, StyleSheet, ImageBackground, TouchableOpacity } from 'react-nativ
 import { Icon, Button, Left, Header, Text, Spinner } from 'native-base'
 import HouseDetail from '../Component/houseDetail'
 import { ScrollView } from 'react-native-gesture-handler';
-
+import Swiper from '../../Component/Swiper'
 const image = require('../../../assets/images/mock/home1.jpg')
 function PublicHouseDetail(props) {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
   const [code, setCode] = useState(true)
-  const [img, setImg] = useState(null)
+  const [img, setImg] = useState([])
   useEffect(() => {
     let { id } = props.route.params
     props.getPublishHouseDetail(id, res => {
@@ -18,10 +18,14 @@ function PublicHouseDetail(props) {
         setData(Object.assign({}, res.data))
         setLoading(false)
         let picture = res.data.houseAddition.images
-        if(picture && picture.length) {
-          setImg({uri: picture[0]})
+        console.log(888, picture)
+        if (picture && picture.length) {
+          let i = picture.map((item) => {
+            return { uri: item }
+          })
+          setImg(i)
         } else {
-          setImg(image)
+          setImg([image])
         }
       }
     })
@@ -33,7 +37,9 @@ function PublicHouseDetail(props) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <ImageBackground style={styles.headerBox} source={img} />
+        <View style={{ height: 250 }} >
+          <Swiper items={img} />
+        </View>
         {
           loading ? <Spinner></Spinner> : <HouseDetail data={data} code={code} setCollection={(data, callback) => setCollection(data, callback)} />
         }

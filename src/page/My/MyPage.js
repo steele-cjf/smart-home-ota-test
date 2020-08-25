@@ -91,7 +91,8 @@ function MyPage(props) {
       }
     });
   }
-  const uri = 'https://facebook.github.io/react-native/docs/assets/favicon.png';
+
+  const uri = require('../../assets/images/scan.png')
   return (
     <View style={styles.container}>
       {loading ? (
@@ -114,10 +115,7 @@ function MyPage(props) {
               <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
                 <View style={[styles.flex, styles.InfoBox]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Thumbnail
-                      style={{ width: 64, height: 64, marginRight: 16 }}
-                      source={{ uri: uri }}
-                    />
+                    <Thumbnail style={{ width: 64, height: 64, marginRight: 16 }} source={uri} />
                     <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                       <Text style={{ fontSize: 20, color: '#fff' }}>
                         {userInfo.name || userInfo.mobile}
@@ -207,14 +205,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 22,
   },
   topBox: {
-    marginTop: 60,
+    marginTop: 30,
   },
   topTitle: {
     fontSize: 24,
     color: '#fff',
   },
   InfoBox: {
-    marginTop: 30,
+    marginTop: 20,
   },
   statusText: {
     fontSize: 12,
