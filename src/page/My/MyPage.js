@@ -101,27 +101,16 @@ function MyPage(props) {
             <View style={styles.headerContent}>
               <View style={[styles.flex, styles.topBox]}>
                 <Text style={styles.topTitle}>我的</Text>
-                <AntDesign
-                  name="bells"
-                  style={{
-                    fontSize: 20,
-                    color: '#fff',
-                  }}
-                />
+                <AntDesign name="bells" style={{ fontSize: 20, color: '#fff' }} />
               </View>
               <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
-              {/* <TouchableOpacity TouchableOpacity onPress={() => {NavigatorService.navigate(AppRoute.VERDETAILS, {userId: "488370132808122368"});}} > */}
                 <View style={[styles.flex, styles.InfoBox]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Thumbnail
                       style={{ width: 64, height: 64, marginRight: 16 }}
                       source={{ uri: uri }}
                     />
-                    <View
-                      style={{
-                        flexDirection: 'column',
-                        alignItems: 'flex-start',
-                      }}>
+                    <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                       <Text style={{ fontSize: 20, color: '#fff' }}>
                         {userInfo.name || userInfo.mobile}
                       </Text>
