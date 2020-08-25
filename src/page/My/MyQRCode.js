@@ -8,7 +8,7 @@ import {getUserInfoUrl} from '../../store/user/index';
 
 
 const MyQRCodePage = (props) => {
-
+  
   useEffect(() => {
     getUserInfo(); 
     getUserInfoUrl(); 

@@ -57,9 +57,18 @@ export default function TenantList(props) {
   const goToPage = () => {
     props.navigation.goBack();
   };
+  const goDetailPage = (item) => {
+    if (item.status === 'audit_pass') {
+      NavigatorService.navigate(AppRoute.USERPASSED, {userId: item.userId, tenantUserId: tenantId, houseId: houseId});
+    } else {
+      NavigatorService.navigate(AppRoute.VERDETAILS, {userId: item.userId, tenantUserId: tenantId, houseId: houseId});
+    }
+  }
+
   const _renderItem = ({item}) => {
+    
     return (
-      <TouchableOpacity style={styles.room_item_style} onPress={() => NavigatorService.navigate(AppRoute.VERDETAILS, {userId: item.userId, tenantUserId: tenantId, houseId: houseId})}>
+      <TouchableOpacity style={styles.room_item_style} onPress={() => goDetailPage(item)}>
         <View style={styles.left_content}>
           <Text style={styles.main_color}>{item.userName} - {item.gender}</Text>
         </View>

@@ -37,3 +37,13 @@ export function getUserInfoUrl(id, callback) {
     },
   });
 }
+
+export function getUserInfoById(id, callback) {
+  console.log('%%%%%%%%%%%%%id:', id);
+
+  return $get(`/user/${id}`, {
+    successConfig: {
+      callback,
+    },
+  });
+}
