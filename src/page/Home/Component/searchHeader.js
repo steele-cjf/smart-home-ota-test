@@ -9,24 +9,31 @@ import { AppRoute } from '../../../navigator/AppRoutes';
 
 
 export default function SearchHeader(props) {
+    const [searchItem, setSearchItem] = useState('');
+
     return (
         <View>
             <Header hasSegment style={styles.container}>
                 <Left style={{ flex: 1 }}>
                     <Button transparent onPress={() => NavigatorService.goBack()} >
                         <Icon name="md-chevron-back" style={{justifyContent: 'center'}}/>
-                        <Text >返回</Text>
+                        <Text>返回</Text>
                     </Button>
                 </Left>
                 <Body style={{ flex: 3 }}>
                     <Feather name='search' style={styles.searchIcon} />
-                    <Input style={styles.Input} placeholder='地区/小区' />
+                    <Input 
+                       style={styles.Input} 
+                       value={searchItem}
+                       onChangeText={setSearchItem}
+                       onBlur={() => props.getSearchParams(searchItem)} 
+                       placeholder='地区/小区' />
                 </Body>
                 <Right style={{ flex: 0.5 }}>
                     <Entypo style={styles.RightIcon} name='location' onPress={() => NavigatorService.navigate(AppRoute.MAPHOUSE)} />
                 </Right>
             </Header>
-            <Segment style={styles.selectBox}>
+            {/* <Segment style={styles.selectBox}>
                 <View style={styles.select}>
                     <Text style={styles.text}>位置</Text>
                     <AntDesign name='caretdown' />
@@ -42,7 +49,7 @@ export default function SearchHeader(props) {
                 <View style={{ flex: 1, justifyContent: 'center' }}>
                     <FontAwesome name='sort' style={{fontSize: 14}}></FontAwesome>
                 </View>
-            </Segment>
+            </Segment> */}
         </View>
     );
 }

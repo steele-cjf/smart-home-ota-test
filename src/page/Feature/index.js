@@ -136,7 +136,7 @@ function FeaturePage(props) {
             <TouchableOpacity onPress={() => showList()}>
               <View style={[styles.flex, styles.InfoBox]}>
                 <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
-                <Text style={{fontSize: 18, color: '#f9f9f9'}}>
+                <Text style={{fontSize: 18, color: '#f9f9f9'}} numberOfLines={1}>
                   {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'}
                 </Text>
                 <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />

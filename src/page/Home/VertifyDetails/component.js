@@ -22,8 +22,8 @@ const auth_status = {
   },
   'audit_pass': {
     title: '实名认证通过',
-    reasonDesc: '',
-    btnTitle: 'Test',
+    reasonDesc: '与上级界面状态可能不一致，数据有误',
+    btnTitle: '',
   },
 }
 
@@ -50,7 +50,9 @@ export default function VertifyDetailsPage(props) {
       userId = params.userId;
       setCanDelete(true);
       console.log('params******', params);
-    } 
+    } else {
+      setCanDelete(false);
+    }
 
     props.getManualAuditInfo(userId, res => {
       console.log('*******AuditInfo-kk:*******', res);
@@ -63,7 +65,6 @@ export default function VertifyDetailsPage(props) {
     });
   }
 
-  //刷新为服务数据
   function dealDataRefresh(data) { 
     var authStatus = data.auditStatus;      
     console.log('authStatus********: ', authStatus);
@@ -117,8 +118,23 @@ export default function VertifyDetailsPage(props) {
   }
 
   function deleteTenant() {
-    //test
-    NavigatorService.navigate(AppRoute.USERPASSED)
+    const {params} = props.route;
+    const data = {
+      userId: params.userId,
+      houseId: params.houseId,
+      tenantUserId: params.tenantUserId,
+    };
+
+    props.deleteTenant(data, res => {
+      console.log('deleteTenant****kkkk:', res);
+
+      if (!res.code) {
+        showToast("删除成功");
+        NavigatorService.goBack();
+      } else {
+        showToast("90909"+res.message);
+      }
+    });
   }
 
   const [authStatus, setAuthStatus] = useState('audit_pending');
@@ -250,10 +266,9 @@ const styles = StyleSheet.create({
     left: 16,
     right: 16,
     bottom: 50,
-    //marginTop: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#5C8BFF'
+    backgroundColor: '#E7263E'
   },
   btnTextStyle: {
     height: 40,

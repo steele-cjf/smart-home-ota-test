@@ -92,6 +92,16 @@ function MyPage(props) {
     });
   }
 
+  function goVertifyDetailPage() {
+    if (userInfo.status === 'audit_pass') {
+      NavigatorService.navigate(AppRoute.PERSONALINFO);
+    } else if (userInfo.status === 'not_audit') {
+      NavigatorService.navigate(AppRoute.AUTHENTICATION);
+    } else {
+      NavigatorService.navigate(AppRoute.VERDETAILS);
+    }
+  }
+
   const uri = require('../../assets/images/scan.png')
   return (
     <View style={styles.container}>
@@ -120,17 +130,10 @@ function MyPage(props) {
                       <Text style={{ fontSize: 20, color: '#fff' }}>
                         {userInfo.name || userInfo.mobile}
                       </Text>
-                      <View
-                        style={[
-                          styles.statusBox,
-                          {
-                            backgroundColor: statusColor[userInfo.status],
-                          },
-                        ]}>
-                        <Text style={styles.statusText}>
-                          {mappings.user_status[userInfo.status]}
-                        </Text>
-                      </View>
+                      <TouchableOpacity style={[styles.statusBox,{backgroundColor: statusColor[userInfo.status],},]} 
+                      onPress={goVertifyDetailPage}>
+                        <Text style={styles.statusText}>{mappings.user_status[userInfo.status]}</Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
                   <View>

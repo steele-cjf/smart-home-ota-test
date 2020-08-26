@@ -16,7 +16,7 @@ function TenantHouseList(props) {
 
   const init = useCallback(() => {
     props.getTenantHouseList({pageNum: 1, pageSize: 100}, res => {
-      console.log('houseList', res);
+      console.log('houseList', res.data.list);
       if (!res.code) {
         if (res.data) {
           const list = res.data.list;

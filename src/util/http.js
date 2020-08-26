@@ -91,6 +91,7 @@ export const put = (url, config) => {
 
 export const remove = (url, config) => {
   config.method = 'DELETE';
+  url = formatURL(url, config.queryData);
   return httpService(url, config);
 };
 // image如果需要token时的处理

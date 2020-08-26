@@ -39,11 +39,19 @@ export function getUserInfoUrl(id, callback) {
 }
 
 export function getUserInfoById(id, callback) {
-  console.log('%%%%%%%%%%%%%id:', id);
-
   return $get(`/user/${id}`, {
     successConfig: {
       callback,
     },
   });
 }
+
+export function deleteTenant(data, callback) {
+  return $remove('/tenant', {
+    queryData: data,
+    successConfig: {
+      callback,
+    },
+  });
+}
+
