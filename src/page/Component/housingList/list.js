@@ -1,23 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect, useCallback } from 'react';
+// import {connect} from 'react-redux';
+// import {bindActionCreators} from 'redux';
 import { StyleSheet, View, Text } from 'react-native';
 import HouseItem from './item';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import { FlatList } from 'react-native-gesture-handler';
 import { IS_IOS } from '../../../config';
-const mock = [
-  {
-    id: 1,
-    title: '深圳市市南区沿山社区网谷科技大厦501',
-    roomCount: 2,
-    hallCount: 1,
-    toiletCount: 1,
-    rentPrice: 1000,
-  }
-]
+// import {getHousingList} from '../../../store/home/index';
+
 function HouseListComponent(props) {
   const listElement = React.createRef();
-  const [houses, setHouses] = useState(mock);
+  const [houses, setHouses] = useState([]);
   // const [params, setParams] = useState({});
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +36,7 @@ function HouseListComponent(props) {
     setIsLoading(loading);
   };
   const updateResultData = resultData => {
+    updateLoadingState(false)
     if (resultData && resultData.list) {
       const data = resultData.list;
       const page = {
@@ -52,7 +47,8 @@ function HouseListComponent(props) {
       };
       setPagination(page);
       if (resultData.pageNum > 1) {
-        let list = houseListData;
+        let list = houseListData();
+        console.log('list', list, data);
         list.push(...data);
         setHouses(list);
       } else {
@@ -63,10 +59,20 @@ function HouseListComponent(props) {
     }
   };
 
-  const fetchHouseList = (page = 1) => {
-    updateLoadingState(true);
+  const fetchHouseList = (pageNum = 1) => {
+    console.log('test');
+    props.handlerHouseList(pageNum);
+    // updateLoadingState(true);
+    // props.getHousingList({ pageNum: pageNum }, (res) => {
+    //   console.log(8888, res)
+    //   updateResultData(res.data)
+    // });
   }
+  // useEffect(() => {
+  //   fetchHouseList()
+  // }, [])
   useEffect(() => {
+    updateLoadingState(true);
     updateResultData(props.list)
   }, [props.list])
 
@@ -82,7 +88,8 @@ function HouseListComponent(props) {
     };
   };
   const handleLoadMoreArticle = () => {
-    if (!isNoMoreData && !isLoading && pagination) {
+    console.log('more');
+    if (!isNoMoreData() && !isLoading && pagination) {
       fetchHouseList(pagination.pageNum + 1);
     }
   };
@@ -103,6 +110,7 @@ function HouseListComponent(props) {
   };
   // 渲染列表脚部的三种状态：空、加载中、无更多、上拉加载
   const renderListFooterView = () => {
+    console.log('halded');
     if (!houseListData.length) {
       return null;
     }
@@ -115,7 +123,8 @@ function HouseListComponent(props) {
       );
     }
 
-    if (isNoMoreData) {
+    if (isNoMoreData()) {
+      console.log('到底了');
       return (
         <View style={[styles.centerContainer, styles.loadMoreViewContainer]}>
           <Text style={styles.smallTitle}>已经到底了</Text>
@@ -133,44 +142,44 @@ function HouseListComponent(props) {
   };
 
   return (
-    <FlatList
-      data={houseListData()}
-      ListHeaderComponent={props.ListHeaderComponent}
-      ref={listElement}
-      // 首屏渲染多少个数据
-      initialNumToRender={5}
-      // 手动维护每一行的高度以优化性能
-      getItemLayout={getHouseItemLayout}
-      // 列表为空时渲染
-      ListEmptyComponent={renderListEmptyView()}
-      // 加载更多时渲染
-      ListFooterComponent={renderListFooterView()}
-      // 当前列表 loading 状态
-      refreshing={isLoading}
-      // 刷新
-      onRefresh={fetchHouseList}
-      scrollsToTop={scrollToListTop}
-      // 加载更多安全距离（相对于屏幕高度的比例）
-      onEndReachedThreshold={IS_IOS ? 0.05 : 0.2}
-      // 加载更多
-      onEndReached={handleLoadMoreArticle}
-      // 唯一 ID
-      keyExtractor={item => item.id}
-      renderItem={({ item, index }) => {
-        return (
-          <HouseItem
-            key={item.id}
-            houseInfo={item}
-            onPress={handleToDetailPage}
-            key={getHouseIdKey(item, index)}
-          />
-        );
-      }}
-    />
+    <View>
+      <FlatList
+        data={houseListData()}
+        ref={listElement}
+        // 首屏渲染多少个数据
+        initialNumToRender={5}
+        // 手动维护每一行的高度以优化性能
+        getItemLayout={getHouseItemLayout}
+        // 列表为空时渲染
+        ListEmptyComponent={renderListEmptyView()}
+        // 加载更多时渲染
+        ListFooterComponent={renderListFooterView}
+        // 当前列表 loading 状态
+        refreshing={isLoading}
+        // 刷新
+        onRefresh={fetchHouseList}
+        // 加载更多安全距离（相对于屏幕高度的比例）
+        onEndReachedThreshold={IS_IOS ? 0.05 : 0.2}
+        // 加载更多
+        onEndReached={handleLoadMoreArticle}
+        // 唯一 ID
+        keyExtractor={item => item.id}
+        renderItem={({ item, index }) => {
+          return (
+            <HouseItem
+              key={item.id}
+              houseInfo={item}
+              onPress={handleToDetailPage}
+              key={getHouseIdKey(item, index)}
+            />
+          );
+        }}
+      />
+    </View>
   );
 }
 const styles = StyleSheet.create({
-  istViewContainer: {
+  listViewContainer: {
     position: 'relative',
     flex: 1,
   },
@@ -192,4 +201,16 @@ const styles = StyleSheet.create({
   },
 });
 
+// reducer获取
+// function mapStateToProps(state) {
+//   return {
+//   };
+// }
+// function matchDispatchToProps(dispatch) {
+//   return bindActionCreators({ getHousingList }, dispatch);
+// }
+// export default connect(
+//   mapStateToProps,
+//   matchDispatchToProps,
+// )(HouseListComponent);
 export default HouseListComponent

@@ -1,6 +1,6 @@
 import {Platform} from 'react-native';
 
-export const appApi = 'http://120.76.174.157:9700/app';
+export const appApi = 'http://47.112.238.28:9700/app';
 
 export const IS_DEV = __DEV__;
 export const IS_IOS = Object.is(Platform.OS, 'ios');

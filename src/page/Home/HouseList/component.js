@@ -5,30 +5,42 @@ import { Button, Text } from 'react-native-elements';
 import HouseListComponent from '../../Component/housingList/list';
 import SearchHeader from '../Component/searchHeader'
 import { useFocusEffect } from '@react-navigation/native';
-import ActionBar from '../../Component/actionBar'
+import DropdownMenu from '../../Component/housingList/filter';
+
 function HouseList(props) {
+  const data = [["C", "Java", "JavaScript", "PHP"], ["Python", "Rubyfdfdfdd"], ["Swift", "Objective-C"]];
+  const data22 = [{type: 'text', value: '位置', key: 'location'}, {type: 'text', value: '方式/户型', key: 'houseType'}, {type: 'text', value: '租金', key: 'rent'}, {type: 'icon', value: 'filter', key: 'filter'}];
   const [houseList, setHouseList] = useState()
   useFocusEffect(useCallback(() => {
-    props.getHousingList({ pageNum: 1 }, async (res) => {
-      // console.log(9999, res.data)
+    // props.getHousingList({ pageNum: 1 }, async (res) => {
+    //   console.log(9999, res.data)
+    //   setHouseList(res.data)
+    // });
+    fetchHouseList()
+  }, [props.route]))
+
+  const fetchHouseList = (pageNum = 1) => {
+    console.log('test22');
+    props.getHousingList({ pageNum: pageNum }, (res) => {
       setHouseList(res.data)
     });
-  }, [props.route]))
-  const [data] = useState([["第一项目项目项目", "第二项目", "1111111111"], ["第三项目", "第四项目", "22222222222222"]])
+  }
+  
+  const getFilter = (sec, row) => {
+    console.log(sec, row);
+  }
   return (
     <View style={styles.container}>
       <SearchHeader />
-      <ActionBar
-        bgColor={"white"}
-        tintColor={"#000000"}
-        activityTintColor={"#3BB4F2"}
-        optionTextStyle={{ color: "#333333" }}
-        titleStyle={{ color: '#3BB4F2' }}
-        handler={(selection, row) => { console.log(9999) }}
-        data={data}
+      <DropdownMenu
+        bgColor={'white'}
+        tintColor={'#282828'}
+        activityTintColor={'#5C8BFF'}
+        handler={(selection, row) => getFilter(selection, row)}
+        data={data22}
       >
-        <HouseListComponent list={houseList} />
-      </ActionBar>
+        <HouseListComponent list={houseList} handlerHouseList={(page) => fetchHouseList(page)} />
+      </DropdownMenu>
     </View>
   );
 }
