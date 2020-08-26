@@ -26,6 +26,7 @@ function MapHouse(props) {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: true
     });
+    Geolocation.requestAuthorization();
     Geolocation.getCurrentPosition(
       position => {
         console.log('position: ' + JSON.stringify(position))

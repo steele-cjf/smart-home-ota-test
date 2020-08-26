@@ -2,6 +2,8 @@ PODS:
   - AMap3DMap (7.5.0):
     - AMapFoundation (~> 1.6.3)
   - AMapFoundation (1.6.3)
+  - AMapLocation (2.6.5):
+    - AMapFoundation (~> 1.6.3)
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.4)
   - CocoaLibEvent (1.0.0)
@@ -420,6 +422,7 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
+  - AMapLocation
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -488,6 +491,7 @@ SPEC REPOS:
   trunk:
     - AMap3DMap
     - AMapFoundation
+    - AMapLocation
     - boost-for-react-native
     - CocoaAsyncSocket
     - CocoaLibEvent
@@ -603,6 +607,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AMap3DMap: fc7c911f5cf079d544ad7faec256c9554cbbb202
   AMapFoundation: 9ed923193b357ebb30a073e9fe255d3c24054d5a
+  AMapLocation: c566d448285cd502c1e313063d9e2460bd4d7100
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
@@ -672,6 +677,6 @@ SPEC CHECKSUMS:
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 6c2a52999d9a2c20c5deedb320a30a001810d969
+PODFILE CHECKSUM: 787b00a5f0e125ec1f9c45393829b4c0273b4dcc
 
 COCOAPODS: 1.9.3

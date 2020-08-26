@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SafeAreaView, Text, AppState } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 // import {SafeAreaProvider} from 'react-native-safe-area-context';
