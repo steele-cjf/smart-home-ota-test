@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, Animated, Easing, StyleSheet} from 'react-native';
 import LabelSelect from '../labelSelect';
-import Theme from '../../../style/colors';
 import { Button } from 'native-base';
+import { Divider } from 'react-native-elements';
 const listFilter = {
   location: [{label: '附近1千米', value: '1km'}, {label: '附近2千米', value: '2km'}, {label: '附近3千米', value: '3km'}],
   rent: [{label: '不限', value: '0'}, {label: '≤1000元', value: '1'}, {label: '1000～2000元', value: '2'}, {label: '2000～3000元', value: '3'}, {label: '3000～4000元', value: '4'}, {label: '4000以上', value: '5'}],
@@ -27,12 +27,12 @@ class DropdownMenu extends Component {
     super(props, context);
 
     var selectIndex = new Array(this.props.data.length);
-    for (var i = 0; i < selectIndex.length; i++) {
-      selectIndex[i] = 0;
-    }
+
     this.state = {
       activityIndex: -1,
-      selectIndex: -1,
+      selectIndex: selectIndex,
+      rentalType: rentalType,
+      houseTypeList: houseTypeList,
       rotationAnims: props.data.map(() => new Animated.Value(0))
     };
 
@@ -68,8 +68,8 @@ class DropdownMenu extends Component {
               this.props.optionTextStyle,
               {color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor}
           ]} >{title.label}</Text>
-      </View>
-    );
+        </View>
+      );
     }
   }
 
@@ -81,15 +81,73 @@ class DropdownMenu extends Component {
         </TouchableOpacity>)
     )
   }
+  changeRentalType (item, i) {
+    const newList = Object.assign([], this.state.rentalType);
+    newList[i].selected = !item.selected;
+    this.setState({
+      rentalType: newList
+    });
+  }
+  
+  changeHouseType (item, i) {
+    const newList = Object.assign([], this.state.houseTypeList);
+    newList[i].selected = !item.selected;
+    this.setState({
+      houseTypeList: newList
+    });
+  }
+
+  resetFunc () {
+    const list1 = this.state.rentalType.map(res => {
+      res.selected = false
+      return res
+    })
+    const list2 = this.state.houseTypeList.map(res => {
+      res.selected = false
+      return res
+    })
+    this.setState({
+      rentalType: list1,
+      houseTypeList: list2,
+    });
+  }
+
+  handlerConfirm() {
+    const arr1 = this.getSelectedItem(this.state.rentalType)
+    const arr2 = this.getSelectedItem(this.state.houseTypeList)
+    if (this.props.multipleSection) {
+      this.props.multipleSection(arr1, arr2);
+    }
+  }
+
+  getSelectedItem(list) {
+    return list
+      .filter(item => item.selected === true)
+      .map((value, index) => {
+        return value.code || value.id;
+      });
+  }
+
   renderActionLabel() {
     return (
       <View style={styles.house_type_content}>
         <Text style={styles.house_title}>出租类型</Text>
         <LabelSelect 
-          labelList={rentalType} />
+          labelList={this.state.rentalType}
+          checkItem={(item, i) => this.changeRentalType(item, i)} />
         <Text style={styles.house_title}>户型</Text>
         <LabelSelect 
-          labelList={houseTypeList} />
+          labelList={this.state.houseTypeList}
+          checkItem={(item, i) => this.changeHouseType(item, i)} />
+        <Divider style={{marginHorizontal: -20, marginBottom: 15,}}/>
+        <View style={{flexDirection: 'row'}}>
+          <Button rounded bordered style={{flex: 1, justifyContent: 'center', backgroundColor: '#fff', borderColor: '#C7C7C7', marginRight: 15}} onPress={() => this.resetFunc()}>
+            <Text style={{ color: '#282828', fontSize: 16,}}>重置</Text>
+          </Button>
+          <Button rounded style={{flex: 3, justifyContent: 'center'}} onPress={() => this.handlerConfirm()}>
+            <Text style={{ color: '#fff', fontSize: 16  }}>确认</Text>
+          </Button>
+        </View>
       </View>
     )
   }
@@ -111,6 +169,7 @@ class DropdownMenu extends Component {
           <View style={{opacity: 0.4, backgroundColor: 'black', flex: 1 }} />
           </TouchableOpacity>
           <View style={[{position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white'}, heightStyle]}>
+          <Divider />
             {  
               currentTitles.key !== 'houseType' ? this.renderItemList(listFilter[currentTitles.key]) : this.renderActionLabel()
             }
@@ -168,6 +227,7 @@ class DropdownMenu extends Component {
     if (this.state.activityIndex > -1) {
       var selectIndex = this.state.selectIndex;
       selectIndex[this.state.activityIndex] = index;
+      console.log('selectIndex', selectIndex);
       this.setState({
         selectIndex: selectIndex
       });
@@ -212,7 +272,7 @@ class DropdownMenu extends Component {
             activeOpacity={1}
             onPress={this.openOrClosePanel.bind(this, index)}
             key={index}
-            style={{flex: 1, height: 48, alignItems: "center", justifyContent: "center"}} >
+            style={{flex: 1, height: 40, alignItems: "center", justifyContent: "center"}} >
             <View style={{flexDirection: 'row', alignItems: "center", justifyContent: "center"}} >
               <Text
                 style={[
