@@ -40,11 +40,14 @@ function HouseDetail(props) {
   const init = () => {
     const { params } = props.route;
     props.getHouseDetail(params.id, res => {
+      console.log('raaa', params);
       if (!res.code) {
         if (res.data) {
           setHouseInfo(res.data);
           setLoading(false);
         }
+      } else {
+        setLoading(false);
       }
     });
     props.getHouseTenantList(params.id, res => {

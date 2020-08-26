@@ -41,6 +41,7 @@ function HomePage(props) {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: true
     });
+    Geolocation.requestAuthorization();
     console.log('get location start:')
     Geolocation.getCurrentPosition(
       position => {
