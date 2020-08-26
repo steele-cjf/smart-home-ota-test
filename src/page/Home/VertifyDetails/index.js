@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { getManualAuditInfo } from '../../../store/user/index';
+import { getManualAuditInfo, deleteTenant } from '../../../store/user/index';
 import Component from './component';
 
 // reducer获取
@@ -12,7 +12,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getManualAuditInfo}, dispatch);
+  return bindActionCreators({getManualAuditInfo, deleteTenant}, dispatch);
 }
 
 export default connect(

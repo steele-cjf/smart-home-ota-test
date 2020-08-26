@@ -12,11 +12,14 @@ const MyQRCodePage = (props) => {
   useEffect(() => {
     getUserInfo(); 
     getUserInfoUrl(); 
-  }, [props.userInfo]);
+  }, [props.userInfo]); 
 
   function getUserInfo() {
     var userInfoData = props.userInfo.data;
     let {name, mobile, avatarImageUrl} = userInfoData;
+    if (!avatarImageUrl) {
+      avatarImageUrl = 'ooo'
+    }
     setUserInfo({name, mobile, avatarImageUrl});
   }
 
@@ -34,11 +37,11 @@ const MyQRCodePage = (props) => {
   }
 
   const [userInfo, setUserInfo] = useState({});
-  const [imageUrl, setImageUrl] = useState(''); 
+  const [imageUrl, setImageUrl] = useState('ooo');  
   
   return(
     <View style={styles.containerStyle}>
-      <Image style={styles.headImageStyle} source={{uri: userInfo.avatarImageUrl}} />
+      <Image style={styles.headImageStyle} source={{uri: userInfo.avatarImageUrl}} /> 
       <Text>{userInfo.name}</Text>
       <Text>{userInfo.mobile}</Text>
       <Image style={styles.imageStyle} source={{uri: imageUrl}} />
