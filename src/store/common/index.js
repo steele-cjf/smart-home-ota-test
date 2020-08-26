@@ -24,6 +24,23 @@ export function getScanResult(url, callback) {
   });
 }
 
+//首页记录选中的房源
+export function setHomeHouse (data) {
+  return dispatch => {
+    dispatch({
+      type: 'HOME_HOUSE',
+      data: data
+    });
+  };
+}
+
+export function homeHouse(state = null, action) {
+  if (action.type === 'HOME_HOUSE') {
+    return action.data || null;
+  }
+  return state;
+}
+
 // 设置数据字典
 export function setCodeInfo(info) {
   return dispatch => {
@@ -87,5 +104,6 @@ export default {
   cameraOpt,
   webSocketInfo,
   codeInfo,
-  dictionaryMappings
+  dictionaryMappings,
+  homeHouse
 };

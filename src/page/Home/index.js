@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { getRecommandList } from '../../store/map/index';
+import { setHomeHouse } from '../../store/common/index'
 import { Button, ActionSheet, Root, Spinner } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
@@ -22,7 +23,6 @@ const imgList = [ // 暂时写死
 function HomePage(props) {
   const [scrollY] = useState(new Animated.Value(0))
   const [headHeight] = useState(-1)
-
   const [userInfo, setUserInfo] = useState({});
   const [houseList, setHouseList] = useState({});
   const [selectHouse, setSelectHouse] = useState({});
@@ -34,7 +34,6 @@ function HomePage(props) {
   useFocusEffect(
     useCallback(() => {
       props.getUserInfo(); // 获取个人信息
-      console.log(88888)
       initRemmcondList(); // 获取房源推荐
     }, [props.route])
   )
@@ -48,7 +47,6 @@ function HomePage(props) {
         console.log('position: ' + JSON.stringify(position))
         if (position.coords) {
           props.getRecommandList(position.coords, res => {
-            console.log('home', res.data);
             setRecommandList(res.data)
           })
         }
@@ -61,7 +59,6 @@ function HomePage(props) {
   useEffect(() => {
     const Info = props.userInfo;
     console.log('user', Info)
-
     if (Info && !Info.code) {
       storage.set('info', Info.data);
       setUserInfo(Info.data)
@@ -78,7 +75,18 @@ function HomePage(props) {
     if (props.myHouseList && props.myHouseList.data) {
       let { data } = props.myHouseList
       setHouseList(data)
-      data.length && setSelectHouse(data[0])
+      let result = data[0]
+      console.log(88888888888, props.homeHouse)
+      if (props.homeHouse) {
+        let res = data.filter((item) => item.houseId == props.homeHouse)
+        res.length && (result = res[0])
+      }
+      console.log(111, result)
+      // if (result.houseId) {
+      //   props.setHomeHouse(result.houseId)
+      //   setSelectHouse(result)
+      // }
+      setSelectHouse(result)
     }
     setLoadingStatus(false)
   }, [props.myHouseList])
@@ -104,6 +112,7 @@ function HomePage(props) {
         },
         buttonIndex => {
           if (houseList[buttonIndex]) {
+            props.setHomeHouse(houseList[buttonIndex].houseId)
             setSelectHouse(houseList[buttonIndex])
           }
         }
@@ -163,11 +172,12 @@ function mapStateToProps(state) {
   return {
     userInfo: state.userInfo,
     myHouseList: state.myHouseList,
-    webSocketInfo: state.webSocketInfo
+    webSocketInfo: state.webSocketInfo,
+    homeHouse: state.homeHouse
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserInfo, getMyHouseList, getRecommandList }, dispatch);
+  return bindActionCreators({ getUserInfo, getMyHouseList, getRecommandList, setHomeHouse }, dispatch);
 }
 export default connect(
   mapStateToProps,

@@ -136,7 +136,7 @@ function LoginPage(props) {
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(18218025628); //13661992793
-  const [verifyCode, setVerifyCode] = useState(275228); //560657
+  const [verifyCode, setVerifyCode] = useState(870154); //560657
   const [checked, setChecked] = useState(false);
   let times = 90;
   const [count, setCount] = useState(times);
