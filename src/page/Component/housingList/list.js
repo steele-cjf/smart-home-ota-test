@@ -142,7 +142,7 @@ function HouseListComponent(props) {
   };
 
   return (
-    <View>
+    <View >
       <FlatList
         data={houseListData()}
         ref={listElement}
@@ -184,9 +184,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   centerContainer: {
-    justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
+    // minHeight: 100,
+    textAlignVertical: 'center'
   },
   loadMoreViewContainer: {
     padding: 20,

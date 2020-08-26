@@ -34,6 +34,7 @@ function HomePage(props) {
   useFocusEffect(
     useCallback(() => {
       props.getUserInfo(); // 获取个人信息
+      console.log(88888)
       initRemmcondList(); // 获取房源推荐
     }, [props.route])
   )
@@ -41,7 +42,6 @@ function HomePage(props) {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: true
     });
-    Geolocation.requestAuthorization();
     console.log('get location start:')
     Geolocation.getCurrentPosition(
       position => {
@@ -111,7 +111,7 @@ function HomePage(props) {
     }
   }
   return (
-    <Root style={styles.container}>
+    <Root>
       <View style={styles.container}>
         <Animated.ScrollView
           style={{ flex: 1 }}
@@ -147,10 +147,9 @@ function HomePage(props) {
                   <Text style={{ color: Theme.textLink }} >查看更多</Text>
                 </Button>
               </View>
-
             </View>
           </StickyHeader>
-          <View style={{ backgroundColor: '#fff' }}>
+          <View>
             <HouseListComponent list={recommandList} />
           </View>
         </Animated.ScrollView>
@@ -177,11 +176,13 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#527BDF',
+    // backgroundColor: '#527BDF',
+    backgroundColor: '#fff',
     flex: 1,
     flexDirection: 'column'
   },
   header: {
+    backgroundColor: '#527BDF',
     paddingHorizontal: 16,
     paddingVertical: 48
   },
@@ -200,13 +201,14 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
+    paddingBottom: 0,
+    top: -20,
     flex: 1,
     flexDirection: 'column'
   },
   listTitle: {
     fontSize: 24,
-    color: '#282828',
-    paddingBottom: 10
+    color: '#282828'
   },
   listMore: {
     position: 'absolute',

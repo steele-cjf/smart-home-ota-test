@@ -44,6 +44,7 @@
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-stickyheader": "^1.1.2",
     "react-native-swiper": "^1.6.0",
+    "react-native-update": "^5.7.1",
     "react-native-vector-icons": "^6.6.0",
     "react-native-websocket": "^1.0.2",
     "react-navigation-redux-helpers": "^4.0.1",

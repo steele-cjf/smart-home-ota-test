@@ -27,7 +27,6 @@ export function getSearchSummaries(data, callback) {
   }
   export function getRecommandList(data, callback) {
     let url = setUrlParams('/publish/recommand', data)
-    console.log('********', url)
     return $get(url, {
       actionType: 'RECOMMAND_LIST',
       successConfig: {

@@ -5454,6 +5454,11 @@ react-native-swiper@^1.6.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-update@^5.7.1:
+  version "5.7.1"
+  resolved "https://registry.npm.taobao.org/react-native-update/download/react-native-update-5.7.1.tgz#e798fccfd80eb06ebf4f0ce0e58bcce92579f758"
+  integrity sha1-55j8z9gOsG6/Twzg5YvM6SV591g=
+
 react-native-vector-icons@^6.6.0:
   version "6.7.0"
   resolved "https://registry.npm.taobao.org/react-native-vector-icons/download/react-native-vector-icons-6.7.0.tgz?cache=0&sync_timestamp=1593863353635&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native-vector-icons%2Fdownload%2Freact-native-vector-icons-6.7.0.tgz#8871ba52ef8e98878ba7a932847f96b6dfc1c137"

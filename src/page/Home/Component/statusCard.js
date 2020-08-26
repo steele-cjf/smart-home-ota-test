@@ -151,12 +151,16 @@ const styles = StyleSheet.create({
     },
     location: {
         color: '#7C7C7C',
-        fontSize: 16
+        fontSize: 16,
+        flexWrap: 'wrap',
+        width: '80%'
     },
     RightIcon: {
         position: 'absolute',
-        right: 21,
-        color: '#7C7C7C'
+        right: 20,
+        color: '#7C7C7C',
+        height: '100%',
+        textAlignVertical: 'center'
     },
     LeftIcon: {
         color: '#7C7C7C',
