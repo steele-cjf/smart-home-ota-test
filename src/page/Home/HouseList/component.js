@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { View, StyleSheet, ScrollView, ViewComponent } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Spinner } from 'native-base';
+import Geolocation from '@react-native-community/geolocation';
 import HouseListComponent from '../../Component/housingList/list';
 import SearchHeader from '../Component/searchHeader'
 import { useFocusEffect } from '@react-navigation/native';
@@ -17,11 +18,30 @@ function HouseList(props) {
   ]
   const [houseList, setHouseList] = useState()
   const [params, setParams] = useState({})
+  const [center, setCenter] = useState({});
   const [loading, setLoading] = useState(false)
 
   useFocusEffect(useCallback(() => {
     fetchHouseList()
+    getGeolocation()
   }, [props.route]))
+
+  const getGeolocation = () => {
+    Geolocation.setRNConfiguration({
+      skipPermissionRequests: true
+    });
+    Geolocation.requestAuthorization();
+    console.log('get location start:')
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log('position: ' + JSON.stringify(position))
+        if (position.coords) {
+          setCenter(position.coords)
+        }
+      },
+      error => showToast('Error', JSON.stringify(error))
+    )
+  }
 
   const fetchHouseList = (pageNum = 1) => {
     setLoading(true)
@@ -38,16 +58,31 @@ function HouseList(props) {
     if (sec === 1) {
       return
     }
+    if (sec === 0) {
+      const lip = Object.assign(params, {center: center})
+      setParams(lip)
+    }
     const data = filterParamsList[sec][row]
     const newData = Object.assign(params, data)
     setParams(newData)
     fetchHouseList(1)
   }
-  const getSection = (arr) => {
-    console.log('arr', arr);
+  const getSection = (arr1, arr2) => {
+    const houseParams = {
+      houseType: arr1,
+      roomCount: arr2
+    }
+    const newData = Object.assign(params, houseParams)
+    console.log('newData2', newData);
+    setParams(newData)
+    fetchHouseList(1)
   }
   const getSearchParams = (item) => {
-    console.log('item', item);
+    const data = {address: item}
+    const newData = Object.assign(params, data)
+    console.log('newData1', newData);
+    setParams(newData)
+    fetchHouseList(1)
   }
   return (
     <View style={styles.container}>
@@ -61,7 +96,7 @@ function HouseList(props) {
           tintColor={'#282828'}
           activityTintColor={'#5C8BFF'}
           handler={(selection, row) => getFilter(selection, row)}
-          multipleSection={(arr) => getSection(arr)}
+          multipleSection={(arr1, arr2) => getSection(arr1, arr2)}
           data={data}
         >
           <HouseListComponent list={houseList} handlerHouseList={(page) => fetchHouseList(page)} />

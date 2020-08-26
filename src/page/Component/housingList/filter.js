@@ -4,7 +4,7 @@ import LabelSelect from '../labelSelect';
 import { Button } from 'native-base';
 import { Divider } from 'react-native-elements';
 const listFilter = {
-  location: [{label: '附近1千米', value: '1km'}, {label: '附近2千米', value: '2km'}, {label: '附近3千米', value: '3km'}],
+  location: [{label: '附近1千米', value: '1'}, {label: '附近2千米', value: '2'}, {label: '附近3千米', value: '3'}],
   rent: [{label: '不限', value: '0'}, {label: '≤1000元', value: '1'}, {label: '1000～2000元', value: '2'}, {label: '2000～3000元', value: '3'}, {label: '3000～4000元', value: '4'}, {label: '4000以上', value: '5'}],
   filter: [{label: '最新发布', value: 'newest'}, {label: '价格由低到高', value: 'price_up'}, {label: '价格由高到低', value: 'price_down'}]
 }
@@ -13,11 +13,11 @@ const rentalType = [
   {value: '合租', code: 'co_rent', selected: false}
 ]
 const houseTypeList = [
-  {value: '一室户', code: 1, selected: false},
-  {value: '二室户', code: 2, selected: false},
-  {value: '三室户', code: 3, selected: false},
-  {value: '四室户', code: 4, selected: false},
-  {value: '更大户型', code: 0, selected: false}
+  {value: '一室户', code: '1', selected: false},
+  {value: '二室户', code: '2', selected: false},
+  {value: '三室户', code: '3', selected: false},
+  {value: '四室户', code: '4', selected: false},
+  {value: '更大户型', code: 'more5', selected: false}
 ]
 
 
@@ -44,7 +44,7 @@ class DropdownMenu extends Component {
     };
 
   }
-
+  // tab切换选择
   renderChcek(index, title) {
     var activityIndex = this.state.activityIndex;
     if (this.state.selectIndex[activityIndex] == index) {
@@ -72,7 +72,7 @@ class DropdownMenu extends Component {
       );
     }
   }
-
+  // listItem渲染
   renderItemList(arr) {
     return (
       arr.map((title, index) =>
@@ -96,7 +96,7 @@ class DropdownMenu extends Component {
       houseTypeList: newList
     });
   }
-
+  // 重置
   resetFunc () {
     const list1 = this.state.rentalType.map(res => {
       res.selected = false
@@ -111,7 +111,7 @@ class DropdownMenu extends Component {
       houseTypeList: list2,
     });
   }
-
+  // 确认
   handlerConfirm() {
     const arr1 = this.getSelectedItem(this.state.rentalType)
     const arr2 = this.getSelectedItem(this.state.houseTypeList)
@@ -119,15 +119,15 @@ class DropdownMenu extends Component {
       this.props.multipleSection(arr1, arr2);
     }
   }
-
+  // 获取选中的户型
   getSelectedItem(list) {
     return list
       .filter(item => item.selected === true)
-      .map((value, index) => {
-        return value.code || value.id;
+      .map((value) => {
+        return value.code;
       });
   }
-
+  // section形式渲染
   renderActionLabel() {
     return (
       <View style={styles.house_type_content}>
@@ -151,7 +151,7 @@ class DropdownMenu extends Component {
       </View>
     )
   }
-
+  // 面板
   renderActivityPanel() {
     if (this.state.activityIndex >= 0) {
 
