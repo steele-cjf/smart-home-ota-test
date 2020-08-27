@@ -97,7 +97,7 @@ export const remove = (url, config) => {
 // image如果需要token时的处理
 export const getImage = (url, callback) => {
   storage.get('token').then(accessToken => {
-    fetch('http://120.76.174.157:9700' + url, {
+    fetch('http://47.112.238.28:9700' + url, {
       headers: {
         Authorization: 'Bearer ' + accessToken,
       },

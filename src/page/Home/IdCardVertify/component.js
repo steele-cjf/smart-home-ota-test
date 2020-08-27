@@ -13,13 +13,12 @@ export default function IdCardVertifyPage(props) {
   const [userId, setUserId] = useState('');
   const [oldData, setOldData] = useState({});
   const [loading, setLoading] = useState(false);
-  const [imageUrl1, setImageUrl1] = useState(''); 
-  const [imageUrl2, setImageUrl2] = useState(''); 
-  const [imageUrl3, setImageUrl3] = useState(''); 
+  // const [imageUrl1, setImageUrl1] = useState(''); 
+  // const [imageUrl2, setImageUrl2] = useState(''); 
+  // const [imageUrl3, setImageUrl3] = useState(''); 
 
   // 初始化获取用户信息
   useEffect(() => {
-    //setUserId(props.userInfo.data.id);  
     setUId();
     getAuthInfo(); 
   }, []); //props.userInfo
@@ -37,16 +36,20 @@ export default function IdCardVertifyPage(props) {
     setLoading(true);
 
     var uId = props.userInfo.data.id;
+    console.log('^^^^^^^^uId:', uId);
     const {params} = props.route;
     if (params && params.userId) {
       uId= params.userId;
+      console.log('*************');
     }
 
     props.getManualAuditInfo(uId, res => {
       setLoading(false);
 
       if (!res.code) {
-        if (res.data.identificationType !== 'id_card') { 
+        console.log('*************res:', res);
+        if (!(res.data)
+          || (res.data.identificationType !== 'id_card')) { 
           return;
         }
 
@@ -61,21 +64,21 @@ export default function IdCardVertifyPage(props) {
 
         console.log('data.imageUrls***', res.data.imageUrls);
 
-        if (res.data.imageUrls && res.data.imageUrls[0]) {
-          $getImage(res.data.imageUrls[0], uri => {
-            setImageUrl1(uri);
-          });
-        }
-        if (res.data.imageUrls && res.data.imageUrls[1]) {
-          $getImage(res.data.imageUrls[1], uri => {
-            setImageUrl2(uri);
-          });
-        }
-        if (res.data.imageUrls && res.data.imageUrls[2]) {
-          $getImage(data.imageUrls[2], uri => {
-            setImageUrl3(uri);
-          });
-        }
+        // if (res.data.imageUrls && res.data.imageUrls[0]) {
+        //   $getImage(res.data.imageUrls[0], uri => {
+        //     setImageUrl1(uri);
+        //   });
+        // }
+        // if (res.data.imageUrls && res.data.imageUrls[1]) {
+        //   $getImage(res.data.imageUrls[1], uri => {
+        //     setImageUrl2(uri);
+        //   });
+        // }
+        // if (res.data.imageUrls && res.data.imageUrls[2]) {
+        //   $getImage(res.data.imageUrls[2], uri => {
+        //     setImageUrl3(uri);
+        //   });
+        // }
 
       } else {
         showToast("90909"+res.message);
@@ -94,12 +97,14 @@ export default function IdCardVertifyPage(props) {
     message = vertifyCn[index] && vertifyCn[index].errorMsg[0];
 
     if (!message) {
+      // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
       console.log(111, formImage);
+
       for (var i = 0; i < 3; i++) {
         let item = formImage[i];
         if (!item) {
-          message = '请上传图片';
-          continue;
+          message = '请上传三张图片';
+          break;
         }
       }
     }
@@ -119,9 +124,11 @@ export default function IdCardVertifyPage(props) {
     props.verifyIdCard(result, res => {
       setLoading(false)
       if (!res.code) {
-        showToast('success');
-        NavigatorService.navigate(AppRoute.HOME)
+        showToast('提交成功');
+        //NavigatorService.navigate(AppRoute.HOME)
+        NavigatorService.goBack();
       } else {
+        console.log('^^^^^^^^^^^^');
         showToast(res.message)
       }
     })
@@ -163,17 +170,17 @@ export default function IdCardVertifyPage(props) {
             <ImageUpload
               title="身份证正面"
               setImageForm={obj => setImageForm(0, obj)}
-              imgUrl={imageUrl1}
+              // imgUrl={imageUrl1}
             />
             <ImageUpload
               title="身份证反面"
               setImageForm={obj => setImageForm(1, obj)}
-              imgUrl={imageUrl2}
+              // imgUrl={imageUrl2}
             />
             <ImageUpload
               title="手持身份证"
               setImageForm={obj => setImageForm(2, obj)}
-              imgUrl={imageUrl3}
+              // imgUrl={imageUrl3}
             />
           </View>
           <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>

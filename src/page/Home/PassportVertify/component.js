@@ -12,43 +12,66 @@ export default function PassportVertifyPage(props) {
     const [userId, setUserId] = useState(null);
     const [oldData, setOldData] = useState({});
     const [loading, setLoading] = useState(false);
-    const [imageUrl1, setImageUrl1] = useState(''); 
-    const [imageUrl2, setImageUrl2] = useState(''); 
-    const [imageUrl3, setImageUrl3] = useState(''); 
+    // const [imageUrl1, setImageUrl1] = useState(''); 
+    // const [imageUrl2, setImageUrl2] = useState(''); 
+    // const [imageUrl3, setImageUrl3] = useState(''); 
 
     // 初始化获取用户信息
     useEffect(() => {
-        setUserId(props.userInfo.data.id);
+        setUId();
         getAuthInfo();
-    }, [props.userInfo]);
+    }, []); //[props.userInfo]
+
+    function setUId() {
+        const {params} = props.route;
+        if (params && params.userId) {
+          setUserId(params.userId);
+        } else {
+          setUserId(props.userInfo.data.id)
+        }
+    }
 
     function getAuthInfo() {
+        var uId = props.userInfo.data.id;
+        const {params} = props.route;
+        if (params && params.userId) {
+            uId= params.userId;
+        }
+
         setLoading(true);
-        var userId = props.userInfo.data.id;
-    
-        props.getManualAuditInfo(userId, res => {
-            console.log('*******AuditInfo-modify:*******', res);
+        props.getManualAuditInfo(uId, res => {
+            console.log('*******AuditInfo:*******', res);
             setLoading(false);
           
             if (!res.code) {
-                if (res.data.identificationType !== 'passport') { 
+                if (!(res.data)
+                    || (res.data.identificationType !== 'passport')) { 
                     return;
                 }
 
                 let {name, identificationNo, gender, birthDate, country} = res.data;
                 var oldData = {name, identificationNo, gender, birthDate, country} ;
-                // console.log(999, oldData)
+                if (!oldData.gender) {
+                    oldData.gender = 'male';
+                }
                 setOldData(Object.assign({}, oldData));
+                setFormData(oldData);
 
-                $getImage(res.data.imageUrls[0], uri => {
-                    setImageUrl1(uri);
-                });
-                $getImage(res.data.imageUrls[1], uri => {
-                    setImageUrl2(uri);
-                });
-                $getImage(res.data.imageUrls[2], uri => {
-                    setImageUrl3(uri);
-                });
+                // if (res.data.imageUrls && res.data.imageUrls[0]) {
+                //     $getImage(res.data.imageUrls[0], uri => {
+                //         setImageUrl1(uri);
+                //     });
+                // }
+                // if (res.data.imageUrls && res.data.imageUrls[1]) {
+                //     $getImage(res.data.imageUrls[1], uri => {
+                //         setImageUrl2(uri);
+                //     });
+                // }
+                // if (res.data.imageUrls && res.data.imageUrls[2]) {
+                //     $getImage(res.data.imageUrls[2], uri => {
+                //         setImageUrl3(uri);
+                //     });
+                // }
                 
             } else {
                 showToast("90909"+res.message);
@@ -63,11 +86,12 @@ export default function PassportVertifyPage(props) {
         message = vertifyCn[key] && vertifyCn[key].errorMsg[0]
 
         if (!message) {
+            // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
             for (var i = 0; i < 3; i++) {
                 let item = formImage[i]
                 if (!item) {
-                    message = '请上传图片'
-                    continue;
+                    message = '请上传三张图片';
+                    break;
                 }
             }
         }
@@ -88,8 +112,9 @@ export default function PassportVertifyPage(props) {
             console.log('huzhaorenzhxiugai: ',res)
             setLoading(false);
             if (!res.code) {
-                showToast('success');
-                NavigatorService.navigate(AppRoute.HOME)
+                showToast('提交成功');
+                //NavigatorService.navigate(AppRoute.HOME)
+                NavigatorService.goBack();
             } else {
                 showToast(res.message)
                 console.log('res.message*****: ',res.message)
@@ -124,9 +149,15 @@ export default function PassportVertifyPage(props) {
                 <Form config={vertifyCn} class={styles.formBox} changeForm={changeForm} oldData={oldData}></Form>
                 <Text style={styles.textTitle}>照片上传</Text>
                 <View style={styles.ImageUploadBox}>
-                    <ImageUpload title='护照个人信息' setImageForm={(obj) => setImageForm(0, obj)} imgUrl={imageUrl1} />
-                    <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} imgUrl={imageUrl2} />
-                    <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} imgUrl={imageUrl3} />
+                    <ImageUpload title='护照个人信息' setImageForm={(obj) => setImageForm(0, obj)} 
+                    // imgUrl={imageUrl1} 
+                    />
+                    <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} 
+                    // imgUrl={imageUrl2} 
+                    />
+                    <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} 
+                    // imgUrl={imageUrl3} 
+                    />
                 </View>
                 <View style={{ height: '100%' }}>
                     <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
