@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList, Text} from 'react-native';
+import {View, StyleSheet, FlatList, Text, TouchableOpacity} from 'react-native';
 import {Root, Spinner, ActionSheet} from 'native-base';
 import {AppRoute} from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
@@ -26,7 +26,7 @@ function TenantHouseList(props) {
       }
     });
   });
-
+  
   const openSettings = item => {
     const CANCEL_INDEX = 2;
     const BUTTONS = ['家庭成员', '临时钥匙', '取消'];
@@ -52,10 +52,13 @@ function TenantHouseList(props) {
       },
     );
   };
+  const handleToDetailPage = item => {
+    NavigatorService.navigate(AppRoute.HOUSEDETAIL, { id: item.houseId, role: 'tenant' });
+  };
   const _houseItem = ({item, index}) => {
     return (
       <View key={index} style={styles.container}>
-        <View style={styles.rightContainer}>
+        <TouchableOpacity style={styles.rightContainer} onPress={() => handleToDetailPage(item)}>
           <Text style={styles.houseName} numberOfLines={1}>
             {item.regionFullName}
             {item.address}
@@ -92,7 +95,7 @@ function TenantHouseList(props) {
               onPress={() => openSettings(item)}
             />
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   };

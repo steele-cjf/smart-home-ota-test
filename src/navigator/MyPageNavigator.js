@@ -21,6 +21,7 @@ import TenantHouseList from '../page/My/TenantHouseList';
 import TenantList from '../page/Feature/TenantList';
 import AddTenant from '../page/Feature/addTenant';
 import HouseCollectionList from '../page/My/HouseCollectionList'
+import PublishHouseDetail from '../page/Home/PublishHouseDetail';
 
 import {AppRoute} from './AppRoutes';
 
@@ -196,6 +197,14 @@ export const MyPageStackComponent = () => {
         options={{
           title: '房源收藏',
           headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.PUBLISHOUSEDETAIL}
+        component={PublishHouseDetail}
+        options={{
+          title: '房源信息',
+          headerBackTitle: '返回'
         }}
       />
     </MyPageNavigator.Navigator>

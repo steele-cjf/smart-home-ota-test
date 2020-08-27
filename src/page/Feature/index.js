@@ -73,6 +73,7 @@ function FeaturePage(props) {
       case MORE_MENU.HouseDetail:
         NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
           id: selectHouse.houseId,
+          role: selectHouse.houseRole
         });
         break;
       case MORE_MENU.TemporaryKey:
@@ -136,7 +137,7 @@ function FeaturePage(props) {
             <TouchableOpacity onPress={() => showList()}>
               <View style={[styles.flex, styles.InfoBox]}>
                 <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
-                <Text style={{fontSize: 18, color: '#f9f9f9'}} numberOfLines={1}>
+                <Text style={{fontSize: 18, color: '#f9f9f9'}}>
                   {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'}
                 </Text>
                 <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />

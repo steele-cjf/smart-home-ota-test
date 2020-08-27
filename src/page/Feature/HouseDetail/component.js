@@ -128,6 +128,196 @@ function HouseDetail(props) {
     })
     return result || null
   }
+  // 租户和房东渲染不同菜单
+  const renderRolePage = () => {
+    const { params } = props.route;
+    if (params.role === 'holder') {
+      return (
+        <View>
+          <View
+            style={{
+              display: houseInfo.status === 'audit_pass' ? 'flex' : 'none',
+            }}>
+            <Divider style={{ marginTop: 16 }} />
+            {/* 状态 */}
+            <View style={styles.listBox}>
+              <View style={styles.leftContent}>
+                <Text
+                  style={[
+                    styles.labelTitle,
+                    styles.secColor,
+                    styles.fontSize14,
+                  ]}>
+                  房源状态
+              </Text>
+              </View>
+              <View style={styles.rightContent}>
+                <Text
+                  style={[
+                    styles.textAlignR,
+                    styles.mainColor,
+                    styles.fontSize14,
+                  ]}>
+                  审核通过
+              </Text>
+              </View>
+            </View>
+            <View style={styles.listBox}>
+              <View style={styles.leftContent}>
+                <Text
+                  style={[
+                    styles.labelTitle,
+                    styles.secColor,
+                    styles.fontSize14,
+                  ]}>
+                  出租状态
+              </Text>
+              </View>
+              <View style={styles.rightContent}>
+                <Text
+                  style={[
+                    styles.textAlignR,
+                    styles.mainColor,
+                    styles.fontSize14,
+                  ]}>
+                  {houseInfo.rentStatus === 'rent_pending'
+                    ? '未出租'
+                    : '已出租'}
+                </Text>
+              </View>
+            </View>
+            <Divider style={{ marginTop: 16 }} />
+            {/* 发布 */}
+            <TouchableOpacity
+              onPress={() =>
+                NavigatorService.navigate(AppRoute.PUBLISHLISE, {
+                  id: houseInfo.id,
+                })
+              }>
+              <View style={styles.listBox}>
+                <View style={[styles.leftContent, styles.flex]}>
+                  <AntDesign
+                    name="tag"
+                    style={{
+                      fontSize: 14,
+                      color: Theme.textLink,
+                      paddingRight: 15,
+                    }}
+                  />
+                  <Text
+                    style={[
+                      styles.labelTitle,
+                      styles.mainColor,
+                      styles.fontSize14,
+                    ]}>
+                    发布情况
+                </Text>
+                </View>
+                <View style={styles.rightContent}>
+                  <Text
+                    style={styles.rightText}>
+                    {houseInfo.publishStatus === 'publish_pending'
+                      ? '未发布'
+                      : '已发布'}
+                  </Text>
+                  <AntDesign
+                    name="right"
+                    style={styles.rightIcon}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+            <Divider style={{ marginTop: 16 }} />
+            {/* 房间 */}
+            <TouchableOpacity onPress={() => handleToRoomPage()}>
+              <View style={styles.listBox}>
+                <View style={[styles.leftContent, styles.flex]}>
+                  <AntDesign
+                    name="home"
+                    style={{
+                      fontSize: 14,
+                      color: Theme.textLink,
+                      paddingRight: 15,
+                    }}
+                  />
+                  <Text
+                    style={[
+                      styles.labelTitle,
+                      styles.mainColor,
+                      styles.fontSize14,
+                    ]}>
+                    房间管理
+                </Text>
+                </View>
+                <View style={styles.rightContent}>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: Theme.textSecondary,
+                      paddingRight: 20,
+                    }}>
+                    {rooms.length}间房间
+                </Text>
+                  <AntDesign
+                    name="right"
+                    style={{
+                      fontSize: 14,
+                      color: Theme.textSecondary,
+                      position: 'absolute',
+                      right: 0,
+                      top: 2,
+                    }}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+            {/* 住户信息 */}
+            <View style={[styles.listBox, styles.paddingTop15]}>
+              <View style={styles.leftContent}>
+                <Text
+                  style={[
+                    styles.labelTitle,
+                    styles.mainColor,
+                    styles.fontSize14,
+                  ]}>
+                  住户信息
+              </Text>
+              </View>
+              <View style={(styles.rightContent, styles.flex)}>
+                <Ionicons
+                  name="add"
+                  style={{
+                    fontSize: 14,
+                    color: Theme.textLink,
+                  }}
+                />
+                <TouchableOpacity
+                  onPress={() =>
+                    NavigatorService.navigate(AppRoute.ADDTENANT, {
+                      id: houseInfo.id
+                    })
+                  }>
+                  <Text style={{ fontSize: 14, color: Theme.textLink }}>
+                    新增住户
+                </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {renderTenantList()}
+          </View>
+          <Button
+            full
+            rounded
+            onPress={() => alertDeleteModal()}
+            style={{ backgroundColor: '#E7263E', marginTop: 50, height: 40 }}>
+            <Text style={{ fontSize: 16 }}>删除房源</Text>
+          </Button>
+        </View>
+      )
+    } else {
+      return null
+    }
+  }
   return (
     <View style={styles.container}>
       {loading ? (
@@ -138,7 +328,7 @@ function HouseDetail(props) {
               options={{
                 backTitle: '返回',
                 title: '房屋详情',
-                rightShow: houseInfo.status === 'audit_pass' ? 'none' : 'flex',
+                rightShow: houseInfo.status === 'audit_pass' || props.route.params.role !== 'holder' ? 'none' : 'flex',
                 rightTitle: '修改',
                 rightPress: () => handleToPage()
               }}
@@ -171,14 +361,6 @@ function HouseDetail(props) {
                 </Text>
                 </View>
                 <View style={styles.rightContent}>
-                  <Text
-                    style={[
-                      styles.textAlignR,
-                      styles.mainColor,
-                      styles.fontSize14,
-                    ]}>
-                    {houseInfo.regionFullName}
-                  </Text>
                   <Text
                     style={[
                       styles.textAlignR,
@@ -314,184 +496,8 @@ function HouseDetail(props) {
                 </Text>
                 </View>
               </View>
-              <View
-                style={{
-                  display: houseInfo.status === 'audit_pass' ? 'flex' : 'none',
-                }}>
-                <Divider style={{ marginTop: 16 }} />
-                {/* 状态 */}
-                <View style={styles.listBox}>
-                  <View style={styles.leftContent}>
-                    <Text
-                      style={[
-                        styles.labelTitle,
-                        styles.secColor,
-                        styles.fontSize14,
-                      ]}>
-                      房源状态
-                  </Text>
-                  </View>
-                  <View style={styles.rightContent}>
-                    <Text
-                      style={[
-                        styles.textAlignR,
-                        styles.mainColor,
-                        styles.fontSize14,
-                      ]}>
-                      审核通过
-                  </Text>
-                  </View>
-                </View>
-                <View style={styles.listBox}>
-                  <View style={styles.leftContent}>
-                    <Text
-                      style={[
-                        styles.labelTitle,
-                        styles.secColor,
-                        styles.fontSize14,
-                      ]}>
-                      出租状态
-                  </Text>
-                  </View>
-                  <View style={styles.rightContent}>
-                    <Text
-                      style={[
-                        styles.textAlignR,
-                        styles.mainColor,
-                        styles.fontSize14,
-                      ]}>
-                      {houseInfo.rentStatus === 'rent_pending'
-                        ? '未出租'
-                        : '已出租'}
-                    </Text>
-                  </View>
-                </View>
-                <Divider style={{ marginTop: 16 }} />
-                {/* 发布 */}
-                <TouchableOpacity
-                  onPress={() =>
-                    NavigatorService.navigate(AppRoute.PUBLISHLISE, {
-                      id: houseInfo.id,
-                    })
-                  }>
-                  <View style={styles.listBox}>
-                    <View style={[styles.leftContent, styles.flex]}>
-                      <AntDesign
-                        name="tag"
-                        style={{
-                          fontSize: 14,
-                          color: Theme.textLink,
-                          paddingRight: 15,
-                        }}
-                      />
-                      <Text
-                        style={[
-                          styles.labelTitle,
-                          styles.mainColor,
-                          styles.fontSize14,
-                        ]}>
-                        发布情况
-                    </Text>
-                    </View>
-                    <View style={styles.rightContent}>
-                      <Text
-                        style={styles.rightText}>
-                        {houseInfo.publishStatus === 'publish_pending'
-                          ? '未发布'
-                          : '已发布'}
-                      </Text>
-                      <AntDesign
-                        name="right"
-                        style={styles.rightIcon}
-                      />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <Divider style={{ marginTop: 16 }} />
-                {/* 房间 */}
-                <TouchableOpacity onPress={() => handleToRoomPage()}>
-                  <View style={styles.listBox}>
-                    <View style={[styles.leftContent, styles.flex]}>
-                      <AntDesign
-                        name="home"
-                        style={{
-                          fontSize: 14,
-                          color: Theme.textLink,
-                          paddingRight: 15,
-                        }}
-                      />
-                      <Text
-                        style={[
-                          styles.labelTitle,
-                          styles.mainColor,
-                          styles.fontSize14,
-                        ]}>
-                        房间管理
-                    </Text>
-                    </View>
-                    <View style={styles.rightContent}>
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          color: Theme.textSecondary,
-                          paddingRight: 20,
-                        }}>
-                        {rooms.length}间房间
-                    </Text>
-                      <AntDesign
-                        name="right"
-                        style={{
-                          fontSize: 14,
-                          color: Theme.textSecondary,
-                          position: 'absolute',
-                          right: 0,
-                          top: 2,
-                        }}
-                      />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                {/* 住户信息 */}
-                <View style={[styles.listBox, styles.paddingTop15]}>
-                  <View style={styles.leftContent}>
-                    <Text
-                      style={[
-                        styles.labelTitle,
-                        styles.mainColor,
-                        styles.fontSize14,
-                      ]}>
-                      住户信息
-                  </Text>
-                  </View>
-                  <View style={(styles.rightContent, styles.flex)}>
-                    <Ionicons
-                      name="add"
-                      style={{
-                        fontSize: 14,
-                        color: Theme.textLink,
-                      }}
-                    />
-                    <TouchableOpacity
-                      onPress={() =>
-                        NavigatorService.navigate(AppRoute.ADDTENANT, {
-                          id: houseInfo.id
-                        })
-                      }>
-                      <Text style={{ fontSize: 14, color: Theme.textLink }}>
-                        新增住户
-                    </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-                {renderTenantList()}
-              </View>
-              <Button
-                full
-                rounded
-                onPress={() => alertDeleteModal()}
-                style={{ backgroundColor: '#E7263E', marginTop: 50, height: 40 }}>
-                <Text style={{ fontSize: 16 }}>删除房源</Text>
-              </Button>
+              {/* 状态管理 */}
+              {renderRolePage()}
             </View>
           </ScrollView>
         )}

@@ -47,6 +47,7 @@ function MyHouseList(props) {
   const handleToDetailPage = item => {
     NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
       id: item.id,
+      role: 'holder',
       refresh: function () {
         init();
       },

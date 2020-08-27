@@ -24,7 +24,7 @@ export default function HeaderCommon(props) {
     }
     const renderRightButton = () => {
         return (
-            <TouchableOpacity transparent display={options.rightShow || 'none'}
+            <TouchableOpacity transparent style={{display: options.rightShow || 'none'}}
                 onPress={() => PropsRightPress()}>
                 <Text style={styles.rightText}>{options.rightTitle || '--'}</Text>
             </TouchableOpacity>
