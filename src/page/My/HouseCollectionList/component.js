@@ -1,10 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList, Text, Image, Dimensions} from 'react-native';
+import {View, StyleSheet, FlatList, Text, Image, Dimensions, TouchableOpacity} from 'react-native';
 import {
   Spinner,
 } from 'native-base';
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { AppRoute } from '../../../navigator/AppRoutes';
 
 function HouseCollectionList(props) {
   const [loading, setLoading] = useState(true);
@@ -40,13 +41,11 @@ function HouseCollectionList(props) {
   }
 
   const handleToDetailPage = item => {
-    // NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
-    //   id: item.id,
-    // });
+    NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, { id: item.publishInfoId });
   };
   const _houseItem = ({item, index}) => {
     return (
-      <View
+      <TouchableOpacity
         key={index}
         style={styles.container}
         onPress={() => handleToDetailPage(item)}>
@@ -83,7 +82,7 @@ function HouseCollectionList(props) {
             </Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
