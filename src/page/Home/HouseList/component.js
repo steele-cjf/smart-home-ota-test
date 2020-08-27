@@ -18,7 +18,7 @@ function HouseList(props) {
   ]
   const [houseList, setHouseList] = useState()
   const [params, setParams] = useState({})
-  const [center, setCenter] = useState({});
+  const [center, setCenter] = useState('');
   const [loading, setLoading] = useState(false)
 
   useFocusEffect(useCallback(() => {
@@ -36,7 +36,8 @@ function HouseList(props) {
       position => {
         console.log('position: ' + JSON.stringify(position))
         if (position.coords) {
-          setCenter(position.coords)
+          const arr = [position.coords.longitude, position.coords.latitude];
+          setCenter(arr.join(','))
         }
       },
       error => showToast('Error', JSON.stringify(error))
