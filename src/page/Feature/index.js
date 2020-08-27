@@ -73,6 +73,7 @@ function FeaturePage(props) {
       case MORE_MENU.HouseDetail:
         NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
           id: selectHouse.houseId,
+          role: selectHouse.houseRole
         });
         break;
       case MORE_MENU.TemporaryKey:
