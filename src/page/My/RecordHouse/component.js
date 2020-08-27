@@ -65,6 +65,7 @@ function RecordHouse(props) {
 
   const getDetail = useCallback((obj, id) => {
     props.getHouseDetail(id, res => {
+      console.log('hahah', res);
       if (!res.code) {
         if (res.data) {
           console.log(res.data);
@@ -74,18 +75,19 @@ function RecordHouse(props) {
           setHouseLayout(info.houseLayout);
           setCertificateFilesImg(info.houseHolder.certificateFileUrls);
           setRegionId(info.regionId);
-          const addressName = info.regionFullName.split('/').join('');
-          setRegionName(addressName);
+
+          setRegionName(info.formattedAddress);
           setHasElevator(info.houseLayout.hasElevator);
           setSelectedSelfValue(obj.house_holder[info.houseHolder.self]);
           setSelectedDirectionValue(
             obj.house_direction[info.houseLayout.direction],
           );
-          $getImage(info.housePropertyCertificateImageUrl, uri => {
-            console.log('uri', uri);
-            setImage(uri);
-            setLoading(false);
-          });
+          setLoading(false);
+          // $getImage(info.housePropertyCertificateImageUrl, uri => {
+          //   console.log('uri', uri);
+          //   setImage(uri);
+          //   setLoading(false);
+          // });
         }
       }
     });
@@ -249,6 +251,7 @@ function RecordHouse(props) {
                       setModalVisible(true);
                     }}>
                     <Text
+                      numberOfLines={1}
                       style={[
                         {fontSize: 14, paddingRight: 10},
                         styles.textAlignR,
