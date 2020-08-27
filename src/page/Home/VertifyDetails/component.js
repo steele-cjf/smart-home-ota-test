@@ -30,7 +30,7 @@ const auth_status = {
 export default function VertifyDetailsPage(props) {
 
   function handleModify() {
-    NavigatorService.navigate(AppRoute.AUTHENTICATION);
+    NavigatorService.navigate(AppRoute.AUTHENTICATION, {userId: userId});
   }
 
   useEffect(() => {
@@ -43,13 +43,12 @@ export default function VertifyDetailsPage(props) {
     // userId = info.id;  
 
     var info = props.userInfo;
-    let userId = info.data.id;
-   
+    userId = info.data.id;
+
     const {params} = props.route;
     if (params && params.userId && userId !== params.userId) {
       userId = params.userId;
       setCanDelete(true);
-      console.log('params******', params);
     } else {
       setCanDelete(false);
     }

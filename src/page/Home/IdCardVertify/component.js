@@ -19,16 +19,30 @@ export default function IdCardVertifyPage(props) {
 
   // 初始化获取用户信息
   useEffect(() => {
-    setUserId(props.userInfo.data.id);    //props.userInfo.id
+    //setUserId(props.userInfo.data.id);  
+    setUId();
     getAuthInfo(); 
-  }, [props.userInfo]);
+  }, []); //props.userInfo
+
+  function setUId() {
+    const {params} = props.route;
+    if (params && params.userId) {
+      setUserId(params.userId);
+    } else {
+      setUserId(props.userInfo.data.id)
+    }
+  }
 
   function getAuthInfo() {
     setLoading(true);
-    var userId = props.userInfo.data.id;
 
-    props.getManualAuditInfo(userId, res => {
-      //console.log('*******AuditInfo-modify:*******', res);
+    var uId = props.userInfo.data.id;
+    const {params} = props.route;
+    if (params && params.userId) {
+      uId= params.userId;
+    }
+
+    props.getManualAuditInfo(uId, res => {
       setLoading(false);
 
       if (!res.code) {
@@ -38,18 +52,31 @@ export default function IdCardVertifyPage(props) {
 
         let {name, identificationNo, gender,  nation, birthDate, identificationAddress} = res.data;
         var oldData = {name, identificationNo, gender,  nation, birthDate, identificationAddress};
-        // console.log(999, oldData)
+        if (!oldData.gender) {
+          oldData.gender = 'male';
+        }
+        console.log(999, oldData);
         setOldData(Object.assign({}, oldData));
+        setFormData(oldData);
 
-        $getImage(res.data.imageUrls[0], uri => {
-          setImageUrl1(uri);
-        });
-        $getImage(res.data.imageUrls[1], uri => {
-          setImageUrl2(uri);
-        });
-        $getImage(res.data.imageUrls[2], uri => {
-          setImageUrl3(uri);
-        });
+        console.log('data.imageUrls***', res.data.imageUrls);
+
+        if (res.data.imageUrls && res.data.imageUrls[0]) {
+          $getImage(res.data.imageUrls[0], uri => {
+            setImageUrl1(uri);
+          });
+        }
+        if (res.data.imageUrls && res.data.imageUrls[1]) {
+          $getImage(res.data.imageUrls[1], uri => {
+            setImageUrl2(uri);
+          });
+        }
+        if (res.data.imageUrls && res.data.imageUrls[2]) {
+          $getImage(data.imageUrls[2], uri => {
+            setImageUrl3(uri);
+          });
+        }
+
       } else {
         showToast("90909"+res.message);
       }
@@ -60,11 +87,14 @@ export default function IdCardVertifyPage(props) {
   // 检查并提交form
   const handleConfirm = () => {
     let message = '';
-    let key = vertifyCn.findIndex(item => {
+    let index = vertifyCn.findIndex(item => {
       return item.required && !formData[item.key];
     });
-    message = vertifyCn[key] && vertifyCn[key].errorMsg[0];
+
+    message = vertifyCn[index] && vertifyCn[index].errorMsg[0];
+
     if (!message) {
+      console.log(111, formImage);
       for (var i = 0; i < 3; i++) {
         let item = formImage[i];
         if (!item) {
@@ -73,6 +103,7 @@ export default function IdCardVertifyPage(props) {
         }
       }
     }
+
     if (message) {
       showToast(message);
       return;

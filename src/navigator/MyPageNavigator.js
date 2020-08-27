@@ -3,6 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import MyPage from '../page/My/MyPage';
 import PersonalInfo from '../page/My/PersonalInfo';
 import AuthenticationPage from '../page/Home/AuthenticationPage';
+import IdCardVertify from '../page/Home/IdCardVertify';
+import PassportVertify from '../page/Home/PassportVertify';
 import MyQRCode from '../page/My/MyQRCode';
 import VertifyDetailsPage from '../page/Home/VertifyDetails';
 import UserPassedPage from '../page/Home/VertifyDetails/UserPassedPage';
@@ -53,6 +55,22 @@ export const MyPageStackComponent = () => {
         component={AuthenticationPage}
         options={{
           title: '实名认证',
+          headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.IDCARDVERTIFY}
+        component={IdCardVertify}
+        options={{
+          title: '身份证认证',
+          headerBackTitle: '返回',
+        }}
+      />
+      <MyPageNavigator.Screen
+        name={AppRoute.PASSPORTVERTIFY}
+        component={PassportVertify}
+        options={{
+          title: '护照认证',
           headerBackTitle: '返回',
         }}
       />

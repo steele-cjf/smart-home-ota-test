@@ -58,9 +58,23 @@ function AuthenticationPage(props) {
     if (selectIndex === 0) {
       personalVerify();
     } else if (selectIndex === 1) {
-      NavigatorService.navigate(AppRoute.IDCARDVERTIFY);
+
+      const {params} = props.route;
+      if (params && params.userId) {
+        NavigatorService.navigate(AppRoute.IDCARDVERTIFY, {userId: params.userId});
+      } else {
+        NavigatorService.navigate(AppRoute.IDCARDVERTIFY);
+      }
+      
     } else {
-      NavigatorService.navigate(AppRoute.PASSPORTVERTIFY);
+
+      const {params} = props.route;
+      if (params && params.userId) {
+        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY, {userId: params.userId});
+      } else {
+        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY);
+      }
+
     }
   }
   // 初始化获取用户信息
