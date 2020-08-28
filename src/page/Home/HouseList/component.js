@@ -30,7 +30,7 @@ function HouseList(props) {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: true
     });
-    Geolocation.requestAuthorization();
+    // Geolocation.requestAuthorization();
     console.log('get location start:')
     Geolocation.getCurrentPosition(
       position => {

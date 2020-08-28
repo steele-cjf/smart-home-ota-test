@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useCallback, useEffect} from 'react';
-import {View, StyleSheet, ScrollView, Image} from 'react-native';
+import React, { useState, useCallback, useEffect } from 'react';
+import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   Form,
@@ -18,10 +18,11 @@ import {
 import storage from '../../../util/storage';
 import Theme from '../../../style/colors';
 import ImageUpload from '../../Component/imageUpload';
-import {AppRoute} from '../../../navigator/AppRoutes';
+import { AppRoute } from '../../../navigator/AppRoutes';
 import RegionPicker from '../../Component/citySelect';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import showToast from '../../../util/toast';
+import HeaderCommon from '../../Component/HeaderCommon'
 
 function RecordHouse(props) {
   const [loading, setLoading] = useState();
@@ -42,7 +43,7 @@ function RecordHouse(props) {
     setHousePropertyCertificateImage,
   ] = useState([]);
   const [certificateFilesImg, setCertificateFilesImg] = useState([]);
-  const [tabs, setTabs] = useState([{name: '请选择', id: 0}]);
+  const [tabs, setTabs] = useState([{ name: '请选择', id: 0 }]);
   const [regionName, setRegionName] = useState('');
   const [regionId, setRegionId] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -52,7 +53,7 @@ function RecordHouse(props) {
       setSelfList(handlerOptions(res.house_holder));
       setHouseDirection(handlerOptions(res.house_direction));
     });
-    const {params} = props.route;
+    const { params } = props.route;
     if (params && params.id) {
       setLoading(true);
       setHouseId(params.id);
@@ -67,6 +68,7 @@ function RecordHouse(props) {
     props.getHouseDetail(id, res => {
       console.log('hahah', res);
       if (!res.code) {
+        setLoading(false)
         if (res.data) {
           console.log(res.data);
           const info = res.data;
@@ -83,11 +85,7 @@ function RecordHouse(props) {
             obj.house_direction[info.houseLayout.direction],
           );
           setLoading(false);
-          // $getImage(info.housePropertyCertificateImageUrl, uri => {
-          //   console.log('uri', uri);
-          //   setImage(uri);
-          //   setLoading(false);
-          // });
+          setImage(info.housePropertyCertificateImageUrl);
         }
       }
     });
@@ -100,7 +98,7 @@ function RecordHouse(props) {
         value: item.code,
       };
     });
-    list.push({text: '取消', value: 'cancel'});
+    list.push({ text: '取消', value: 'cancel' });
     return list;
   };
 
@@ -134,7 +132,7 @@ function RecordHouse(props) {
     result.append('address', regionName + address);
 
     if (houseId) {
-      console.log('edit');
+      console.log('edit', housePropertyCertificateImage[0]);
       result.append('id', houseId);
       console.log('result', result);
       props.updateHouse(houseId, result, res => {
@@ -200,7 +198,7 @@ function RecordHouse(props) {
   const handleSetValue = (index, type) => {
     switch (type) {
       case 'self':
-        setHouseHolder({self: selfList[index].value});
+        setHouseHolder({ self: selfList[index].value });
         setSelectedSelfValue(selfList[index].text);
         break;
       case 'direction':
@@ -229,349 +227,355 @@ function RecordHouse(props) {
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-        <View style={{backgroundColor: Theme.background}}>
-          <ScrollView>
-            <View style={styles.container}>
-              <Text style={[styles.publishTitle, styles.specialPadding]}>
-                房源资料
+          <View style={{ flex: 1 }}>
+            <HeaderCommon
+              options={{
+                backTitle: '返回',
+                title: houseId && '修改房源' || '添加房源'
+              }}
+            />
+            <ScrollView style={{flex: 1}}>
+              <View style={styles.container}>
+                <Text style={[styles.publishTitle, styles.specialPadding]}>
+                  房源资料
               </Text>
-              <Form>
-                <Item style={styles.marginLeft0} inlineLabel>
-                  <Label
-                    style={[
-                      styles.labelTitle,
-                      styles.defaultSize,
-                      styles.flex1,
-                    ]}>
-                    所在地区
-                  </Label>
-                  <TouchableOpacity
-                    style={styles.input_item}
-                    onPress={() => {
-                      setModalVisible(true);
-                    }}>
-                    <Text
-                      numberOfLines={1}
+                <Form>
+                  <Item style={styles.marginLeft0} inlineLabel>
+                    <Label
                       style={[
-                        {fontSize: 14, paddingRight: 10},
-                        styles.textAlignR,
+                        styles.labelTitle,
+                        styles.defaultSize,
+                        styles.flex1,
                       ]}>
-                      {regionName}
-                    </Text>
-                    <AntDesign
-                      name="right"
-                      style={{
-                        fontSize: 12,
-                        color: Theme.textSecondary,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </Item>
-                <Item style={styles.marginLeft0} inlineLabel>
-                  <Label style={[styles.labelTitle, styles.defaultSize]}>
-                    详细地址
+                      所在地区
                   </Label>
-                  <Input
-                    value={address}
-                    onChangeText={setAddress}
-                    placeholder="街道、小区、楼与门牌号"
-                    placeholderTextColor={Theme.textMuted}
-                    style={[styles.defaultSize, styles.textAlignR]}
-                  />
-                </Item>
-                <Item style={styles.marginLeft0} inlineLabel>
-                  <Label
-                    style={[
-                      styles.labelTitle,
-                      styles.defaultSize,
-                      styles.flex1,
-                    ]}>
-                    房屋所有者
-                  </Label>
-                  <TouchableOpacity
-                    style={styles.input_item}
-                    onPress={() => openSettings(selfList, 2, 'self')}>
-                    <Text
-                      style={[
-                        {fontSize: 14, paddingRight: 10},
-                        styles.textAlignR,
-                      ]}>
-                      {selectedSelfValue}
-                    </Text>
-                    <AntDesign
-                      name="right"
-                      style={{
-                        fontSize: 12,
-                        color: Theme.textSecondary,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </Item>
-                {/*  非本人 */}
-                <View
-                  style={
-                    houseHolder.self === 'others' ? '' : {display: 'none'}
-                  }>
+                    <TouchableOpacity
+                      style={styles.input_item}
+                      onPress={() => {
+                        setModalVisible(true);
+                      }}>
+                      <Text
+                        numberOfLines={1}
+                        style={[
+                          { fontSize: 14, paddingRight: 10 },
+                          styles.textAlignR,
+                        ]}>
+                        {regionName}
+                      </Text>
+                      <AntDesign
+                        name="right"
+                        style={{
+                          fontSize: 12,
+                          color: Theme.textSecondary,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </Item>
                   <Item style={styles.marginLeft0} inlineLabel>
                     <Label style={[styles.labelTitle, styles.defaultSize]}>
-                      所有者姓名
-                    </Label>
+                      详细地址
+                  </Label>
                     <Input
-                      value={houseHolder.holderName}
-                      onChange={e => {
-                        setData(
-                          'holderName',
-                          e.nativeEvent.text,
-                          'houseHolder',
-                        );
-                      }}
+                      value={address}
+                      onChangeText={setAddress}
+                      placeholder="街道、小区、楼与门牌号"
+                      placeholderTextColor={Theme.textMuted}
                       style={[styles.defaultSize, styles.textAlignR]}
                     />
                   </Item>
                   <Item style={styles.marginLeft0} inlineLabel>
-                    <Label style={[styles.labelTitle, styles.defaultSize]}>
-                      所有者身份证号/护照号
-                    </Label>
-                    <Input
-                      value={houseHolder.holderIdCardNumber}
-                      onChange={e => {
-                        setData(
-                          'holderIdCardNumber',
-                          e.nativeEvent.text,
-                          'houseHolder',
-                        );
-                      }}
-                      style={[styles.defaultSize, styles.textAlignR]}
-                    />
+                    <Label
+                      style={[
+                        styles.labelTitle,
+                        styles.defaultSize,
+                        styles.flex1,
+                      ]}>
+                      房屋所有者
+                  </Label>
+                    <TouchableOpacity
+                      style={styles.input_item}
+                      onPress={() => openSettings(selfList, 2, 'self')}>
+                      <Text
+                        style={[
+                          { fontSize: 14, paddingRight: 10 },
+                          styles.textAlignR,
+                        ]}>
+                        {selectedSelfValue}
+                      </Text>
+                      <AntDesign
+                        name="right"
+                        style={{
+                          fontSize: 12,
+                          color: Theme.textSecondary,
+                        }}
+                      />
+                    </TouchableOpacity>
                   </Item>
-                  <Text style={[styles.publishTitle]}>授权文件</Text>
+                  {/*  非本人 */}
                   <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      justifyContent: 'space-around',
-                    }}>
-                    <ImageUpload
-                      setImageForm={obj => setImageForm(0, obj, 'files')}
-                    />
-                    <ImageUpload
-                      setImageForm={obj => setImageForm(1, obj, 'files')}
-                    />
+                    style={
+                      houseHolder.self === 'others' ? '' : { display: 'none' }
+                    }>
+                    <Item style={styles.marginLeft0} inlineLabel>
+                      <Label style={[styles.labelTitle, styles.defaultSize]}>
+                        所有者姓名
+                    </Label>
+                      <Input
+                        value={houseHolder.holderName}
+                        onChange={e => {
+                          setData(
+                            'holderName',
+                            e.nativeEvent.text,
+                            'houseHolder',
+                          );
+                        }}
+                        style={[styles.defaultSize, styles.textAlignR]}
+                      />
+                    </Item>
+                    <Item style={styles.marginLeft0} inlineLabel>
+                      <Label style={[styles.labelTitle, styles.defaultSize]}>
+                        所有者身份证号/护照号
+                    </Label>
+                      <Input
+                        value={houseHolder.holderIdCardNumber}
+                        onChange={e => {
+                          setData(
+                            'holderIdCardNumber',
+                            e.nativeEvent.text,
+                            'houseHolder',
+                          );
+                        }}
+                        style={[styles.defaultSize, styles.textAlignR]}
+                      />
+                    </Item>
+                    <Text style={[styles.publishTitle]}>授权文件</Text>
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                      }}>
+                      <ImageUpload
+                        setImageForm={obj => setImageForm(0, obj, 'files')}
+                      />
+                      <ImageUpload
+                        setImageForm={obj => setImageForm(1, obj, 'files')}
+                      />
+                    </View>
                   </View>
-                </View>
-                <Text style={[styles.publishTitle]}>房产证照片</Text>
-                <ImageUpload
-                  imgUrl={image}
-                  setImageForm={obj => setImageForm(0, obj, 'cert')}
-                />
-                <Text style={[styles.publishTitle]}>建筑信息</Text>
-                <Item style={styles.marginLeft0} inlineLabel>
-                  <Label style={[styles.labelTitle, styles.defaultSize]}>
-                    建筑面积
-                  </Label>
-                  <Input
-                    value={
-                      houseLayout.area
-                        ? '' + houseLayout.area
-                        : houseLayout.area
-                    }
-                    onChange={e => {
-                      setData('area', e.nativeEvent.text, 'houseLayout');
-                    }}
-                    style={[styles.defaultSize, styles.textAlignR]}
+                  <Text style={[styles.publishTitle]}>房产证照片</Text>
+                  <ImageUpload
+                    imgUrl={image}
+                    setImageForm={obj => setImageForm(0, obj, 'cert')}
                   />
-                  <Text style={[styles.labelTitle, styles.defaultSize]}>
-                    ㎡
-                  </Text>
-                </Item>
-                <Item
-                  style={[
-                    styles.marginLeft0,
-                    {flexDirection: 'row', alignItems: 'center'},
-                  ]}
-                  inlineLabel>
-                  <Label
-                    style={[
-                      styles.labelTitle,
-                      styles.defaultSize,
-                      styles.width100,
-                      {flex: 3},
-                    ]}>
-                    楼层
+                  <Text style={[styles.publishTitle]}>建筑信息</Text>
+                  <Item style={styles.marginLeft0} inlineLabel>
+                    <Label style={[styles.labelTitle, styles.defaultSize]}>
+                      建筑面积
                   </Label>
-                  <View
-                    style={{
-                      flex: 4,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}>
-                    <Text style={[styles.labelTitle, styles.defaultSize]}>
-                      共
-                    </Text>
                     <Input
                       value={
-                        houseLayout.floorCount
-                          ? '' + houseLayout.floorCount
-                          : houseLayout.floorCount
+                        houseLayout.area
+                          ? '' + houseLayout.area
+                          : houseLayout.area
                       }
                       onChange={e => {
-                        setData(
-                          'floorCount',
-                          e.nativeEvent.text,
-                          'houseLayout',
-                        );
+                        setData('area', e.nativeEvent.text, 'houseLayout');
+                      }}
+                      style={[styles.defaultSize, styles.textAlignR]}
+                    />
+                    <Text style={[styles.labelTitle, styles.defaultSize]}>
+                      ㎡
+                  </Text>
+                  </Item>
+                  <Item
+                    style={[
+                      styles.marginLeft0,
+                      { flexDirection: 'row', alignItems: 'center' },
+                    ]}
+                    inlineLabel>
+                    <Label
+                      style={[
+                        styles.labelTitle,
+                        styles.defaultSize,
+                        styles.width100,
+                        { flex: 3 },
+                      ]}>
+                      楼层
+                  </Label>
+                    <View
+                      style={{
+                        flex: 4,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}>
+                      <Text style={[styles.labelTitle, styles.defaultSize]}>
+                        共
+                    </Text>
+                      <Input
+                        value={
+                          houseLayout.floorCount
+                            ? '' + houseLayout.floorCount
+                            : houseLayout.floorCount
+                        }
+                        onChange={e => {
+                          setData(
+                            'floorCount',
+                            e.nativeEvent.text,
+                            'houseLayout',
+                          );
+                        }}
+                        style={[
+                          styles.defaultSize,
+                          styles.textAlignC,
+                          styles.width100,
+                        ]}
+                      />
+                      <Text style={[styles.labelTitle, styles.defaultSize]}>
+                        层 / 第
+                    </Text>
+                      <Input
+                        value={
+                          houseLayout.floor
+                            ? '' + houseLayout.floor
+                            : houseLayout.floor
+                        }
+                        onChange={e => {
+                          setData('floor', e.nativeEvent.text, 'houseLayout');
+                        }}
+                        style={[styles.defaultSize, styles.textAlignC]}
+                      />
+                      <Text style={[styles.labelTitle, styles.defaultSize]}>
+                        层
+                    </Text>
+                    </View>
+                    <View
+                      style={{
+                        flex: 2,
+                        flexDirection: 'row',
+                        paddingLeft: 20,
+                      }}>
+                      <CheckBox
+                        center
+                        containerStyle={styles.checkbox_style}
+                        checked={hasElevator}
+                        onPress={toggleSwitch}
+                      />
+                      <Body>
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            paddingLeft: 22,
+                          }}>
+                          电梯
+                      </Text>
+                      </Body>
+                    </View>
+                  </Item>
+                  <Item style={styles.marginLeft0} inlineLabel>
+                    <Label
+                      style={[
+                        styles.labelTitle,
+                        styles.defaultSize,
+                        styles.flex1,
+                      ]}>
+                      户型
+                  </Label>
+                    <Input
+                      value={
+                        houseLayout.roomCount
+                          ? '' + houseLayout.roomCount
+                          : houseLayout.roomCount
+                      }
+                      onChange={e => {
+                        setData('roomCount', e.nativeEvent.text, 'houseLayout');
                       }}
                       style={[
                         styles.defaultSize,
-                        styles.textAlignC,
+                        styles.textAlignR,
                         styles.width100,
                       ]}
                     />
                     <Text style={[styles.labelTitle, styles.defaultSize]}>
-                      层 / 第
-                    </Text>
+                      室
+                  </Text>
                     <Input
                       value={
-                        houseLayout.floor
-                          ? '' + houseLayout.floor
-                          : houseLayout.floor
+                        houseLayout.hallCount
+                          ? '' + houseLayout.hallCount
+                          : houseLayout.hallCount
                       }
                       onChange={e => {
-                        setData('floor', e.nativeEvent.text, 'houseLayout');
+                        setData('hallCount', e.nativeEvent.text, 'houseLayout');
                       }}
-                      style={[styles.defaultSize, styles.textAlignC]}
+                      style={[styles.defaultSize, styles.textAlignR]}
                     />
                     <Text style={[styles.labelTitle, styles.defaultSize]}>
-                      层
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flex: 2,
-                      flexDirection: 'row',
-                      paddingLeft: 20,
-                    }}>
-                    <CheckBox
-                      center
-                      containerStyle={styles.checkbox_style}
-                      checked={hasElevator}
-                      onPress={toggleSwitch}
-                    />
-                    <Body>
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          paddingLeft: 22,
-                        }}>
-                        电梯
-                      </Text>
-                    </Body>
-                  </View>
-                </Item>
-                <Item style={styles.marginLeft0} inlineLabel>
-                  <Label
-                    style={[
-                      styles.labelTitle,
-                      styles.defaultSize,
-                      styles.flex1,
-                    ]}>
-                    户型
-                  </Label>
-                  <Input
-                    value={
-                      houseLayout.roomCount
-                        ? '' + houseLayout.roomCount
-                        : houseLayout.roomCount
-                    }
-                    onChange={e => {
-                      setData('roomCount', e.nativeEvent.text, 'houseLayout');
-                    }}
-                    style={[
-                      styles.defaultSize,
-                      styles.textAlignR,
-                      styles.width100,
-                    ]}
-                  />
-                  <Text style={[styles.labelTitle, styles.defaultSize]}>
-                    室
+                      厅
                   </Text>
-                  <Input
-                    value={
-                      houseLayout.hallCount
-                        ? '' + houseLayout.hallCount
-                        : houseLayout.hallCount
-                    }
-                    onChange={e => {
-                      setData('hallCount', e.nativeEvent.text, 'houseLayout');
-                    }}
-                    style={[styles.defaultSize, styles.textAlignR]}
-                  />
-                  <Text style={[styles.labelTitle, styles.defaultSize]}>
-                    厅
-                  </Text>
-                  <Input
-                    value={
-                      houseLayout.toiletCount
-                        ? '' + houseLayout.toiletCount
-                        : houseLayout.toiletCount
-                    }
-                    onChange={e => {
-                      setData('toiletCount', e.nativeEvent.text, 'houseLayout');
-                    }}
-                    style={[styles.defaultSize, styles.textAlignR]}
-                  />
-                  <Text style={[styles.labelTitle, styles.defaultSize]}>
-                    卫
-                  </Text>
-                </Item>
-                <Item picker style={{marginBottom: 15}}>
-                  <Label
-                    style={[
-                      styles.labelTitle,
-                      styles.defaultSize,
-                      styles.flex1,
-                    ]}>
-                    房屋朝向
-                  </Label>
-                  <TouchableOpacity
-                    style={styles.input_item}
-                    onPress={() =>
-                      openSettings(houseDirectionList, 4, 'direction')
-                    }>
-                    <Text
-                      style={[
-                        {fontSize: 14, paddingRight: 10},
-                        styles.textAlignR,
-                      ]}>
-                      {selectedDirectionValue}
-                    </Text>
-                    <AntDesign
-                      name="right"
-                      style={{
-                        fontSize: 12,
-                        color: Theme.textSecondary,
+                    <Input
+                      value={
+                        houseLayout.toiletCount
+                          ? '' + houseLayout.toiletCount
+                          : houseLayout.toiletCount
+                      }
+                      onChange={e => {
+                        setData('toiletCount', e.nativeEvent.text, 'houseLayout');
                       }}
+                      style={[styles.defaultSize, styles.textAlignR]}
                     />
-                  </TouchableOpacity>
-                </Item>
-              </Form>
-              <Button
-                full
-                onPress={() => handlerAudit()}
-                style={{borderRadius: 40, marginVertical: 36}}>
-                <Text>提交审核</Text>
-              </Button>
-            </View>
-          </ScrollView>
+                    <Text style={[styles.labelTitle, styles.defaultSize]}>
+                      卫
+                  </Text>
+                  </Item>
+                  <Item picker style={{ marginBottom: 15 }}>
+                    <Label
+                      style={[
+                        styles.labelTitle,
+                        styles.defaultSize,
+                        styles.flex1,
+                      ]}>
+                      房屋朝向
+                  </Label>
+                    <TouchableOpacity
+                      style={styles.input_item}
+                      onPress={() =>
+                        openSettings(houseDirectionList, 4, 'direction')
+                      }>
+                      <Text
+                        style={[
+                          { fontSize: 14, paddingRight: 10 },
+                          styles.textAlignR,
+                        ]}>
+                        {selectedDirectionValue}
+                      </Text>
+                      <AntDesign
+                        name="right"
+                        style={{
+                          fontSize: 12,
+                          color: Theme.textSecondary,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </Item>
+                </Form>
+                <Button
+                  full
+                  onPress={() => handlerAudit()}
+                  style={{ borderRadius: 40, marginVertical: 36 }}>
+                  <Text>提交审核</Text>
+                </Button>
+              </View>
+            </ScrollView>
 
-          <RegionPicker
-            visible={modalVisible}
-            tabs={tabs}
-            setTabs={data => setTabs(data)}
-            close={(flag, data) => handleFunc(flag, data)}
-          />
-        </View>
-      )}
+            <RegionPicker
+              visible={modalVisible}
+              tabs={tabs}
+              setTabs={data => setTabs(data)}
+              close={(flag, data) => handleFunc(flag, data)}
+            />
+          </View>
+        )}
     </Root>
   );
 }

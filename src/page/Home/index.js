@@ -211,7 +211,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
-    paddingBottom: 0,
     top: -20,
     flex: 1,
     flexDirection: 'column'

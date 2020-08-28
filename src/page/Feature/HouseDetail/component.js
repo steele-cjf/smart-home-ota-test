@@ -40,7 +40,7 @@ function HouseDetail(props) {
   const init = () => {
     const { params } = props.route;
     props.getHouseDetail(params.id, res => {
-      console.log('raaa', params);
+      console.log('raaa', params, res.data);
       if (!res.code) {
         if (res.data) {
           setHouseInfo(res.data);

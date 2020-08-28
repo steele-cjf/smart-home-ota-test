@@ -1,10 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ScrollAbleTabView from 'react-native-scrollable-tab-view';
-import {getCityList} from '../../store/home/index';
+import { getCityList } from '../../store/home/index';
 
 import CitySelect from './cityTabView/select';
 import CityTab from './cityTabView/tab';
@@ -13,13 +13,13 @@ function TabView(props) {
   const [selectIndex, setSelectIndex] = useState(props.tabs.length - 1);
   const [tabs, setTabs] = useState(props.tabs);
   const [address, setAddress] = useState([]);
-  const {style} = props;
+  const { style } = props;
 
   useEffect(() => {
     let index = selectIndex - 1;
     let id = index < 0 ? 0 : tabs[index].id;
     props.getRegion(id, tabs);
-    props.getCityList({pid: id}, res => {
+    props.getCityList({ pid: id }, res => {
       setAddress(res.data);
     });
   }, [props, selectIndex, tabs]);
@@ -77,7 +77,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getCityList}, dispatch);
+  return bindActionCreators({ getCityList }, dispatch);
 }
 
 export default connect(

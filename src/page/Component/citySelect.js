@@ -32,7 +32,7 @@ export default function RegionPicker(props) {
             style={styles.icons}
             activeOpacity={0.8}
             onPress={() => close()}>
-            <Icon name="close" size={25} style={styles.close} color="blank" />
+            <Icon name="close" size={25} style={styles.close} />
           </TouchableOpacity>
         </View>
         <TabView style={[styles.tabView]} tabs={tabs} getRegion={getRegion} />
