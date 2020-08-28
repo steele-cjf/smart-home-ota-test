@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState, useCallback} from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Spinner, Root, ActionSheet, Button} from 'native-base';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {getMyHouseList} from '../../store/home/index';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Spinner, Root, ActionSheet, Button } from 'native-base';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { getMyHouseList } from '../../store/home/index';
 import ViewUtil from '../../util/ViewUtil';
-import {MORE_MENU} from '../../common/MORE_MENU';
-import {AppRoute} from '../../navigator/AppRoutes';
+import { MORE_MENU } from '../../common/MORE_MENU';
+import { AppRoute } from '../../navigator/AppRoutes';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 function FeaturePage(props) {
@@ -42,26 +42,29 @@ function FeaturePage(props) {
     setHasHouse(hasHouse)
   }, [props.myHouseList])
   const renderSpinner = () => {
+    console.log('******', props.userInfo, hasHouse)
     if (!user) {
-      return(
-        <View style={{paddingTop: 200, alignItems: 'center' }}>
+      // let { status } = props.userInfo.data
+      return (
+        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
           <Text>您还未通过实名认证，请先</Text>
           <TouchableOpacity transparent onPress={() => NavigatorService.navigate(AppRoute.AUTHENTICATION)}>
-            <Text style={{color: Theme.primary, marginTop: 10}}>实名认证</Text>
+            <Text style={{ color: Theme.primary, marginTop: 10 }}>实名认证</Text>
           </TouchableOpacity>
         </View>
       )
     } else if (!hasHouse) {
-      return(
-        <View style={{padding: 200, alignContent: 'center', flexDirection: 'row'}}>
+      console.log(88888)
+      return (
+        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
           <Text>您还未添加房源，请先</Text>
           <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.RECORD)} transparent>
-            <Text  style={{color: Theme.primary, marginTop: 10}}>添加房源</Text>
-            </TouchableOpacity>
+            <Text style={{ color: Theme.primary, marginTop: 10 }}>添加房源</Text>
+          </TouchableOpacity>
         </View>
       )
     } else {
-      return(
+      return (
         renderContent()
       )
     }
@@ -103,9 +106,8 @@ function FeaturePage(props) {
         return item;
       });
     }
-    array.push({text: 'Cancel'});
-    if ( actionSheet !== null ) {
-      // fix cannot read property '_root' of null
+    array.push({ text: 'Cancel' });
+    if (actionSheet !== null) {
       actionSheet._root.showActionSheet(
         {
           options: array,
@@ -123,51 +125,47 @@ function FeaturePage(props) {
   }
   const renderContent = () => {
     return (<View style={styles.container}>
-          <View style={styles.headerContent}>
-            <View style={[styles.flex, styles.topBox]}>
-              <Text style={styles.topTitle}>功能</Text>
-              <AntDesign
-                name="bells"
-                style={{
-                  fontSize: 20,
-                  color: '#fff',
-                }}
-              />
-            </View>
-            <TouchableOpacity onPress={() => showList()}>
-              <View style={[styles.flex, styles.InfoBox]}>
-                <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
-                <Text style={{fontSize: 18, color: '#f9f9f9'}}>
-                  {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'}
-                </Text>
-                <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />
-              </View>
-            </TouchableOpacity>
-            <ActionSheet ref={(c) => { setActionSheet(c) }} />
+      <View style={styles.headerContent}>
+        <View style={[styles.flex, styles.topBox]}>
+          <Text style={styles.topTitle}>功能</Text>
+          <AntDesign
+            name="bells"
+            style={{
+              fontSize: 20,
+              color: '#fff',
+            }}
+          />
+        </View>
+        <TouchableOpacity onPress={() => showList()}>
+          <View style={[styles.flex, styles.InfoBox]}>
+            <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
+            <Text style={{ fontSize: 18, color: '#f9f9f9' }}>
+              {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'}
+            </Text>
+            <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />
           </View>
-          <ScrollView style={styles.myContent}>
-            <View style={{marginHorizontal: 16, paddingTop: 15}}>
-              {getItem(MORE_MENU.HouseDetail)}
-              <View style={styles.line} />
-              {getItem(MORE_MENU.TemporaryKey)}
-              <View style={styles.line} />
-              {getItem(MORE_MENU.Record)}
-              <View style={styles.line} />
-              {getItem(MORE_MENU.Declare)}
-              <View style={styles.line} />
-              {getItem(MORE_MENU.ComponentTest)}
-              <View style={styles.line} />
-            </View>
-          </ScrollView>
-        </View>)
+        </TouchableOpacity>
+        <ActionSheet ref={(c) => { setActionSheet(c) }} />
+      </View>
+      <ScrollView style={styles.myContent}>
+        <View style={{ marginHorizontal: 16, paddingTop: 15 }}>
+          {getItem(MORE_MENU.HouseDetail)}
+          <View style={styles.line} />
+          {getItem(MORE_MENU.TemporaryKey)}
+          <View style={styles.line} />
+          {getItem(MORE_MENU.Record)}
+          <View style={styles.line} />
+          {getItem(MORE_MENU.Declare)}
+          <View style={styles.line} />
+          {getItem(MORE_MENU.ComponentTest)}
+          <View style={styles.line} />
+        </View>
+      </ScrollView>
+    </View>)
   }
   return (
     <View>
-      {loading ? (
-        <Spinner color="#5C8BFF" />
-      ) : (
-        renderSpinner()
-      )}
+      {loading ? <Spinner color="#5C8BFF" /> : renderSpinner()}
     </View>
   );
 }
@@ -179,13 +177,13 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({getMyHouseList}, dispatch);
+  return bindActionCreators({ getMyHouseList }, dispatch);
 }
 export default connect(
   mapStateToProps,
   matchDispatchToProps,
 )(FeaturePage);
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const screenHeight = width < height ? height : width;
 const screenWidth = width < height ? width : height;
 

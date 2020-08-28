@@ -5,7 +5,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+// 身份
+const TENANT = 'tenant' //租客
 const status_cf = {
     'not_audit': {
         title: '您还未进行实名认证，请尽快验证!',
@@ -71,7 +72,7 @@ export default function StatusCard(props) {
             let data = Object.assign({}, status_cf[props.status || 'not_audit'])
             setOptions(data)
         }
-    }, [props.status])
+    }, [props, props.status])
 
     useEffect(() => {
         if (props.status === 'audit_pass' && props.item && props.item.houseId) {
@@ -82,16 +83,16 @@ export default function StatusCard(props) {
             data.houseRole = houseRole
             setOptions(data)
         }
-    }, [props.item])
+    }, [props, props.item])
     const renderStatus = () => {
-        var aa = [
+        var list = [
             { icon: 'paper-plane', name: 1, text: '开启' },
             { icon: '500px-with-circle', name: 2, text: '开启' },
             { icon: 'progress-one', name: 3, text: '75%' },
             { icon: 'signal', name: 4, text: '开启' },
             { icon: 'paper-plane', name: 5, text: '开启' }
         ]
-        return aa.map((item) => {
+        return list.map((item) => {
             return (
                 <View key={item.name} style={styles.cardList}>
                     <Entypo style={styles.LeftIcon} name={item.icon} />
@@ -120,7 +121,8 @@ export default function StatusCard(props) {
                     <AntDesign name='caretdown' style={styles.RightIcon} />
                 </TouchableOpacity>
             }
-            {options && options.houseRole === 'holder' ? <View style={styles.bottomBox}>
+            {/* 判断是房东还是租客 */}
+            {(options && options.houseRole !== TENANT) && <View style={styles.bottomBox}>
                 <View style={styles.Leftcontent}>
                     <Text style={styles.title}>{options.title || '--'}</Text>
                     <Text style={styles.des} note>{options.desc || '--'}</Text>
@@ -131,7 +133,8 @@ export default function StatusCard(props) {
                     <AntDesign name={options.iconName} style={styles.iconBox} />
                     <Text style={{ color: Theme.primary }}>{options.btnDesc || '--'}</Text>
                 </TouchableOpacity>
-            </View> : renderRent()}
+            </View>}
+            {options.houseRole && options.houseRole === TENANT && renderRent()}
         </View>
     );
 }

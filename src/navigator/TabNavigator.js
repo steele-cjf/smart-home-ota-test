@@ -42,7 +42,7 @@ const BottomTabScreen = (props) => {
       <Tab.Screen
         name={AppRoute.FEATURE}
         component={FeatureStackComponent}
-        options={({ route, navigation }) => {
+        options={({ route }) => {
           const routeState = route.state;
           const isFeatureRoot = !routeState || routeState?.index === 0;
           const isFeatureRoute = route.name === AppRoute.FEATURE;

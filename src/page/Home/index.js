@@ -79,6 +79,7 @@ function HomePage(props) {
       console.log(88888888888, props.homeHouse)
       if (props.homeHouse) {
         let res = data.filter((item) => item.houseId == props.homeHouse)
+        console.log(88823, res)
         res.length && (result = res[0])
       }
       console.log(111, result)
@@ -158,7 +159,7 @@ function HomePage(props) {
               </View>
             </View>
           </StickyHeader>
-          <View>
+          <View style={{top: -30}}>
             <HouseListComponent list={recommandList} />
           </View>
         </Animated.ScrollView>
@@ -212,6 +213,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     padding: 16,
     top: -20,
+    paddingTop: 25,
     flex: 1,
     flexDirection: 'column'
   },

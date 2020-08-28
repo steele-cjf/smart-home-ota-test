@@ -10,6 +10,7 @@ import AuthenticationPage from '../page/Home/AuthenticationPage';
 import ComponentTest from '../page/ComponentTest/index';
 import { AppRoute } from './AppRoutes';
 import MyPublishHouse from '../page/My/MyPublishHouse';
+import RecordHouse from '../page/My/RecordHouse';
 
 const FeatureStack = createStackNavigator();
 
@@ -22,6 +23,13 @@ export const FeatureStackComponent = () => {
           backgroundColor: '#fff',
         },
       }}>
+      <FeatureStack.Screen
+        name={AppRoute.RECORD}
+        component={RecordHouse}
+        options={{
+          headerShown: false
+        }}
+      />
       <FeatureStack.Screen
         name={AppRoute.FEATURE}
         component={FeaturePage}
