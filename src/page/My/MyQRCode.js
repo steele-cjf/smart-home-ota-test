@@ -42,10 +42,14 @@ const MyQRCodePage = (props) => {
   return(
     <View style={styles.containerStyle}>
       <Image style={styles.headImageStyle} source={{uri: userInfo.avatarImageUrl}} /> 
-      <Text>{userInfo.name}</Text>
-      <Text>{userInfo.mobile}</Text>
-      <Image style={styles.imageStyle} source={{uri: imageUrl}} />
-      <Text>扫一扫上面的二维码图案，将我加入</Text>
+
+      <Text style={styles.textName}>{userInfo.name}</Text>
+      <Text style={styles.textMobile}>{userInfo.mobile}</Text>
+      <View style={styles.lineView} />
+      <View style={styles.imageContainerStyle}>
+        <Image style={styles.imageStyle} source={{uri: imageUrl}} />
+      </View>
+      <Text style={styles.textTip}>扫一扫上面的二维码图案，将我加入</Text>
     </View>
   );
   
@@ -56,17 +60,47 @@ const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
     paddingHorizontal: 16,
+    paddingVertical: 16,
     backgroundColor: Theme.background,
   },
   headImageStyle: {
     height: 48, 
     width: 48,
+    borderRadius: 24,
     backgroundColor: 'gray',
   },
+  textName: {
+    position: 'absolute',
+    left: 88,
+    top: 16, 
+    fontSize: 14,
+    color: Theme.textDefault,
+  },
+  textMobile: {
+    position: 'absolute',
+    left: 88,
+    top: 48, 
+    fontSize: 14,
+    color: Theme.textDefault,
+  },
+  lineView: {
+    marginTop: 16,
+    height: 1, 
+    backgroundColor: '#E9E9E9',
+  },
+  imageContainerStyle: {
+    alignItems: 'center',
+    marginTop: 30,
+  },
   imageStyle: {
-    height: 148, 
-    width: 148,
-    backgroundColor: 'gray',
+    height: 250, 
+    width: 250,
+  },
+  textTip: {
+    textAlign: 'center',
+    marginTop: 24,
+    fontSize: 12,
+    color: Theme.textSecondary,
   },
 });
 

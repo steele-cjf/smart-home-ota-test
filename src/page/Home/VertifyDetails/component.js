@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Alert, StyleSheet} from 'react-native';
 import {Spinner, Header, Button, Title, Left, Right, Icon, Body} from 'native-base';
 import Theme from '../../../style/colors';
 import {AppRoute} from '../../../navigator/AppRoutes'; 
@@ -116,6 +116,21 @@ export default function VertifyDetailsPage(props) {
     }
   }
 
+  function alertDelete() {
+    Alert.alert('确定删除', '', [
+      { text: '取消', onPress: () => console.log('Ask me later pressed')},
+      { text: '确定', onPress: () => deleteTenant() },
+      {
+        // cancelable and onDismiss only work on Android.
+        cancelable: true,
+        onDismiss: () =>
+          console.log(
+            'This alert was dismissed by tapping outside of the alert dialog.'
+          )
+      }
+    ]);
+  }
+
   function deleteTenant() {
     const {params} = props.route;
     const data = {
@@ -187,7 +202,7 @@ export default function VertifyDetailsPage(props) {
           <Image style={styles.imageStyle} source={{uri: imageUrl3}} /> 
         </View>
         {!canDelete ?  null :
-          <TouchableOpacity style={styles.btnStyle} onPress={deleteTenant}>
+          <TouchableOpacity style={styles.btnStyle} onPress={alertDelete}>
             <Text style={styles.btnTextStyle}>删除</Text>
           </TouchableOpacity>
         }
