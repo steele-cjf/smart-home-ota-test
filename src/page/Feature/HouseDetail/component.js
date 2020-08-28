@@ -6,6 +6,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Modal,
+  Dimensions,
 } from 'react-native';
 import {
   Button,
@@ -20,6 +22,8 @@ import Theme from '../../../style/colors';
 import showToast from '../../../util/toast';
 import { useFocusEffect } from '@react-navigation/native';
 import HeaderCommon from '../../Component/HeaderCommon'
+import ImageViewer from 'react-native-image-zoom-viewer';
+
 function HouseDetail(props) {
   const [loading, setLoading] = useState(true);
   const [houseInfo, setHouseInfo] = useState({
@@ -30,6 +34,8 @@ function HouseDetail(props) {
   });
   const [rooms, setRooms] = useState([]);
   const [tenantList, setTenantList] = useState([]);
+  const [showImage, setShowImage] = useState(false);
+  const [imageList, setImageList] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
@@ -40,9 +46,12 @@ function HouseDetail(props) {
   const init = () => {
     const { params } = props.route;
     props.getHouseDetail(params.id, res => {
-      console.log('raaa', params, res.data);
       if (!res.code) {
         if (res.data) {
+          console.log('data', res.data);
+          const arr = [];
+          arr.push({url: res.data.housePropertyCertificateImageUrl})
+          setImageList(arr);
           setHouseInfo(res.data);
           setLoading(false);
         }
@@ -100,7 +109,7 @@ function HouseDetail(props) {
   // 渲染住户
   const renderTenantList = () => {
     const { params } = props.route;
-    let result = tenantList.length && tenantList.map(item => {
+    let result = tenantList && tenantList.length && tenantList.map(item => {
       const rooms = item.rooms.map(item => { return item.name });
       return (<View style={styles.listBox} key={item.userId}>
         <View style={[styles.leftContent, styles.flex]}>
@@ -404,7 +413,7 @@ function HouseDetail(props) {
                     房产证及授权文件
                 </Text>
                 </View>
-                <View style={styles.rightContent}>
+                <TouchableOpacity style={styles.rightContent} onPress={() => setShowImage(true)}>
                   <Text
                     style={{
                       color: Theme.textLink,
@@ -412,7 +421,7 @@ function HouseDetail(props) {
                       fontSize: 14,
                     }}>
                     查看
-                </Text>
+                  </Text>
                   <AntDesign
                     name="right"
                     style={{
@@ -423,7 +432,7 @@ function HouseDetail(props) {
                       top: 2,
                     }}
                   />
-                </View>
+                </TouchableOpacity>
               </View>
               <Divider style={{ marginTop: 16 }} />
               <View style={styles.listBox}>
@@ -501,6 +510,13 @@ function HouseDetail(props) {
             </View>
           </ScrollView>
         )}
+      <Modal style={{ flex: 1 }} visible={showImage} transparent={true} onRequestClose={() => Alert.alert("Modal has been closed.")}>
+        <ImageViewer imageUrls={imageList} failImageSource={{
+            url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').width,
+          }}/>
+      </Modal>
     </View>
   );
 }
