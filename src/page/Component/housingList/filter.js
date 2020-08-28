@@ -118,6 +118,7 @@ class DropdownMenu extends Component {
     if (this.props.multipleSection) {
       this.props.multipleSection(arr1, arr2);
     }
+    this.openOrClosePanel(this.state.activityIndex);
   }
   // 获取选中的户型
   getSelectedItem(list) {
