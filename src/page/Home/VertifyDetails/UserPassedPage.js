@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { Spinner } from 'native-base'
-//import Theme from '../../style/colors';
+import Theme from '../../../style/colors';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -60,6 +60,21 @@ const UserPassedPage = (props) => {
     setBasicData(actualBasicData);
   }
 
+  function alertDelete() {
+    Alert.alert('确定删除', '', [
+      { text: '取消', onPress: () => console.log('Ask me later pressed')},
+      { text: '确定', onPress: () => deleteTenant() },
+      {
+        // cancelable and onDismiss only work on Android.
+        cancelable: true,
+        onDismiss: () =>
+          console.log(
+            'This alert was dismissed by tapping outside of the alert dialog.'
+          )
+      }
+    ]);
+  }
+
   function deleteTenant() {
     const {params} = props.route;
     const data = {
@@ -89,20 +104,20 @@ const UserPassedPage = (props) => {
     loading ? <Spinner></Spinner> :
     <View style={styles.containerStyle}>
       <Image style={styles.headImageStyle} source={{uri: headData.headImageUrl}} />
-      <Text style={styles.textTitle}>{headData.name}</Text>
-      <Text style={styles.textTitle}>{headData.mobile}</Text>
+      <Text style={styles.textName}>{headData.name}</Text>
+      <Text style={styles.textMobile}>{headData.mobile}</Text>
       { 
         basicData.map((item, index) => { 
           return (
             <View style={styles.sigContainer}>
-              <Text style={[styles.textTitle, styles.colorSecondary]}>{item.title}</Text>
-              <Text style={[styles.textContent, styles.colorSecondary]}>{item.content}</Text>
+              <Text style={styles.textTitle}>{item.title}</Text>
+              <Text style={styles.textContent}>{item.content}</Text>
             </View>
           ); 
         })
       }
       {!canDelete ?  null :
-        <TouchableOpacity style={styles.btnStyle} onPress={deleteTenant}> 
+        <TouchableOpacity style={styles.btnStyle} onPress={alertDelete}> 
           <Text style={styles.btnTextStyle}>删除</Text>
         </TouchableOpacity>
       }
@@ -118,33 +133,36 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: Theme.background,
   },
-  headContainer: {
-    marginTop: 16,
-    marginBottom: 16,
-  },
   headImageStyle: {
-    position: 'absolute',
-    right: 28,
+    marginTop: 29,
     height: 48, 
     width: 48,
     borderRadius: 24,
     backgroundColor: 'gray',
   },
-  sigContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#E9E9E9',
-  },
-  textTitle: {
-    paddingVertical: 18,
+  textName: {
+    position: 'absolute',
+    left: 88,
+    top: 29, 
     fontSize: 14,
     color: Theme.textDefault,
   },
-  fontSize16: {
-    fontSize: 16,
+  textMobile: {
+    position: 'absolute',
+    left: 88,
+    top: 57, 
+    fontSize: 14,
+    color: Theme.textDefault,
   },
-  colorSecondary: {
+  sigContainer: {
+    paddingVertical: 18,
+    backgroundColor: 'yellow',
+    borderBottomColor: 'red',
+    borderBottomWidth: 1,
+  },
+  textTitle: {
+    fontSize: 14,
     color: Theme.textSecondary,
-    paddingVertical: 10,
   },
   textContent: {
     position: 'absolute',
@@ -154,18 +172,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 14,
     color: Theme.textDefault,
-  },
-  rightInput: {
-    fontSize: 14,
-    paddingRight: 24,
-  },
-  rightArrow: {
-    position: 'absolute', 
-    right: -3, 
-    top: 17,
-    fontSize: 14, 
-    color: Theme.textSecondary, 
-    textAlign: 'right',
   },
   btnStyle: {
     position: 'absolute',
