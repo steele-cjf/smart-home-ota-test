@@ -7,13 +7,23 @@ import BottomSheet from 'reanimated-bottom-sheet'
 import Geolocation from '@react-native-community/geolocation';
 import { useFocusEffect } from '@react-navigation/native';
 import HouseListComponent from '../../Component/housingList/list';
+import DropdownMenu from '../../Component/housingList/filter';
 
 let h = Dimensions.get('window').height
 const snapPoints = [0.6 * h, 0.5 * h, 0.4 * h, 0.3 * h, 0.2 * h, 0.1 * h, 0]
 function MapHouse(props) {
+  const data = [{type: 'text', value: '位置', key: 'location'}, {type: 'text', value: '方式/户型', key: 'houseType'}, {type: 'text', value: '租金', key: 'rent'}];
+  const filterParamsList = [
+    [{distance: '1'}, {distance: '2'}, {distance: '3'}],
+    [],
+    [{priceHigh: null, priceLow: null}, {priceHigh: 1000, priceLow: 0}, {priceHigh: 2000, priceLow: 1000},{priceHigh: 3000, priceLow: 2000}, {priceHigh: 4000, priceLow: 3000}, {priceHigh: null, priceLow: 4000}],
+    [{orderBy: 'newest'}, {orderBy: 'price_up'}, {orderBy: 'price_down'}]
+  ]
+
   const [snapIndex] = useState(snapPoints.length - 1)
   const [selectItem, setSelectItem] = useState()
   const [markers, setMarker] = useState([])
+  const [params ,setParams] = useState({})
   const [center, setCenter] = useState({
     latitude: 39.904989,
     longitude: 116.40
@@ -51,14 +61,16 @@ function MapHouse(props) {
       bottomSheetRef.current.snapTo(snapIndex)
     }
   }
-  const searchMarker = (loc) => {
-    let { latitude, longitude, latitudeDelta, longitudeDelta } = loc.region
-    let bottom = latitude - latitudeDelta / 2
-    let left = longitude - longitudeDelta / 2
-    let right = longitude + longitudeDelta / 2
-    let top = latitude + latitudeDelta / 2
-    let data = { bottom, left, top, right, bottom }
+  const searchMarker = (data) => {
+    // let { latitude, longitude, latitudeDelta, longitudeDelta } = loc.region
+    // let bottom = latitude - latitudeDelta / 2
+    // let left = longitude - longitudeDelta / 2
+    // let right = longitude + longitudeDelta / 2
+    // let top = latitude + latitudeDelta / 2
+    // let data = { bottom, left, top, right, bottom }
+    console.log('mapData', data);
     props.getSearchSummaries(data, res => {
+      console.log('resData', res);
       if (!res.code && res.data) {
         setMarker(res.data)
       }
@@ -67,6 +79,32 @@ function MapHouse(props) {
   const mapClick = () => {
     selectMarker(null)
   }
+
+  const getFilter = (sec, row) => {
+    if (sec === 1) {
+      return
+    }
+    if (sec === 0) {
+      const arr = [center.longitude, center.latitude];
+      const lip = Object.assign(params, {center: arr.join(',')})
+      setParams(lip)
+    }
+    const data = filterParamsList[sec][row]
+    const newData = Object.assign(params, data)
+    setParams(newData)
+    searchMarker(newData)
+  }
+  const getSection = (arr1, arr2) => {
+    const houseParams = {
+      houseType: arr1,
+      roomCount: arr2
+    }
+    const newData = Object.assign(params, houseParams)
+    console.log('newData2', newData);
+    setParams(newData)
+    searchMarker(newData)
+  }
+
   // 渲染marker 
   const renderMarker = () => {
     var Dom = []
@@ -105,21 +143,30 @@ function MapHouse(props) {
   }
   return (
     <View style={{ flex: 1 }}>
-      <MapView style={{ flex: 1 }}
-        zoomLevel={10}
-        maxZoomLevel={18}
-        minZoomLevel={2}
-        locationEnabled
-        rotateEnabled={false}
-        onClick={() => mapClick()}
-        showsLocationButton
-        onStatusChangeComplete={(region) => {
-          searchMarker(region)
+      <DropdownMenu
+          bgColor={'white'}
+          tintColor={'#282828'}
+          activityTintColor={'#5C8BFF'}
+          handler={(selection, row) => getFilter(selection, row)}
+          multipleSection={(arr1, arr2) => getSection(arr1, arr2)}
+          data={data}
+        >
+        <MapView style={{ flex: 1 }}
+          zoomLevel={10}
+          maxZoomLevel={18}
+          minZoomLevel={2}
+          locationEnabled
+          rotateEnabled={false}
+          onClick={() => mapClick()}
+          showsLocationButton
+          onStatusChangeComplete={(region) => {
+          searchMarker()
         }}
         center={center}
         ref={mapRef}>
         {renderMarker()}
-      </MapView >
+        </MapView>
+      </DropdownMenu>
       <BottomSheet
         ref={bottomSheetRef}
         snapPoints={snapPoints}
