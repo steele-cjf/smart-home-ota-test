@@ -86,22 +86,28 @@ const PersonalInfoPage = (props) => {
     setOtherData(actualOtherData);
 
     if (data.avatarImageUrl) {
-      setHeadImage({uri: data.avatarImageUrl});
+      setHeadImage({uri: data.avatarImageUrl}); 
     }
   }
 
   //请求保存数据
   function saveOtherDataInfo() {
     var result = new FormData();
-    result.append('educationLevel', otherData['教育程度']);
-    result.append('regionId', otherData['所在区域']);
-    result.append('address', otherData['详细地址']);
-  
+    if (otherData['教育程度']) {
+      result.append('educationLevel', otherData['教育程度']);
+    }
+    if (otherData['所在区域']) {
+      result.append('regionId', otherData['所在区域']);
+    }
+    if (otherData['详细地址']) {
+      result.append('address', otherData['详细地址']);
+    }
     if (imageObj) {
       result.append('avatarImage', imageObj);
     }
     
     console.log('传入avatarImage: **:  ', imageObj);
+    console.log('传入result: **:  ', result);
 
     const userId = props.userInfo.data.id;
     props.modifyPersonalInfo(userId, result, res => {
@@ -123,9 +129,11 @@ const PersonalInfoPage = (props) => {
     setOtherData(data);
   };
 
+  const img = require('../../assets/images/head.png');
+
   const [basicData, setBasicData] = useState([]);
   const [otherData, setOtherData] = useState({});
-  const [headImage, setHeadImage] = useState({});
+  const [headImage, setHeadImage] = useState(img);
   const [imageObj, setImageObj] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -197,7 +205,6 @@ const styles = StyleSheet.create({
     height: 48, 
     width: 48,
     borderRadius: 24,
-    backgroundColor: 'gray',
   },
   sigContainer: {
     borderBottomWidth: 1,

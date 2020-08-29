@@ -20,7 +20,8 @@ function AuthenticationPage(props) {
   }
 
   function personalVerify() {
-    props.getVerifyToken({ useId: userInfo.id }, res => {
+    console.log('userId2:*****', userId)
+    props.getVerifyToken({ useId: userId}, res => { //userInfo.id
       if (res.code) {
         showToast(res.message);
         return;
@@ -54,6 +55,11 @@ function AuthenticationPage(props) {
     });
   }
 
+  function loadStatus() {
+    console.log('loadStatus^^^^^^^^^^^^^');
+    setUserStatus('audit_pending'); //修改认证成功返回 audit_pending
+  }
+
   function handlerVerify() {
     if (selectIndex === 0) {
       personalVerify();
@@ -61,26 +67,39 @@ function AuthenticationPage(props) {
 
       const {params} = props.route;
       if (params && params.userId) {
-        NavigatorService.navigate(AppRoute.IDCARDVERTIFY, {userId: params.userId});
+        NavigatorService.navigate(AppRoute.IDCARDVERTIFY, { userId: params.userId, refreshStatus: () => {loadStatus();} });
       } else {
-        NavigatorService.navigate(AppRoute.IDCARDVERTIFY);
+        NavigatorService.navigate(AppRoute.IDCARDVERTIFY, { refreshStatus: () => {loadStatus();} });
       }
       
     } else {
 
       const {params} = props.route;
       if (params && params.userId) {
-        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY, {userId: params.userId});
+        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY, {userId: params.userId, refreshStatus: () => {loadStatus();} });
       } else {
-        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY);
+        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY, { refreshStatus: () => {loadStatus();} });
       }
 
     }
   }
   // 初始化获取用户信息
   useEffect(() => {
-    setUserInfo(props.userInfo.data);
-  }, [props.userInfo]);
+    //setUserInfo(props.userInfo.data);
+    setUser();
+  }, []);  //[props.userInfo]
+
+  function setUser() {
+    const {params} = props.route;
+    if (params && params.userId) {
+      setUserId(params.userId);
+      setUserStatus(params.authStatus);
+    } else {
+      console.log('userId1:*****', props.userInfo.data.id)
+      setUserId(props.userInfo.data.id);
+      setUserStatus(props.userInfo.data.status);
+    }
+  }
 
   const [AuthList] = useState([
     {
@@ -103,13 +122,16 @@ function AuthenticationPage(props) {
     },
   ]);
   const [selectIndex, setSelectIndex] = useState(0);
-  const [userInfo, setUserInfo] = useState(0);
+  //const [userInfo, setUserInfo] = useState(0);
+  const [userId, setUserId] = useState('');
+  const [userStatus, setUserStatus] = useState('');
   const AliyunVerify = useRef();
   return (
     <View style={styles.container} ref={AliyunVerify}>
       <View>
         <Text style={styles.tipStatus}>当前状态：</Text>
-        <Text style={styles.status}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text>
+        {/* <Text style={styles.status}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text> */}
+        <Text style={styles.status}>{props.dictionaryMappings.user_status[userStatus]}</Text>
       </View>
       <Text style={styles.verTitle}>请选择认证方式：</Text>
       {AuthList.map((u, i) => {

@@ -115,6 +115,12 @@ export default function PassportVertifyPage(props) {
                 showToast('提交成功');
                 //NavigatorService.navigate(AppRoute.HOME)
                 NavigatorService.goBack();
+
+                const {params} = props.route;
+                if (params && params.refreshStatus) {
+                  params.refreshStatus();
+                }
+                
             } else {
                 showToast(res.message)
                 console.log('res.message*****: ',res.message)

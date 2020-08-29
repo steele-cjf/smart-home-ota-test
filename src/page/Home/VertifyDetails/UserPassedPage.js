@@ -38,12 +38,14 @@ const UserPassedPage = (props) => {
 
   function dealDataRefresh(data) { 
     let actualHeadData = {
-      headImageUrl: data.avatarImageUrl,
+      headImage: {uri: data.avatarImageUrl}, 
       name: data.name,
       mobile: data.mobile, 
     };
-    if (!actualHeadData.headImageUrl) {
-      actualHeadData.headImageUrl = 'ooo';
+
+    if (!data.avatarImageUrl) { 
+      const img = require('../../../assets/images/head.png');
+      actualHeadData.headImage = img; 
     }
     setHeadData(actualHeadData);
 
@@ -95,6 +97,7 @@ const UserPassedPage = (props) => {
     });
   }
 
+
   const [headData, setHeadData] = useState({});
   const [basicData, setBasicData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -103,7 +106,7 @@ const UserPassedPage = (props) => {
   return (
     loading ? <Spinner></Spinner> :
     <View style={styles.containerStyle}>
-      <Image style={styles.headImageStyle} source={{uri: headData.headImageUrl}} />
+      <Image style={styles.headImageStyle} source={headData.headImage} />
       <Text style={styles.textName}>{headData.name}</Text>
       <Text style={styles.textMobile}>{headData.mobile}</Text>
       { 
@@ -135,30 +138,27 @@ const styles = StyleSheet.create({
   },
   headImageStyle: {
     marginTop: 29,
+    marginBottom: 17,
     height: 48, 
     width: 48,
     borderRadius: 24,
-    backgroundColor: 'gray',
   },
   textName: {
     position: 'absolute',
     left: 88,
-    top: 29, 
+    top: 31, 
     fontSize: 14,
     color: Theme.textDefault,
   },
   textMobile: {
     position: 'absolute',
     left: 88,
-    top: 57, 
+    top: 59, 
     fontSize: 14,
     color: Theme.textDefault,
   },
   sigContainer: {
-    paddingVertical: 18,
-    backgroundColor: 'yellow',
-    borderBottomColor: 'red',
-    borderBottomWidth: 1,
+    paddingVertical: 10,
   },
   textTitle: {
     fontSize: 14,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 80,
     right: 0,
-    paddingVertical: 18,
+    paddingVertical: 10,
     textAlign: 'right',
     fontSize: 14,
     color: Theme.textDefault,

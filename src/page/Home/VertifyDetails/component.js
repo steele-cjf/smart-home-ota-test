@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity, Alert, StyleSheet} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import {Spinner, Header, Button, Title, Left, Right, Icon, Body} from 'native-base';
 import Theme from '../../../style/colors';
 import {AppRoute} from '../../../navigator/AppRoutes'; 
@@ -29,13 +30,12 @@ const auth_status = {
 
 export default function VertifyDetailsPage(props) {
 
-  function handleModify() {
-    NavigatorService.navigate(AppRoute.AUTHENTICATION, {userId: userId});
-  }
-
-  useEffect(() => {
-    getAuthInfo(); 
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      // Do something when the screen is focused
+      getAuthInfo(); 
+    }, [])
+  );
 
   //async function getAuthInfo() {
   function getAuthInfo() {
@@ -96,24 +96,25 @@ export default function VertifyDetailsPage(props) {
     setData(actualDataArr);
 
     console.log('data.imageUrls***', data.imageUrls);
-
     if (data.imageUrls && data.imageUrls[0]) {
       $getImage(data.imageUrls[0], uri => {
-        setImageUrl1(uri);
+        setImage1({uri: uri});
       });
     }
-   
     if (data.imageUrls && data.imageUrls[1]) {
       $getImage(data.imageUrls[1], uri => {
-        setImageUrl2(uri);
+        setImage2({uri: uri});
       });
     }
-    
     if (data.imageUrls && data.imageUrls[2]) {
       $getImage(data.imageUrls[2], uri => {
-        setImageUrl3(uri);
+        setImage3({uri: uri});
       });
     }
+  }
+
+  function handleModify() {
+    NavigatorService.navigate(AppRoute.AUTHENTICATION, {userId: userId, authStatus: authStatus});
   }
 
   function alertDelete() {
@@ -151,13 +152,15 @@ export default function VertifyDetailsPage(props) {
     });
   }
 
+  const img = require('../../../assets/images/head.png');
+
   const [authStatus, setAuthStatus] = useState('audit_pending');
   const [authOptions, setAuthOptions] = useState(auth_status['audit_pending']); 
   const [data, setData] = useState([]); 
   const [loading, setLoading] = useState(true);
-  const [imageUrl1, setImageUrl1] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
-  const [imageUrl2, setImageUrl2] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
-  const [imageUrl3, setImageUrl3] = useState('https://facebook.github.io/react-native/docs/assets/favicon.png'); 
+  const [image1, setImage1] = useState(img); 
+  const [image2, setImage2] = useState(img); 
+  const [image3, setImage3] = useState(img); 
   const [canDelete, setCanDelete] = useState(false); 
 
   return (
@@ -187,7 +190,7 @@ export default function VertifyDetailsPage(props) {
         </View> 
         {
           data.map((item, index) => { 
-            return (
+            return (  //{uri: imageUrl1}
               <View>
                 <Text style={styles.textTitle}>{item.title}</Text>
                 <Text style={styles.textContent} numberOfLines={2} ellipsizeMode={'tail'}>{item.content}</Text>
@@ -197,9 +200,9 @@ export default function VertifyDetailsPage(props) {
         }
         <Text style={[styles.topTextStyle1, styles.space]}>{'照片上传'}</Text> 
         <View style={styles.ImageBox}>
-          <Image style={styles.imageStyle} source={{uri: imageUrl1}}/> 
-          <Image style={styles.imageStyle} source={{uri: imageUrl2}}/> 
-          <Image style={styles.imageStyle} source={{uri: imageUrl3}} /> 
+          <Image style={styles.imageStyle} source={image1}/>  
+          <Image style={styles.imageStyle} source={image2}/> 
+          <Image style={styles.imageStyle} source={image3} /> 
         </View>
         {!canDelete ?  null :
           <TouchableOpacity style={styles.btnStyle} onPress={alertDelete}>

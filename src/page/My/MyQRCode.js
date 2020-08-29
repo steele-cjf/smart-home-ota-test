@@ -72,14 +72,14 @@ const styles = StyleSheet.create({
   textName: {
     position: 'absolute',
     left: 88,
-    top: 16, 
+    top: 18, 
     fontSize: 14,
     color: Theme.textDefault,
   },
   textMobile: {
     position: 'absolute',
     left: 88,
-    top: 48, 
+    top: 44, 
     fontSize: 14,
     color: Theme.textDefault,
   },
@@ -90,15 +90,15 @@ const styles = StyleSheet.create({
   },
   imageContainerStyle: {
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 34,
   },
   imageStyle: {
-    height: 250, 
-    width: 250,
+    height: 235, 
+    width: 235,
   },
   textTip: {
     textAlign: 'center',
-    marginTop: 24,
+    marginTop: 26,
     fontSize: 12,
     color: Theme.textSecondary,
   },
