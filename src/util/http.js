@@ -102,7 +102,7 @@ export const postImage = (url, callback, isAbsolute) => {
   fetchGetImage('POST', url, callback, isAbsolute)
 }
 function fetchGetImage(method, url, callback, isAbsolute) {
-  let uri = isAbsolute && url || appApi + url
+  let uri = isAbsolute && ip + url || appApi + url
   storage.get('token').then(accessToken => {
     RNFetchBlob
       .config({

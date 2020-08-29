@@ -85,8 +85,7 @@ function RecordHouse(props) {
 
           setLoading(false);
           console.log('info.housePropertyCertificateImageUrl', info.housePropertyCertificateImageUrl)
-          let url = 'http://47.112.238.28:9700/files/KBNoCXbce8hEKMOKEGmdL4Hp2JqZ+hKgd0QsrYKKmQ6M9jc8A2DcACQqeDjir/oaYEfw9B3rTaqPzQlu+VLCJMzgXHboUL2/1LJXvlMLtA1QmImweKg4qlG467hFFhfIfdQ06IcUfJ29f+xtpQ+zFBEwOeMqHf9hEl20Utr+VSr9SM2x7HnchG8dF47WaqwOK7soZYGXnIenZ4Vo4WrTtjgWj9xTSjTkpcAAmx7iRQ83wH9Hg729eBIRw42ndY1NwaWlvPhCtES7rOXmvVg/vGltRkngoc3G1VmE5OejnEc='
-          $getImage(url, res => {
+          $getImage(info.housePropertyCertificateImageUrl, res => {
             setHousePropertyCertificateImage([{
               uri: res,
               name: 'upload.jpg',
