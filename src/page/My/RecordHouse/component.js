@@ -86,12 +86,8 @@ function RecordHouse(props) {
           setLoading(false);
           console.log('info.housePropertyCertificateImageUrl', info.housePropertyCertificateImageUrl)
           $getImage(info.housePropertyCertificateImageUrl, res => {
-            setHousePropertyCertificateImage([{
-              uri: res,
-              name: 'upload.jpg',
-              type: 'image/jpeg'
-            }])
-            setImage(res);
+            setHousePropertyCertificateImage([res])
+            setImage(res.uri);
           }, true)
           // setImage(info.housePropertyCertificateImageUrl);
         }
@@ -243,7 +239,7 @@ function RecordHouse(props) {
                 title: houseId && '修改房源' || '添加房源'
               }}
             />
-            <ScrollView style={{flex: 1}}>
+            <ScrollView style={{ flex: 1 }}>
               <View style={styles.container}>
                 <Text style={[styles.publishTitle, styles.specialPadding]}>
                   房源资料

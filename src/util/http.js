@@ -114,7 +114,11 @@ function fetchGetImage(method, url, callback, isAbsolute) {
       .then((res) => {
         // the temp file path
         console.log('The file saved to ', res.path())
-        callback('file://' + res.path())
+        callback({
+          uri: 'file://' + res.path(),
+          name: 'upload.jpg',
+          type: 'image/jpeg'
+        })
       })
   })
 }
