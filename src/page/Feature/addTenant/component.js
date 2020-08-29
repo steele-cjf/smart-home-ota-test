@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import { ListItem, Image, Card } from 'react-native-elements';
 import { Button, Item, Label, Input, ActionSheet } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import HeaderCommon from '../../Component/HeaderCommon';
+
 const ID_CARD = 'id_card'
 const FULL_RENT = 'full_rent'
 
@@ -246,6 +248,12 @@ export default function AddTenant(props) {
 
   return (
     <View style={styles.container}>
+      <HeaderCommon
+        options={{
+          backTitle: '返回',
+          title: '添加住户',
+        }}
+      />
       <ActionSheet ref={(c) => { setActionSheet(c) }} />
       <View style={{ flex: 1 }}>
         <Text style={styles.title}>房屋信息</Text>

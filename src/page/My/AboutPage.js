@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import Theme from '../../style/colors';
+import HeaderCommon from '../Component/HeaderCommon'
 
 export default AboutPage = (props) => {
 
@@ -14,8 +15,13 @@ export default AboutPage = (props) => {
   ];
 
   return(
-    
     <View style={styles.containerStyle}>
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '关于我们'
+        }}
+      />
       <View style={styles.imageContainerStyle}>
         <Image style={styles.imageStyle} />
       </View>

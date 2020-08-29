@@ -6,6 +6,7 @@ import {
 } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../../navigator/AppRoutes';
+import HeaderCommon from '../../Component/HeaderCommon';
 
 function HouseCollectionList(props) {
   const [loading, setLoading] = useState(true);
@@ -87,6 +88,12 @@ function HouseCollectionList(props) {
   };
   return (
     <View>
+      <HeaderCommon
+        options={{
+          backTitle: '返回',
+          title: '房源收藏',
+        }}
+      />
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (

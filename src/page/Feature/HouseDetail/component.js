@@ -511,11 +511,7 @@ function HouseDetail(props) {
           </ScrollView>
         )}
       <Modal style={{ flex: 1 }} visible={showImage} transparent={true} onRequestClose={() => Alert.alert("Modal has been closed.")}>
-        <ImageViewer imageUrls={imageList} failImageSource={{
-            url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').width,
-          }}/>
+        <ImageViewer imageUrls={imageList}  onClick={() => setShowImage(false)}/>
       </Modal>
     </View>
   );

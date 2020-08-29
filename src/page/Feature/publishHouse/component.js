@@ -17,6 +17,7 @@ import LabelSelect from '../../Component/labelSelect';
 import Theme from '../../../style/colors';
 import houseFeeList from '../config/houseFee';
 import showToast from '../../../util/toast';
+import HeaderCommon from '../../Component/HeaderCommon';
 
 export default function PublishHouse(props) {
   const [houseItem, setHouseItem] = useState([]);
@@ -282,6 +283,13 @@ export default function PublishHouse(props) {
     return value ? '' + value : value                  
   }
   return (
+    <View>
+      <HeaderCommon
+        options={{
+          backTitle: '返回',
+          title: '发布房源',
+        }}
+      />
     <ScrollView>
       <View style={styles.container}>
         {/* 发布房间 */}
@@ -477,6 +485,7 @@ export default function PublishHouse(props) {
         </Button>
       </View>
     </ScrollView>
+    </View>
   );
 }
 

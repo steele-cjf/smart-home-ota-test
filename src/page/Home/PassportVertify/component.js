@@ -4,7 +4,7 @@ import Form from '../../Component/form'
 import ImageUpload from '../../Component/imageUpload'
 import vertifyCn from '../config/PassportVertify'
 import { Spinner } from 'native-base'
-import { AppRoute } from '../../../navigator/AppRoutes';
+import HeaderCommon from '../../Component/HeaderCommon'
 
 export default function PassportVertifyPage(props) {
     const [formData, setFormData] = useState({});
@@ -149,6 +149,12 @@ export default function PassportVertifyPage(props) {
 
     return (
         <View style={styles.container}>
+            <HeaderCommon
+                options={{
+                backTitle: '返回',
+                title: '护照认证'
+                }}
+            />
             {loading ? <Spinner></Spinner> :
             <ScrollView style={styles.scrollContainer}>
                 <Text style={styles.textTitle}>基本资料</Text>
