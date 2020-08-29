@@ -1,5 +1,5 @@
 //package uni.UNI07A4D55.aliyunverify;
-package com.smarthome.aliyunverify;
+package com.thingsmatrix.smarthome;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

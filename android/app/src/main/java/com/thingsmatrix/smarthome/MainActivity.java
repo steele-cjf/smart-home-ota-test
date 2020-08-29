@@ -1,4 +1,4 @@
-package com.smarthome;
+package com.thingsmatrix.smarthome;
 
 import com.facebook.react.ReactActivity;
 

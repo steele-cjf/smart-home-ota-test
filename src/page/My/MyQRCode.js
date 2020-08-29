@@ -26,18 +26,9 @@ const MyQRCodePage = (props) => {
   }
   function getUserInfoUrl() {
     var userId = props.userInfo.data.id;
-    $getImage('/qrcode/' + userId + '/genUserInfoUrl', res => {
-      console.log('******getUserInfoUrl:', res)
+    $postImage('/qrcode/' + userId + '/genUserInfoUrl', res => {
       setImageUrl(res);
     })
-    // props.getUserInfoUrl(userId, url => {
-    //   console.log('******getUserInfoUrl:', url);
-    //   if (url) {
-    //     setImageUrl(url);
-    //   } else {
-    //     showToast("90909");
-    //   }
-    // });
   }
 
   const [userInfo, setUserInfo] = useState({});
@@ -76,14 +67,14 @@ const styles = StyleSheet.create({
   textName: {
     position: 'absolute',
     left: 88,
-    top: 18, 
+    top: 18,
     fontSize: 14,
     color: Theme.textDefault,
   },
   textMobile: {
     position: 'absolute',
     left: 88,
-    top: 44, 
+    top: 44,
     fontSize: 14,
     color: Theme.textDefault,
   },
@@ -97,7 +88,7 @@ const styles = StyleSheet.create({
     marginTop: 34,
   },
   imageStyle: {
-    height: 235, 
+    height: 235,
     width: 235,
   },
   textTip: {

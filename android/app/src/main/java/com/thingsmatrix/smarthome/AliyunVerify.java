@@ -1,4 +1,4 @@
-package com.smarthome.aliyunverify;
+package com.thingsmatrix.smarthome;
 
 import android.util.Log;
 

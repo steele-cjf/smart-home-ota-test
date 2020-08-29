@@ -1,6 +1,7 @@
 import { stringify } from 'query-string';
 import { appApi, ip } from '../config';
 // import { showToast } from './toast';
+import RNFetchBlob from 'rn-fetch-blob'
 import storage from './storage';
 // 默认配置
 export const DEFAULT_CONFIG = {
@@ -93,63 +94,61 @@ export const remove = (url, config) => {
   url = formatURL(url, config.queryData);
   return httpService(url, config);
 };
-// image如果需要token时的处理
-export const getImage = (url, callback) => {
-  let xx = 'https://dss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2489377083,111398083&fm=173&app=49&size=f242,162&n=0&g=0n&f=JPEG?s=92BC7884220B0B598A31B4870300E041&sec=1598691919&t=09617e1c106f59304503f04eb2cee0db'
-
-  storage.get('token').then(accessToken => {
-    let xx = 'https://dss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2489377083,111398083&fm=173&app=49&size=f242,162&n=0&g=0n&f=JPEG?s=92BC7884220B0B598A31B4870300E041&sec=1598691919&t=09617e1c106f59304503f04eb2cee0db'
-    fetch(url, {
-      headers: {
-        Authorization: 'Bearer ' + accessToken,
-        ContentType: 'image/png'
-      },
-    })
-      .then(response => response.blob())
-      .then(blod => {
-        console.log('blod', blod);
-        let url = URL.createObjectURL(blod);
-        callback(url);
-        return url
-      })
-      .catch(err => {
-        showToast('' + err)
-        callback(err);
-      });
-  });
-};
-
-export function post2(url, config) {
-  return (dispatch => {
-    config.method = 'POST';
-    config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
-    config = Object.assign({}, DEFAULT_CONFIG, config);
-
-    return fetch(appApi + url, config)
-      .then(response => response.blob())
-      .then(blob => {
-        const objectURL = URL.createObjectURL(blob);
-        if (config.successConfig && config.successConfig.callback) {
-          config.successConfig.callback(objectURL);
-        }
-        // return uri
-        return objectURL;
-      })
-      .catch(error => {
-        console.log(error);
-        showToast('networkError2');
-      });
-  });
+// image如果需要token时的处理,isAbsolute:true 绝对路径
+export const getImage = (url, callback, isAbsolute) => {
+  fetchGetImage('GET', url, callback, isAbsolute)
 }
+export const postImage = (url, callback, isAbsolute) => {
+  fetchGetImage('POST', url, callback, isAbsolute)
+}
+function fetchGetImage(method, url, callback, isAbsolute) {
+  let uri = isAbsolute && url || appApi + url
+  storage.get('token').then(accessToken => {
+    RNFetchBlob
+      .config({
+        fileCache: true,
+      })
+      .fetch(method, uri, {
+        Authorization: 'Bearer ' + accessToken
+      })
+      .then((res) => {
+        // the temp file path
+        console.log('The file saved to ', res.path())
+        callback('file://' + res.path())
+      })
+  })
+}
+// export const getImage = (url, callback) => {
+// storage.get('token').then(accessToken => {
+//   fetch(url, {
+//     credentials: 'include',
+//     headers: {
+//       Authorization: 'Bearer ' + accessToken
+//     },
+//   })
+//     .then(response => response.blob())
+//     .then(blod => {
+//       console.log('blod', URL.createObjectURL(blod));
+//       let url = 'aa' //URL.createObjectURL(blod);
+//       callback(url);
+//       return url
+//     })
+//     .catch(err => {
+//       console.log('err:', err)
+//       showToast('' + err)
+//       callback(err);
+//     });
+// });
+// };
 
 
 export default {
   get,
   post,
-  post2,
   put,
   remove,
   getImage,
+  postImage,
   DEFAULT_CONFIG,
   appApi
 };

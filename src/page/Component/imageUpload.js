@@ -47,6 +47,7 @@ export default function ImageUpload(props) {
       } else {
         let source = {uri: response.uri};
         setAvatarSource(source);
+        console.log(999, response.type)
         //注意，iOS 获取的图片地址要替换掉"file://",这是后面上传遇到的坑
         let imageObj = {
           uri:
@@ -54,7 +55,7 @@ export default function ImageUpload(props) {
               ? response.uri.replace('file://', '')
               : response.uri,
           name: response.fileName || 'upload.jpg',
-          type: response.type,
+          type: response.type
         };
         props.setImageForm(imageObj);
       }

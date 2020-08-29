@@ -24,17 +24,17 @@ export const FeatureStackComponent = () => {
         },
       }}>
       <FeatureStack.Screen
-        name={AppRoute.RECORD}
-        component={RecordHouse}
-        options={{
-          headerShown: false
-        }}
-      />
-      <FeatureStack.Screen
         name={AppRoute.FEATURE}
         component={FeaturePage}
         options={{
           headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.RECORD}
+        component={RecordHouse}
+        options={{
+          headerShown: false
         }}
       />
       <FeatureStack.Screen

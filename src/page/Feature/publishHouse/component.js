@@ -242,11 +242,9 @@ export default function PublishHouse(props) {
       })
     } else {
       result.append('houseId', houseId);
-      console.log('result2', result);
       props.publishHouse(result, res => {
         console.log('resAdd', res);
         if (!res.code) {
-          props.route.params.refresh();
           props.navigation.goBack();
         } else {
           showToast(res.message);

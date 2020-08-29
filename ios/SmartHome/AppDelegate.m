@@ -15,7 +15,7 @@
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
 static void InitializeFlipper(UIApplication *application) {
-  [AMapServices sharedServices].apiKey = @"2e819db63b2375e27a887f64450be8e0";
+  [AMapServices sharedServices].apiKey = @"a9ae04bdcf256577118ccde985c19e68";
   FlipperClient *client = [FlipperClient sharedClient];
   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
   [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];

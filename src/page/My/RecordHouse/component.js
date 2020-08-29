@@ -75,17 +75,26 @@ function RecordHouse(props) {
           setAddress(info.address);
           setHouseHolder(info.houseHolder);
           setHouseLayout(info.houseLayout);
-          setCertificateFilesImg(info.houseHolder.certificateFileUrls);
+          setCertificateFilesImg(info.houseHolder.certificateFileUrls || []);
           setRegionId(info.regionId);
 
           setRegionName(info.formattedAddress);
           setHasElevator(info.houseLayout.hasElevator);
           setSelectedSelfValue(obj.house_holder[info.houseHolder.self]);
-          setSelectedDirectionValue(
-            obj.house_direction[info.houseLayout.direction],
-          );
+          setSelectedDirectionValue(obj.house_direction[info.houseLayout.direction]);
+
           setLoading(false);
-          setImage(info.housePropertyCertificateImageUrl);
+          console.log('info.housePropertyCertificateImageUrl', info.housePropertyCertificateImageUrl)
+          let url = 'http://47.112.238.28:9700/files/KBNoCXbce8hEKMOKEGmdL4Hp2JqZ+hKgd0QsrYKKmQ6M9jc8A2DcACQqeDjir/oaYEfw9B3rTaqPzQlu+VLCJMzgXHboUL2/1LJXvlMLtA1QmImweKg4qlG467hFFhfIfdQ06IcUfJ29f+xtpQ+zFBEwOeMqHf9hEl20Utr+VSr9SM2x7HnchG8dF47WaqwOK7soZYGXnIenZ4Vo4WrTtjgWj9xTSjTkpcAAmx7iRQ83wH9Hg729eBIRw42ndY1NwaWlvPhCtES7rOXmvVg/vGltRkngoc3G1VmE5OejnEc='
+          $getImage(url, res => {
+            setHousePropertyCertificateImage([{
+              uri: res,
+              name: 'upload.jpg',
+              type: 'image/jpeg'
+            }])
+            setImage(res);
+          }, true)
+          // setImage(info.housePropertyCertificateImageUrl);
         }
       }
     });
@@ -168,6 +177,7 @@ function RecordHouse(props) {
   const setImageForm = (key, obj, type) => {
     let data;
     if (type === 'cert') {
+      console.log(88888, housePropertyCertificateImage)
       data = Object.assign([], housePropertyCertificateImage);
       setHousePropertyCertificateImage(data);
       data[key] = obj;
