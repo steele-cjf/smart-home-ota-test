@@ -28,7 +28,7 @@ const MyQRCodePage = (props) => {
   function getUserInfoUrl() {
     var userId = props.userInfo.data.id;
     $postImage('/qrcode/' + userId + '/genUserInfoUrl', res => {
-      setImageUrl(res);
+      setImageUrl(res.uri);
     })
   }
 
