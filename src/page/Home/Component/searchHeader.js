@@ -10,7 +10,6 @@ import { AppRoute } from '../../../navigator/AppRoutes';
 
 export default function SearchHeader(props) {
     const [searchItem, setSearchItem] = useState('');
-
     return (
         <View>
             <Header hasSegment style={styles.container}>
@@ -56,8 +55,7 @@ export default function SearchHeader(props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
-        height: 50,
+        // height: 50,
         padding: 10
     },
     selectBox: {

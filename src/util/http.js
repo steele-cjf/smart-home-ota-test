@@ -1,8 +1,7 @@
 import { stringify } from 'query-string';
-import { appApi } from '../config';
-import { showToast } from './toast';
+import { appApi, ip } from '../config';
+// import { showToast } from './toast';
 import storage from './storage';
-
 // 默认配置
 export const DEFAULT_CONFIG = {
   method: 'GET',
@@ -68,8 +67,8 @@ export const httpService = (url, config) => {
         }
       })
       .catch(error => {
-        console.log(error);
-        showToast('networkError');
+        showToast('请求出错，请联系管理员')
+        console.log('error', error);
       });
   };
 };
@@ -96,10 +95,14 @@ export const remove = (url, config) => {
 };
 // image如果需要token时的处理
 export const getImage = (url, callback) => {
+  let xx = 'https://dss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2489377083,111398083&fm=173&app=49&size=f242,162&n=0&g=0n&f=JPEG?s=92BC7884220B0B598A31B4870300E041&sec=1598691919&t=09617e1c106f59304503f04eb2cee0db'
+
   storage.get('token').then(accessToken => {
-    fetch('http://47.112.238.28:9700' + url, {
+    let xx = 'https://dss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2489377083,111398083&fm=173&app=49&size=f242,162&n=0&g=0n&f=JPEG?s=92BC7884220B0B598A31B4870300E041&sec=1598691919&t=09617e1c106f59304503f04eb2cee0db'
+    fetch(url, {
       headers: {
         Authorization: 'Bearer ' + accessToken,
+        ContentType: 'image/png'
       },
     })
       .then(response => response.blob())
@@ -110,6 +113,7 @@ export const getImage = (url, callback) => {
         return url
       })
       .catch(err => {
+        showToast('' + err)
         callback(err);
       });
   });
@@ -122,14 +126,13 @@ export function post2(url, config) {
     config = Object.assign({}, DEFAULT_CONFIG, config);
 
     return fetch(appApi + url, config)
-      .then(response => {return response.blob();})
+      .then(response => response.blob())
       .then(blob => {
         const objectURL = URL.createObjectURL(blob);
-
         if (config.successConfig && config.successConfig.callback) {
           config.successConfig.callback(objectURL);
         }
-
+        // return uri
         return objectURL;
       })
       .catch(error => {

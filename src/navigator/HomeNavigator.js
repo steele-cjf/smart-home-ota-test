@@ -90,15 +90,14 @@ export const HomeStackComponent = () => {
         name={AppRoute.AUDIT}
         component={AuditHouse}
         options={{
-          headerShown: false,
+          headerShown: false
         }}
       />
       <HomeStack.Screen
         name={AppRoute.RECORD}
         component={RecordHouse}
         options={{
-          title: '添加房源',
-          headerBackTitle: '返回',
+          headerShown: false
         }}
       />
       <HomeStack.Screen

@@ -142,8 +142,7 @@ export const MyPageStackComponent = () => {
         name={AppRoute.RECORD}
         component={RecordHouse}
         options={{
-          title: '添加房源',
-          headerBackTitle: '返回',
+          headerShown: false
         }}
       />
       <MyPageNavigator.Screen

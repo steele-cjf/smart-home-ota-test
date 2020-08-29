@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, TouchableOpacity, FlatList, Platform} from 'react-native';
-import {Text} from 'react-native-elements';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, TouchableOpacity, FlatList, Platform } from 'react-native';
+import { Text } from 'react-native-elements';
 
 export default function CitySelect(props) {
   const [options, setOptions] = useState([]);
@@ -12,7 +12,7 @@ export default function CitySelect(props) {
     setOptions(props.address);
   }, [props.address]);
 
-  const _renderItem = ({item, index}) => {
+  const _renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}

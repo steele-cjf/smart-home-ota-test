@@ -1048,6 +1048,11 @@
   resolved "https://registry.npm.taobao.org/@react-native-community/viewpager/download/@react-native-community/viewpager-2.0.2.tgz#622b190294b1310c4825c98daeaee1c8443f7124"
   integrity sha1-YisZApSxMQxIJcmNrq7hyEQ/cSQ=
 
+"@react-native-community/viewpager@^4.1.6":
+  version "4.1.6"
+  resolved "https://registry.npm.taobao.org/@react-native-community/viewpager/download/@react-native-community/viewpager-4.1.6.tgz#788f401f883929e8ac3698e328caef40b146f36e"
+  integrity sha1-eI9AH4g5KeisNpjjKMrvQLFG824=
+
 "@react-navigation/bottom-tabs@^5.6.1":
   version "5.8.0"
   resolved "https://registry.npm.taobao.org/@react-navigation/bottom-tabs/download/@react-navigation/bottom-tabs-5.8.0.tgz?cache=0&sync_timestamp=1596543041287&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40react-navigation%2Fbottom-tabs%2Fdownload%2F%40react-navigation%2Fbottom-tabs-5.8.0.tgz#d7386809bceeead0adcaacf61b6563be9cefd5cb"
@@ -5348,10 +5353,22 @@ react-native-gesture-handler@^1.6.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-image-pan-zoom@^2.1.12:
+  version "2.1.12"
+  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.12.tgz#eb98bf56fb5610379bdbfdb63219cc1baca98fd2"
+  integrity sha512-BF66XeP6dzuANsPmmFsJshM2Jyh/Mo1t8FsGc1L9Q9/sVP8MJULDabB1hms+eAoqgtyhMr5BuXV3E1hJ5U5H6Q==
+
 react-native-image-picker@^2.3.3:
   version "2.3.3"
   resolved "https://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-2.3.3.tgz#eaacd4a1ed9e9887613be31f0765478ca2f18a51"
   integrity sha1-6qzUoe2emIdhO+MfB2VHjKLxilE=
+
+react-native-image-zoom-viewer@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-3.0.1.tgz#a2bd5fb3bda15e0686ce88fcde8576726495d7fb"
+  integrity sha512-la6s5DNSuq4GCRLsi5CZ29FPjgTpdCuGIRdO5T9rUrAtxrlpBPhhSnHrbmPVxsdtOUvxHacTh2Gfa9+RraMZQA==
+  dependencies:
+    react-native-image-pan-zoom "^2.1.12"
 
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"

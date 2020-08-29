@@ -110,7 +110,6 @@ function HouseListComponent(props) {
   };
   // 渲染列表脚部的三种状态：空、加载中、无更多、上拉加载
   const renderListFooterView = () => {
-    console.log('halded');
     if (!houseListData.length) {
       return null;
     }
@@ -142,7 +141,7 @@ function HouseListComponent(props) {
   };
 
   return (
-    <View >
+    <View>
       <FlatList
         data={houseListData()}
         ref={listElement}
@@ -180,7 +179,7 @@ function HouseListComponent(props) {
 }
 const styles = StyleSheet.create({
   listViewContainer: {
-    position: 'relative',
+    // position: 'relative',
     flex: 1,
   },
   centerContainer: {

@@ -127,7 +127,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    aaptOptions {
+        cruncherEnabled = false
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     defaultConfig {
         applicationId "com.smarthome"
         minSdkVersion rootProject.ext.minSdkVersion

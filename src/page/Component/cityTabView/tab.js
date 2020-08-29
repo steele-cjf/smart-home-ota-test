@@ -1,6 +1,6 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import {Text} from 'react-native-elements';
+import React, { Component, useState } from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native-elements';
 
 export default function CityTab(props) {
   const tabOnPress = i => {
@@ -24,7 +24,7 @@ export default function CityTab(props) {
               <Text
                 style={[
                   tabStyles.text,
-                  props.selectIndex === i && {color: '#e4393c'},
+                  props.selectIndex === i && { color: '#e4393c' },
                 ]}>
                 {tab.name}
               </Text>
