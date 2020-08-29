@@ -4,7 +4,9 @@ import { View, StyleSheet, ImageBackground, TouchableOpacity } from 'react-nativ
 import { Icon, Button, Left, Header, Text, Spinner } from 'native-base'
 import HouseDetail from '../Component/houseDetail'
 import { ScrollView } from 'react-native-gesture-handler';
-import Swiper from '../../Component/Swiper'
+import Swiper from '../../Component/Swiper';
+import HeaderCommon from '../../Component/HeaderCommon';
+
 const image = require('../../../assets/images/mock/home1.jpg')
 function PublicHouseDetail(props) {
   const [data, setData] = useState({})
@@ -36,6 +38,12 @@ function PublicHouseDetail(props) {
   }
   return (
     <View style={styles.container}>
+      <HeaderCommon
+        options={{
+          backTitle: '返回',
+          title: '房源信息',
+        }}
+      />
       <ScrollView>
         <View style={{ height: 250 }} >
           <Swiper items={img} />

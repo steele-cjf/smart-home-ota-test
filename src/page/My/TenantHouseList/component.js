@@ -5,7 +5,7 @@ import {Root, Spinner, ActionSheet} from 'native-base';
 import {AppRoute} from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
 import Feather from 'react-native-vector-icons/Feather';
-import showToast from '../../../util/toast';
+import HeaderCommon from '../../Component/HeaderCommon';
 
 function TenantHouseList(props) {
   const [loading, setLoading] = useState(true);
@@ -101,6 +101,12 @@ function TenantHouseList(props) {
   };
   return (
     <Root>
+      <HeaderCommon
+        options={{
+          backTitle: '返回',
+          title: '我是租户',
+        }}
+      />
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (

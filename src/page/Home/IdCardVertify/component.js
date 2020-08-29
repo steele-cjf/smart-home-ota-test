@@ -6,6 +6,7 @@ import { AppRoute } from '../../../navigator/AppRoutes';
 import { Spinner } from 'native-base'
 import vertifyCn from '../config/IdCardVertifyCn';
 import Theme from '../../../style/colors';
+import HeaderCommon from '../../Component/HeaderCommon'
 
 export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
@@ -162,6 +163,12 @@ export default function IdCardVertifyPage(props) {
 
   return (
     <View style={styles.container}>
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '身份证认证'
+        }}
+      />
       {loading ? <Spinner></Spinner> :
         <ScrollView style={styles.scrollContainer}>
           <Text style={styles.textTitle}>基本资料</Text>

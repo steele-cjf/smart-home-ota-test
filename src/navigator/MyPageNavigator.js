@@ -47,40 +47,35 @@ export const MyPageStackComponent = () => {
         name={AppRoute.PERSONALINFO}
         component={PersonalInfo}
         options={{
-          title: '个人信息',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.AUTHENTICATION}
         component={AuthenticationPage}
         options={{
-          title: '实名认证',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.IDCARDVERTIFY}
         component={IdCardVertify}
         options={{
-          title: '身份证认证',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.PASSPORTVERTIFY}
         component={PassportVertify}
         options={{
-          title: '护照认证',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.MYQRCODE}
         component={MyQRCode}
         options={{
-          title: '二维码',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
@@ -96,32 +91,28 @@ export const MyPageStackComponent = () => {
         name={AppRoute.USERPASSED}
         component={UserPassedPage}
         options={{
-          title: '成员详情',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.SUGGESTION}
         component={Suggestion}
         options={{
-          title: '意见反馈',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.ABOUT}
         component={About}
         options={{
-          title: '关于我们',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.AGREEMENT}
         component={Agreement}
         options={{
-          title: '房屋租赁服务协议',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
@@ -156,8 +147,7 @@ export const MyPageStackComponent = () => {
         name={AppRoute.PUBLISH}
         component={PublishHouse}
         options={{
-          title: '发布房源',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
@@ -171,16 +161,14 @@ export const MyPageStackComponent = () => {
         name={AppRoute.TENANTHOUSELIST}
         component={TenantHouseList}
         options={{
-          title: '我是租户',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.ADDTENANT}
         component={AddTenant}
         options={{
-          title: '添加住户',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
@@ -194,16 +182,14 @@ export const MyPageStackComponent = () => {
         name={AppRoute.HOUSECOLLECTIONLIST}
         component={HouseCollectionList}
         options={{
-          title: '房源收藏',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
         name={AppRoute.PUBLISHOUSEDETAIL}
         component={PublishHouseDetail}
         options={{
-          title: '房源信息',
-          headerBackTitle: '返回'
+          headerShown: false,
         }}
       />
     </MyPageNavigator.Navigator>

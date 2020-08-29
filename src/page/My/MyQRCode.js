@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Theme from '../../style/colors';
+import HeaderCommon from '../Component/HeaderCommon'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -44,16 +45,24 @@ const MyQRCodePage = (props) => {
   const [imageUrl, setImageUrl] = useState('ooo');
 
   return (
-    <View style={styles.containerStyle}>
-      <Image style={styles.headImageStyle} source={{ uri: userInfo.avatarImageUrl }} />
+    <View>
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '二维码'
+        }}
+      />
+      <View style={styles.containerStyle}>
+        <Image style={styles.headImageStyle} source={{ uri: userInfo.avatarImageUrl }} />
 
-      <Text style={styles.textName}>{userInfo.name}</Text>
-      <Text style={styles.textMobile}>{userInfo.mobile}</Text>
-      <View style={styles.lineView} />
-      <View style={styles.imageContainerStyle}>
-        <Image style={styles.imageStyle} source={{ uri: imageUrl }} />
+        <Text style={styles.textName}>{userInfo.name}</Text>
+        <Text style={styles.textMobile}>{userInfo.mobile}</Text>
+        <View style={styles.lineView} />
+        <View style={styles.imageContainerStyle}>
+          <Image style={styles.imageStyle} source={{ uri: imageUrl }} />
+        </View>
+        <Text style={styles.textTip}>扫一扫上面的二维码图案，将我加入</Text>
       </View>
-      <Text style={styles.textTip}>扫一扫上面的二维码图案，将我加入</Text>
     </View>
   );
 
