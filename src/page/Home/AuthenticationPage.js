@@ -38,7 +38,7 @@ function AuthenticationPage(props) {
           } else if (state === 'RPStateFail') {
             showToast("认证不通过");
           } else if (state === 'RPStateNotVerify') {
-            showToast("未认证");
+            showToast("未完成认证");
           }
         });
         return;

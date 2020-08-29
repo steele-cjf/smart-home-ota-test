@@ -48,6 +48,41 @@ const PersonalInfoPage = (props) => {
     });
   }
 
+  //begin  ck
+    // 获取用户信息
+    // useEffect(() => {
+    //   const Info = props.userInfo;
+    //   console.log('user', Info)
+    //   if (Info && !Info.code) {
+    //     storage.set('info', Info.data);
+    //     setUserInfo(Info.data)
+    //     if (Info.data && Info.data.status === 'audit_pass') {
+    //       props.getMyHouseList() // 获取本人的房源
+    //     } else {
+    //       setLoadingStatus(false)
+    //     }
+    //   }
+    // }, [props.userInfo]);
+
+    // function storageDataDictionary() {
+    //   props.getAllData(res => {
+    //     let result = {};
+    //     res.data.forEach(item => {
+    //       result[item.name] = item.dictionaries;
+    //     });
+    //     props.setCodeInfo(result);
+    //     storage.set('code', result);
+    //   });
+    // }
+
+    // function storageMappingDictionary() {
+    //   props.getDictionaryMapping(res => {
+    //     props.setDictionaryMappings(res.data);
+    //     storage.set('dictionaryMappings', res.data);
+    //   });
+    // }
+//end
+
   useEffect(() => {
     handleInfo(); 
   }, []);
