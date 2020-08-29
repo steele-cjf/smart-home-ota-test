@@ -91,6 +91,7 @@ function LoginPage(props) {
       verifyCode: verifyCode,
     };
     props.handleLogin(data, res => {
+      console.log('login', data);
       if (!res.code) {
         (async () => {
           await storage.set('token', res.data.accessToken);
@@ -136,7 +137,7 @@ function LoginPage(props) {
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
   const [mobile, setMobile] = useState(18702637317); //13661992793  18218025628 18702637317
-  const [verifyCode, setVerifyCode] = useState(142298); //560657
+  const [verifyCode, setVerifyCode] = useState(350771); //560657
   const [checked, setChecked] = useState(false);
   let times = 90;
   const [count, setCount] = useState(times);

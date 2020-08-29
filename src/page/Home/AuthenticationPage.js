@@ -13,6 +13,7 @@ import {
 import { AppRoute } from '../../navigator/AppRoutes';
 import { getVerifyToken, getVerifyResult } from '../../store/home/index';
 import Theme from '../../style/colors';
+import HeaderCommon from '../Component/HeaderCommon'
 
 function AuthenticationPage(props) {
   function changeSelect(i) {
@@ -128,6 +129,12 @@ function AuthenticationPage(props) {
   const AliyunVerify = useRef();
   return (
     <View style={styles.container} ref={AliyunVerify}>
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '实名认证'
+        }}
+      />
       <View>
         <Text style={styles.tipStatus}>当前状态：</Text>
         {/* <Text style={styles.status}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text> */}

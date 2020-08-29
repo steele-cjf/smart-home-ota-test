@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, Text, TouchableOpacity, StyleSheet, NativeModules } from 'react-native';
 import Theme from '../../style/colors';
+import HeaderCommon from '../Component/HeaderCommon'
 
 export default AgreementPage = (props) => {
 
@@ -41,6 +42,13 @@ export default AgreementPage = (props) => {
   const l = "(e)如您是适格的知识产权投诉人并已提起投诉，应被投诉人要求，向被投诉人披露，以便双方处理可能的权利纠纷；"
 
   return(
+    <View>  
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '房屋租赁服务协议'
+        }}
+      />
     <ScrollView>
       <Text style={styles.tipText}>
         {sp+a+b+c+d}
@@ -80,6 +88,7 @@ export default AgreementPage = (props) => {
       </TouchableOpacity>
 
     </ScrollView>
+    </View>
   );
 }
 

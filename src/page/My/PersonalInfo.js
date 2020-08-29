@@ -4,6 +4,7 @@ import { Spinner } from 'native-base'
 import ImagePicker from 'react-native-image-picker';
 import Theme from '../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';  
+import HeaderCommon from '../Component/HeaderCommon'
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -191,6 +192,12 @@ const PersonalInfoPage = (props) => {
   return (
     loading ? <Spinner></Spinner> :
     <View style={styles.containerStyle}>
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '个人信息'
+        }}
+      />
       <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
         <Text style={styles.textTitle}>头像</Text>
         <Image style={styles.headImageStyle} source={headImage} />

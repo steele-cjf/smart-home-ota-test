@@ -30,14 +30,6 @@ export function addUserFeedback(data, callback) {
   });
 }
 
-export function getUserInfoUrl(id, callback) {
-  return $post2(`/qrcode/${id}/genUserInfoUrl`, {
-    successConfig: {
-      callback,
-    },
-  });
-}
-
 export function getUserInfoById(id, callback) {
   return $get(`/user/${id}`, {
     successConfig: {

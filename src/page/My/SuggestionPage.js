@@ -3,6 +3,7 @@ import { View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet } from 
 import { Spinner, Form, Textarea } from 'native-base'
 import ImageUpload from '../Component/imageUpload'
 import Theme from '../../style/colors';
+import HeaderCommon from '../Component/HeaderCommon'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -92,6 +93,13 @@ const SuggestionPage = (props) => {
 
   return (
     loading ? <Spinner></Spinner> :
+    <View style={{flex: 1}}>
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '意见反馈'
+        }}
+      />
     <ScrollView style={styles.containerStyle}>
       <Text style={styles.textTitle}>反馈详情</Text>
       <Text style={styles.textTitle2}>反馈描述</Text>
@@ -127,6 +135,7 @@ const SuggestionPage = (props) => {
         <Text style={styles.btnTextStyle}>提交</Text>
       </TouchableOpacity>
     </ScrollView>
+    </View>
   );
 
 }

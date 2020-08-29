@@ -8,6 +8,8 @@ import {
     Icon,
     Button
 } from 'native-base';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 export default function HeaderCommon(props) {
     const [options, setOptions] = useState({})
     useEffect(() => {
@@ -33,8 +35,9 @@ export default function HeaderCommon(props) {
     return (
         <Header style={styles.container}>
             <Left>
-                <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => NavigatorService.goBack()}>
-                    <Icon style={styles.actionColor} name="arrow-back" />
+                <TouchableOpacity style={{ flexDirection: 'row', }} onPress={() => NavigatorService.goBack()}>
+                    {/* <Icon style={styles.actionColor} name="left" /> */}
+                    <AntDesign name="left" style={styles.actionColor} />
                     {renderBackTitle()}
                 </TouchableOpacity>
             </Left>
@@ -43,16 +46,17 @@ export default function HeaderCommon(props) {
             </Body>
             <Right>
                 {renderRightButton()}
-
             </Right>
         </Header>)
 }
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
     actionColor: {
-        color: Theme.textLink
+        color: Theme.textLink,
+        fontSize: 14,
+        marginRight: 10,
     },
     BodyBox: {
         alignItems: 'center'
@@ -63,11 +67,8 @@ const styles = StyleSheet.create({
     },
     backText: {
         color: Theme.textLink,
-        top: 5
     },
     rightText: {
         color: Theme.textLink,
-        flexWrap: 'wrap',
-        width: 40
     }
 })

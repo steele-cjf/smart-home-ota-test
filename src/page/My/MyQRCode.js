@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Theme from '../../style/colors';
+import HeaderCommon from '../Component/HeaderCommon'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -26,34 +27,33 @@ const MyQRCodePage = (props) => {
   }
   function getUserInfoUrl() {
     var userId = props.userInfo.data.id;
-    $getImage('/qrcode/' + userId + '/genUserInfoUrl', res => {
-      console.log('******getUserInfoUrl:', res)
-      setImageUrl(res);
+    $postImage('/qrcode/' + userId + '/genUserInfoUrl', res => {
+      setImageUrl(res.uri);
     })
-    // props.getUserInfoUrl(userId, url => {
-    //   console.log('******getUserInfoUrl:', url);
-    //   if (url) {
-    //     setImageUrl(url);
-    //   } else {
-    //     showToast("90909");
-    //   }
-    // });
   }
 
   const [userInfo, setUserInfo] = useState({});
   const [imageUrl, setImageUrl] = useState('ooo');
 
   return (
-    <View style={styles.containerStyle}>
-      <Image style={styles.headImageStyle} source={{ uri: userInfo.avatarImageUrl }} />
+    <View>
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '二维码'
+        }}
+      />
+      <View style={styles.containerStyle}>
+        <Image style={styles.headImageStyle} source={{ uri: userInfo.avatarImageUrl }} />
 
-      <Text style={styles.textName}>{userInfo.name}</Text>
-      <Text style={styles.textMobile}>{userInfo.mobile}</Text>
-      <View style={styles.lineView} />
-      <View style={styles.imageContainerStyle}>
-        <Image style={styles.imageStyle} source={{ uri: imageUrl }} />
+        <Text style={styles.textName}>{userInfo.name}</Text>
+        <Text style={styles.textMobile}>{userInfo.mobile}</Text>
+        <View style={styles.lineView} />
+        <View style={styles.imageContainerStyle}>
+          <Image style={styles.imageStyle} source={{ uri: imageUrl }} />
+        </View>
+        <Text style={styles.textTip}>扫一扫上面的二维码图案，将我加入</Text>
       </View>
-      <Text style={styles.textTip}>扫一扫上面的二维码图案，将我加入</Text>
     </View>
   );
 
@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
   textName: {
     position: 'absolute',
     left: 88,
-    top: 18, 
+    top: 18,
     fontSize: 14,
     color: Theme.textDefault,
   },
   textMobile: {
     position: 'absolute',
     left: 88,
-    top: 44, 
+    top: 44,
     fontSize: 14,
     color: Theme.textDefault,
   },
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 34,
   },
   imageStyle: {
-    height: 235, 
+    height: 235,
     width: 235,
   },
   textTip: {

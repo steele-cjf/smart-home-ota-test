@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { View, Text, Image, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { Spinner } from 'native-base'
 import Theme from '../../../style/colors';
+import HeaderCommon from '../../Component/HeaderCommon'
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -106,7 +107,13 @@ const UserPassedPage = (props) => {
   return (
     loading ? <Spinner></Spinner> :
     <View style={styles.containerStyle}>
-      <Image style={styles.headImageStyle} source={headData.headImage} />
+      <HeaderCommon
+        options={{
+        backTitle: '返回',
+        title: '成员详情'
+        }}
+      />
+      <Image style={styles.headImageStyle} source={{uri: headData.headImage}} />
       <Text style={styles.textName}>{headData.name}</Text>
       <Text style={styles.textMobile}>{headData.mobile}</Text>
       { 

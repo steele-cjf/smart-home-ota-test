@@ -1,13 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { Button } from 'native-base'
 import { MapView } from "react-native-amap3d";
 import BottomSheet from 'reanimated-bottom-sheet'
 import Geolocation from '@react-native-community/geolocation';
 import { useFocusEffect } from '@react-navigation/native';
 import HouseListComponent from '../../Component/housingList/list';
 import DropdownMenu from '../../Component/housingList/filter';
+import HeaderCommon from '../../Component/HeaderCommon';
 
 let h = Dimensions.get('window').height
 const snapPoints = [0.6 * h, 0.5 * h, 0.4 * h, 0.3 * h, 0.2 * h, 0.1 * h, 0]
@@ -142,6 +142,12 @@ function MapHouse(props) {
   }
   return (
     <View style={{ flex: 1 }}>
+      <HeaderCommon
+        options={{
+          backTitle: '返回',
+          title: '地图找房',
+        }}
+      />
       <DropdownMenu
           bgColor={'white'}
           tintColor={'#282828'}

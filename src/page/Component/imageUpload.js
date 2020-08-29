@@ -54,7 +54,7 @@ export default function ImageUpload(props) {
               ? response.uri.replace('file://', '')
               : response.uri,
           name: response.fileName || 'upload.jpg',
-          type: response.type,
+          type: response.type
         };
         props.setImageForm(imageObj);
       }

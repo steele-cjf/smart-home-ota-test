@@ -42,32 +42,28 @@ export const HomeStackComponent = () => {
         name={AppRoute.MAPHOUSE}
         component={MapHousePage}
         options={{
-          title: '地图找房',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
         name={AppRoute.AUTHENTICATION}
         component={AuthenticationPage}
         options={{
-          title: '实名认证',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
         name={AppRoute.IDCARDVERTIFY}
         component={IdCardVertify}
         options={{
-          title: '身份证认证',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
         name={AppRoute.PASSPORTVERTIFY}
         component={PassportVertify}
         options={{
-          title: '护照认证',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
@@ -118,8 +114,7 @@ export const HomeStackComponent = () => {
         name={AppRoute.PUBLISHOUSEDETAIL}
         component={PublishHouseDetail}
         options={{
-          title: '房源信息',
-          headerBackTitle: '返回'
+          headerShown: false
         }}
       />
       <HomeStack.Screen
@@ -140,8 +135,7 @@ export const HomeStackComponent = () => {
         name={AppRoute.PUBLISH}
         component={PublishHouse}
         options={{
-          title: '发布房源',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
     </HomeStack.Navigator>

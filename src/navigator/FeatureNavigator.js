@@ -24,17 +24,17 @@ export const FeatureStackComponent = () => {
         },
       }}>
       <FeatureStack.Screen
-        name={AppRoute.RECORD}
-        component={RecordHouse}
-        options={{
-          headerShown: false
-        }}
-      />
-      <FeatureStack.Screen
         name={AppRoute.FEATURE}
         component={FeaturePage}
         options={{
           headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.RECORD}
+        component={RecordHouse}
+        options={{
+          headerShown: false
         }}
       />
       <FeatureStack.Screen
@@ -48,16 +48,14 @@ export const FeatureStackComponent = () => {
         name={AppRoute.PUBLISH}
         component={PublishHouse}
         options={{
-          title: '发布房源',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <FeatureStack.Screen
         name={AppRoute.ADDTENANT}
         component={AddTenant}
         options={{
-          title: '添加住户',
-          headerBackTitle: '返回',
+          headerShown: false,
         }}
       />
       <FeatureStack.Screen

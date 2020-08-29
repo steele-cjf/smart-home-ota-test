@@ -75,17 +75,21 @@ function RecordHouse(props) {
           setAddress(info.address);
           setHouseHolder(info.houseHolder);
           setHouseLayout(info.houseLayout);
-          setCertificateFilesImg(info.houseHolder.certificateFileUrls);
+          setCertificateFilesImg(info.houseHolder.certificateFileUrls || []);
           setRegionId(info.regionId);
 
           setRegionName(info.formattedAddress);
           setHasElevator(info.houseLayout.hasElevator);
           setSelectedSelfValue(obj.house_holder[info.houseHolder.self]);
-          setSelectedDirectionValue(
-            obj.house_direction[info.houseLayout.direction],
-          );
+          setSelectedDirectionValue(obj.house_direction[info.houseLayout.direction]);
+
           setLoading(false);
-          setImage(info.housePropertyCertificateImageUrl);
+          console.log('info.housePropertyCertificateImageUrl', info.housePropertyCertificateImageUrl)
+          $getImage(info.housePropertyCertificateImageUrl, res => {
+            setHousePropertyCertificateImage([res])
+            setImage(res.uri);
+          }, true)
+          // setImage(info.housePropertyCertificateImageUrl);
         }
       }
     });
@@ -168,6 +172,7 @@ function RecordHouse(props) {
   const setImageForm = (key, obj, type) => {
     let data;
     if (type === 'cert') {
+      console.log(88888, housePropertyCertificateImage)
       data = Object.assign([], housePropertyCertificateImage);
       setHousePropertyCertificateImage(data);
       data[key] = obj;
@@ -234,7 +239,7 @@ function RecordHouse(props) {
                 title: houseId && '修改房源' || '添加房源'
               }}
             />
-            <ScrollView style={{flex: 1}}>
+            <ScrollView style={{ flex: 1 }}>
               <View style={styles.container}>
                 <Text style={[styles.publishTitle, styles.specialPadding]}>
                   房源资料

@@ -91,9 +91,8 @@ function HouseList(props) {
         <Spinner color="#5C8BFF" />
       ) : (
       <View style={styles.container}> */}
-      <SearchHeader style={{ flex: 1 }} getSearchParams={(data) => getSearchParams(data)} />
+      <SearchHeader getSearchParams={(data) => getSearchParams(data)} />
       <DropdownMenu
-        style={{ flex: 1 }}
         bgColor={'white'}
         tintColor={'#282828'}
         activityTintColor={'#5C8BFF'}

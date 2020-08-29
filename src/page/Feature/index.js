@@ -54,7 +54,6 @@ function FeaturePage(props) {
         </View>
       )
     } else if (!hasHouse) {
-      console.log(88888)
       return (
         <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
           <Text>您还未添加房源，请先</Text>
