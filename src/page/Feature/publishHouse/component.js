@@ -451,7 +451,7 @@ export default function PublishHouse(props) {
           })}
         </Form>
         {/* 房屋描述 */}
-        <Text style={styles.publishTitle}>房屋描述{houseAddition.description}</Text>
+        <Text style={styles.publishTitle}>房屋描述</Text>
         <Form>
           <Textarea
             value={houseAddition.description}

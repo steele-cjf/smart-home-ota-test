@@ -202,7 +202,7 @@ export default function AddTenant(props) {
           key={item.id}
           bordered
           disabled={item.tenantCount > 0 ? true : null}
-        ><Text style={[styles.btnColor, active]}>{item.name + (item.tenantCount > 0 && '(已租)')}</Text></Button>)
+        ><Text style={[styles.btnColor, active]}>{item.name}{(item.tenantCount > 0 ? '(已租)' : '')}</Text></Button>)
       })
       return (<View style={styles.roomListBox}>{result}</View>)
     } else {
@@ -247,111 +247,113 @@ export default function AddTenant(props) {
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       <HeaderCommon
         options={{
           backTitle: '返回',
           title: '添加住户',
         }}
       />
-      <ActionSheet ref={(c) => { setActionSheet(c) }} />
-      <View style={{ flex: 1 }}>
-        <Text style={styles.title}>房屋信息</Text>
-        <Item style={styles.marginLeft0} inlineLabel picker>
-          <Label style={[styles.labelTitle, styles.defaultSize]}>
-            房屋地址
-          </Label>
-          <Input
-            value={house.regionFullName || '--'}
-            disabled={true}
-            style={[styles.defaultSize, styles.textAlignR]}
-          />
-        </Item>
-        <Item style={[styles.marginLeft0, { paddingVertical: 14, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>
-          <Label style={[styles.labelTitle, styles.defaultSize]}>
-            房屋类型
-          </Label>
-          {renderRightPicker()}
-        </Item>
-        {/* <ListItem
-          leftElement={<Text>房屋地址</Text>}
-          rightElement={<Text style={styles.dec}>{house.regionFullName || '--'}</Text>}
-          bottomDivider
-        /> */}
-        {/* <ListItem
-          leftElement={<Text>房屋类型</Text>}
-          rightElement={renderRightPicker()}
-        /> */}
-        {form.houseType !== FULL_RENT && props.route.params.type !== 'member' && renderRoomList()}
-        <View
-          style={
-            ({ paddingHorizontal: 10 }, selectedIndex ? { display: 'none' } : '')
-          }>
-          <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
-          {renderCameraContent()}
-        </View>
-        <View style={selectedIndex !== 1 ? { display: 'none' } : ''}>
-          <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
+      <View style={styles.container}>
+        <ActionSheet ref={(c) => { setActionSheet(c) }} />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>房屋信息</Text>
           <Item style={styles.marginLeft0} inlineLabel picker>
             <Label style={[styles.labelTitle, styles.defaultSize]}>
-              真实姓名
+              房屋地址
             </Label>
             <Input
-              placeholder="输入真实姓名"
-              value={form.name}
-              onChangeText={(val) => { handleSetValue('name', val) }}
+              value={house.regionFullName || '--'}
+              disabled={true}
               style={[styles.defaultSize, styles.textAlignR]}
             />
           </Item>
-          <Item style={styles.marginLeft0} inlineLabel picker>
-            <Label style={[styles.labelTitle, styles.defaultSize, { flex: 1 }]}>
-              证件类型
-            </Label>
-            <Button transparent onPress={() => { showActionSheet(identificationTypeList, 'identificationType') }}>
-              <Text>{form.identificationType === ID_CARD ? '身份证' : '护照'}</Text>
-              <AntDesign name="right" style={{ fontSize: 12, color: Theme.textSecondary, paddingLeft: 10 }} />
-            </Button>
-          </Item>
-          {form.identificationType === ID_CARD ? <Item style={styles.marginLeft0} inlineLabel picker>
+          <Item style={[styles.marginLeft0, { paddingVertical: 0, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>
             <Label style={[styles.labelTitle, styles.defaultSize]}>
-              身份证号
+              房屋类型
             </Label>
-            <Input
-              placeholder="输入身份证号"
-              onChangeText={(val) => { handleSetValue('identificationNo', val) }}
-              value={form.identificationNo}
-              style={[styles.defaultSize, styles.textAlignR]}
-            />
-          </Item> :
+            {renderRightPicker()}
+          </Item>
+          {/* <ListItem
+            leftElement={<Text>房屋地址</Text>}
+            rightElement={<Text style={styles.dec}>{house.regionFullName || '--'}</Text>}
+            bottomDivider
+          /> */}
+          {/* <ListItem
+            leftElement={<Text>房屋类型</Text>}
+            rightElement={renderRightPicker()}
+          /> */}
+          {form.houseType !== FULL_RENT && props.route.params.type !== 'member' && renderRoomList()}
+          <View
+            style={
+              ({ paddingHorizontal: 10 }, selectedIndex ? { display: 'none' } : '')
+            }>
+            <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
+            {renderCameraContent()}
+          </View>
+          <View style={selectedIndex !== 1 ? { display: 'none' } : ''}>
+            <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
             <Item style={styles.marginLeft0} inlineLabel picker>
               <Label style={[styles.labelTitle, styles.defaultSize]}>
-                护照号
-            </Label>
+                真实姓名
+              </Label>
               <Input
-                value={form.identificationNo}
-                onChangeText={(val) => { handleSetValue('identificationNo', val) }}
-                placeholder="输入护照号"
+                placeholder="输入真实姓名"
+                value={form.name}
+                onChangeText={(val) => { handleSetValue('name', val) }}
                 style={[styles.defaultSize, styles.textAlignR]}
               />
-            </Item>}
-          <Item style={styles.marginLeft0} inlineLabel picker>
-            <Label style={[styles.labelTitle, styles.defaultSize]}>
-              手机号
-            </Label>
-            <Input
-              placeholder="输入手机号"
-              value={form.mobile}
-              onChangeText={(val) => { handleSetValue('mobile', val) }}
-              style={[styles.defaultSize, styles.textAlignR]}
-            />
-          </Item>
-          <View style={{ alignItems: 'center', paddingBottom: 60 }}>
-            <Button rounded full style={styles.scanBtn} onPress={() => saveTenant()}>
-              <Text style={{ color: '#fff' }}>添加住户并开始实名</Text>
-            </Button>
-            <TouchableOpacity onPress={() => updateIndex(0)}>
-              <Text style={styles.scanText}>已实名？扫码立即添加</Text>
-            </TouchableOpacity>
+            </Item>
+            <Item style={styles.marginLeft0} inlineLabel picker>
+              <Label style={[styles.labelTitle, styles.defaultSize, { flex: 1 }]}>
+                证件类型
+              </Label>
+              <Button transparent onPress={() => { showActionSheet(identificationTypeList, 'identificationType') }}>
+                <Text>{form.identificationType === ID_CARD ? '身份证' : '护照'}</Text>
+                <AntDesign name="right" style={{ fontSize: 12, color: Theme.textSecondary, paddingLeft: 10 }} />
+              </Button>
+            </Item>
+            {form.identificationType === ID_CARD ? <Item style={styles.marginLeft0} inlineLabel picker>
+              <Label style={[styles.labelTitle, styles.defaultSize]}>
+                身份证号
+              </Label>
+              <Input
+                placeholder="输入身份证号"
+                onChangeText={(val) => { handleSetValue('identificationNo', val) }}
+                value={form.identificationNo}
+                style={[styles.defaultSize, styles.textAlignR]}
+              />
+            </Item> :
+              <Item style={styles.marginLeft0} inlineLabel picker>
+                <Label style={[styles.labelTitle, styles.defaultSize]}>
+                  护照号
+              </Label>
+                <Input
+                  value={form.identificationNo}
+                  onChangeText={(val) => { handleSetValue('identificationNo', val) }}
+                  placeholder="输入护照号"
+                  style={[styles.defaultSize, styles.textAlignR]}
+                />
+              </Item>}
+            <Item style={styles.marginLeft0} inlineLabel picker>
+              <Label style={[styles.labelTitle, styles.defaultSize]}>
+                手机号
+              </Label>
+              <Input
+                placeholder="输入手机号"
+                value={form.mobile}
+                onChangeText={(val) => { handleSetValue('mobile', val) }}
+                style={[styles.defaultSize, styles.textAlignR]}
+              />
+            </Item>
+            <View style={{ alignItems: 'center', paddingBottom: 60 }}>
+              <Button rounded full style={styles.scanBtn} onPress={() => saveTenant()}>
+                <Text style={{ color: '#fff' }}>添加住户并开始实名</Text>
+              </Button>
+              <TouchableOpacity onPress={() => updateIndex(0)}>
+                <Text style={styles.scanText}>已实名？扫码立即添加</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -418,8 +420,8 @@ const styles = StyleSheet.create({
     color: '#C7C7C7'
   },
   roomList: {
-    paddingHorizontal: 28,
-    paddingVertical: 6,
+    paddingHorizontal: 16,
+    height: 34,
     marginBottom: 15,
     borderColor: '#C7C7C7',
     marginRight: 10

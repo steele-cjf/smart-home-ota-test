@@ -2,15 +2,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Thumbnail, Button, Spinner } from 'native-base';
+import { useFocusEffect } from '@react-navigation/native';
 import ViewUtil from '../../util/ViewUtil';
 import { MORE_MENU } from '../../common/MORE_MENU';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../navigator/AppRoutes';
 import { handleLogout } from '../../store/login/index';
+import { getUserInfo } from '../../store/home/index';
 
 function MyPage(props) {
   const statusColor = {
@@ -19,9 +21,7 @@ function MyPage(props) {
     audit_pass: '#FEC941',
     audit_reject: '#FF7373',
   };
-  const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({});
-  const [mappings, setMappings] = useState({});
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
@@ -29,12 +29,12 @@ function MyPage(props) {
       console.log('info', res);
       setUserInfo(res);
     });
-    storage.get('dictionaryMappings').then(res => {
-      setMappings(res);
-      setLoading(false);
-    });
-  }, []);
-  
+  }, [props.userInfo]);
+  useFocusEffect(
+    useCallback(() => {
+      props.getUserInfo(); // 获取个人信息
+    }, [props.route]))
+
   function onClick(menu) {
     let RouteName;
     switch (menu) {
@@ -105,10 +105,6 @@ function MyPage(props) {
   const uri = require('../../assets/images/head.png')
   return (
     <View style={styles.container}>
-      {loading ? (
-        <Spinner color="#5C8BFF" />
-      ) : (
-          <View>
             <View style={styles.headerContent}>
               <View style={[styles.flex, styles.topBox]}>
                 <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.MYQRCODE)}>
@@ -132,7 +128,7 @@ function MyPage(props) {
                       </Text>
                       <TouchableOpacity style={[styles.statusBox,{backgroundColor: statusColor[userInfo.status],},]} 
                       onPress={goVertifyDetailPage}>
-                        <Text style={styles.statusText}>{mappings.user_status[userInfo.status]}</Text>
+                        <Text style={styles.statusText}>{props.dictionaryMappings.user_status[userInfo.status]}</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -178,8 +174,6 @@ function MyPage(props) {
                 </Button>
               </View>
             </ScrollView>
-          </View>
-        )}
     </View>
   );
 }
@@ -243,10 +237,11 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     userInfo: state.userInfo,
+    dictionaryMappings: state.dictionaryMappings
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ handleLogout }, dispatch);
+  return bindActionCreators({ handleLogout, getUserInfo }, dispatch);
 }
 export default connect(
   mapStateToProps,
