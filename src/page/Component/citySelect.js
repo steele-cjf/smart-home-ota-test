@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     height: parseInt((screenHeight * 4) / 6),
   },
   tabView: {
-    // backgroundColor: '#fff',
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#fff',
+    // backgroundColor: '#F1F1F1',
   },
   tabViewLoad: {
     flex: 1,
