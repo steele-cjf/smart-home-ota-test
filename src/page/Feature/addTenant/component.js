@@ -268,7 +268,7 @@ export default function AddTenant(props) {
               style={[styles.defaultSize, styles.textAlignR]}
             />
           </Item>
-          <Item style={[styles.marginLeft0, { paddingVertical: 0, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>
+          <Item style={[styles.marginLeft0, { paddingVertical: 14, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>
             <Label style={[styles.labelTitle, styles.defaultSize]}>
               房屋类型
             </Label>
