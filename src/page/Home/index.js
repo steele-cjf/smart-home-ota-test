@@ -76,17 +76,10 @@ function HomePage(props) {
       let { data } = props.myHouseList
       setHouseList(data)
       let result = data[0]
-      console.log(88888888888, props.homeHouse)
       if (props.homeHouse) {
         let res = data.filter((item) => item.houseId == props.homeHouse)
-        console.log(88823, res)
         res.length && (result = res[0])
       }
-      console.log(111, result)
-      // if (result.houseId) {
-      //   props.setHomeHouse(result.houseId)
-      //   setSelectHouse(result)
-      // }
       setSelectHouse(result)
     }
     setLoadingStatus(false)
@@ -99,7 +92,7 @@ function HomePage(props) {
     if (houseList.length) {
       console.log('hahah', houseList);
       array = houseList.map((item) => {
-        item.text = item.regionFullName.replace(/\//g, '')
+        item.text = item.regionFullName && item.regionFullName.replace(/\//g, '') || '--'
         return item
       })
     }
@@ -160,7 +153,7 @@ function HomePage(props) {
               </View>
             </View>
           </StickyHeader>
-          <View style={{top: -30}}>
+          <View style={{ top: -30 }}>
             <HouseListComponent list={recommandList} />
           </View>
         </Animated.ScrollView>

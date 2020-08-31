@@ -76,7 +76,8 @@ function RecordHouse(props) {
         if (res.data) {
           console.log(res.data);
           const info = res.data;
-          setAddress(info.address);
+          let initAddress = info.address.split(info.formattedAddress)
+          setAddress(initAddress[1] || initAddress[0]);
           setHouseHolder(info.houseHolder);
           setHouseLayout(info.houseLayout);
           setCertificateFilesImg(info.houseHolder.certificateFileUrls || []);
@@ -123,7 +124,7 @@ function RecordHouse(props) {
 
   const handlerAudit = () => {
     let result = new FormData();
-
+    console.log('result', result, houseHolder, houseLayout);
     objToFormData('houseHolder', houseHolder, result);
     objToFormData('houseLayout', houseLayout, result);
     // 是否有电梯 hasElevator
@@ -131,21 +132,22 @@ function RecordHouse(props) {
     // for (let c = 0; c < certificateFilesImg.length; c++) {
     //   result.append('houseHolder.certificateFiles', certificateFilesImg[c]);
     // }
-    result.append('houseHolder.certificateFile', certificateFilesImg[0]);
-    result.append('houseHolder.idCardFile', idCardFile[0]);
 
+    if (houseHolder.self === 'other') { // 如果非本人
+      result.append('houseHolder.certificateFile', certificateFilesImg[0]);
+      result.append('houseHolder.idCardFile', idCardFile[0]);
+    }
     result.append(
       'housePropertyCertificateImage',
       housePropertyCertificateImage[0],
     );
-
     result.append('regionId', regionId);
     result.append('address', regionName + address);
 
     if (houseId) {
-      console.log('edit', housePropertyCertificateImage[0]);
+      // console.log('edit', housePropertyCertificateImage[0]);
       result.append('id', houseId);
-      console.log('result', result);
+      // console.log('result', result);
       props.updateHouse(houseId, result, res => {
         console.log('update', res);
         if (!res.code) {
@@ -157,9 +159,9 @@ function RecordHouse(props) {
         }
       });
     } else {
-      console.log('add', result);
+      // console.log('add', result);
       props.addHouse(result, res => {
-        console.log('res', res);
+        // console.log('res', res);
         if (!res.code) {
           props.navigation.goBack();
         } else {
