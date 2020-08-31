@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native'
-import { Button, Icon, Text, Left, Right, Header, Item, Body, Input } from 'native-base';
+import { Button, Icon, Text, Left, Right, Header, Body, Input } from 'native-base';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../../navigator/AppRoutes';

@@ -4,7 +4,7 @@ import LabelSelect from '../labelSelect';
 import { Button } from 'native-base';
 import { Divider } from 'react-native-elements';
 const listFilter = {
-  location: [{ label: '附近1千米', value: '1' }, { label: '附近2千米', value: '2' }, { label: '附近3千米', value: '3' }],
+  location: [{ label: '不限', value: '0' }, { label: '附近1千米', value: '1' }, { label: '附近2千米', value: '2' }, { label: '附近3千米', value: '3' }],
   rent: [{ label: '不限', value: '0' }, { label: '≤1000元', value: '1' }, { label: '1000～2000元', value: '2' }, { label: '2000～3000元', value: '3' }, { label: '3000～4000元', value: '4' }, { label: '4000以上', value: '5' }],
   filter: [{ label: '最新发布', value: 'newest' }, { label: '价格由低到高', value: 'price_up' }, { label: '价格由高到低', value: 'price_down' }]
 }
