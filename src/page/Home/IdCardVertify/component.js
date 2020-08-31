@@ -100,7 +100,6 @@ export default function IdCardVertifyPage(props) {
     console.log('****1:', index);
     console.log('****2:', message);
     console.log('****3:', formData);
-
     if (formData.birthDate) {
       var datetime = new Date();
       console.log('*****4', datetime);
