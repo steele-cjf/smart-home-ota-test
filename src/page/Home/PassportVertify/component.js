@@ -86,6 +86,16 @@ export default function PassportVertifyPage(props) {
         let key = vertifyCn.findIndex((item) => { return (item.required && !formData[item.key]) })
         message = vertifyCn[key] && vertifyCn[key].errorMsg[0]
 
+        console.log('****3:', formData);
+        if (formData) {
+            var nowDateTime = new Date();
+            var selDateTime = new Date(formData.birthDate);
+
+            if ( nowDateTime.getTime() < selDateTime.getTime()) {
+                message = '出生日期不能大于当前日期';
+            }
+        } 
+
         if (!message) {
             // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
             for (var i = 0; i < 3; i++) {
@@ -157,9 +167,14 @@ export default function PassportVertifyPage(props) {
                 }}
             />
             {loading ? <Spinner></Spinner> :
-            <ScrollView style={styles.scrollContainer}>
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <Text style={styles.textTitle}>基本资料</Text>
-                <Form config={vertifyCn} class={styles.formBox} changeForm={changeForm} oldData={oldData}></Form>
+                <Form 
+                    config={vertifyCn} 
+                    class={styles.formBox} 
+                    changeForm={changeForm} 
+                    oldData={oldData}
+                />
                 <Text style={styles.textTitle}>照片上传</Text>
                 <View style={styles.ImageUploadBox}>
                     <ImageUpload title='护照个人信息' setImageForm={(obj) => setImageForm(0, obj)} 
@@ -172,11 +187,9 @@ export default function PassportVertifyPage(props) {
                     // imgUrl={imageUrl3} 
                     />
                 </View>
-                <View style={{ height: '100%' }}>
-                    <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
-                        <Text style={styles.btnText}>确认</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
+                    <Text style={styles.btnText}>确认</Text>
+                </TouchableOpacity>
             </ScrollView>
             }
         </View>

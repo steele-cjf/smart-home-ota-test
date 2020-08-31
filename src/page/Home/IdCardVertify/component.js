@@ -97,13 +97,19 @@ export default function IdCardVertifyPage(props) {
     });
     message = vertifyCn[index] && vertifyCn[index].errorMsg[0];
 
-    console.log('****1:', index);
-    console.log('****2:', message);
     console.log('****3:', formData);
-    if (formData.birthDate) {
-      var datetime = new Date();
-      console.log('*****4', datetime);
-    }
+    if (formData) {
+      var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; 
+
+      var nowDateTime = new Date();
+      var selDateTime = new Date(formData.birthDate);
+
+      if (!reg.test(formData.identificationNo)) {
+        message = '身份证输入不合法';
+      } else if ( nowDateTime.getTime() < selDateTime.getTime()) {
+        message = '出生日期不能大于当前日期';
+      }
+    } 
 
     if (!message) {
       // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
