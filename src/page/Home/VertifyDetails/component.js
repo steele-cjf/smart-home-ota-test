@@ -97,20 +97,20 @@ export default function VertifyDetailsPage(props) {
 
     console.log('data.imageUrls***', data.imageUrls);
     if (data.imageUrls && data.imageUrls[0]) {
-      $getImage(data.imageUrls[0], uri => {
-        console.log('img1:&&&&&&&', uri);
-        setImage1({uri: uri});
-      });
+      $getImage(data.imageUrls[0], res => {
+        console.log(':&&&&&&&res: ', res);
+        setImage1({uri: res.uri});
+      }, true);
     }
     if (data.imageUrls && data.imageUrls[1]) {
-      $getImage(data.imageUrls[1], uri => {
-        setImage2({uri: uri});
-      });
+      $getImage(data.imageUrls[1], res => {
+        setImage2({uri: res.uri});
+      }, true);
     }
     if (data.imageUrls && data.imageUrls[2]) {
-      $getImage(data.imageUrls[2], uri => {
-        setImage3({uri: uri});
-      });
+      $getImage(data.imageUrls[2], res => {
+        setImage3({uri: res.uri});
+      }, true);
     }
   }
 
