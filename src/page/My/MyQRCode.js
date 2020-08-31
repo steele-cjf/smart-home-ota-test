@@ -19,13 +19,17 @@ const MyQRCodePage = (props) => {
 
   function getUserInfo() {
     var userInfoData = props.userInfo.data;
-    let { name, mobile, avatarImageUrl } = userInfoData;
+    let { name, mobile, avatarImageUrl} = userInfoData;
+
+    let headImg;
     if (!avatarImageUrl) {
-      avatarImageUrl = 'ooo'
+      headImg = require('../../assets/images/head.png');
+    } else {
+      headImg = {uri: avatarImageUrl};
     }
-    setUserInfo({ name, mobile, avatarImageUrl });
+    setUserInfo({ name, mobile, headImg });
   }
-  function getUserInfoUrl() {
+  function getUserInfoUrl() { 
     var userId = props.userInfo.data.id;
     $postImage('/qrcode/' + userId + '/genUserInfoUrl', res => {
       setImageUrl(res.uri);
@@ -33,7 +37,7 @@ const MyQRCodePage = (props) => {
   }
 
   const [userInfo, setUserInfo] = useState({});
-  const [imageUrl, setImageUrl] = useState('ooo');
+  const [imageUrl, setImageUrl] = useState();
 
   return (
     <View>
@@ -44,8 +48,7 @@ const MyQRCodePage = (props) => {
         }}
       />
       <View style={styles.containerStyle}>
-        <Image style={styles.headImageStyle} source={{ uri: userInfo.avatarImageUrl }} />
-
+        <Image style={styles.headImageStyle} source={userInfo.headImg} />
         <Text style={styles.textName}>{userInfo.name}</Text>
         <Text style={styles.textMobile}>{userInfo.mobile}</Text>
         <View style={styles.lineView} />

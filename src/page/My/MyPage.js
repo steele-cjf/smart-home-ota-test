@@ -102,7 +102,7 @@ function MyPage(props) {
     }
   }
 
-  const uri = require('../../assets/images/scan.png')
+  const uri = require('../../assets/images/head.png')
   return (
     <View style={styles.container}>
             <View style={styles.headerContent}>
@@ -121,7 +121,7 @@ function MyPage(props) {
               <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
                 <View style={[styles.flex, styles.InfoBox]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Thumbnail style={{ width: 64, height: 64, marginRight: 16 }} source={uri} />
+                    <Thumbnail style={{ width: 64, height: 64, marginRight: 16 }} source={userInfo.avatarImageUrl ? {uri:userInfo.avatarImageUrl} : uri} />
                     <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                       <Text style={{ fontSize: 20, color: '#fff' }}>
                         {userInfo.name || userInfo.mobile}

@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { Spinner } from 'native-base'
 import ImagePicker from 'react-native-image-picker';
@@ -6,6 +7,7 @@ import Theme from '../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';  
 import HeaderCommon from '../Component/HeaderCommon'
 
+import storage from '../../util/storage';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getUserInfo} from '../../store/home/index';
@@ -49,56 +51,32 @@ const PersonalInfoPage = (props) => {
     });
   }
 
-  //begin  ck
-    // 获取用户信息
-    // useEffect(() => {
-    //   const Info = props.userInfo;
-    //   console.log('user', Info)
-    //   if (Info && !Info.code) {
-    //     storage.set('info', Info.data);
-    //     setUserInfo(Info.data)
-    //     if (Info.data && Info.data.status === 'audit_pass') {
-    //       props.getMyHouseList() // 获取本人的房源
-    //     } else {
-    //       setLoadingStatus(false)
-    //     }
-    //   }
-    // }, [props.userInfo]);
-
-    // function storageDataDictionary() {
-    //   props.getAllData(res => {
-    //     let result = {};
-    //     res.data.forEach(item => {
-    //       result[item.name] = item.dictionaries;
-    //     });
-    //     props.setCodeInfo(result);
-    //     storage.set('code', result);
-    //   });
-    // }
-
-    // function storageMappingDictionary() {
-    //   props.getDictionaryMapping(res => {
-    //     props.setDictionaryMappings(res.data);
-    //     storage.set('dictionaryMappings', res.data);
-    //   });
-    // }
-//end
-
-  useEffect(() => {
-    handleInfo(); 
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      handleInfo(); 
+    }, [props.route])
+  )
+  // useEffect(() => {
+  //   handleInfo(); 
+  // }, []);
 
   function handleInfo() {
     props.getUserInfo(res => {
-      console.log('getPersonalInfo_userInfo:', res);
+      console.log('getPersonalInfo_userInfo1:', res);
       setLoading(false);
-
       if (!res.code) {
         dealDataRefresh(res.data);
       } else {
         showToast("90909"+res.message);
       }
     });
+    
+    //读取用户信息
+    // var userInfo = props.userInfo;
+    // console.log('getPersonalInfo_userInfo2:', userInfo);
+    // if (userInfo.data) {
+    //   dealDataRefresh(userInfo.data);
+    // }
   }
 
   function dealDataRefresh(data) { 
@@ -141,7 +119,7 @@ const PersonalInfoPage = (props) => {
     if (imageObj) {
       result.append('avatarImage', imageObj);
     }
-    
+  
     console.log('传入avatarImage: **:  ', imageObj);
     console.log('传入result: **:  ', result);
 
@@ -150,8 +128,15 @@ const PersonalInfoPage = (props) => {
       console.log('modifyPersonalInfo****kkkk:', res);
 
       if (!res.code) {
-        showToast("修改成功");
-        NavigatorService.goBack();
+        async function aa(res){
+          console.log('^^^^^^async_res:', res);
+          await storage.set('info', res);  //保存新的个人信息
+          showToast("修改成功");
+          NavigatorService.goBack();
+        }
+        aa(res);
+        // showToast("修改成功");
+        // NavigatorService.goBack();
       } else {
         showToast("90909"+res.message);
       }
