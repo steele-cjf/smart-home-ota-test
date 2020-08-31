@@ -132,7 +132,7 @@ function LoginPage(props) {
     });
   }
 
-  
+  let timerId;
   const [isSend, setIsSend] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
@@ -170,7 +170,7 @@ function LoginPage(props) {
           inputStyle={styles.verCodeInput}
           ref={refVerifyCode}
           keyboardType="numeric"
-          placeholder="请输入短信验证码"
+          placeholder="请输入验证码"
           placeholderTextColor={Theme.textMuted}
           leftIcon={
             <AntDesign
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     color: Theme.textSecondary,
   },
   verCodeInput: {
-    fontSize: 12,
+    fontSize: 14,
     color: Theme.textSecondary,
     width: 30
   },

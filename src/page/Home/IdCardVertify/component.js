@@ -178,7 +178,7 @@ export default function IdCardVertifyPage(props) {
         }}
       />
       {loading ? <Spinner></Spinner> :
-        <ScrollView style={styles.scrollContainer}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Text style={styles.textTitle}>基本资料</Text>
           <Form
             config={vertifyCn}
@@ -238,8 +238,9 @@ const styles = StyleSheet.create({
     // position: 'absolute',
     // left: 0,
     // right: 0,
-    // bottom: 0,
+    // bottom: 50,
     marginTop: 100,
+    marginBottom: 50,
     height: 40,
     borderRadius: 20,
     backgroundColor: Theme.primary,

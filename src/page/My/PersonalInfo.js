@@ -175,48 +175,53 @@ const PersonalInfoPage = (props) => {
   }
 
   return (
-    loading ? <Spinner></Spinner> :
-    <View style={styles.containerStyle}>
+    <View style={styles.containerStyle0}>
       <HeaderCommon
         options={{
         backTitle: '返回',
         title: '个人信息'
         }}
       />
-      <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
-        <Text style={styles.textTitle}>头像</Text>
-        <Image style={styles.headImageStyle} source={headImage} />
-        <AntDesign name="right" style={styles.rightArrow} />
-      </TouchableOpacity>
-      <View style={[styles.sigContainer, {paddingBottom: 10}]}>
-        <Text style={[styles.textTitle, styles.fontSize16]}>基本资料</Text>
-        {
-          renderBasicView()
+      {loading ? <Spinner></Spinner> :
+      <View style={styles.containerStyle}>
+        <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
+          <Text style={styles.textTitle}>头像</Text>
+          <Image style={styles.headImageStyle} source={headImage} />
+          <AntDesign name="right" style={styles.rightArrow} />
+        </TouchableOpacity>
+        <View style={[styles.sigContainer, {paddingBottom: 10}]}>
+          <Text style={[styles.textTitle, styles.fontSize16]}>基本资料</Text>
+          {
+            renderBasicView()
+          }
+        </View>
+        { 
+          Object.keys(otherData).map((item, index) => { 
+            return (
+              <View style={styles.sigContainer}>
+                <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
+                <TextInput style={[styles.textContent,]} //styles.rightInput
+                  onChangeText={(text) => {setSaveData(item, text);}}
+                  value={otherData[item]}
+              />
+              </View>
+            ); 
+          })
         }
+        <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
+          <Text style={styles.btnTextStyle}>保存</Text>
+        </TouchableOpacity>
       </View>
-      { 
-        Object.keys(otherData).map((item, index) => { 
-          return (
-            <View style={styles.sigContainer}>
-              <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
-              <TextInput style={[styles.textContent,]} //styles.rightInput
-                onChangeText={(text) => {setSaveData(item, text);}}
-                value={otherData[item]}
-             />
-            </View>
-          ); 
-        })
       }
-
-      <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
-        <Text style={styles.btnTextStyle}>保存</Text>
-      </TouchableOpacity>
     </View>
   ); 
 }
 
 
 const styles = StyleSheet.create({  
+  containerStyle0: {
+    flex: 1,
+  },
   containerStyle: {
     flex: 1,
     paddingHorizontal: 16,
