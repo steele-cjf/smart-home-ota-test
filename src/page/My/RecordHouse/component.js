@@ -43,6 +43,10 @@ function RecordHouse(props) {
     setHousePropertyCertificateImage,
   ] = useState([]);
   const [certificateFilesImg, setCertificateFilesImg] = useState([]);
+
+  // const [certificateFile, setCertificateFile] = useState([]);
+  const [idCardFile, setIdCardFile] = useState([]);
+
   const [tabs, setTabs] = useState([{ name: '请选择', id: 0 }]);
   const [regionName, setRegionName] = useState('');
   const [regionId, setRegionId] = useState(0);
@@ -124,9 +128,12 @@ function RecordHouse(props) {
     objToFormData('houseLayout', houseLayout, result);
     // 是否有电梯 hasElevator
     result.append('houseLayout.hasElevator', hasElevator);
-    for (let c = 0; c < certificateFilesImg.length; c++) {
-      result.append('houseHolder.certificateFiles', certificateFilesImg[c]);
-    }
+    // for (let c = 0; c < certificateFilesImg.length; c++) {
+    //   result.append('houseHolder.certificateFiles', certificateFilesImg[c]);
+    // }
+    result.append('houseHolder.certificateFile', certificateFilesImg[0]);
+    result.append('houseHolder.idCardFile', idCardFile[0]);
+
     result.append(
       'housePropertyCertificateImage',
       housePropertyCertificateImage[0],
@@ -154,7 +161,6 @@ function RecordHouse(props) {
       props.addHouse(result, res => {
         console.log('res', res);
         if (!res.code) {
-          props.route.params.refresh();
           props.navigation.goBack();
         } else {
           showToast(res.message);
@@ -171,15 +177,21 @@ function RecordHouse(props) {
 
   const setImageForm = (key, obj, type) => {
     let data;
-    if (type === 'cert') {
-      console.log(88888, housePropertyCertificateImage)
+    if (type === 'houseCert') {
       data = Object.assign([], housePropertyCertificateImage);
       setHousePropertyCertificateImage(data);
       data[key] = obj;
-    } else {
+      console.log('houseI', housePropertyCertificateImage)
+    } else if (type === 'cert') {
       data = Object.assign([], certificateFilesImg);
       data[key] = obj;
       setCertificateFilesImg(data);
+      console.log('cert', certificateFilesImg)
+    } else {
+      data = Object.assign([], idCardFile);
+      data[key] = obj;
+      setIdCardFile(data);
+      console.log('idCard', idCardFile)
     }
   };
 
@@ -361,17 +373,17 @@ function RecordHouse(props) {
                         justifyContent: 'space-around',
                       }}>
                       <ImageUpload
-                        setImageForm={obj => setImageForm(0, obj, 'files')}
+                        setImageForm={obj => setImageForm(0, obj, 'cert')}
                       />
                       <ImageUpload
-                        setImageForm={obj => setImageForm(1, obj, 'files')}
+                        setImageForm={obj => setImageForm(0, obj, 'idCard')}
                       />
                     </View>
                   </View>
                   <Text style={[styles.publishTitle]}>房产证照片</Text>
                   <ImageUpload
                     imgUrl={image}
-                    setImageForm={obj => setImageForm(0, obj, 'cert')}
+                    setImageForm={obj => setImageForm(0, obj, 'houseCert')}
                   />
                   <Text style={[styles.publishTitle]}>建筑信息</Text>
                   <Item style={styles.marginLeft0} inlineLabel>

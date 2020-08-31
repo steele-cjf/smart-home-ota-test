@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spinner, Root, ActionSheet, Button } from 'native-base';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { useFocusEffect } from '@react-navigation/native';
 import { getMyHouseList } from '../../store/home/index';
 import ViewUtil from '../../util/ViewUtil';
 import { MORE_MENU } from '../../common/MORE_MENU';
@@ -19,9 +20,14 @@ function FeaturePage(props) {
   const [hasHouse, setHasHouse] = useState(false);
   const [actionSheet, setActionSheet] = useState(null);
 
-  useEffect(() => {
-    props.getMyHouseList() // 获取本人的房源
-  }, []);
+  // useEffect(() => {
+  //   props.getMyHouseList() // 获取本人的房源
+  // }, []);
+  useFocusEffect(
+    useCallback(() => {
+      props.getMyHouseList()
+    }, [props.route])
+  )
 
   useEffect(() => {
     // 获取本人的房源

@@ -5,6 +5,7 @@ import {
   Root,
   Spinner,
 } from 'native-base';
+import { useFocusEffect } from '@react-navigation/native';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
 import HeaderCommon from '../../Component/HeaderCommon'
@@ -22,9 +23,15 @@ function MyHouseList(props) {
     },
   ]);
   const [mappings, setMappings] = useState({});
-  useEffect(() => {
-    init();
-  }, [init]);
+  // useEffect(() => {
+  //   init();
+  // }, [init]);
+
+  useFocusEffect(
+    useCallback(() => {
+      init();
+    }, [props.route])
+  )
 
   useEffect(() => {
     storage.get('dictionaryMappings').then(res => {
@@ -54,11 +61,7 @@ function MyHouseList(props) {
     });
   };
   const goAddHousePage = () => {
-    NavigatorService.navigate(AppRoute.RECORD, {
-      refresh: function () {
-        init();
-      },
-    });
+    NavigatorService.navigate(AppRoute.RECORD);
   };
 
   const _houseItem = ({ item, index }) => {

@@ -97,6 +97,7 @@ function HomePage(props) {
   const showList = () => {
     let array = []
     if (houseList.length) {
+      console.log('hahah', houseList);
       array = houseList.map((item) => {
         item.text = item.regionFullName.replace(/\//g, '')
         return item

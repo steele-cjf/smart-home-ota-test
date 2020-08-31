@@ -42,16 +42,22 @@ function HouseDetail(props) {
       init()
     }, [props.route])
   )
-
+  // 初始化
   const init = () => {
     const { params } = props.route;
     props.getHouseDetail(params.id, res => {
       if (!res.code) {
         if (res.data) {
           console.log('data', res.data);
-          const arr = [];
-          arr.push({url: res.data.housePropertyCertificateImageUrl})
-          setImageList(arr);
+          const arr = [{url: res.data.housePropertyCertificateImageUrl}, {url: res.data.houseHolder.certificateFileUrl}, {url: res.data.houseHolder.idCardFileUrl}];
+          const images = []
+          arr.map(item => {
+            $getImage(item.url, uri => {
+              images.push({url: uri})
+            });
+            console.log('cade', images);
+            setImageList(images);
+          })
           setHouseInfo(res.data);
           setLoading(false);
         }
@@ -66,7 +72,7 @@ function HouseDetail(props) {
       setRooms(res.data);
     });
   };
-
+  // 删除操作
   const alertDeleteModal = () => {
     Alert.alert('确定删除？', '', [
       {
@@ -88,19 +94,19 @@ function HouseDetail(props) {
     props.deleteHouse({ id: props.route.params.id }, res => {
       if (!res.code) {
         showToast('删除成功');
-        props.route.params.refresh();
         props.navigation.goBack();
       } else {
         showToast(res.message);
       }
     });
   };
-
+  // 跳转到修改房源页面
   const handleToPage = () => {
     props.navigation.navigate(AppRoute.RECORD, {
       id: houseInfo.id,
     });
   };
+  // 跳转房间管理
   const handleToRoomPage = () => {
     NavigatorService.navigate(AppRoute.ROOM, {
       id: houseInfo.id
