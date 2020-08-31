@@ -5,6 +5,7 @@ import ImageUpload from '../../Component/imageUpload'
 import vertifyCn from '../config/PassportVertify'
 import { Spinner } from 'native-base'
 import HeaderCommon from '../../Component/HeaderCommon'
+import { AppRoute } from '../../../navigator/AppRoutes';
 
 export default function PassportVertifyPage(props) {
     const [formData, setFormData] = useState({});
@@ -113,8 +114,8 @@ export default function PassportVertifyPage(props) {
             setLoading(false);
             if (!res.code) {
                 showToast('提交成功');
-                //NavigatorService.navigate(AppRoute.HOME)
-                NavigatorService.goBack();
+                NavigatorService.navigate(AppRoute.VERDETAILS);
+                //NavigatorService.goBack();
 
                 const {params} = props.route;
                 if (params && params.refreshStatus) {

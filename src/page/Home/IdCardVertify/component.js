@@ -134,8 +134,8 @@ export default function IdCardVertifyPage(props) {
       setLoading(false)
       if (!res.code) {
         showToast('提交成功');
-        //NavigatorService.navigate(AppRoute.HOME)
-        NavigatorService.goBack();
+        NavigatorService.navigate(AppRoute.VERDETAILS);
+        //NavigatorService.goBack();
 
         const {params} = props.route;
         if (params && params.refreshStatus) {
