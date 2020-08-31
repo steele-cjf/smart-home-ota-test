@@ -130,42 +130,43 @@ function AuthenticationPage(props) {
   const [userStatus, setUserStatus] = useState('');
   const AliyunVerify = useRef();
   return (
-    <View style={styles.container} ref={AliyunVerify}>
+    <View style={styles.container0}>
       <HeaderCommon
         options={{
           backTitle: '返回',
           title: '实名认证'
         }}
       />
-      <View>
-        <Text style={styles.tipStatus}>当前状态：</Text>
-        {/* <Text style={styles.status}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text> */}
-        <Text style={styles.status}>{props.dictionaryMappings.user_status[userStatus]}</Text>
+      <View style={styles.container} ref={AliyunVerify}>
+        <View>
+          <Text style={styles.tipStatus}>当前状态：</Text>
+          <Text style={styles.status}>{props.dictionaryMappings.user_status[userStatus]}</Text>
+        </View>
+        <Text style={styles.verTitle}>请选择认证方式：</Text>
+        {AuthList.map((u, i) => {
+          return (
+            <TouchableOpacity style={i === selectIndex ? styles.selectedStyle : styles.authListStyle}
+              key={i}
+              onPress={() => changeSelect(i)}>
+              <Text style={i === selectIndex ? styles.SelectName : styles.name}>
+                {u.name}
+              </Text>
+              <Text style={i === selectIndex ? styles.selectTypeText : styles.typeText}>
+                {u.type}
+              </Text>
+              <Text style={i === selectIndex ? styles.selectSecondaryText : styles.secondaryText}>
+                {u.description}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+        <Text style={styles.tipText}>
+          {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡"}
+        </Text>
+        <TouchableOpacity style={styles.verifyBtn} onPress={handlerVerify}>
+          <Text style={styles.btnText}>开始认证</Text>
+        </TouchableOpacity>
       </View>
-      <Text style={styles.verTitle}>请选择认证方式：</Text>
-      {AuthList.map((u, i) => {
-        return (
-          <TouchableOpacity style={i === selectIndex ? styles.selectedStyle : styles.authListStyle}
-            key={i}
-            onPress={() => changeSelect(i)}>
-            <Text style={i === selectIndex ? styles.SelectName : styles.name}>
-              {u.name}
-            </Text>
-            <Text style={i === selectIndex ? styles.selectTypeText : styles.typeText}>
-              {u.type}
-            </Text>
-            <Text style={i === selectIndex ? styles.selectSecondaryText : styles.secondaryText}>
-              {u.description}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-      <Text style={styles.tipText}>
-        {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡"}
-      </Text>
-      <TouchableOpacity style={styles.verifyBtn} onPress={handlerVerify}>
-        <Text style={styles.btnText}>开始认证</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -186,9 +187,11 @@ export default connect(
 )(AuthenticationPage);
 
 const styles = StyleSheet.create({
+  container0: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    //justifyContent: 'center',
     paddingHorizontal: 16,
     paddingVertical: 16,
     backgroundColor: Theme.background,

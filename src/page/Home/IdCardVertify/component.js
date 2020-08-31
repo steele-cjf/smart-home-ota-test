@@ -91,11 +91,20 @@ export default function IdCardVertifyPage(props) {
   // 检查并提交form
   const handleConfirm = () => {
     let message = '';
+
     let index = vertifyCn.findIndex(item => {
       return item.required && !formData[item.key];
     });
-
     message = vertifyCn[index] && vertifyCn[index].errorMsg[0];
+
+    console.log('****1:', index);
+    console.log('****2:', message);
+    console.log('****3:', formData);
+
+    if (formData.birthDate) {
+      var datetime = new Date();
+      console.log('*****4', datetime);
+    }
 
     if (!message) {
       // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
