@@ -57,9 +57,8 @@ class DialogInput extends PureComponent {
     const animationType = this.props.animationType || 'fade';
     let cancelText = this.props.cancelText || '取消';
     let submitText = this.props.submitText || '确定';
-    cancelText = Platform.OS === 'ios' ? cancelText : cancelText.toUpperCase();
-    submitText = Platform.OS === 'ios' ? submitText : submitText.toUpperCase();
-
+    // cancelText = Platform.OS === 'ios' ? cancelText : cancelText.toUpperCase();
+    // submitText = Platform.OS === 'ios' ? submitText : submitText.toUpperCase();
     return (
       <Modal
         animationType={animationType}

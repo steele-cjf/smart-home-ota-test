@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native'
-import { Button, Icon, Text, Left, Right, Header, Body, Segment, Input } from 'native-base';
+import { Button, Icon, Text, Left, Right, Header, Body, Input } from 'native-base';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../../navigator/AppRoutes';
 
 
@@ -15,14 +13,14 @@ export default function SearchHeader(props) {
             <Header hasSegment style={styles.container}>
                 <Left style={{ flex: 1 }}>
                     <Button transparent onPress={() => NavigatorService.goBack()} >
-                        <Icon name="md-chevron-back" style={{justifyContent: 'center'}}/>
-                        <Text>返回</Text>
+                        <AntDesign name="left" style={styles.actionColor} />
+                        <Text style={{color: Theme.textLink, fontSize: 14}}>返回</Text>
                     </Button>
                 </Left>
-                <Body style={{ flex: 3 }}>
-                    <Feather name='search' style={styles.searchIcon} />
-                    <Input 
-                       style={styles.Input} 
+                <Body style={{flexDirection: 'row', flex: 4, alignItems: 'center',backgroundColor: '#E9E9E9', height: 30,borderRadius: 20, }}>
+                    <Icon name="ios-search" style={styles.searchIcon} />
+                    <Input
+                       style={styles.Input}
                        value={searchItem}
                        onChangeText={setSearchItem}
                        onBlur={() => props.getSearchParams(searchItem)} 
@@ -56,7 +54,8 @@ export default function SearchHeader(props) {
 const styles = StyleSheet.create({
     container: {
         // height: 50,
-        padding: 10
+        padding: 10,
+        backgroundColor: '#fff',
     },
     selectBox: {
         borderTopWidth: 1,
@@ -68,20 +67,23 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         flexDirection: 'row'
     },
+    actionColor: {
+        color: Theme.textLink,
+        fontSize: 14,
+        marginRight: 10,
+        marginTop: 3,
+    },
     searchIcon: {
-        position: 'absolute',
-        left: 5,
-        top: 8,
+        // position: 'absolute',
+        // left: 5,
+        // top: 8,
         color: '#7C7C7C',
-        fontSize: 12,
-        zIndex: 10
+        fontSize: 18,
+        paddingLeft: 10,
+        // zIndex: 10
     },
     Input: {
-        backgroundColor: '#E9E9E9',
-        height: 20,
-        borderRadius: 10,
-        width: '100%',
-        paddingLeft: 20
+        paddingLeft: 10
     },
     select: {
         flex: 2,

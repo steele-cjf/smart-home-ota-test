@@ -22,7 +22,9 @@ function AuthenticationPage(props) {
 
   function personalVerify() {
     console.log('userId2:*****', userId)
-    props.getVerifyToken({ useId: userId}, res => { //userInfo.id
+    console.log(userId)
+    props.getVerifyToken({ userId }, res => { //userInfo.id
+      console.log(888, res)
       if (res.code) {
         showToast(res.message);
         return;
@@ -30,7 +32,7 @@ function AuthenticationPage(props) {
       let { token, bizId } = res.data;
       if (Platform.OS === 'ios') {
         let domId = findNodeHandle(AliyunVerify.current);
-
+        // ios活体认证
         NativeModules.RealPersonAuth.addEvent(domId, token, (state, errorCode, message) => {
           //返回结果
           if (state === 'RPStatePass') {
@@ -66,20 +68,20 @@ function AuthenticationPage(props) {
       personalVerify();
     } else if (selectIndex === 1) {
 
-      const {params} = props.route;
+      const { params } = props.route;
       if (params && params.userId) {
-        NavigatorService.navigate(AppRoute.IDCARDVERTIFY, { userId: params.userId, refreshStatus: () => {loadStatus();} });
+        NavigatorService.navigate(AppRoute.IDCARDVERTIFY, { userId: params.userId, refreshStatus: () => { loadStatus(); } });
       } else {
-        NavigatorService.navigate(AppRoute.IDCARDVERTIFY, { refreshStatus: () => {loadStatus();} });
+        NavigatorService.navigate(AppRoute.IDCARDVERTIFY, { refreshStatus: () => { loadStatus(); } });
       }
-      
+
     } else {
 
-      const {params} = props.route;
+      const { params } = props.route;
       if (params && params.userId) {
-        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY, {userId: params.userId, refreshStatus: () => {loadStatus();} });
+        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY, { userId: params.userId, refreshStatus: () => { loadStatus(); } });
       } else {
-        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY, { refreshStatus: () => {loadStatus();} });
+        NavigatorService.navigate(AppRoute.PASSPORTVERTIFY, { refreshStatus: () => { loadStatus(); } });
       }
 
     }
@@ -91,7 +93,7 @@ function AuthenticationPage(props) {
   }, []);  //[props.userInfo]
 
   function setUser() {
-    const {params} = props.route;
+    const { params } = props.route;
     if (params && params.userId) {
       setUserId(params.userId);
       setUserStatus(params.authStatus);
@@ -131,8 +133,8 @@ function AuthenticationPage(props) {
     <View style={styles.container} ref={AliyunVerify}>
       <HeaderCommon
         options={{
-        backTitle: '返回',
-        title: '实名认证'
+          backTitle: '返回',
+          title: '实名认证'
         }}
       />
       <View>

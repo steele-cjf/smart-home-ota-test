@@ -107,7 +107,7 @@ function FeaturePage(props) {
     let array = [];
     if (houseList.length) {
       array = houseList.map(item => {
-        item.text = item.regionFullName.replace(/\//g, '');
+        item.text = item.address;
         return item;
       });
     }
@@ -145,7 +145,8 @@ function FeaturePage(props) {
           <View style={[styles.flex, styles.InfoBox]}>
             <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
             <Text style={{ fontSize: 18, color: '#f9f9f9' }}>
-              {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'}
+              {/* {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'} */}
+              {selectHouse.address || '暂无房源'}
             </Text>
             <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />
           </View>

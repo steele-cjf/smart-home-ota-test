@@ -1,6 +1,5 @@
 import { stringify } from 'query-string';
 import { appApi, ip } from '../config';
-// import { showToast } from './toast';
 import RNFetchBlob from 'rn-fetch-blob'
 import storage from './storage';
 // 默认配置
@@ -33,16 +32,6 @@ export const formatURL = (url, params) => {
 
 // 请求参数
 export const httpService = (url, config) => {
-  // (async () => {
-  //   const accessToken = await storage.get('token');
-  //   DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken;
-  // })();
-  // storage
-  //   .get('token')
-  //   .then(
-  //     accessToken =>
-  //       (DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + accessToken),
-  //   );
   return dispatch => {
     config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
     config = Object.assign({}, DEFAULT_CONFIG, config);
@@ -122,28 +111,6 @@ function fetchGetImage(method, url, callback, isAbsolute) {
       })
   })
 }
-// export const getImage = (url, callback) => {
-// storage.get('token').then(accessToken => {
-//   fetch(url, {
-//     credentials: 'include',
-//     headers: {
-//       Authorization: 'Bearer ' + accessToken
-//     },
-//   })
-//     .then(response => response.blob())
-//     .then(blod => {
-//       console.log('blod', URL.createObjectURL(blod));
-//       let url = 'aa' //URL.createObjectURL(blod);
-//       callback(url);
-//       return url
-//     })
-//     .catch(err => {
-//       console.log('err:', err)
-//       showToast('' + err)
-//       callback(err);
-//     });
-// });
-// };
 
 
 export default {

@@ -11,7 +11,7 @@ import DropdownMenu from '../../Component/housingList/filter';
 function HouseList(props) {
   const data = [{ type: 'text', value: '位置', key: 'location' }, { type: 'text', value: '方式/户型', key: 'houseType' }, { type: 'text', value: '租金', key: 'rent' }, { type: 'icon', value: 'filter', key: 'filter' }];
   const filterParamsList = [
-    [{ distance: '1' }, { distance: '2' }, { distance: '3' }],
+    [{ distance: null }, { distance: '1' }, { distance: '2' }, { distance: '3' }],
     [],
     [{ priceHigh: null, priceLow: null }, { priceHigh: 1000, priceLow: 0 }, { priceHigh: 2000, priceLow: 1000 }, { priceHigh: 3000, priceLow: 2000 }, { priceHigh: 4000, priceLow: 3000 }, { priceHigh: null, priceLow: 4000 }],
     [{ orderBy: 'newest' }, { orderBy: 'price_up' }, { orderBy: 'price_down' }]
