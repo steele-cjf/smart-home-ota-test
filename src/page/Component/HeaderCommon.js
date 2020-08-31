@@ -52,6 +52,7 @@ export default function HeaderCommon(props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
+        height: 44,
     },
     actionColor: {
         color: Theme.textLink,
