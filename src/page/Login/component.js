@@ -110,6 +110,7 @@ function LoginPage(props) {
   function handleGetCode() {
     if (!mobile) {
       //refMobile.current.shake();
+      console.log(9999)
       showToast('请输入手机号');
       return;
     } else if (!validateField('mobile')) {
@@ -120,7 +121,6 @@ function LoginPage(props) {
     const data = {
       mobile: mobile,
     };
-
     props.getVerifyCode(data, res => {
       console.log('code', res);
       if (!res.code) {
@@ -136,10 +136,10 @@ function LoginPage(props) {
   const [isSend, setIsSend] = useState(false);
   const refMobile = useRef(null);
   const refVerifyCode = useRef(null);
-  const [mobile, setMobile] = useState(18702637317); //13661992793  18218025628 18702637317
-  const [verifyCode, setVerifyCode] = useState(350771); //560657
+  const [mobile, setMobile] = useState('18218025628'); //13661992793  18218025628 18702637317 13148782678 17665300807
+  const [verifyCode, setVerifyCode] = useState('741931'); //759184 
   const [checked, setChecked] = useState(false);
-  let times = 90;
+  let times = 60;
   const [count, setCount] = useState(times);
   
   return (
@@ -172,7 +172,6 @@ function LoginPage(props) {
           keyboardType="numeric"
           placeholder="请输入短信验证码"
           placeholderTextColor={Theme.textMuted}
-          //leftIcon={{type: 'font-awesome', name: 'comment'}}
           leftIcon={
             <AntDesign
               name="lock1"
@@ -242,10 +241,9 @@ const styles = StyleSheet.create({
     color: Theme.textSecondary,
   },
   verCodeInput: {
-    fontSize: 14,
+    fontSize: 12,
     color: Theme.textSecondary,
-    width: 30,
-    marginRight: 168,
+    width: 30
   },
   codeBtnPosition: {
     position: 'absolute',

@@ -39,8 +39,8 @@ const MyQRCodePage = (props) => {
     <View>
       <HeaderCommon
         options={{
-        backTitle: '返回',
-        title: '二维码'
+          backTitle: '返回',
+          title: '二维码'
         }}
       />
       <View style={styles.containerStyle}>
@@ -51,8 +51,8 @@ const MyQRCodePage = (props) => {
         <View style={styles.lineView} />
         <View style={styles.imageContainerStyle}>
           <Image style={styles.imageStyle} source={{ uri: imageUrl }} />
+          <Text style={styles.textTip}>扫一扫上面的二维码图案，将我加入</Text>
         </View>
-        <Text style={styles.textTip}>扫一扫上面的二维码图案，将我加入</Text>
       </View>
     </View>
   );

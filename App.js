@@ -8,6 +8,9 @@ import { Provider } from 'react-redux';
 import store from './src/store';
 import storage from './src/util/storage';
 import Camera from './src/page/Component/Camera';
+import { RootSiblingParent } from 'react-native-root-siblings'
+
+
 export default (props) => {
   // This value is used to determine the initial screen1
   const [loading, setLoading] = useState(true);
@@ -24,7 +27,7 @@ export default (props) => {
   }, []);
 
   useEffect(() => {
-    
+
   }, [props.AppRoute])
 
   // test appState
@@ -46,15 +49,13 @@ export default (props) => {
     <SafeAreaView style={{ flex: 1 }}>
       <Provider store={store}>
         <Camera />
-        <NavigationContainer ref={navigatorRef}>
-          {/* {loading ? (
-            <Text>Loading.....</Text>
-          ) : ( */}
-          <AppNavigator
-            initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.LOGIN}
-          />
-          {/* )} */}
-        </NavigationContainer>
+        <RootSiblingParent>
+          <NavigationContainer ref={navigatorRef}>
+            <AppNavigator
+              initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.LOGIN}
+            />
+          </NavigationContainer>
+        </RootSiblingParent>
       </Provider>
     </SafeAreaView>
   );

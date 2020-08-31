@@ -5438,7 +5438,7 @@ react-native-root-siblings@^4.0.0:
   dependencies:
     static-container "^1.5.1"
 
-react-native-root-toast@^3.2.1:
+react-native-root-toast@^3.1.2:
   version "3.2.1"
   resolved "https://registry.npm.taobao.org/react-native-root-toast/download/react-native-root-toast-3.2.1.tgz#f456d029f5c5b76e4b686334f25371465478a3be"
   integrity sha1-9FbQKfXFt25LaGM08lNxRlR4o74=

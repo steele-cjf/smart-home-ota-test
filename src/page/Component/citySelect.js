@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   StyleSheet,
-  Dimensions,
+  Dimensions
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import TabView from './cityTabView';

@@ -1,6 +1,7 @@
 import Toast from 'react-native-root-toast';
 
 export const showToast = (message, options) => {
+  console.log('message', message)
   Toast.show(
     message,
     Object.assign(
