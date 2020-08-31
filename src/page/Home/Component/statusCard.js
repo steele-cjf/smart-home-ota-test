@@ -76,11 +76,9 @@ export default function StatusCard(props) {
 
     useEffect(() => {
         if (props.status === 'audit_pass' && props.item && props.item.houseId) {
-            console.log('********', props.item)
-
-            let { status, regionFullName, houseId, houseRole } = props.item
+            let { status, address, houseId, houseRole } = props.item
             let data = Object.assign({}, houseStatus[status || 'audit_pending'])
-            data.name = regionFullName && regionFullName.replace(/\//g, '') || '--'
+            data.name = address
             data.id = houseId
             data.houseRole = houseRole
             setOptions(data)

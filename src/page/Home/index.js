@@ -89,10 +89,12 @@ function HomePage(props) {
   // 展示房源选择
   const showList = () => {
     let array = []
+    // console.log('hahah', houseList);
     if (houseList.length) {
-      console.log('hahah', houseList);
+      // console.log('hahah', houseList);
       array = houseList.map((item) => {
-        item.text = item.regionFullName && item.regionFullName.replace(/\//g, '') || '--'
+        // item.text = item.regionFullName.replace(/\//g, '')
+        item.text = item.address
         return item
       })
     }

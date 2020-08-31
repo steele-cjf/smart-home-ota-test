@@ -51,12 +51,14 @@ function HouseDetail(props) {
           console.log('data', res.data);
           const arr = [{url: res.data.housePropertyCertificateImageUrl}, {url: res.data.houseHolder.certificateFileUrl}, {url: res.data.houseHolder.idCardFileUrl}];
           const images = []
+          console.log('arr', arr);
           arr.map(item => {
-            $getImage(item.url, uri => {
-              images.push({url: uri})
-            });
-            console.log('cade', images);
-            setImageList(images);
+            if (item.url) {
+              $getImage(item.url, res => {
+                images.push({url: res.uri})
+                setImageList(images);
+              }, true)
+            }
           })
           setHouseInfo(res.data);
           setLoading(false);
