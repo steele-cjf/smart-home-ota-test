@@ -6,7 +6,6 @@ import { Text, Button } from 'react-native-elements';
 import { View, PermissionsAndroid, Platform, StyleSheet, Linking } from 'react-native';
 import { NetworkInfo } from 'react-native-network-info';
 import Geolocation from '@react-native-community/geolocation';
-import LinkingSettings from 'react-native-linking-settings';
 // import NotifService from './NotifService';
 
 
@@ -38,11 +37,7 @@ function ComponentTest(props) {
     }
     const openApp = (type) => {
         if (type === 'setting') {
-            if (Platform.OS == 'ios') {
-                open(type, 'App-Prefs:root=WIFI');
-            } else {
-                LinkingSettings.openSettings('WIFI_SETTINGS');
-            }
+            open(type, 'App-Prefs:root=WIFI');
         } else if (type === 'weChart') {
             open(type, 'weixin://')
         }
@@ -62,14 +57,14 @@ function ComponentTest(props) {
 function mapStateToProps(state) {
     return {
     };
-  }
-  function matchDispatchToProps(dispatch) {
+}
+function matchDispatchToProps(dispatch) {
     return bindActionCreators({ openCamera }, dispatch);
-  }
-  export default connect(
+}
+export default connect(
     mapStateToProps,
     matchDispatchToProps,
-  )(ComponentTest);
+)(ComponentTest);
 const styles = StyleSheet.create({
     mrg: {
         marginBottom: 20

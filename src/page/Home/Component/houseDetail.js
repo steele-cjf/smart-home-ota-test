@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     },
     mapBox: {
         width: '100%',
-        height: 100,
+        height: 200,
         backgroundColor: 'red',
         marginTop: 10
     },
