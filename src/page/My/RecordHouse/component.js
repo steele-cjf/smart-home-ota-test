@@ -22,6 +22,8 @@ function RecordHouse(props) {
   const [hasElevator, setHasElevator] = useState(false);
   const toggleSwitch = () => setHasElevator(previousState => !previousState);
 
+  const [certificateImage, setCertificateImage] = useState('')
+  const [idCardImage, setIdCardImage] = useState('')
   const [image, setImage] = useState('')
   const [address, setAddress] = useState('');
   const [houseHolder, setHouseHolder] = useState({});
@@ -77,10 +79,19 @@ function RecordHouse(props) {
 
           setLoading(false);
           setTabs(res.data.regions.concat(initTabs))
-          console.log('info.housePropertyCertificateImageUrl', info.housePropertyCertificateImageUrl)
+          
+          
           $getImage(info.housePropertyCertificateImageUrl, res => {
             setHousePropertyCertificateImage([res])
             setImage(res.uri);
+          }, true)
+          $getImage(info.houseHolder.certificateFileUrl, res => {
+            setCertificateFilesImg([res])
+            setCertificateImage(res.uri);
+          }, true)
+          $getImage(info.houseHolder.idCardFileUrl, res => {
+            setIdCardFile([res])
+            setIdCardImage(res.uri);
           }, true)
         }
       }
@@ -116,7 +127,7 @@ function RecordHouse(props) {
     objToFormData('houseLayout', houseLayout, result);
     // 是否有电梯 hasElevator
     result.append('houseLayout.hasElevator', hasElevator);
-    if (houseHolder.self === 'other') { // 如果非本人
+    if (houseHolder.self === 'others') { // 如果非本人
       if (certificateFilesImg && certificateFilesImg[0]) {
         result.append(
           'houseHolder.certificateFile',
@@ -153,6 +164,7 @@ function RecordHouse(props) {
         }
       });
     } else {
+      console.log('result123', result)
       props.addHouse(result, res => {
         if (!res.code) {
           props.navigation.goBack();
@@ -364,14 +376,22 @@ function RecordHouse(props) {
                       style={{
                         flex: 1,
                         flexDirection: 'row',
-                        justifyContent: 'space-around',
+                        justifyContent: 'flex-start',
                       }}>
-                      <ImageUpload
-                        setImageForm={obj => setImageForm(0, obj, 'cert')}
-                      />
-                      <ImageUpload
-                        setImageForm={obj => setImageForm(0, obj, 'idCard')}
-                      />
+                      <View style={{alignItems: 'center', marginRight: 40}}>
+                        <ImageUpload
+                          imgUrl={certificateImage}
+                          setImageForm={obj => setImageForm(0, obj, 'cert')}
+                        />
+                        <Text style={{color: '#c7c7c7'}}>授权文件</Text>
+                      </View>
+                      <View style={{alignItems: 'center'}}>
+                        <ImageUpload
+                          imgUrl={idCardImage}
+                          setImageForm={obj => setImageForm(0, obj, 'idCard')}
+                        />
+                        <Text style={{color: '#c7c7c7'}}>房主身份证</Text>
+                      </View>
                     </View>
                   </View>
                   <Text style={[styles.publishTitle]}>房产证照片</Text>

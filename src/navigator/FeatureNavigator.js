@@ -84,7 +84,7 @@ export const FeatureStackComponent = () => {
         name={AppRoute.AUTHENTICATION}
         component={AuthenticationPage}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <FeatureStack.Screen
