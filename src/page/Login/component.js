@@ -210,6 +210,7 @@ function LoginPage(props) {
           titleStyle={styles.protocolTitle}
           type="clear"
           title="《用户服务协议》"
+          onPress={() => {props.navigation.navigate(AppRoute.AGREEMENT);}}
         />
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />

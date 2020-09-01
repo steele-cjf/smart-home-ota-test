@@ -1,27 +1,28 @@
 import React from 'react';
-import { View, ScrollView, Text, TouchableOpacity, StyleSheet, NativeModules } from 'react-native';
+import { View, ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Theme from '../../style/colors';
 import HeaderCommon from '../Component/HeaderCommon'
 
+import {NativeModules, Dimensions, StatusBar} from 'react-native'; //test
+
 export default AgreementPage = (props) => {
 
-  //test
+  //test1
   function submitInfo() {
 
     NativeModules.WifiInfo.getWifi((ssid) => {
-
-
       //返回结果
       console.log("******ssid: *****", ssid);
-
     });
-
-
     return;
-
   }
 
-
+  const {width, height} = Dimensions.get('window');
+  var v = Dimensions.get('window');
+  const STATUS_BAR_HEIGHT = StatusBar.currentHeight;
+  console.log("{width, height}******", {width, height});
+  console.log("v******", v);
+  console.log("STATUS_BAR_HEIGHT******", STATUS_BAR_HEIGHT);
 
 
   const sp = "        ";
@@ -78,10 +79,11 @@ export default AgreementPage = (props) => {
         {sp+g+sp+h+sp+i+sp+j+sp+k+sp+l}
       </Text>
 
-      <Text>{'TestWifi' || '未能获取wifi'}</Text>
+
+      {/* <Text>{'TestWifi' || '未能获取wifi'}</Text>
       <Text>{'' || '未能获取wifi'}</Text>
       <Text>{'' || ''}</Text>
-      <Text>{0 || '未能获取wifi'}</Text>
+      <Text>{0 || '未能获取wifi'}</Text> */}
 
       <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}>
         <Text style={styles.btnTextStyle}>提交</Text>
