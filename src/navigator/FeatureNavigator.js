@@ -84,8 +84,7 @@ export const FeatureStackComponent = () => {
         name={AppRoute.AUTHENTICATION}
         component={AuthenticationPage}
         options={{
-          title: '实名认证',
-          headerBackTitle: '返回',
+          headerShown: false
         }}
       />
       <FeatureStack.Screen

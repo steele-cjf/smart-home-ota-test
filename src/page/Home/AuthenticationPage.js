@@ -22,19 +22,20 @@ function AuthenticationPage(props) {
 
   function personalVerify() {
     console.log('userId2:*****', userId)
-    console.log(userId)
     props.getVerifyToken({ userId }, res => { //userInfo.id
       console.log(888, res)
       if (res.code) {
         showToast(res.message);
         return;
       }
-      let { token, bizId } = res.data;
+      let { verifyToken, bizId } = res.data;
       if (Platform.OS === 'ios') {
         let domId = findNodeHandle(AliyunVerify.current);
         // ios活体认证
-        NativeModules.RealPersonAuth.addEvent(domId, token, (state, errorCode, message) => {
+        console.log('domId, verifyToken', domId, verifyToken,)
+        NativeModules.RealPersonAuth.addEvent(domId, verifyToken, (state, errorCode, message) => {
           //返回结果
+          console.log('state, errorCode, message', state, errorCode, message)
           if (state === 'RPStatePass') {
             showToast("认证返回成功");
             props.getVerifyResult({ bizId });
@@ -47,7 +48,7 @@ function AuthenticationPage(props) {
         return;
       }
       // 安卓活体认证
-      NativeModules.AliyunVerify.show(res.data.verifyToken, ret => {
+      NativeModules.AliyunVerify.show(verifyToken, ret => {
         if (ret === 'success') {
           // 认证结果返回
           props.getVerifyResult({ bizId });
