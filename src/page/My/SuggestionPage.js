@@ -100,7 +100,7 @@ const SuggestionPage = (props) => {
         title: '意见反馈'
         }}
       />
-    <ScrollView style={styles.containerStyle}>
+    <ScrollView contentContainerStyle={styles.containerStyle}>
       <Text style={styles.textTitle}>反馈详情</Text>
       <Text style={styles.textTitle2}>反馈描述</Text>
       <Form>
@@ -143,9 +143,9 @@ const SuggestionPage = (props) => {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    flex: 1,
+    //flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingTop: 16,
     backgroundColor: Theme.background,
   },
   textTitle: {
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingHorizontal: 0,
     justifyContent: "space-between",
-    height: 260
+    height: 260,
   },
   btnStyle: {
     // position: 'absolute',
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     // right: 16,
     // bottom: 50,
     marginTop: 40,
+    marginBottom: 50,
     height: 40,
     borderRadius: 20,
     backgroundColor: '#5C8BFF'
