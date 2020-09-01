@@ -5392,11 +5392,6 @@ react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.npm.taobao.org/react-native-iphone-x-helper/download/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha1-ZF4v+7tJ6AhEu0y740oSb9oeZ3I=
 
-react-native-linking-settings@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/react-native-linking-settings/download/react-native-linking-settings-1.1.0.tgz#ba213ea19be09a996675f3aff52d49d4348fdcb6"
-  integrity sha1-uiE+oZvgmplmdfOv9S1J1DSP3LY=
-
 react-native-modal-datetime-picker@^8.7.1:
   version "8.9.3"
   resolved "https://registry.npm.taobao.org/react-native-modal-datetime-picker/download/react-native-modal-datetime-picker-8.9.3.tgz#4ab01386c525bf8df9e8e71a93cdd61aa0916212"

@@ -13,7 +13,6 @@
 		075D6B2A24CEE265004B6859 /* libGoogleToolboxForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B2924CEE265004B6859 /* libGoogleToolboxForMac.a */; };
 		075D6B2C24CEE265004B6859 /* libGoogleUtilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B2B24CEE265004B6859 /* libGoogleUtilities.a */; };
 		075D6B2E24CEE27E004B6859 /* libFirebaseCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B2D24CEE27E004B6859 /* libFirebaseCore.a */; };
-		075D6B3024CEE411004B6859 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 075D6B2F24CEE411004B6859 /* GoogleService-Info.plist */; };
 		075D6B3324CFFBC0004B6859 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075D6B3224CFFBC0004B6859 /* ExternalAccessory.framework */; };
 		077E319024B2BB8600370524 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E318F24B2BB8500370524 /* PDFKit.framework */; };
 		077E319224B2BBBE00370524 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E319124B2BBBE00370524 /* CoreMotion.framework */; };
@@ -22,14 +21,14 @@
 		077E31A424B2BC1000370524 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31A324B2BC1000370524 /* libresolv.tbd */; };
 		077E31A624B2BC1700370524 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31A524B2BC1700370524 /* libz.tbd */; };
 		077E31A824B2BC4900370524 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31A724B2BC4900370524 /* SystemConfiguration.framework */; };
-		077E31AA24B2BC6800370524 /* yw_1222_0769.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 077E31A924B2BC6700370524 /* yw_1222_0769.jpg */; };
-		077E31AB24B2BC7300370524 /* yw_1222_0769.jpg in Sources */ = {isa = PBXBuildFile; fileRef = 077E31A924B2BC6700370524 /* yw_1222_0769.jpg */; };
 		077E31B124B2BE6D00370524 /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B024B2BE6D00370524 /* AliyunOSSiOS.framework */; };
 		077E31B724B2BEBF00370524 /* RPSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 077E31B224B2BEBF00370524 /* RPSDK.bundle */; };
 		077E31B824B2BEBF00370524 /* SGMain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B324B2BEBF00370524 /* SGMain.framework */; };
 		077E31B924B2BEBF00370524 /* RPSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B424B2BEBF00370524 /* RPSDK.framework */; };
 		077E31BA24B2BEBF00370524 /* SecurityGuardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B524B2BEBF00370524 /* SecurityGuardSDK.framework */; };
 		077E31BB24B2BEBF00370524 /* SGSecurityBody.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077E31B624B2BEBF00370524 /* SGSecurityBody.framework */; };
+		0780678624FE0D29003B3CC1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0780678524FE0D28003B3CC1 /* GoogleService-Info.plist */; };
+		0780678824FE277A003B3CC1 /* yw_1222_0769.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0780678724FE277A003B3CC1 /* yw_1222_0769.jpg */; };
 		07B8D36624D17A6D00B435A8 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B8D36524D17A6D00B435A8 /* NetworkExtension.framework */; };
 		08D88A41956B47DDE9623167 /* libPods-SmartHome-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B4B53A7B2A0F88A77D0F863 /* libPods-SmartHome-tvOS.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -74,7 +73,6 @@
 		075D6B2924CEE265004B6859 /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		075D6B2B24CEE265004B6859 /* libGoogleUtilities.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleUtilities.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		075D6B2D24CEE27E004B6859 /* libFirebaseCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		075D6B2F24CEE411004B6859 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		075D6B3224CFFBC0004B6859 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		077E318F24B2BB8500370524 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
 		077E319124B2BBBE00370524 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -83,7 +81,6 @@
 		077E31A324B2BC1000370524 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		077E31A524B2BC1700370524 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		077E31A724B2BC4900370524 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		077E31A924B2BC6700370524 /* yw_1222_0769.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222_0769.jpg; sourceTree = SOURCE_ROOT; };
 		077E31B024B2BE6D00370524 /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunOSSiOS.framework; sourceTree = SOURCE_ROOT; };
 		077E31B224B2BEBF00370524 /* RPSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RPSDK.bundle; sourceTree = SOURCE_ROOT; };
 		077E31B324B2BEBF00370524 /* SGMain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SGMain.framework; sourceTree = SOURCE_ROOT; };
@@ -91,6 +88,8 @@
 		077E31B524B2BEBF00370524 /* SecurityGuardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SecurityGuardSDK.framework; sourceTree = SOURCE_ROOT; };
 		077E31B624B2BEBF00370524 /* SGSecurityBody.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SGSecurityBody.framework; sourceTree = SOURCE_ROOT; };
 		077E31BC24B2C75300370524 /* SmartHome.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = SmartHome.entitlements; path = SmartHome/SmartHome.entitlements; sourceTree = "<group>"; };
+		0780678524FE0D28003B3CC1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0780678724FE277A003B3CC1 /* yw_1222_0769.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = yw_1222_0769.jpg; path = "../../../Downloads/阿里云认证SDK-IOS 2/yw_1222_0769.jpg"; sourceTree = "<group>"; };
 		07B8D36524D17A6D00B435A8 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		0D64DAA788BC325ED96C97F5 /* Pods-SmartHome-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartHome-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-SmartHome-tvOS/Pods-SmartHome-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* SmartHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,8 +218,8 @@
 		13B07FAE1A68108700A75B9A /* SmartHome */ = {
 			isa = PBXGroup;
 			children = (
+				0780678524FE0D28003B3CC1 /* GoogleService-Info.plist */,
 				488E10FA24D2A7C900B94446 /* OCNative */,
-				075D6B2F24CEE411004B6859 /* GoogleService-Info.plist */,
 				697CE42724B464ED00BED2FA /* Fonts */,
 				077E31BC24B2C75300370524 /* SmartHome.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -312,13 +311,13 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				0780678724FE277A003B3CC1 /* yw_1222_0769.jpg */,
 				077E31B224B2BEBF00370524 /* RPSDK.bundle */,
 				077E31B424B2BEBF00370524 /* RPSDK.framework */,
 				077E31B524B2BEBF00370524 /* SecurityGuardSDK.framework */,
 				077E31B324B2BEBF00370524 /* SGMain.framework */,
 				077E31B624B2BEBF00370524 /* SGSecurityBody.framework */,
 				077E31B024B2BE6D00370524 /* AliyunOSSiOS.framework */,
-				077E31A924B2BC6700370524 /* yw_1222_0769.jpg */,
 				13B07FAE1A68108700A75B9A /* SmartHome */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SmartHomeTests */,
@@ -508,9 +507,9 @@
 			files = (
 				077E31B724B2BEBF00370524 /* RPSDK.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				075D6B3024CEE411004B6859 /* GoogleService-Info.plist in Resources */,
+				0780678624FE0D29003B3CC1 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				077E31AA24B2BC6800370524 /* yw_1222_0769.jpg in Resources */,
+				0780678824FE277A003B3CC1 /* yw_1222_0769.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,7 +804,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				077E31AB24B2BC7300370524 /* yw_1222_0769.jpg in Sources */,
 				488E10FD24D2A7CA00B94446 /* WifiInfo.m in Sources */,
 				488E110524D2CE1D00B94446 /* RealPersonAuth.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
@@ -953,6 +951,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = WPSPASKNG4;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

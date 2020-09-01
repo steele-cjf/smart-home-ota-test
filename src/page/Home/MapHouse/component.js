@@ -158,7 +158,7 @@ function MapHouse(props) {
         >
         <MapView style={{ flex: 1 }}
           zoomLevel={10}
-          maxZoomLevel={18}
+          maxZoomLevel={10}
           minZoomLevel={2}
           locationEnabled
           rotateEnabled={false}
