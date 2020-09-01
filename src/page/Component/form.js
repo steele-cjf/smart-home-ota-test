@@ -130,6 +130,8 @@ export default function Form(props) {
                             buttonOuterColor={
                               option.value == obj[key] ? Theme.primary : Theme.tabIconDefault 
                             }
+                            buttonSize={12}
+                            //buttonOuterSize={12}
                             buttonWrapStyle={{marginLeft: 20}}
                           />
                           <RadioButtonLabel
@@ -138,6 +140,7 @@ export default function Form(props) {
                             onPress={value => {
                               setData(key, value);
                             }}
+                            labelStyle={{fontSize: 14, color: Theme.textDefault}}
                             labelHorizontal={true}
                           />
                         </RadioButton>
@@ -184,9 +187,9 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   radioForm: {
-    width: 80,
     position: 'absolute',
-    right: 92,
-    top: 10,
+    right: 24,
+    top: 17,
+
   },
 });
