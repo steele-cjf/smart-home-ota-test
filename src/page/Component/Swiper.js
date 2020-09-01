@@ -13,6 +13,9 @@ var styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderRadius: 10
+    },
+    dotStyle: {
+        width: 20,
     }
 })
 
@@ -22,7 +25,7 @@ export default (props) => {
         setItems(props.items)
     }, [props.items])
     return (
-        <Swiper style={styles.wrapper} autoplay={true} autoplayTimeout={1} loop={true} showsPagination={false}>
+        <Swiper style={styles.wrapper} autoplay={true} autoplayTimeout={3} loop={true} showsPagination={true} paginationStyle={styles.dotStyle}>
             {items && items.map((item) => {
                 return (
                     <View testID="Hello" style={styles.slide}>

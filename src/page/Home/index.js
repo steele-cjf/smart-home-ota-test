@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
+import { getAllData, getDictionaryMapping} from '../../store/login/index';
 import { getRecommandList } from '../../store/map/index';
-import { setHomeHouse } from '../../store/common/index'
+import { setHomeHouse, setCodeInfo, setDictionaryMappings} from '../../store/common/index'
 import { Button, ActionSheet, Root, Spinner } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
@@ -33,6 +34,8 @@ function HomePage(props) {
   // 可以理解为componentDidMount
   useFocusEffect(
     useCallback(() => {
+      storageDataDictionary();
+      storageMappingDictionary();
       props.getUserInfo(); // 获取个人信息
       initRemmcondList(); // 获取房源推荐
     }, [props.route])
@@ -85,6 +88,24 @@ function HomePage(props) {
     setLoadingStatus(false)
   }, [props.myHouseList])
 
+  // 数据字典
+  function storageDataDictionary() {
+    props.getAllData(res => {
+      let result = {};
+      res.data.forEach(item => {
+        result[item.name] = item.dictionaries;
+      });
+      props.setCodeInfo(result);
+      storage.set('code', result);
+    });
+  }
+
+  function storageMappingDictionary() {
+    props.getDictionaryMapping(res => {
+      props.setDictionaryMappings(res.data);
+      storage.set('dictionaryMappings', res.data);
+    });
+  }
 
   // 展示房源选择
   const showList = () => {
@@ -174,7 +195,7 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserInfo, getMyHouseList, getRecommandList, setHomeHouse }, dispatch);
+  return bindActionCreators({ getUserInfo, getMyHouseList, getRecommandList, setHomeHouse, setDictionaryMappings, setCodeInfo, getDictionaryMapping, getAllData }, dispatch);
 }
 export default connect(
   mapStateToProps,
@@ -196,7 +217,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#fff',
     marginBottom: 16,
-    fontSize: 48
+    fontSize: 24
   },
   SwiperBox: {
     marginBottom: 28,
