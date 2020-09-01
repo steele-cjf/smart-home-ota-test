@@ -15,40 +15,41 @@ export default AboutPage = (props) => {
   ];
 
   return(
-    <View style={styles.containerStyle}>
+    <View>
       <HeaderCommon
         options={{
         backTitle: '返回',
         title: '关于我们'
         }}
       />
-      <View style={styles.imageContainerStyle}>
-        <Image style={styles.imageStyle} />
+      <View style={styles.containerStyle}>
+        <View style={styles.imageContainerStyle}>
+          <Image style={styles.imageStyle} />
+        </View>
+        <Text style={[styles.textTitle, {color: Theme.textDefault, textAlign: 'center'}]}>房屋租赁v1.0</Text>
+        {
+          basicData.map((item, index) => { 
+            return (
+              <View>
+                <Text style={styles.textTitle}>{item.title}</Text>
+                <Text style={styles.textContent}>{item.content}</Text>
+              </View>
+            ); 
+          })
+        }
+        <View style={styles.imageContainerStyle}>
+          <Image style={[styles.imageStyle, {marginTop: 20, marginBottom: 2}]} />
+        </View>
+        <Text style={[styles.textTitle, {textAlign: 'center'}]}>公众号：fangwuzuling2020</Text>
       </View>
-      <Text style={[styles.textTitle, {color: Theme.textDefault, textAlign: 'center'}]}>房屋租赁v1.0</Text>
-      {
-        basicData.map((item, index) => { 
-          return (
-            <View>
-              <Text style={styles.textTitle}>{item.title}</Text>
-              <Text style={styles.textContent}>{item.content}</Text>
-            </View>
-          ); 
-        })
-      }
-      <View style={styles.imageContainerStyle}>
-        <Image style={[styles.imageStyle, {marginTop: 20, marginBottom: 2}]} />
-      </View>
-      <Text style={[styles.textTitle, {textAlign: 'center'}]}>公众号：fangwuzuling2020</Text>
     </View>
-
   );
 }
 
 
 const styles = StyleSheet.create({  
   containerStyle: {
-    flex: 1,
+    //flex: 1,
     paddingHorizontal: 16,
     backgroundColor: Theme.background,
   },
