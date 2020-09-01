@@ -25,7 +25,7 @@ export default function PublishHouse(props) {
   const [rentRequirements, setRentRequirements] = useState([]);
   const [houseTypeList, setHouseTypeList] = useState([]);
   const [houseDecorator, setHouseDecorator] = useState([]);
-  const [houseImages, setHouseImages] = useState([]);
+  const [houseImages, setHouseImages] = useState([{uri: ''}]);
   const [rooms, setRooms] = useState([]);
   const [selectedTypeValue, setSelectedTypeValue] = useState('');
   const [selectedDecoratorValue, setSelectedDecoratorValue] = useState('');
@@ -76,6 +76,7 @@ export default function PublishHouse(props) {
   const getDetail = (id) => {
     props.getPublishHouseDetail(id, res => {
       if (!res.code) {
+        console.log('publishDetail', res.data);
         const info = res.data;
         setTitle(info.title);
         setHouseRatePlan(info.houseRatePlan);
@@ -84,8 +85,14 @@ export default function PublishHouse(props) {
         setSelectedPros(props.codeInfo.house_item, 'houseItem', info.houseAmenity.items);
         setSelectedPros(props.codeInfo.house_spots, 'houseSpots', info.houseAddition.spots);
         setSelectedPros(props.codeInfo.rent_requirements, 'rentReq', info.houseAddition.requirements);
-        setHouseImages(info.houseAddition.images || []);
-
+        // setHouseImages(info.houseAddition.images || []);
+        const imgArr = info.houseAddition.images
+        let setArr = imgArr.map(item => {
+          return {uri: item}
+        })
+        let arr = setArr.concat([{uri: ''}]);
+        setHouseImages(arr);
+        console.log('img', houseImages);
         setSelectedTypeValue(props.dictionaryMappings.house_type[info.houseType])
         setSelectedDecoratorValue(props.dictionaryMappings.house_decorator[info.houseAmenity.decoration])
       } else {
@@ -219,19 +226,19 @@ export default function PublishHouse(props) {
     for (let c = 0; c < items.length; c++) {
       result.append('houseAmenity.items', items[c]);
     }
-    console.log('roomIds', roomIds);
     for (let c = 0; c < roomIds.length; c++) {
       result.append('roomIds', roomIds[c]);
     }
-    console.log('houseImages', houseImages);
-    for (let c = 0; c < houseImages.length; c++) {
-      result.append('houseAddition.images', houseImages[c]);
-    }
-    console.log('ids', roomIds);
 
+    let resultImg = Object.assign([], houseImages);
+    for (let c = 0; c < resultImg.length; c++) {
+      if (resultImg[resultImg.length - 1].uri === '') {
+        resultImg.splice(resultImg.length-1, 1);
+      }
+      result.append('houseAddition.houseImages', resultImg[c]);
+    }
     if (props.route.params.publishId) {
       result.append('id', publishId);
-      console.log('result1', result);
       props.updatePublishInfo(result, publishId, res => {
         console.log('resEdit', res);
         if (!res.code) {
@@ -257,16 +264,27 @@ export default function PublishHouse(props) {
 
   const objToFormData = (key, data, result) => {
     for (let d in data) {
-      console.log('hahah', data[d]);
       result.append(key + '.' + d, data[d] + '');
       console.log('reddd', result);
     }
   };
   const setImageForm = (key, obj) => {
-    let data = Object.assign([], houseImages);
+    console.log('test', obj);
+    let data = []
+    if (houseImages.length === key + 1 && houseImages.length < 9) {
+      houseImages.push({uri: ''})
+      data = Object.assign([], houseImages);
+    } else {
+      data = Object.assign([], houseImages);
+    }
     data[key] = obj;
     setHouseImages(data);
   };
+  const deleteImage = (index) => {
+    let data = Object.assign([], houseImages);
+    data.splice(index, 1);
+    setHouseImages(data);
+  }
   // 表单变化触发
   const setData = (key, value, type) => {
     if (type === 'houseRatePlan') {
@@ -283,7 +301,7 @@ export default function PublishHouse(props) {
     return value ? '' + value : value                  
   }
   return (
-    <View>
+    <View style={{flex: 1}}>
       <HeaderCommon
         options={{
           backTitle: '返回',
@@ -470,12 +488,18 @@ export default function PublishHouse(props) {
           style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             paddingTop: 16,
           }}>
-          <ImageUpload setImageForm={obj => setImageForm(0, obj)} />
-          <ImageUpload setImageForm={obj => setImageForm(1, obj)} />
-          <ImageUpload setImageForm={obj => setImageForm(2, obj)} />
+          {
+            houseImages.map((item, index) => {
+              return (
+                <ImageUpload imgUrl={item && item.uri || ''} handlerDelete={() => deleteImage(index)} setImageForm={obj => setImageForm(index, obj)} />
+              )
+            })
+          }
+          {/* <ImageUpload setImageForm={obj => setImageForm(0, obj)} />
+          <ImageUpload setImageForm={obj => setImageForm(1, obj)} /> */}
         </View>
         <Button
           full
