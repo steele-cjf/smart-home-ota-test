@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { openCamera, getScanResult } from '../../store/common/index';
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform, PermissionsAndroid } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { RNCamera } from 'react-native-camera';
 
@@ -14,12 +14,37 @@ function Camera(props) {
     const scanCode = (result) => {
         let { data } = result
         props.getScanResult(data, (res) => {
-            props.openCamera({ open: false, result: res })
+            hideScan(res)
         })
         return
     }
+    const hideScan = (res) => {
+        props.openCamera({ open: false, result: res })
+        setCamera({ open: false })
+    }
+
     useEffect(() => {
-        setCamera(props.cameraOpt)
+        if (props.cameraOpt && props.cameraOpt.open) {
+            if (Platform.OS === 'android') {
+                PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
+                    .then(res => {
+                        if (res !== 'granted') {
+                            showToast('相机权限没打开', '请在手机的“设置”选项中,允许访问您的摄像头和麦克风')
+                        }
+                        else setCamera(props.cameraOpt)
+                    });
+            } else {
+                if (cameraRef) {
+                    cameraRef.checkDeviceAuthorizationStatus()
+                        .then(access => {
+                            if (!access) {
+                                showToast('相机权限没打开', '请在iPhone的“设置-隐私”选项中,允许访问您的摄像头和麦克风')
+                            }
+                            else setCamera(props.cameraOpt)
+                        });
+                }
+            }
+        }
     }, [props.cameraOpt])
 
     return (
@@ -37,7 +62,7 @@ function Camera(props) {
                     title: 'Permission to use camera',
                     message: 'We need your permission to use your camera',
                     buttonPositive: 'Ok',
-                    buttonNegative: 'Cancel',
+                    buttonNegative: 'Cancel'
                 }}
                 onBarCodeRead={(result) => {
                     scanCode(result)
@@ -47,7 +72,7 @@ function Camera(props) {
                         size="small"
                         title="X"
                         rounded
-                        onPress={() => props.openCamera({ open: false })}
+                        onPress={() => hideScan(null)}
                         activeOpacity={0.7}
                         containerStyle={styles.cancelBtn}
                     />
