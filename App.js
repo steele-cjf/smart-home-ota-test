@@ -52,6 +52,7 @@ export default (props) => {
   }, []);
   useEffect(() => {
     console.log(appState);
+    NavigatorService.setContainer(navigatorRef.current)
   });
 
   return (

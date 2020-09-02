@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#527BDF',
     paddingHorizontal: 16,
-    paddingVertical: 48
+    paddingVertical: 35
   },
   title: {
     color: '#fff',
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   SwiperBox: {
-    marginBottom: 28,
+    marginBottom: 16,
     height: 150,
     borderRadius: 10
   },

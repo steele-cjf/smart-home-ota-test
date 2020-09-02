@@ -124,7 +124,7 @@ export default function StatusCard(props) {
             {/* 判断是房东还是租客 */}
             {(options && options.houseRole !== TENANT) && <View style={styles.bottomBox}>
                 <View style={styles.Leftcontent}>
-                    <Text style={styles.title}>{options.title || '--'}</Text>
+                    <Text style={styles.title} numberOfLines={1}>{options.title || '--'}</Text>
                     <Text style={styles.des} note>{options.desc || '--'}</Text>
                 </View>
                 <TouchableOpacity style={styles.RightContent} onPress={() => NavigatorService.navigate(AppRoute[options.route], {
@@ -173,12 +173,13 @@ const styles = StyleSheet.create({
         top: 3
     },
     bottomBox: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     title: {
         color: '#282828',
         fontSize: 16,
-        paddingVertical: 13
+        paddingBottom: 13
     },
     des: {
         color: '#7C7C7C',
