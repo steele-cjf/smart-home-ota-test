@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Keyboard, ScrollView, StyleSheet, AppState } from 'react-native';
+import { View, Keyboard, ScrollView, StyleSheet } from 'react-native';
 import { Text, Input, Button, CheckBox } from 'react-native-elements';
 import { Spinner } from 'native-base'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -13,21 +13,13 @@ import Theme from '../../style/colors';
 function LoginPage(props) {
   const [loading, setLoading] = useState(true);
   const handleAppStateChange = () => {
-    // console.log('props', NavigatorService.getCurrentRouteName())
     props.getUserInfo((res) => {
-      console.log(8888, res)
       setLoading(false)
       if (res.code == 0) {
         NavigatorService.navigate(AppRoute.HOME)
       }
     }); // 获取个人信息
   }
-  useEffect(() => {
-    AppState.addEventListener('change', handleAppStateChange);
-    return (() => {
-      AppState.removeEventListener('change', handleAppStateChange);
-    })
-  }, []);
   useEffect(() => {
     handleAppStateChange()
     return () => {
