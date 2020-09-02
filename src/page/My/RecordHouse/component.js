@@ -598,7 +598,7 @@ function RecordHouse(props) {
                   full
                   onPress={() => handlerAudit()}
                   style={{ borderRadius: 40, marginVertical: 36 }}>
-                  <Text>提交审核</Text>
+                  <Text>提交发布</Text>
                 </Button>
               </View>
             </ScrollView>
