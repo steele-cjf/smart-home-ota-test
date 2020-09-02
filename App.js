@@ -32,7 +32,7 @@ export default (props) => {
                 <Spinner color="#5C8BFF" />
               ) : ( */}
             <AppNavigator
-              initialRouteName={AppRoute.LOGIN}
+              initialRouteName={AppRoute.HOME}
             />
             {/* )
             } */}

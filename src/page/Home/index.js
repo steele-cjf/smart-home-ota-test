@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
-import { getAllData, getDictionaryMapping} from '../../store/login/index';
+import { getAllData, getDictionaryMapping } from '../../store/login/index';
 import { getRecommandList } from '../../store/map/index';
-import { setHomeHouse, setCodeInfo, setDictionaryMappings} from '../../store/common/index'
+import { setHomeHouse, setCodeInfo, setDictionaryMappings } from '../../store/common/index'
 import { Button, ActionSheet, Root, Spinner } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
@@ -28,16 +28,26 @@ function HomePage(props) {
   const [houseList, setHouseList] = useState({});
   const [selectHouse, setSelectHouse] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true)
+  const [loading, setLoading] = useState(true)
   const [actionSheet, setActionSheet] = useState(null);
   const [recommandList, setRecommandList] = useState(null);
-
+  const handleAppStateChange = () => {
+    props.getUserInfo((res) => {
+      setLoading(false)
+      if (res.code !== 0) {
+        NavigatorService.navigate(AppRoute.LOGIN)
+      } else {
+        storageDataDictionary();
+        storageMappingDictionary();
+        initRemmcondList(); // 获取房源推荐
+      }
+    }); // 获取个人信息
+  }
   // 可以理解为componentDidMount
   useFocusEffect(
     useCallback(() => {
-      storageDataDictionary();
-      storageMappingDictionary();
-      props.getUserInfo(); // 获取个人信息
-      initRemmcondList(); // 获取房源推荐
+      handleAppStateChange()
+
     }, [props.route])
   )
   const initRemmcondList = () => {
@@ -139,48 +149,50 @@ function HomePage(props) {
   }
   return (
     <Root>
-      <View style={styles.container}>
-        <Animated.ScrollView
-          style={{ flex: 1 }}
-          onScroll={
-            Animated.event(
-              [{
-                nativeEvent: { contentOffset: { y: scrollY } } // 记录滑动距离
-              }],
-              { useNativeDriver: true }) // 使用原生动画驱动
-          }
-          scrollEventThrottle={1}
-        >
-          <View style={styles.header}>
-            <Text style={styles.title}>首页</Text>
-            <View style={styles.SwiperBox} >
-              <Swiper items={imgList} />
-            </View>
-            {
-              loadingStatus ?
-                <Spinner></Spinner> :
-                <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
+      {loading ? (<Spinner></Spinner>) :
+        <View style={styles.container}>
+          <Animated.ScrollView
+            style={{ flex: 1 }}
+            onScroll={
+              Animated.event(
+                [{
+                  nativeEvent: { contentOffset: { y: scrollY } } // 记录滑动距离
+                }],
+                { useNativeDriver: true }) // 使用原生动画驱动
             }
-          </View>
-          <ActionSheet ref={(c) => { setActionSheet(c) }} />
-          <StickyHeader
-            stickyHeaderY={headHeight} // 把头部高度传入
-            stickyScrollY={scrollY}  // 把滑动距离传入
+            scrollEventThrottle={1}
           >
-            <View style={styles.listContent}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Text style={styles.listTitle}>房源推荐</Text>
-                <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
-                  <Text style={{ color: Theme.textLink }} >查看更多</Text>
-                </Button>
+            <View style={styles.header}>
+              <Text style={styles.title}>首页</Text>
+              <View style={styles.SwiperBox} >
+                <Swiper items={imgList} />
               </View>
+              {
+                loadingStatus ?
+                  <Spinner></Spinner> :
+                  <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
+              }
             </View>
-          </StickyHeader>
-          <View style={{ top: -30 }}>
-            <HouseListComponent list={recommandList} />
-          </View>
-        </Animated.ScrollView>
-      </View>
+            <ActionSheet ref={(c) => { setActionSheet(c) }} />
+            <StickyHeader
+              stickyHeaderY={headHeight} // 把头部高度传入
+              stickyScrollY={scrollY}  // 把滑动距离传入
+            >
+              <View style={styles.listContent}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Text style={styles.listTitle}>房源推荐</Text>
+                  <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
+                    <Text style={{ color: Theme.textLink }} >查看更多</Text>
+                  </Button>
+                </View>
+              </View>
+            </StickyHeader>
+            <View style={{ top: -30 }}>
+              <HouseListComponent list={recommandList} />
+            </View>
+          </Animated.ScrollView>
+        </View>
+      }
     </Root>
   );
 }
