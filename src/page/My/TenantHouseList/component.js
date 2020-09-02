@@ -48,7 +48,6 @@ function TenantHouseList(props) {
             roomNames: item.roomNames
           });
         }
-        console.log('buttonIndex', buttonIndex);
       },
     );
   };

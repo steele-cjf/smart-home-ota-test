@@ -14,7 +14,6 @@ export function getSearchSummaries(data, callback) {
   }
   export function getMarkerList(data, callback) {
     let url = setUrlParams('/publish/search', data)
-    console.log('********', url)
     return $get(url, {
       actionType: 'MARKER_LIST',
       successConfig: {

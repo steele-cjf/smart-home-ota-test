@@ -30,8 +30,9 @@ export default (props) => {
   // test appState
   const [appState, setAppState] = useState(AppState.currentState);
   const handleAppStateChange = (state) => {
-    setAppState(state);
-    console.log('appState', appState);
+    // setAppState(state);
+    console.log('appState******************', appState, state, props);
+    return
       setLoading(true);
       (async () => {
         const info = await storage.get('info');
@@ -51,7 +52,6 @@ export default (props) => {
     })
   }, []);
   useEffect(() => {
-    console.log(appState);
     NavigatorService.setContainer(navigatorRef.current)
   });
 
