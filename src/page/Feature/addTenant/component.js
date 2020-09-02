@@ -107,7 +107,6 @@ export default function AddTenant(props) {
     }
   }
   const requestCalBack = (res) => {
-    console.log(888, res)
     if (!res.code) {
       showToast('添加成功')
       NavigatorService.goBack();

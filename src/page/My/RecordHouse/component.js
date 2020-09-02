@@ -52,7 +52,6 @@ function RecordHouse(props) {
       setLoading(true);
       setHouseId(params.id);
       storage.get('dictionaryMappings').then(res => {
-        console.log('kkk', res);
         getDetail(res, params.id);
       });
     }
@@ -60,7 +59,6 @@ function RecordHouse(props) {
 
   const getDetail = useCallback((obj, id) => {
     props.getHouseDetail(id, res => {
-      console.log('hahah', res);
       if (!res.code) {
         setLoading(false)
         if (res.data) {

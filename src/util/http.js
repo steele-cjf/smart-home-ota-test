@@ -42,7 +42,6 @@ export const httpService = (url, config) => {
     ) {
       config.body = config.body && JSON.stringify(config.body);
     }
-    console.log(config.headers.Authorization, url, 'token');
     return fetch(appApi + url, config)
       .then(response => response.json())
       .then(response => {
@@ -102,7 +101,6 @@ function fetchGetImage(method, url, callback, isAbsolute) {
       })
       .then((res) => {
         // the temp file path
-        console.log('The file saved to ', res.path())
         callback({
           uri: 'file://' + res.path(),
           name: 'upload.jpg',

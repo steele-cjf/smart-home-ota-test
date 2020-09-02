@@ -24,7 +24,7 @@ function LoactionMap(props) {
         return result
     }
     return (
-        <MapView style={{ flex: 1 }} zoomLevel={2} center={{
+        <MapView style={{ flex: 1 }} zoomLevel={10} rotateEnabled={false} center={{
             latitude: center.latitude || 0,
             longitude: center.longitude || 0
         }}>
