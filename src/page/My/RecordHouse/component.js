@@ -66,6 +66,7 @@ function RecordHouse(props) {
           let initAddress = info.address.split(info.formattedAddress)
           setAddress(initAddress[1] || initAddress[0]);
           setHouseHolder(info.houseHolder);
+          console.log('houseHolder123', houseHolder);
           setHouseLayout(info.houseLayout);
           setCertificateFilesImg(info.houseHolder.certificateFileUrls || []);
           setRegionId(info.regionId);
@@ -120,7 +121,6 @@ function RecordHouse(props) {
 
   const handlerAudit = () => {
     let result = new FormData();
-    console.log('result', result, houseHolder, houseLayout);
     objToFormData('houseHolder', houseHolder, result);
     objToFormData('houseLayout', houseLayout, result);
     // 是否有电梯 hasElevator
@@ -150,7 +150,9 @@ function RecordHouse(props) {
     result.append('address', regionName + address);
 
     if (houseId) {
+      console.log('houseHolder', houseHolder);
       result.append('id', houseId);
+      console.log('houseLayout.id', result)
       props.updateHouse(houseId, result, res => {
         console.log('update', res);
         if (!res.code) {
@@ -219,7 +221,7 @@ function RecordHouse(props) {
   const handleSetValue = (index, type) => {
     switch (type) {
       case 'self':
-        setHouseHolder({ self: selfList[index].value });
+        setHouseHolder({...houseHolder, ...{ self: selfList[index].value }});
         setSelectedSelfValue(selfList[index].text);
         break;
       case 'direction':
