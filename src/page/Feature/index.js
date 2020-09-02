@@ -48,7 +48,6 @@ function FeaturePage(props) {
     setHasHouse(hasHouse)
   }, [props.myHouseList])
   const renderSpinner = () => {
-    console.log('******', props.userInfo, hasHouse)
     if (!user) {
       // let { status } = props.userInfo.data
       return (

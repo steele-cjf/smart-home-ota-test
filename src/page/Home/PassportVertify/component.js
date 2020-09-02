@@ -41,7 +41,7 @@ export default function PassportVertifyPage(props) {
 
         setLoading(true);
         props.getManualAuditInfo(uId, res => {
-            console.log('*******AuditInfo:*******', res);
+            // console.log('*******AuditInfo:*******', res);
             setLoading(false);
           
             if (!res.code) {

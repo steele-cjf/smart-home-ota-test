@@ -33,34 +33,39 @@ export const formatURL = (url, params) => {
 // 请求参数
 export const httpService = (url, config) => {
   return dispatch => {
-    config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
-    config = Object.assign({}, DEFAULT_CONFIG, config);
-    if (
-      config.body &&
-      config.headers &&
-      config.headers['Content-Type'] === 'application/json'
-    ) {
-      config.body = config.body && JSON.stringify(config.body);
-    }
-    return fetch(appApi + url, config)
-      .then(response => response.json())
-      .then(response => {
-        if (config.actionType) {
-          dispatch({
-            type: config.actionType,
-            [config.actionDataKey]: response,
-          });
-        }
-        if (config.successConfig && config.successConfig.callback) {
-          config.successConfig.callback(response);
-        }
-      })
-      .catch(error => {
-        showToast('请求出错，请联系管理员')
-        console.log('error', error);
-      });
+    (async () => {
+      let token = await storage.get('token')
+      console.log('token', token)
+      DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + token;
+      config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
+      config = Object.assign({}, DEFAULT_CONFIG, config);
+      if (
+        config.body &&
+        config.headers &&
+        config.headers['Content-Type'] === 'application/json'
+      ) {
+        config.body = config.body && JSON.stringify(config.body);
+      }
+      return fetch(appApi + url, config)
+        .then(response => response.json())
+        .then(response => {
+          if (config.actionType) {
+            dispatch({
+              type: config.actionType,
+              [config.actionDataKey]: response,
+            });
+          }
+          if (config.successConfig && config.successConfig.callback) {
+            config.successConfig.callback(response);
+          }
+        })
+        .catch(error => {
+          showToast('请求出错，请联系管理员')
+          console.log('error', error);
+        });
+    })();
   };
-};
+}
 
 export const get = (url, config) => {
   config.method = 'GET';

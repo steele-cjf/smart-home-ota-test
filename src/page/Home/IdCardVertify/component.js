@@ -41,14 +41,14 @@ export default function IdCardVertifyPage(props) {
     const {params} = props.route;
     if (params && params.userId) {
       uId= params.userId;
-      console.log('*************');
+      // console.log('*************');
     }
 
     props.getManualAuditInfo(uId, res => {
       setLoading(false);
 
       if (!res.code) {
-        console.log('*************res:', res);
+        // console.log('*************res:', res);
         if (!(res.data)
           || (res.data.identificationType !== 'id_card')) { 
           return;
