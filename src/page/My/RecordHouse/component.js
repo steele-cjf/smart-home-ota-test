@@ -403,6 +403,7 @@ function RecordHouse(props) {
                       建筑面积
                   </Label>
                     <Input
+                      keyboardType="numeric"
                       value={
                         houseLayout.area
                           ? '' + houseLayout.area
@@ -442,6 +443,7 @@ function RecordHouse(props) {
                         共
                     </Text>
                       <Input
+                        keyboardType="numeric"
                         value={
                           houseLayout.floorCount
                             ? '' + houseLayout.floorCount
@@ -464,6 +466,7 @@ function RecordHouse(props) {
                         层 / 第
                     </Text>
                       <Input
+                        keyboardType="numeric"
                         value={
                           houseLayout.floor
                             ? '' + houseLayout.floor
@@ -511,6 +514,7 @@ function RecordHouse(props) {
                       户型
                   </Label>
                     <Input
+                      keyboardType="numeric"
                       value={
                         houseLayout.roomCount
                           ? '' + houseLayout.roomCount
@@ -529,6 +533,7 @@ function RecordHouse(props) {
                       室
                   </Text>
                     <Input
+                      keyboardType="numeric"
                       value={
                         houseLayout.hallCount
                           ? '' + houseLayout.hallCount
@@ -543,6 +548,7 @@ function RecordHouse(props) {
                       厅
                   </Text>
                     <Input
+                      keyboardType="numeric"
                       value={
                         houseLayout.toiletCount
                           ? '' + houseLayout.toiletCount

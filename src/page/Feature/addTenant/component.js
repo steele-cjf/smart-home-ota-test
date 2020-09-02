@@ -98,6 +98,7 @@ export default function AddTenant(props) {
           name,
           tenantUserId
         }
+        console.log('addResult', result);
         props.addFamilyForm(result, (res) => requestCalBack(res))
       } else {
         result = {
