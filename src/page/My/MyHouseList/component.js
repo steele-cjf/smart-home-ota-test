@@ -41,7 +41,7 @@ function MyHouseList(props) {
   }, []);
   const init = useCallback(() => {
     props.getHouseListByHolder({ pageNum: 1, pageSize: 100 }, res => {
-      console.log('refresh');
+      console.log('refresh', res.data.list);
       if (!res.code) {
         if (res.data) {
           setHouseList(res.data.list);

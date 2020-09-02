@@ -169,7 +169,7 @@ function MyPage(props) {
                   full
                   rounded
                   onPress={() => logoutSubmit()}
-                  style={{ borderColor: '#7C7C7C', marginTop: 30 }}>
+                  style={{ borderColor: '#7C7C7C', marginVertical: 20, height: 40 }}>
                   <Text style={{ color: '#7C7C7C', fontSize: 16 }}>退出登录</Text>
                 </Button>
               </View>
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
+    flex: 1,
     backgroundColor: '#527BDF',
   },
   headerContent: {
@@ -196,6 +197,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   myContent: {
+    flex: 1,
     backgroundColor: '#fff',
     height: parseInt(screenHeight * 0.75),
     borderTopLeftRadius: 22,

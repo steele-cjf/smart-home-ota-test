@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         top: 10
     },
     activeBtn: {
-        color: '#527BDF'
+        color: '#E7263E'
     },
     secondDes: {
         color: '#282828',
