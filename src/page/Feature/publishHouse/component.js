@@ -355,9 +355,10 @@ export default function PublishHouse(props) {
                 checkItem={(item, i) => changeRooms(item, i)}
               />
             ) : (
-              <Text style={{color: 'red', fontSize: 14}}>
-                当前类型不可选, 请先添加房间
-              </Text>
+              <View style={[styles.topViewFail]}>
+                <Text style={styles.topTextStyle1}>对不起，您尚未添加合租房间</Text>
+                <Text style={styles.topTextStyle2}>请设置完毕合租房间后，再添加合租住户</Text>
+              </View> 
             )
           ) : (
             <Text />
@@ -417,6 +418,7 @@ export default function PublishHouse(props) {
             <Label style={[styles.labelTitle, styles.defaultSize]}>房租</Label>
             <Input
               value={checkInputValue(houseRatePlan.rentPrice)}
+              keyboardType="numeric"
               onChange={e => {
                 setData('rentPrice', e.nativeEvent.text, 'houseRatePlan');
               }}
@@ -429,6 +431,7 @@ export default function PublishHouse(props) {
             <View style={{flexDirection: 'row', alignItems: 'center', flex: 2}}>
               <Text style={[styles.labelTitle, styles.defaultSize]}>押</Text>
               <Input
+                keyboardType="numeric"
                 value={checkInputValue(houseRatePlan.deposit)}
                 onChange={e => {
                   setData('deposit', e.nativeEvent.text, 'houseRatePlan');
@@ -439,6 +442,7 @@ export default function PublishHouse(props) {
               <Text style={{color: '#E9E9E9'}}> | </Text>
               <Text style={[styles.labelTitle, styles.defaultSize]}>付</Text>
               <Input
+                keyboardType="numeric"
                 value={checkInputValue(houseRatePlan.payment)}
                 onChange={e => {
                   setData('payment', e.nativeEvent.text, 'houseRatePlan');
@@ -563,5 +567,20 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  topViewFail: {
+    height: 70, 
+    padding: 12,
+    borderRadius: 4,
+    backgroundColor: '#FFECEC',
+  },
+  topTextStyle1: {
+    fontSize: 16,
+    color: Theme.textDefault,
+  },
+  topTextStyle2: {
+    fontSize: 14,
+    color: Theme.textSecondary,
+    marginTop: 10,
   },
 });

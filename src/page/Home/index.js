@@ -168,7 +168,7 @@ function HomePage(props) {
             stickyScrollY={scrollY}  // 把滑动距离传入
           >
             <View style={styles.listContent}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Text style={styles.listTitle}>房源推荐</Text>
                 <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
                   <Text style={{ color: Theme.textLink }} >查看更多</Text>
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     padding: 16,
     top: -20,
-    paddingTop: 25,
+    // paddingTop: 25,
     flex: 1,
     flexDirection: 'column'
   },
@@ -239,8 +239,8 @@ const styles = StyleSheet.create({
     color: '#282828'
   },
   listMore: {
-    position: 'absolute',
-    right: 0,
-    top: -10
+    // position: 'absolute',
+    // right: 0,
+    // top: -10
   }
 });

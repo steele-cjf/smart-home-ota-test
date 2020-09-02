@@ -81,12 +81,16 @@ const PersonalInfoPage = (props) => {
 
   function dealDataRefresh(data) { 
     var sex = props.dictionaryMappings.gender[data.gender];
-    
+    var strNum = data.identificationNo;
+    if (strNum && strNum.length > 5) {
+      strNum = strNum.substr(0, 3) + "*************" + strNum.substr(strNum.length-2, 2)
+    }
+
     const actualBasicData = [
       {title: "真实姓名", content: data.name},
       {title: "性别", content: sex},
       {title: "出生日期", content: data.birthDate},
-      {title: "证件号", content: data.identificationNo},
+      {title: "证件号", content: strNum},
       {title: "手机号码", content: data.mobile},
     ];
 
@@ -107,6 +111,7 @@ const PersonalInfoPage = (props) => {
   //请求保存数据
   function saveOtherDataInfo() {
     var result = new FormData();
+
     if (otherData['教育程度']) {
       result.append('educationLevel', otherData['教育程度']);
     }
@@ -119,7 +124,13 @@ const PersonalInfoPage = (props) => {
     if (imageObj) {
       result.append('avatarImage', imageObj);
     }
-  
+
+    if (!otherData['教育程度'] && !otherData['所在区域'] 
+    && !otherData['详细地址'] && !imageObj) {
+      //showToast("未提交任何信息");
+      return;
+    }
+
     console.log('传入avatarImage: **:  ', imageObj);
     console.log('传入result: **:  ', result);
 
