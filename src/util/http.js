@@ -2,6 +2,7 @@ import { stringify } from 'query-string';
 import { appApi, ip } from '../config';
 import RNFetchBlob from 'rn-fetch-blob'
 import storage from './storage';
+import { AppRoute } from '../navigator/AppRoutes'
 // 默认配置
 export const DEFAULT_CONFIG = {
   method: 'GET',
@@ -49,6 +50,10 @@ export const httpService = (url, config) => {
       return fetch(appApi + url, config)
         .then(response => response.json())
         .then(response => {
+          console.log(response.code)
+          if (response.code == 401 || (response.error && response.error == "invalid_token")) {
+            NavigatorService.navigate(AppRoute.LOGIN)
+          }
           if (config.actionType) {
             dispatch({
               type: config.actionType,

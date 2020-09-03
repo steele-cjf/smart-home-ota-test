@@ -89,7 +89,6 @@ function LoginPage(props) {
       verifyCode: verifyCode,
     };
     props.handleLogin(data, res => {
-      console.log('login', data);
       if (!res.code) {
         (async () => {
           await storage.set('token', res.data.accessToken);
