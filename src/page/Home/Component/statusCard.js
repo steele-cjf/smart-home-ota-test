@@ -128,7 +128,8 @@ export default function StatusCard(props) {
                     <Text style={styles.des} note>{options.desc || '--'}</Text>
                 </View>
                 <TouchableOpacity style={styles.RightContent} onPress={() => NavigatorService.navigate(AppRoute[options.route], {
-                    id: options.id || undefined
+                    id: options.id || undefined,
+                    role: options.houseRole || undefined,
                 })}>
                     <AntDesign name={options.iconName} style={styles.iconBox} />
                     <Text style={{ color: Theme.primary }}>{options.btnDesc || '--'}</Text>
