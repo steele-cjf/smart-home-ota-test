@@ -21,6 +21,7 @@ export const FeatureStackComponent = () => {
   return (
     <FeatureStack.Navigator
       screenOptions={{
+        animationEnabled: Platform.OS === 'android' ?  false : true,
         cardStyle: {
           fontSize: $screen.scaleSize(16),
           backgroundColor: '#fff',

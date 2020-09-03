@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomePage from '../page/Home/index';
 import Agreement from '../page/Login/Agreement';
 import AuthenticationPage from '../page/Home/AuthenticationPage';
@@ -17,8 +17,8 @@ import PublishHouseDetail from '../page/Home/PublishHouseDetail';
 import HouseDetail from '../page/Feature/HouseDetail';
 import MyPublishHouse from '../page/My/MyPublishHouse';
 import PublishHouse from '../page/Feature/publishHouse';
-
-import {AppRoute} from './AppRoutes';
+import { Platform } from 'react-native'
+import { AppRoute } from './AppRoutes';
 import { houseDetail } from '../store/house';
 
 const HomeStack = createStackNavigator();
@@ -27,6 +27,7 @@ export const HomeStackComponent = () => {
   return (
     <HomeStack.Navigator
       screenOptions={{
+        animationEnabled: Platform.OS === 'android' ? false : true,
         cardStyle: {
           fontSize: $screen.scaleSize(16),
           backgroundColor: '#fff',

@@ -50,7 +50,7 @@ export const httpService = (url, config) => {
       return fetch(appApi + url, config)
         .then(response => response.json())
         .then(response => {
-          console.log(response.code)
+          console.log(response, 'response')
           if (response.code == 401 || (response.error && response.error == "invalid_token")) {
             NavigatorService.navigate(AppRoute.LOGIN)
           }

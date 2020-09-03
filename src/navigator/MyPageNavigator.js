@@ -22,19 +22,18 @@ import TenantList from '../page/Feature/TenantList';
 import AddTenant from '../page/Feature/addTenant';
 import HouseCollectionList from '../page/My/HouseCollectionList'
 import PublishHouseDetail from '../page/Home/PublishHouseDetail';
-import { Text } from 'react-native'
 import { AppRoute } from './AppRoutes';
 
 const MyPageNavigator = createStackNavigator();
-
 export const MyPageStackComponent = () => {
   return (
     <MyPageNavigator.Navigator
       screenOptions={{
+        animationEnabled: Platform.OS === 'android' ?  false : true,
         cardStyle: {
           fontSize: $screen.scaleSize(16),
           backgroundColor: '#fff',
-        },
+        }
       }}>
       <MyPageNavigator.Screen
         name={AppRoute.MY}
@@ -75,8 +74,7 @@ export const MyPageStackComponent = () => {
         name={AppRoute.MYQRCODE}
         component={MyQRCode}
         options={{
-          headerTitle: props => <Text>aaaaa</Text>
-          // headerShown: false,
+          headerShown: false
         }}
       />
       <MyPageNavigator.Screen

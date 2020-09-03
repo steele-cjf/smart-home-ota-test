@@ -1,8 +1,4 @@
-import {
-  Platform,
-  Dimensions,
-  PixelRatio
-} from 'react-native';
+import { Dimensions } from 'react-native';
 import { IS_IOS } from '../config';
 
 export const safeAreaViewTop = 44;
@@ -13,12 +9,9 @@ const { width, height } = Dimensions.get('window');
 const screenHeight = width < height ? height : width;
 const screenWidth = width < height ? width : height;
 
-
-
 // 设计图适配的标准
 const X_WIDTH = 414;
 const X_HEIGHT = 896;
-
 
 // screen 屏幕宽度
 export const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -38,6 +31,7 @@ export function scaleSize(size) {
   size = Math.round((size * scale + 0.5));
   return size;
 }
+
 export const screen = {
   height: screenHeight,
   width: screenWidth,
