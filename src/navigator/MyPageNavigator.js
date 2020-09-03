@@ -82,12 +82,10 @@ export const MyPageStackComponent = () => {
         name={AppRoute.VERDETAILS}
         component={VertifyDetailsPage}
         options={{
-          title: '实名详情',
-          headerBackTitle: '返回',
           headerShown: false,
         }}
       />
-       <MyPageNavigator.Screen
+      <MyPageNavigator.Screen
         name={AppRoute.USERPASSED}
         component={UserPassedPage}
         options={{
