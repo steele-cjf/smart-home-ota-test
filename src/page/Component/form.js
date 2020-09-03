@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, TextInput} from 'react-native';
 //import {Input, Text} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import Picker from 'react-native-picker';
 import RadioForm, {
   RadioButton,
   RadioButtonInput,
@@ -19,14 +20,29 @@ export default function Form(props) {
     setObj(props.oldData)
   }, [props.oldData]);
 
-  const showPicker = key => {
-    console.log(111, key);
-    // let cache = Object.assign({}, isDatePickerVisible);
-    // cache[key] = true;
-    // setDatePickerVisibility(cache);
+  function pickerAction(data) {   
+    Picker.init({
+      pickerTitleText: '选择民族',
+      pickerCancelBtnText: "取消",
+      pickerConfirmBtnText: "确定",
+      pickerCancelBtnColor: [124, 124, 124, 1],
+      pickerConfirmBtnColor: [82, 123, 223, 1],
+      pickerData: data.selectOptions,
+      selectedValue:  ['汉族'],
+      onPickerCancel: item => {
+        console.log(item);
+      },
+      onPickerConfirm: item => {
+        setData(data.key, item[0]);
+      },
+      onPickerSelect: item => {
+        //console.log(item);
+      }
+    });
+    Picker.show();
+  }
 
-    
-  };
+ 
 
   // 展示date时触发
   const showDatePicker = key => {
@@ -125,25 +141,11 @@ export default function Form(props) {
                     editable={false}
                     value={obj[key]}
                     onTouchStart={() => {
-                      showPicker(key);
+                      pickerAction(data);
                     }}
                     placeholder={placeholder}
                     placeholderTextColor={Theme.textMuted} 
                   />
-                  {/* <DateTimePickerModal
-                    isVisible={isDatePickerVisible[key] || false}
-                    mode="date"
-                    headerTextIOS={'选择日期'}
-                    cancelTextIOS={'取消'}
-                    confirmTextIOS={'确定'}
-                    locale="zh-Hans"   //en_GB
-                    onConfirm={date => {
-                      handleConfirm(date, key);
-                    }}
-                    onCancel={() => {
-                      hideDatePicker(key);
-                    }}
-                  /> */}
                 </View>
               );
             case 'RADIO':

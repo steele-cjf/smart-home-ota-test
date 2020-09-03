@@ -70,7 +70,6 @@ const PersonalInfoPage = (props) => {
         console.log(item);
         let data = Object.assign({}, otherData);
         data["教育程度"] = item[0];
-        console.log(111, data);
         setOtherData(data);
       },
       onPickerSelect: item => {
@@ -242,10 +241,7 @@ const PersonalInfoPage = (props) => {
               return (
                 <TouchableOpacity style={styles.sigContainer} onPress={pickerAction}>
                   <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
-                  <TextInput style={[styles.textContent,styles.rightInput]} 
-                    value={otherData[item]}
-                    editable={false}
-                  />
+                  <Text style={[styles.textContent,styles.rightInput]}>{otherData[item]}</Text>
                   <AntDesign name="right" style={styles.rightArrow} />
                 </TouchableOpacity>
               ); 
@@ -326,10 +322,11 @@ const styles = StyleSheet.create({
   rightArrow: {
     position: 'absolute', 
     right: -3, 
-    top: 17,
+    top: 18,
     fontSize: 14, 
     color: Theme.textSecondary, 
     textAlign: 'right',
+    //backgroundColor: 'red'
   },
   btnStyle: {
     position: 'absolute',
