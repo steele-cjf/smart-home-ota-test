@@ -19,6 +19,15 @@ export default function Form(props) {
     setObj(props.oldData)
   }, [props.oldData]);
 
+  const showPicker = key => {
+    console.log(111, key);
+    // let cache = Object.assign({}, isDatePickerVisible);
+    // cache[key] = true;
+    // setDatePickerVisibility(cache);
+
+    
+  };
+
   // 展示date时触发
   const showDatePicker = key => {
     let cache = Object.assign({}, isDatePickerVisible);
@@ -82,7 +91,8 @@ export default function Form(props) {
                   <Text style={styles.label}>{name}</Text>
                   <AntDesign name="right" style={styles.rightArrow} />
                   <TextInput style={styles.input}
-                    disabled
+                    //disabled
+                    editable={false}
                     value={obj[key]}
                     onTouchStart={() => {
                       showDatePicker(key);
@@ -104,6 +114,36 @@ export default function Form(props) {
                       hideDatePicker(key);
                     }}
                   />
+                </View>
+              );
+            case 'PICKER':
+              return (
+                <View style={styles.inputContainer} key={index}>
+                  <Text style={styles.label}>{name}</Text>
+                  <AntDesign name="right" style={styles.rightArrow} />
+                  <TextInput style={styles.input}
+                    editable={false}
+                    value={obj[key]}
+                    onTouchStart={() => {
+                      showPicker(key);
+                    }}
+                    placeholder={placeholder}
+                    placeholderTextColor={Theme.textMuted} 
+                  />
+                  {/* <DateTimePickerModal
+                    isVisible={isDatePickerVisible[key] || false}
+                    mode="date"
+                    headerTextIOS={'选择日期'}
+                    cancelTextIOS={'取消'}
+                    confirmTextIOS={'确定'}
+                    locale="zh-Hans"   //en_GB
+                    onConfirm={date => {
+                      handleConfirm(date, key);
+                    }}
+                    onCancel={() => {
+                      hideDatePicker(key);
+                    }}
+                  /> */}
                 </View>
               );
             case 'RADIO':

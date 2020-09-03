@@ -27,7 +27,7 @@ const status_cf = {
         desc: '更多操作需要认证完成才可以进行',
         iconName: 'idcard',
         btnDesc: '重新提交',
-        route: 'AUTHENTICATION'
+        route: 'VERDETAILS'
     },
     'audit_pass': {
         title: '您还没添加登记房源，请尽快登记!',
