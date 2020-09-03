@@ -509,7 +509,7 @@ export default function PublishHouse(props) {
           full
           onPress={handlerPublish}
           style={{borderRadius: 40, marginVertical: 36}}>
-          <Text>提交审核</Text>
+          <Text>提交发布</Text>
         </Button>
       </View>
     </ScrollView>

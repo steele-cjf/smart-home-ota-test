@@ -2,13 +2,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet, FlatList, Text, Image } from 'react-native';
 import {
-  Header,
-  Left,
-  Right,
-  Body,
-  Icon,
-  Button,
-  Title,
   Root,
   Spinner,
   ActionSheet,
@@ -138,7 +131,7 @@ function MyPublishList(props) {
               backgroundColor: '#ccc',
               marginRight: 16,
             }}
-            source={{ uri: item.imgUrl }}
+            source={{ uri: item.imgUrl || '' }}
           />
         </View>
         <View style={styles.rightContainer}>

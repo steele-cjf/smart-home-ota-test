@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   label_style: {
-    width: 82,
+    width: 75,
     height: 32,
     textAlign: 'center',
     lineHeight: 32,
