@@ -36,6 +36,7 @@
     "react-native-image-zoom-viewer": "^3.0.1",
     "react-native-modal-datetime-picker": "^8.7.1",
     "react-native-network-info": "^5.2.1",
+    "react-native-picker": "^4.3.7",
     "react-native-push-notification": "^5.0.1",
     "react-native-reanimated": "^1.9.0",
     "react-native-root-toast": "^3.1.2",

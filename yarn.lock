@@ -5404,6 +5404,11 @@ react-native-network-info@^5.2.1:
   resolved "https://registry.npm.taobao.org/react-native-network-info/download/react-native-network-info-5.2.1.tgz#b701f10d4ed1aeadcfe77b197328d1ae846f6d3a"
   integrity sha1-twHxDU7Rrq3P53sZcyjRroRvbTo=
 
+react-native-picker@^4.3.7:
+  version "4.3.7"
+  resolved "https://registry.yarnpkg.com/react-native-picker/-/react-native-picker-4.3.7.tgz#9842e8c62ff0d8b676e9514d9f9172413c0518a8"
+  integrity sha1-mELoxi/w2LZ26VFNn5FyQTwFGKg=
+
 react-native-push-notification@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npm.taobao.org/react-native-push-notification/download/react-native-push-notification-5.0.1.tgz#d7d563c8ed7e56335b311702a93aa6f4a9ced97a"

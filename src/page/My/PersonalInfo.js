@@ -3,6 +3,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { Spinner } from 'native-base'
 import ImagePicker from 'react-native-image-picker';
+import Picker from 'react-native-picker';
 import Theme from '../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';  
 import HeaderCommon from '../Component/HeaderCommon'
@@ -16,39 +17,61 @@ import {modifyPersonalInfo} from '../../store/user/index';
 const PersonalInfoPage = (props) => {     
   
   function imagePickerAction() {
-    var options = {
-      title:'请选择',
-      cancelButtonTitle:'取消',
-      takePhotoButtonTitle:'拍照',
-      chooseFromLibraryButtonTitle:'选择相册',
-      // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-      quality:0.75,
-      allowsEditing:true,
-      noData:false,
-      storageOptions: {
-          skipBackup: true,
-          path:'images'
-      }
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        setHeadImage({uri: response.uri});
-
-        let imageObj = {
-          uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
-          name: response.fileName || 'upload.jpg',
-          type: response.type,
-        };
-        setImageObj(imageObj);
-      }
+    //test
+    let data = [];
+    for(var i=0;i<100;i++){
+        data.push(i);
+    }
+    
+    Picker.init({
+        pickerData: data,
+        selectedValue: [59],
+        onPickerConfirm: data => {
+            console.log(data);
+        },
+        onPickerCancel: data => {
+            console.log(data);
+        },
+        onPickerSelect: data => {
+            console.log(data);
+        }
     });
+    Picker.show();
+    //return;
+
+    // var options = {
+    //   title:'请选择',
+    //   cancelButtonTitle:'取消',
+    //   takePhotoButtonTitle:'拍照',
+    //   chooseFromLibraryButtonTitle:'选择相册',
+    //   // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+    //   quality:0.75,
+    //   allowsEditing:true,
+    //   noData:false,
+    //   storageOptions: {
+    //       skipBackup: true,
+    //       path:'images'
+    //   }
+    // };
+
+    // ImagePicker.showImagePicker(options, (response) => {
+    //   if (response.didCancel) {
+    //     console.log('User cancelled image picker');
+    //   } else if (response.error) {
+    //     console.log('ImagePicker Error: ', response.error);
+    //   } else if (response.customButton) {
+    //     console.log('User tapped custom button: ', response.customButton);
+    //   } else {
+    //     setHeadImage({uri: response.uri});
+
+    //     let imageObj = {
+    //       uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
+    //       name: response.fileName || 'upload.jpg',
+    //       type: response.type,
+    //     };
+    //     setImageObj(imageObj);
+    //   }
+    // });
   }
 
   useFocusEffect(

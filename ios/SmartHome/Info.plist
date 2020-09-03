@@ -82,7 +82,7 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -109,6 +109,9 @@
 		<string>MaterialIcons.ttf</string>
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
+		<string>Roboto_medium.ttf</string>
+		<string>Roboto.ttf</string>
+		<string>rubicon-icon-font.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
