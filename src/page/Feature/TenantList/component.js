@@ -27,7 +27,7 @@ export default function TenantList(props) {
 
   const init = () => {
     const { params } = props.route;
-    console.log('params', props.dictionaryMappings);
+    console.log('params', params);
     setHouseId(params.houseId);
     setTenantId(params.tenantId);
 
@@ -88,7 +88,7 @@ export default function TenantList(props) {
           title: '家庭成员',
           rightShow: 'flex',
           rightTitle: '新增成员',
-          rightPress: () => NavigatorService.navigate(AppRoute.ADDTENANT, { id: houseId, type: 'member' })
+          rightPress: () => NavigatorService.navigate(AppRoute.ADDTENANT, { id: houseId, type: 'member', tenantId: tenantId })
         }}
       />
       {loading ? (

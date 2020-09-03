@@ -64,6 +64,7 @@ export default function AddTenant(props) {
     const { params } = props.route;
     let { houseType, roomIds, identificationType, identificationNo, mobile, name } = form
     let houseId = params.id
+    let tenantUserId = params.tenantId
     if (selectedIndex == 0) { // 扫码
       let { code, data } = cameraOptions.result
       if (!code) {
@@ -76,6 +77,11 @@ export default function AddTenant(props) {
           formData['houseType'] = houseType
           formData['roomIds'] = houseType !== FULL_RENT && roomIds || []
           url = '/tenant/qrcode'
+          formData = {
+            houseId,
+            userId: data.id,
+            tenantUserId
+          }
         }
         props.scanAddTenant(url, formData, res => requestCalBack(res))
       } else {
@@ -89,8 +95,10 @@ export default function AddTenant(props) {
           identificationType,
           identificationNo,
           mobile,
-          name
+          name,
+          tenantUserId
         }
+        console.log('addResult', result);
         props.addFamilyForm(result, (res) => requestCalBack(res))
       } else {
         result = {
@@ -107,7 +115,6 @@ export default function AddTenant(props) {
     }
   }
   const requestCalBack = (res) => {
-    console.log(888, res)
     if (!res.code) {
       showToast('添加成功')
       NavigatorService.goBack();
@@ -206,7 +213,10 @@ export default function AddTenant(props) {
       })
       return (<View style={styles.roomListBox}>{result}</View>)
     } else {
-      return (<Text style={styles.dec, { textAlign: 'center', color: 'red' }}>暂无房间</Text>)
+      return (<View style={[styles.topViewFail]}>
+                <Text style={styles.topTextStyle1}>对不起，您尚未添加合租房间</Text>
+                <Text style={styles.topTextStyle2}>请设置完毕合租房间后，再添加合租住户</Text>
+              </View> )
     }
   }
   const selectRoom = (id) => {
@@ -251,7 +261,7 @@ export default function AddTenant(props) {
       <HeaderCommon
         options={{
           backTitle: '返回',
-          title: '添加住户',
+          title: props.route.params.type === 'member' ? '添加家庭成员' : '添加住户',
         }}
       />
       <View style={styles.container}>
@@ -438,5 +448,21 @@ const styles = StyleSheet.create({
   },
   textAlignR: {
     textAlign: 'right',
-  }
+  },
+  topViewFail: {
+    height: 70, 
+    padding: 12,
+    borderRadius: 4,
+    marginVertical: 10,
+    backgroundColor: '#FFECEC',
+  },
+  topTextStyle1: {
+    fontSize: 16,
+    color: Theme.textDefault,
+  },
+  topTextStyle2: {
+    fontSize: 14,
+    color: Theme.textSecondary,
+    marginTop: 10,
+  },
 });

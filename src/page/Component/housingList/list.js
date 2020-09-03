@@ -60,17 +60,8 @@ function HouseListComponent(props) {
   };
 
   const fetchHouseList = (pageNum = 1) => {
-    console.log('test');
     props.handlerHouseList(pageNum);
-    // updateLoadingState(true);
-    // props.getHousingList({ pageNum: pageNum }, (res) => {
-    //   console.log(8888, res)
-    //   updateResultData(res.data)
-    // });
   }
-  // useEffect(() => {
-  //   fetchHouseList()
-  // }, [])
   useEffect(() => {
     updateLoadingState(true);
     updateResultData(props.list)

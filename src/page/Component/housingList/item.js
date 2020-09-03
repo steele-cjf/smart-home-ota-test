@@ -36,7 +36,7 @@ export default function HouseItem(props) {
             {houseInfo.roomCount || '--'}室{houseInfo.hallCount || '--'}厅
             {houseInfo.toiletCount || '--'}
           </Text>
-          <Text >{dictionary && dictionary['house_type'] && dictionary['house_type'][houseInfo.houseType]}</Text>
+          <Text style={styles.houseInfo}> - {dictionary && dictionary['house_type'] && dictionary['house_type'][houseInfo.houseType]}</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
           <Text style={[styles.rentPrice, styles.highColor]}>
@@ -51,8 +51,9 @@ export default function HouseItem(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'center',
     borderBottomWidth: 0.5,
-    borderColor: 'darkgray',
+    borderColor: '#E9E9E9',
     marginLeft: 10,
     marginRight: 10,
     paddingVertical: 15,
@@ -62,8 +63,6 @@ const styles = StyleSheet.create({
     height: 75,
     resizeMode: 'cover',
     backgroundColor: '#f4f4f4',
-    borderWidth: 1,
-    borderColor: '#ccc',
     borderRadius: 5,
   },
   houseName: {
@@ -85,8 +84,8 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     flex: 80,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    paddingLeft: 15,
+    // justifyContent: 'center',
+    // alignItems: 'flex-start',
+    paddingLeft: 26,
   },
 });

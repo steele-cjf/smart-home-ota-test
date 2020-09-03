@@ -80,7 +80,6 @@ import com.android.build.OutputFile
 project.ext.react = [
         enableHermes: false,  // clean and rebuild if changing
 ]
-
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
@@ -131,7 +130,7 @@ android {
     }
     aaptOptions {
         cruncherEnabled = false
-        useNewCruncher = false
+//        useNewCruncher = false
     }
 //    lintOptions {
 //        checkReleaseBuilds false

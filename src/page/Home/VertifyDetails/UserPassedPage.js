@@ -105,31 +105,34 @@ const UserPassedPage = (props) => {
   const [canDelete, setCanDelete] = useState(true); 
 
   return (
-    loading ? <Spinner></Spinner> :
-    <View style={styles.containerStyle}>
+    <View style={styles.containerStyle0}>
       <HeaderCommon
         options={{
         backTitle: '返回',
         title: '成员详情'
         }}
       />
-      <Image style={styles.headImageStyle} source={{uri: headData.headImage}} />
-      <Text style={styles.textName}>{headData.name}</Text>
-      <Text style={styles.textMobile}>{headData.mobile}</Text>
-      { 
-        basicData.map((item, index) => { 
-          return (
-            <View style={styles.sigContainer}>
-              <Text style={styles.textTitle}>{item.title}</Text>
-              <Text style={styles.textContent}>{item.content}</Text>
-            </View>
-          ); 
-        })
-      }
-      {!canDelete ?  null :
-        <TouchableOpacity style={styles.btnStyle} onPress={alertDelete}> 
-          <Text style={styles.btnTextStyle}>删除</Text>
-        </TouchableOpacity>
+      {loading ? <Spinner></Spinner> :
+      <View style={styles.containerStyle}>
+        <Image style={styles.headImageStyle} source={headData.headImage} />
+        <Text style={styles.textName}>{headData.name}</Text>
+        <Text style={styles.textMobile}>{headData.mobile}</Text>
+        { 
+          basicData.map((item, index) => { 
+            return (
+              <View style={styles.sigContainer}>
+                <Text style={styles.textTitle}>{item.title}</Text>
+                <Text style={styles.textContent}>{item.content}</Text>
+              </View>
+            ); 
+          })
+        }
+        {!canDelete ?  null :
+          <TouchableOpacity style={styles.btnStyle} onPress={alertDelete}> 
+            <Text style={styles.btnTextStyle}>删除</Text>
+          </TouchableOpacity>
+        }
+      </View>
       }
     </View>
   ); 
@@ -138,6 +141,9 @@ const UserPassedPage = (props) => {
 
 
 const styles = StyleSheet.create({  
+  containerStyle0: {
+    flex: 1,
+  },
   containerStyle: {
     flex: 1,
     paddingHorizontal: 16,

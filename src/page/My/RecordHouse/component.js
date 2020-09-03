@@ -52,7 +52,6 @@ function RecordHouse(props) {
       setLoading(true);
       setHouseId(params.id);
       storage.get('dictionaryMappings').then(res => {
-        console.log('kkk', res);
         getDetail(res, params.id);
       });
     }
@@ -60,7 +59,6 @@ function RecordHouse(props) {
 
   const getDetail = useCallback((obj, id) => {
     props.getHouseDetail(id, res => {
-      console.log('hahah', res);
       if (!res.code) {
         setLoading(false)
         if (res.data) {
@@ -68,6 +66,7 @@ function RecordHouse(props) {
           let initAddress = info.address.split(info.formattedAddress)
           setAddress(initAddress[1] || initAddress[0]);
           setHouseHolder(info.houseHolder);
+          console.log('houseHolder123', houseHolder);
           setHouseLayout(info.houseLayout);
           setCertificateFilesImg(info.houseHolder.certificateFileUrls || []);
           setRegionId(info.regionId);
@@ -122,7 +121,6 @@ function RecordHouse(props) {
 
   const handlerAudit = () => {
     let result = new FormData();
-    console.log('result', result, houseHolder, houseLayout);
     objToFormData('houseHolder', houseHolder, result);
     objToFormData('houseLayout', houseLayout, result);
     // 是否有电梯 hasElevator
@@ -152,7 +150,9 @@ function RecordHouse(props) {
     result.append('address', regionName + address);
 
     if (houseId) {
+      console.log('houseHolder', houseHolder);
       result.append('id', houseId);
+      console.log('houseLayout.id', result)
       props.updateHouse(houseId, result, res => {
         console.log('update', res);
         if (!res.code) {
@@ -221,7 +221,7 @@ function RecordHouse(props) {
   const handleSetValue = (index, type) => {
     switch (type) {
       case 'self':
-        setHouseHolder({ self: selfList[index].value });
+        setHouseHolder({...houseHolder, ...{ self: selfList[index].value }});
         setSelectedSelfValue(selfList[index].text);
         break;
       case 'direction':
@@ -405,6 +405,7 @@ function RecordHouse(props) {
                       建筑面积
                   </Label>
                     <Input
+                      keyboardType="numeric"
                       value={
                         houseLayout.area
                           ? '' + houseLayout.area
@@ -444,6 +445,7 @@ function RecordHouse(props) {
                         共
                     </Text>
                       <Input
+                        keyboardType="numeric"
                         value={
                           houseLayout.floorCount
                             ? '' + houseLayout.floorCount
@@ -466,6 +468,7 @@ function RecordHouse(props) {
                         层 / 第
                     </Text>
                       <Input
+                        keyboardType="numeric"
                         value={
                           houseLayout.floor
                             ? '' + houseLayout.floor
@@ -513,6 +516,7 @@ function RecordHouse(props) {
                       户型
                   </Label>
                     <Input
+                      keyboardType="numeric"
                       value={
                         houseLayout.roomCount
                           ? '' + houseLayout.roomCount
@@ -531,6 +535,7 @@ function RecordHouse(props) {
                       室
                   </Text>
                     <Input
+                      keyboardType="numeric"
                       value={
                         houseLayout.hallCount
                           ? '' + houseLayout.hallCount
@@ -545,6 +550,7 @@ function RecordHouse(props) {
                       厅
                   </Text>
                     <Input
+                      keyboardType="numeric"
                       value={
                         houseLayout.toiletCount
                           ? '' + houseLayout.toiletCount
@@ -594,7 +600,7 @@ function RecordHouse(props) {
                   full
                   onPress={() => handlerAudit()}
                   style={{ borderRadius: 40, marginVertical: 36 }}>
-                  <Text>提交审核</Text>
+                  <Text>提交发布</Text>
                 </Button>
               </View>
             </ScrollView>

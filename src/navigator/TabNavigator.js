@@ -17,7 +17,7 @@ const BottomTabScreen = (props) => {
       backBehavior='none'
       tabBarOptions={{
         activeTintColor: '#0d86ff',
-        inactiveTintColor: '#555'
+        inactiveTintColor: '#C7C7C7'
       }}>
       <Tab.Screen
         name={AppRoute.HOME}

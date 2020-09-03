@@ -21,10 +21,8 @@ export default function ImageUpload(props) {
   const [avatarSource, setAvatarSource] = useState(null);
   useEffect(() => {
     if (props.imgUrl) {
-      console.log('setAvatarSource1.......', props.imgUrl)
       setAvatarSource({uri: props.imgUrl});
     } else {
-      console.log('setAvatarSource2.......', props.imgUrl)
       setAvatarSource(null)
     }
   }, [props.imgUrl]);

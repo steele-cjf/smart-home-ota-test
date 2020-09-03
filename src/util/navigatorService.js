@@ -7,7 +7,6 @@ let _container; // eslint-disable-line
 function setContainer(container) {
 	_container = container;
 }
-
 function reset(routeName, params) {
 	_container.dispatch(
 		StackActions.reset({
@@ -60,7 +59,8 @@ function getCurrentRoute() {
 }
 //获取当前路由名称
 const getCurrentRouteName = () => {
-	return getCurrentRoute().routeName;
+	console.log(StackActions, NavigationActions)
+	// return getCurrentRoute().routeName;
 }
 
 export default {

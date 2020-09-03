@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { getUserInfo } from '../../store/home/index';
 
 import Component from './component';
 import {setCodeInfo, setDictionaryMappings} from '../../store/common/index';
@@ -11,7 +12,7 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({...LoginAction, setCodeInfo, setDictionaryMappings}, dispatch);
+  return bindActionCreators({...LoginAction, setCodeInfo, setDictionaryMappings, getUserInfo}, dispatch);
 }
 export default connect(
   mapStateToProps,

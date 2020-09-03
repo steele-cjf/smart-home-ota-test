@@ -1,25 +1,23 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useRef, useEffect} from 'react';
-import {View, Keyboard, ScrollView, StyleSheet} from 'react-native';
-import {Text, Input, Button, CheckBox} from 'react-native-elements';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Keyboard, ScrollView, StyleSheet } from 'react-native';
+import { Text, Input, Button, CheckBox } from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 // import {Button} from 'native-base';
-import {AppRoute} from '../../navigator/AppRoutes';
+import { AppRoute } from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
 import Theme from '../../style/colors';
 
 function LoginPage(props) {
-
   useEffect(() => {
     return () => {
-      clearInterval(timerId); 
+      clearInterval(timerId);
     };
   }, []);
 
   function startTimer(count) {
     setIsSend(true);
-
     timerId = setInterval(() => {
       count--;
       setCount(count)
@@ -28,10 +26,10 @@ function LoginPage(props) {
         clearInterval(timerId);
         setCount(times);
       }
-    }, 1000);    
+    }, 1000);
   }
 
-  function validateField(field) {    
+  function validateField(field) {
     switch (field) {
       case 'mobile': {
         let phoneReg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
@@ -91,7 +89,6 @@ function LoginPage(props) {
       verifyCode: verifyCode,
     };
     props.handleLogin(data, res => {
-      console.log('login', data);
       if (!res.code) {
         (async () => {
           await storage.set('token', res.data.accessToken);
@@ -142,7 +139,7 @@ function LoginPage(props) {
   const [checked, setChecked] = useState(false);
   let times = 60;
   const [count, setCount] = useState(times);
-  
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
@@ -157,7 +154,7 @@ function LoginPage(props) {
         leftIcon={
           <AntDesign
             name="calendar"
-            style={{fontSize: 14, color: Theme.primary, marginRight: 8}}
+            style={{ fontSize: 14, color: Theme.primary, marginRight: 8 }}
           />
         }
         value={mobile}
@@ -176,7 +173,7 @@ function LoginPage(props) {
           leftIcon={
             <AntDesign
               name="lock1"
-              style={{fontSize: 14, color: Theme.primary, marginRight: 8}}
+              style={{ fontSize: 14, color: Theme.primary, marginRight: 8 }}
             />
           }
           value={verifyCode}
@@ -188,7 +185,7 @@ function LoginPage(props) {
           containerStyle={styles.codeBtnPosition}
           buttonStyle={styles.verCodeBtn}
           titleStyle={styles.verCodeTitle}
-          title= {isSend ? "剩余"+count+"秒" : "发送短信验证码"}
+          title={isSend ? "剩余" + count + "秒" : "发送短信验证码"}
           disabled={isSend}
           type="solid"
           onPress={handleGetCode}
@@ -211,7 +208,7 @@ function LoginPage(props) {
           titleStyle={styles.protocolTitle}
           type="clear"
           title="《用户服务协议》"
-          onPress={() => {props.navigation.navigate(AppRoute.AGREEMENT);}}
+          onPress={() => { props.navigation.navigate(AppRoute.AGREEMENT); }}
         />
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
