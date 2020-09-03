@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, Platform } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { getAllData, getDictionaryMapping } from '../../store/login/index';
 import { getRecommandList } from '../../store/map/index';
@@ -54,6 +54,9 @@ function HomePage(props) {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: true
     });
+    if (Platform.OS == 'ios') {
+      Geolocation.requestAuthorization()
+    }
     console.log('get location start:')
     Geolocation.getCurrentPosition(
       position => {
