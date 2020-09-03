@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         // left: 5,
         // top: 8,
         color: '#7C7C7C',
-        fontSize: 18,
+        fontSize: $screen.scaleSize(18),
         paddingLeft: 10,
         // zIndex: 10
     },
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     RightIcon: {
         color: '#333333',
-        fontSize: 19
+        fontSize: $screen.scaleSize(19)
     },
     text: {
         color: '#282828',

@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flex: 1,
-    fontSize: 15,
+    fontSize: $screen.scaleSize(15),
     color: '#222',
     textAlign: 'center',
   },

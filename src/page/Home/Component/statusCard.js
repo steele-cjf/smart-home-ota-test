@@ -132,7 +132,7 @@ export default function StatusCard(props) {
                     role: options.houseRole || undefined,
                 })}>
                     <AntDesign name={options.iconName} style={styles.iconBox} />
-                    <Text style={{ color: Theme.primary }}>{options.btnDesc || '--'}</Text>
+                    <Text style={{ color: Theme.primary, fontSize: $screen.scaleSize(14)}}>{options.btnDesc || '--'}</Text>
                 </TouchableOpacity>
             </View>}
             {options.houseRole && options.houseRole === TENANT && renderRent()}

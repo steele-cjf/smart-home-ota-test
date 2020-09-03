@@ -598,7 +598,7 @@ const styles = StyleSheet.create({
     color: '#0d86ff',
   },
   title: {
-    fontSize: 18,
+    fontSize: $screen.scaleSize(18),
     marginTop: 30,
     marginBottom: 20,
   },

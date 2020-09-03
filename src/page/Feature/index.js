@@ -143,7 +143,7 @@ function FeaturePage(props) {
         <TouchableOpacity onPress={() => showList()}>
           <View style={[styles.flex, styles.InfoBox]}>
             <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
-            <Text style={{ fontSize: 18, color: '#f9f9f9' }}>
+            <Text style={{ fontSize: $screen.scaleSize(18), color: '#f9f9f9' }}>
               {/* {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'} */}
               {selectHouse.address || '暂无房源'}
             </Text>
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   topTitle: {
-    fontSize: 24,
+    fontSize: $screen.scaleSize(24),
     color: '#fff',
   },
   InfoBox: {

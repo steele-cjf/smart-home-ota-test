@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   topTitle: {
-    fontSize: 24,
+    fontSize: $screen.scaleSize(24),
     color: '#fff',
   },
   InfoBox: {

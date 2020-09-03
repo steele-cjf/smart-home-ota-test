@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: Theme.primary,
-        fontSize: 33
+        fontSize: $screen.scaleSize(33)
     },
     desc: {
         fontSize: $screen.scaleSize(17),
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     },
     houseLayoutTitle: {
         color: '#282828',
-        fontSize: 18,
+        fontSize: $screen.scaleSize(18),
         marginBottom: 8
     },
     houseLayoutDesc: {
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
         // justifyContent: 'space-between'
     },
     houseLayoutIcon: {
-        fontSize: 24,
+        fontSize: $screen.scaleSize(24),
         color: '#666666',
         paddingBottom: 5
     },

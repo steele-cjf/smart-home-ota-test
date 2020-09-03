@@ -229,11 +229,11 @@ const styles = StyleSheet.create({
   },
   SelectName: {
     color: '#527BDF',
-    fontSize: 18,
+    fontSize: $screen.scaleSize(18),
   },
   name: {
     color: Theme.textDefault,
-    fontSize: 18,
+    fontSize: $screen.scaleSize(18),
   },
   typeText: {
     position: 'absolute',

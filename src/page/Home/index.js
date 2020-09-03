@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#fff',
     marginBottom: 16,
-    fontSize: 24
+    fontSize: $screen.scaleSize(24)
   },
   SwiperBox: {
     marginBottom: 16,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   listTitle: {
-    fontSize: 24,
+    fontSize: $screen.scaleSize(24),
     color: '#282828'
   },
   listMore: {

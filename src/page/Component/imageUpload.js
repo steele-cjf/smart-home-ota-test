@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   addBtn: {
-    fontSize: 70,
+    fontSize: $screen.scaleSize(70),
     color: 'rgba(0, 0, 0, .05)',
     fontWeight: '700',
   },

@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       fontWeight: 'bold',
       ios: {
-        fontSize: 18,
+        fontSize: $screen.scaleSize(18),
         color: '#408AE2',
         textAlign: 'center',
         borderRightWidth: 5,
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       fontWeight: 'bold',
       ios: {
-        fontSize: 18,
+        fontSize: $screen.scaleSize(18),
         color: '#408AE2',
         textAlign: 'center',
         padding: 10,
