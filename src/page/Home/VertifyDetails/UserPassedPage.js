@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 80,
     right: 0,
-    paddingVertical: 10,
+    top: 10,
     textAlign: 'right',
     fontSize: 14,
     color: Theme.textDefault,

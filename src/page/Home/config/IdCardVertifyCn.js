@@ -29,8 +29,9 @@ const vertifyCn = [
     placeholder: '请输入民族',
     key: 'nation',
     required: true,
-    type: 'INPUT',
+    type: 'INPUT',  //'INPUT', 'PICKER'
     errorMsg: ['请输入民族'],
+    selectOptions: ["汉族", "蒙古族", "回族", "藏族", "维吾尔族", "苗族", "彝族", "壮族", "布依族", "朝鲜族", "满族", "侗族"],
   },
   {
     name: '出生日期',

@@ -17,71 +17,77 @@ import {modifyPersonalInfo} from '../../store/user/index';
 const PersonalInfoPage = (props) => {     
   
   function imagePickerAction() {
-    //test
-    let data = [];
-    for(var i=0;i<100;i++){
-        data.push(i);
-    }
-    
-    Picker.init({
-        pickerData: data,
-        selectedValue: [59],
-        onPickerConfirm: data => {
-            console.log(data);
-        },
-        onPickerCancel: data => {
-            console.log(data);
-        },
-        onPickerSelect: data => {
-            console.log(data);
-        }
+    var options = {
+      title:'请选择',
+      cancelButtonTitle:'取消',
+      takePhotoButtonTitle:'拍照',
+      chooseFromLibraryButtonTitle:'选择相册',
+      // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+      quality:0.75,
+      allowsEditing:true,
+      noData:false,
+      storageOptions: {
+          skipBackup: true,
+          path:'images'
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        setHeadImage({uri: response.uri});
+
+        let imageObj = {
+          uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
+          name: response.fileName || 'upload.jpg',
+          type: response.type,
+        };
+        setImageObj(imageObj);
+      }
     });
-    Picker.show();
-    //return;
-
-    // var options = {
-    //   title:'请选择',
-    //   cancelButtonTitle:'取消',
-    //   takePhotoButtonTitle:'拍照',
-    //   chooseFromLibraryButtonTitle:'选择相册',
-    //   // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-    //   quality:0.75,
-    //   allowsEditing:true,
-    //   noData:false,
-    //   storageOptions: {
-    //       skipBackup: true,
-    //       path:'images'
-    //   }
-    // };
-
-    // ImagePicker.showImagePicker(options, (response) => {
-    //   if (response.didCancel) {
-    //     console.log('User cancelled image picker');
-    //   } else if (response.error) {
-    //     console.log('ImagePicker Error: ', response.error);
-    //   } else if (response.customButton) {
-    //     console.log('User tapped custom button: ', response.customButton);
-    //   } else {
-    //     setHeadImage({uri: response.uri});
-
-    //     let imageObj = {
-    //       uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
-    //       name: response.fileName || 'upload.jpg',
-    //       type: response.type,
-    //     };
-    //     setImageObj(imageObj);
-    //   }
-    // });
   }
 
-  useFocusEffect(
-    useCallback(() => {
-      handleInfo(); 
-    }, [props.route])
-  )
-  // useEffect(() => {
-  //   handleInfo(); 
-  // }, []);
+  function pickerAction() {
+    let data = ['无', '大专', '本科', '硕士', '博士'];
+    
+    Picker.init({
+      pickerTitleText: '选择学历',
+      pickerCancelBtnText: "取消",
+      pickerConfirmBtnText: "确定",
+      pickerCancelBtnColor: [124, 124, 124, 1],
+      pickerConfirmBtnColor: [82, 123, 223, 1],
+      pickerData: data,
+      selectedValue:  ['本科'],
+      onPickerCancel: item => {
+        console.log(item);
+      },
+      onPickerConfirm: item => {
+        console.log(item);
+        let data = Object.assign({}, otherData);
+        data["教育程度"] = item[0];
+        console.log(111, data);
+        setOtherData(data);
+      },
+      onPickerSelect: item => {
+        console.log(item);
+      }
+    });
+    Picker.show();
+  }
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     handleInfo(); 
+  //   }, [props.route])
+  // )
+  useEffect(() => {
+    handleInfo(); 
+  }, []);
 
   function handleInfo() {
     props.getUserInfo(res => {
@@ -231,15 +237,31 @@ const PersonalInfoPage = (props) => {
         </View>
         { 
           Object.keys(otherData).map((item, index) => { 
-            return (
-              <View style={styles.sigContainer}>
-                <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
-                <TextInput style={[styles.textContent,]} //styles.rightInput
-                  onChangeText={(text) => {setSaveData(item, text);}}
-                  value={otherData[item]}
-              />
-              </View>
-            ); 
+           
+            if (index === 0) {
+              return (
+                <TouchableOpacity style={styles.sigContainer} onPress={pickerAction}>
+                  <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
+                  <TextInput style={[styles.textContent,styles.rightInput]} 
+                    value={otherData[item]}
+                    editable={false}
+                  />
+                  <AntDesign name="right" style={styles.rightArrow} />
+                </TouchableOpacity>
+              ); 
+            } else {
+              return (
+                <View style={styles.sigContainer}>
+                  <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
+                  <TextInput style={[styles.textContent,styles.rightInput]} 
+                    onChangeText={(text) => {setSaveData(item, text);}}
+                    value={otherData[item]}
+                    editable={true}
+                  />
+                </View>
+              ); 
+            }
+            
           })
         }
         <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
@@ -298,7 +320,7 @@ const styles = StyleSheet.create({
     color: Theme.textDefault,
   },
   rightInput: {
-    fontSize: 14,
+    //fontSize: 14,
     paddingRight: 24,
   },
   rightArrow: {
