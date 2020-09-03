@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     actionColor: {
         color: Theme.textLink,
-        fontSize: 14,
+        fontSize: $screen.scaleSize(14),
         marginRight: 10,
     },
     BodyBox: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     BodyTitle: {
         color: '#282828',
-        fontSize: 16
+        fontSize: $screen.scaleSize(16)
     },
     backText: {
         color: Theme.textLink,

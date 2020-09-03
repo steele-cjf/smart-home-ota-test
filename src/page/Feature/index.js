@@ -135,7 +135,7 @@ function FeaturePage(props) {
           <AntDesign
             name="bells"
             style={{
-              fontSize: 20,
+              fontSize: $screen.scaleSize(20),
               color: '#fff',
             }}
           />

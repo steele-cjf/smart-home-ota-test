@@ -300,11 +300,11 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     paddingVertical: 18,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   fontSize16: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
   },
   colorSecondary: {
     color: Theme.textSecondary,
@@ -316,18 +316,18 @@ const styles = StyleSheet.create({
     right: 0,
     paddingVertical: 18,
     textAlign: 'right',
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   rightInput: {
-    //fontSize: 14,
+    //fontSize: $screen.scaleSize(14),
     paddingRight: 24,
   },
   rightArrow: {
     position: 'absolute', 
     right: -3, 
     top: 17,
-    fontSize: 14, 
+    fontSize: $screen.scaleSize(14), 
     color: Theme.textSecondary, 
     textAlign: 'right',
   },
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16, 
+    fontSize: $screen.scaleSize(16), 
     color: '#FFFFFF', 
   },
 });

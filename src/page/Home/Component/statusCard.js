@@ -149,13 +149,13 @@ const styles = StyleSheet.create({
     topBox: {
         borderBottomWidth: 1,
         borderBottomColor: '#E9E9E9',
-        fontSize: 16,
+        fontSize: $screen.scaleSize(16),
         paddingBottom: 13,
         flexDirection: 'row'
     },
     location: {
         color: '#7C7C7C',
-        fontSize: 16,
+        fontSize: $screen.scaleSize(16),
         flexWrap: 'wrap',
         width: '80%'
     },
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     LeftIcon: {
         color: '#7C7C7C',
         paddingRight: 5,
-        fontSize: 17,
+        fontSize: $screen.scaleSize(17),
         textAlign: 'center',
         top: 3
     },
@@ -179,12 +179,12 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#282828',
-        fontSize: 16,
+        fontSize: $screen.scaleSize(16),
         paddingBottom: 13
     },
     des: {
         color: '#7C7C7C',
-        fontSize: 12
+        fontSize: $screen.scaleSize(12)
     },
     Leftcontent: {
         width: '80%'
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     },
     iconBox: {
         color: Theme.primary,
-        fontSize: 20,
+        fontSize: $screen.scaleSize(20),
         paddingTop: 10,
         paddingBottom: 2
     },
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     },
     rightText: {
         color: '#5C8BFF',
-        fontSize: 16,
+        fontSize: $screen.scaleSize(16),
         paddingTop: 10,
         padding: 5
     }

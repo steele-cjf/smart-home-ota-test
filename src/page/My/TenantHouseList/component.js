@@ -123,7 +123,7 @@ function TenantHouseList(props) {
 }
 const styles = StyleSheet.create({
   fontSize14: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
   },
   house_address: {
     flexDirection: 'row',
@@ -145,18 +145,18 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   houseName: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#282828',
   },
   houseInfo: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: '#7c7c7c',
   },
   rentPrice: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
   },
   miniSize: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
   },
   highColor: {
     color: '#5C8BFF',

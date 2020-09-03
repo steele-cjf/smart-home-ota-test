@@ -149,17 +149,17 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.background,
   },
   textTitle: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textDefault,
   },
   textTitle2: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
     marginTop: 32,
     marginBottom: 15,
   },
   textareaContent: {
-    fontSize: 14, 
+    fontSize: $screen.scaleSize(14), 
     color: Theme.textDefault,
     height: 146,
     borderRadius: 4,
@@ -171,11 +171,11 @@ const styles = StyleSheet.create({
     right: 24,
     paddingVertical: 31,
     textAlign: 'right',
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   textTitle3: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: Theme.textSecondary,
     marginTop: 6,
     marginBottom: 16,
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#FFFFFF',
   },
 });

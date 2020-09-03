@@ -160,21 +160,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 88,
     top: 31, 
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   textMobile: {
     position: 'absolute',
     left: 88,
     top: 59, 
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   sigContainer: {
     paddingVertical: 10,
   },
   textTitle: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
   },
   textContent: {
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 10,
     textAlign: 'right',
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   btnStyle: {
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16, 
+    fontSize: $screen.scaleSize(16), 
     color: '#FFFFFF', 
   },
 });

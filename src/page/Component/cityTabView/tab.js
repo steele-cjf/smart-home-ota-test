@@ -79,7 +79,7 @@ const tabStyles = StyleSheet.create({
     bottom: 0,
   },
   text: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: '#252426',
   },
 });

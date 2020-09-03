@@ -22,7 +22,7 @@ export const FeatureStackComponent = () => {
     <FeatureStack.Navigator
       screenOptions={{
         cardStyle: {
-          fontSize: 16,
+          fontSize: $screen.scaleSize(16),
           backgroundColor: '#fff',
         },
       }}>

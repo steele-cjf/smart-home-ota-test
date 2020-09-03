@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     paddingVertical: 11,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
   },
   textContent: {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     right: 0,
     paddingVertical: 11,
     textAlign: 'right',
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
 });

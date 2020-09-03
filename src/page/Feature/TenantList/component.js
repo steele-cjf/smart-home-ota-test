@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   status_style: {
     color: '#9C9C9C',
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     paddingRight: 5,
   }
 });

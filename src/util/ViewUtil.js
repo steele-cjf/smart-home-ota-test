@@ -33,7 +33,7 @@ export default class ViewUtil {
               style={{opacity: 1, width: 16, height: 16, marginRight: 10}}
             />
           )}
-          <Text style={{color: Theme.textDefault, fontSize: 14}}>{text}</Text>
+          <Text style={{color: Theme.textDefault, fontSize: $screen.scaleSize(14)}}>{text}</Text>
         </View>
         <AntDesign
           name="right"
@@ -89,7 +89,7 @@ export default class ViewUtil {
   static getRightButton(title, callBack) {
     return (
       <TouchableOpacity style={{alignItems: 'center'}} onPress={callBack}>
-        <Text style={{fontSize: 20, color: '#FFFFFF', marginRight: 10}}>
+        <Text style={{fontSize: $screen.scaleSize(20), color: '#FFFFFF', marginRight: 10}}>
           {title}
         </Text>
       </TouchableOpacity>

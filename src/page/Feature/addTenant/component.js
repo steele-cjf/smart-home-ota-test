@@ -190,7 +190,7 @@ export default function AddTenant(props) {
     return (
       <Button transparent onPress={() => { showActionSheet(array, 'houseType') }}>
         <Text>{form.houseType === FULL_RENT ? '整租' : '合租'}</Text>
-        <AntDesign name="right" style={{ fontSize: 12, color: Theme.textSecondary, paddingLeft: 10 }} />
+        <AntDesign name="right" style={{ fontSize: $screen.scaleSize(12), color: Theme.textSecondary, paddingLeft: 10 }} />
       </Button>
     )
   }
@@ -316,7 +316,7 @@ export default function AddTenant(props) {
               </Label>
               <Button transparent onPress={() => { showActionSheet(identificationTypeList, 'identificationType') }}>
                 <Text>{form.identificationType === ID_CARD ? '身份证' : '护照'}</Text>
-                <AntDesign name="right" style={{ fontSize: 12, color: Theme.textSecondary, paddingLeft: 10 }} />
+                <AntDesign name="right" style={{ fontSize: $screen.scaleSize(12), color: Theme.textSecondary, paddingLeft: 10 }} />
               </Button>
             </Item>
             {form.identificationType === ID_CARD ? <Item style={styles.marginLeft0} inlineLabel picker>
@@ -374,19 +374,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   title: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     marginBottom: 20
   },
   label: {
     color: '#999',
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
   },
   dec: {
     color: '#7C7C7C'
   },
   scanText: {
     color: '#527BDF',
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     marginTop: 16
   },
   submit: {
@@ -402,7 +402,7 @@ const styles = StyleSheet.create({
   },
   scanText: {
     color: '#7C7C7C',
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     textDecorationLine: 'underline'
   },
   scanBtn: {
@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   defaultSize: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
   },
   marginLeft0: {
     marginLeft: 0,
@@ -453,11 +453,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFECEC',
   },
   topTextStyle1: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textDefault,
   },
   topTextStyle2: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
     marginTop: 10,
   },

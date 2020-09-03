@@ -154,7 +154,7 @@ function LoginPage(props) {
         leftIcon={
           <AntDesign
             name="calendar"
-            style={{ fontSize: 14, color: Theme.primary, marginRight: 8 }}
+            style={{ fontSize: $screen.scaleSize(14), color: Theme.primary, marginRight: 8 }}
           />
         }
         value={mobile}
@@ -173,7 +173,7 @@ function LoginPage(props) {
           leftIcon={
             <AntDesign
               name="lock1"
-              style={{ fontSize: 14, color: Theme.primary, marginRight: 8 }}
+              style={{ fontSize: $screen.scaleSize(14), color: Theme.primary, marginRight: 8 }}
             />
           }
           value={verifyCode}
@@ -230,17 +230,17 @@ const styles = StyleSheet.create({
     color: '#527BDF',
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
     marginTop: 14,
     marginBottom: 92,
   },
   inputPhone: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
   },
   verCodeInput: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
     width: 30
   },
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.primary,
   },
   verCodeTitle: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
   },
   checkBoxContainer: {
     marginLeft: -10,
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   checkBoxTitle: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   protocolContainer: {
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     top: -14,
   },
   protocolTitle: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: '#527BDF',
   },
   logBtn: {
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   },
   tipTitle: {
     marginTop: 14,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textMuted,
     textAlign: 'center',
   },

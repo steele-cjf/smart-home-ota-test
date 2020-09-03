@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   tipText: {
     paddingTop: 8,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
     borderRadius: 4,
     lineHeight: 20,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#FFFFFF',
   },
 });

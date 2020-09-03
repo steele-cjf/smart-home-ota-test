@@ -216,7 +216,7 @@ function HouseDetail(props) {
                   <AntDesign
                     name="tag"
                     style={{
-                      fontSize: 14,
+                      fontSize: $screen.scaleSize(14),
                       color: Theme.textLink,
                       paddingRight: 15,
                     }}
@@ -252,7 +252,7 @@ function HouseDetail(props) {
                   <AntDesign
                     name="home"
                     style={{
-                      fontSize: 14,
+                      fontSize: $screen.scaleSize(14),
                       color: Theme.textLink,
                       paddingRight: 15,
                     }}
@@ -269,7 +269,7 @@ function HouseDetail(props) {
                 <View style={styles.rightContent}>
                   <Text
                     style={{
-                      fontSize: 14,
+                      fontSize: $screen.scaleSize(14),
                       color: Theme.textSecondary,
                       paddingRight: 20,
                     }}>
@@ -278,7 +278,7 @@ function HouseDetail(props) {
                   <AntDesign
                     name="right"
                     style={{
-                      fontSize: 14,
+                      fontSize: $screen.scaleSize(14),
                       color: Theme.textSecondary,
                       position: 'absolute',
                       right: 0,
@@ -304,7 +304,7 @@ function HouseDetail(props) {
                 <Ionicons
                   name="add"
                   style={{
-                    fontSize: 14,
+                    fontSize: $screen.scaleSize(14),
                     color: Theme.textLink,
                   }}
                 />
@@ -314,7 +314,7 @@ function HouseDetail(props) {
                       id: houseInfo.id
                     })
                   }>
-                  <Text style={{ fontSize: 14, color: Theme.textLink }}>
+                  <Text style={{ fontSize: $screen.scaleSize(14), color: Theme.textLink }}>
                     新增住户
                 </Text>
                 </TouchableOpacity>
@@ -327,7 +327,7 @@ function HouseDetail(props) {
             rounded
             onPress={() => alertDeleteModal()}
             style={{ backgroundColor: '#E7263E', marginTop: 50, height: 40 }}>
-            <Text style={{ fontSize: 16 }}>删除房源</Text>
+            <Text style={{ fontSize: $screen.scaleSize(16) }}>删除房源</Text>
           </Button>
         </View>
       )
@@ -426,14 +426,14 @@ function HouseDetail(props) {
                     style={{
                       color: Theme.textLink,
                       paddingRight: 20,
-                      fontSize: 14,
+                      fontSize: $screen.scaleSize(14),
                     }}>
                     查看
                   </Text>
                   <AntDesign
                     name="right"
                     style={{
-                      fontSize: 14,
+                      fontSize: $screen.scaleSize(14),
                       color: Theme.textLink,
                       position: 'absolute',
                       right: 0,
@@ -534,7 +534,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   fontSize14: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
   },
   flex: {
     flexDirection: 'row',
@@ -559,12 +559,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFECEC',
   },
   statusTitle: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textDefault,
     marginBottom: 4,
   },
   statusDesc: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
   },
   padding: {
@@ -585,7 +585,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text_style: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#555',
   },
   line: {
@@ -594,7 +594,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'darkgray',
   },
   blue: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#0d86ff',
   },
   title: {
@@ -605,10 +605,10 @@ const styles = StyleSheet.create({
   rightText: {
     color: Theme.textSecondary,
     paddingRight: 20,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
   },
   rightIcon: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
     position: 'absolute',
     right: 0,

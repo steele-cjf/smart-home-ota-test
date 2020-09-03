@@ -96,11 +96,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text_style: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#555',
   },
   blue: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#0d86ff',
   },
   title: {

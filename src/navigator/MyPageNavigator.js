@@ -32,7 +32,7 @@ export const MyPageStackComponent = () => {
     <MyPageNavigator.Navigator
       screenOptions={{
         cardStyle: {
-          fontSize: 16,
+          fontSize: $screen.scaleSize(16),
           backgroundColor: '#fff',
         },
       }}>
