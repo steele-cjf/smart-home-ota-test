@@ -321,11 +321,11 @@ class ActionBar extends Component {
 }
 const styles = StyleSheet.create({
     title_style: {
-        fontSize: 16
+        fontSize: $screen.scaleSize(16)
     },
     item_text_style: {
         color: "#333333",
-        fontSize: 16
+        fontSize: $screen.scaleSize(16)
     }
 });
 

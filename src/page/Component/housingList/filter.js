@@ -143,10 +143,10 @@ class DropdownMenu extends Component {
         <Divider style={{ marginHorizontal: -20, marginBottom: 15, }} />
         <View style={{ flexDirection: 'row' }}>
           <Button rounded bordered style={{ flex: 1, justifyContent: 'center', backgroundColor: '#fff', borderColor: '#C7C7C7', marginRight: 15 }} onPress={() => this.resetFunc()}>
-            <Text style={{ color: '#282828', fontSize: 16, }}>重置</Text>
+            <Text style={{ color: '#282828', fontSize: $screen.scaleSize(16), }}>重置</Text>
           </Button>
           <Button rounded style={{ flex: 3, justifyContent: 'center' }} onPress={() => this.handlerConfirm()}>
-            <Text style={{ color: '#fff', fontSize: 16 }}>确认</Text>
+            <Text style={{ color: '#fff', fontSize: $screen.scaleSize(16) }}>确认</Text>
           </Button>
         </View>
       </View>
@@ -308,17 +308,17 @@ class DropdownMenu extends Component {
 
 const styles = StyleSheet.create({
   title_style: {
-    fontSize: 14
+    fontSize: $screen.scaleSize(14)
   },
   item_text_style: {
     color: '#333333',
-    fontSize: 14
+    fontSize: $screen.scaleSize(14)
   },
   house_type_content: {
     padding: 16,
   },
   house_title: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#282828',
     marginBottom: 16,
   }

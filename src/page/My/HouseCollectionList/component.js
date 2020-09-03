@@ -122,11 +122,11 @@ const styles = StyleSheet.create({
     paddingBottom: 27,
   },
   houseName: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#282828',
   },
   houseInfo: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: '#7c7c7c',
     marginLeft: 5,
   },
@@ -137,10 +137,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   rentPrice: {
-    fontSize: 20,
+    fontSize: $screen.scaleSize(20),
   },
   miniSize: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
   },
   highColor: {
     color: '#5C8BFF',
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   rightBtn: {
     position: 'absolute',
     right: 16,
-    fontSize: 20,
+    fontSize: $screen.scaleSize(20),
     color: '#ED4B4B',
     top: 10
   },

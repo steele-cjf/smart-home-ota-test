@@ -54,25 +54,25 @@ export default AgreementPage = (props) => {
       <Text style={styles.tipText}>
         {sp+a+b+c+d}
       </Text>
-      <Text style={[styles.tipText, {fontSize: 18,}]}>
+      <Text style={[styles.tipText, {fontSize: $screen.scaleSize(18),}]}>
         {"1. 适用范围"}
       </Text>
       <Text style={styles.tipText}>
         {sp+e+sp+f}
       </Text>
-      <Text style={[styles.tipText, {fontSize: 18}]}>
+      <Text style={[styles.tipText, {fontSize: $screen.scaleSize(18)}]}>
         {"2. 信息使用"}
       </Text>
       <Text style={styles.tipText}>
         {sp+g+sp+h}
       </Text>
-      <Text style={[styles.tipText, {fontSize: 18}]}>
+      <Text style={[styles.tipText, {fontSize: $screen.scaleSize(18)}]}>
         {"3. 信息披露"}
       </Text>
       <Text style={styles.tipText}>
         {sp+g+sp+h+sp+i+sp+j+sp+k+sp+l}
       </Text>
-      <Text style={[styles.tipText, {fontSize: 18}]}>
+      <Text style={[styles.tipText, {fontSize: $screen.scaleSize(18)}]}>
         {"4. 信息存储和交换"}
       </Text>
       <Text style={styles.tipText}>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   tipText: {
     paddingTop: 8,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
     borderRadius: 4,
     lineHeight: 20,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#FFFFFF',
   },
 });

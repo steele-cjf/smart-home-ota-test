@@ -21,7 +21,7 @@ export default function CitySelect(props) {
         style={styles.list}>
         <Text
           style={{
-            fontSize: 14,
+            fontSize: $screen.scaleSize(14),
             color: props.selectId === item.id ? '#D6382F' : '#666666',
           }}>
           {item.name}

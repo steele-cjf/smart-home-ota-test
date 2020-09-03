@@ -182,7 +182,7 @@ export default function Form(props) {
                             onPress={value => {
                               setData(key, value);
                             }}
-                            labelStyle={{fontSize: 14, color: Theme.textDefault}}
+                            labelStyle={{fontSize: $screen.scaleSize(14), color: Theme.textDefault}}
                             labelHorizontal={true}
                           />
                         </RadioButton>
@@ -208,11 +208,11 @@ const styles = StyleSheet.create({
     right: 0, 
     height: 54,
     lineHeight: 54,
-    fontSize: 14, 
+    fontSize: $screen.scaleSize(14), 
     color: Theme.textSecondary, 
   },
   label: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
     width: 80,
     height: 54,
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     right: 24,
     top: 0,
     bottom: 0,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
     textAlign: 'right',
   },

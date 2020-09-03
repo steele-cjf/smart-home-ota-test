@@ -336,13 +336,13 @@ export default function PublishHouse(props) {
               style={styles.input_item}
               onPress={() => openSettings(houseTypeList, 2, 'houseType')}>
               <Text
-                style={[{fontSize: 14, paddingRight: 10}, styles.textAlignR]}>
+                style={[{fontSize: $screen.scaleSize(14), paddingRight: 10}, styles.textAlignR]}>
                 {selectedTypeValue}
               </Text>
               <AntDesign
                 name="right"
                 style={{
-                  fontSize: 12,
+                  fontSize: $screen.scaleSize(12),
                   color: Theme.textSecondary,
                 }}
               />
@@ -376,13 +376,13 @@ export default function PublishHouse(props) {
               style={styles.input_item}
               onPress={() => openSettings(houseDecorator, 4, 'decorator')}>
               <Text
-                style={[{fontSize: 14, paddingRight: 10}, styles.textAlignR]}>
+                style={[{fontSize: $screen.scaleSize(14), paddingRight: 10}, styles.textAlignR]}>
                 {selectedDecoratorValue}
               </Text>
               <AntDesign
                 name="right"
                 style={{
-                  fontSize: 12,
+                  fontSize: $screen.scaleSize(12),
                   color: Theme.textSecondary,
                 }}
               />
@@ -528,13 +528,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   defaultSize: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
   },
   marginLeft0: {
     marginLeft: 0,
   },
   publishTitle: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textTitle,
     paddingBottom: 24,
     paddingTop: 32,
@@ -543,13 +543,13 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   ImgTitle: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textTitle,
     paddingTop: 32,
     paddingBottom: 5,
   },
   imgDec: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: Theme.textSecondary,
   },
   labelTitle: {
@@ -575,11 +575,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFECEC',
   },
   topTextStyle1: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textDefault,
   },
   topTextStyle2: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
     marginTop: 10,
   },

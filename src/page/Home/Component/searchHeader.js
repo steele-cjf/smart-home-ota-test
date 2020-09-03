@@ -14,7 +14,7 @@ export default function SearchHeader(props) {
                 <Left style={{ flex: 1 }}>
                     <Button transparent onPress={() => NavigatorService.goBack()} >
                         <AntDesign name="left" style={styles.actionColor} />
-                        <Text style={{color: Theme.textLink, fontSize: 14}}>返回</Text>
+                        <Text style={{color: Theme.textLink, fontSize: $screen.scaleSize(14)}}>返回</Text>
                     </Button>
                 </Left>
                 <Body style={{flexDirection: 'row', flex: 4, alignItems: 'center',backgroundColor: '#E9E9E9', height: 30,borderRadius: 20, }}>
@@ -44,7 +44,7 @@ export default function SearchHeader(props) {
                     <AntDesign name='caretdown' />
                 </View>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <FontAwesome name='sort' style={{fontSize: 14}}></FontAwesome>
+                    <FontAwesome name='sort' style={{fontSize: $screen.scaleSize(14)}}></FontAwesome>
                 </View>
             </Segment> */}
         </View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     },
     actionColor: {
         color: Theme.textLink,
-        fontSize: 14,
+        fontSize: $screen.scaleSize(14),
         marginRight: 10,
         marginTop: 3,
     },
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         // left: 5,
         // top: 8,
         color: '#7C7C7C',
-        fontSize: 18,
+        fontSize: $screen.scaleSize(18),
         paddingLeft: 10,
         // zIndex: 10
     },
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     RightIcon: {
         color: '#333333',
-        fontSize: 19
+        fontSize: $screen.scaleSize(19)
     },
     text: {
         color: '#282828',

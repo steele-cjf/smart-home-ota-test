@@ -43,13 +43,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textFont: {
-    fontSize: 20,
+    fontSize: $screen.scaleSize(20),
   },
   buttonTextStyle: {
     color: Theme.primary,
   },
   secondaryText: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     marginTop: 10,
     color: Theme.textSecondary,
   },

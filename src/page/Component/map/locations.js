@@ -13,7 +13,7 @@ function LoactionMap(props) {
     const renderMarker = () => {
         let result = (<MapView.Marker
             icon={() => {
-                return (<Entypo name='location-pin' style={{ color: 'blue', fontSize: 20 }}></Entypo>)
+                return (<Entypo name='location-pin' style={{ color: 'blue', fontSize: $screen.scaleSize(20) }}></Entypo>)
             }}
             title={center.name}
             coordinate={{

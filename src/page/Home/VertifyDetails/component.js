@@ -219,7 +219,7 @@ export default function VertifyDetailsPage(props) {
 const styles = StyleSheet.create({  
   headerText: {
     color: '#527BDF', 
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     justifyContent: 'center', 
     paddingTop: 5, 
   },
@@ -240,17 +240,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECF2FF',
   },
   topTextStyle1: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textDefault,
   },
   topTextStyle2: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
     marginTop: 10,
   },
   textTitle: {
     paddingVertical: 10,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
   },
   textContent: {
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     right: 0,
     paddingVertical: 10,
     textAlign: 'right',
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   space: {
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#FFFFFF',
   },
 });

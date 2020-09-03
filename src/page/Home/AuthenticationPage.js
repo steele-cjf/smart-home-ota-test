@@ -198,19 +198,19 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.background,
   },
   tipStatus: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textSecondary,
   },
   status: {
     position: 'absolute',
     right: 0,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
     textAlign: 'right',
   },
   verTitle: {
     marginVertical: 20,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   authListStyle: {
@@ -229,39 +229,39 @@ const styles = StyleSheet.create({
   },
   SelectName: {
     color: '#527BDF',
-    fontSize: 18,
+    fontSize: $screen.scaleSize(18),
   },
   name: {
     color: Theme.textDefault,
-    fontSize: 18,
+    fontSize: $screen.scaleSize(18),
   },
   typeText: {
     position: 'absolute',
     top: 22,
     right: 16,
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: Theme.textSecondary,
   },
   selectTypeText: {
     position: 'absolute',
     top: 22,
     right: 16,
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: '#527BDF',
   },
   secondaryText: {
     marginTop: 12,
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: Theme.textDefault,
   },
   selectSecondaryText: {
     marginTop: 12,
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: '#527BDF',
   },
   tipText: {
     padding: 12,
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: Theme.textSecondary,
     borderRadius: 4,
     lineHeight: 17,
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: '#FFFFFF',
   },
 });

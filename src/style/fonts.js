@@ -4,7 +4,7 @@ export const getLineHeight = fontSize => {
 };
 
 export const base = {
-  fontSize: 15,
+  fontSize: $screen.scaleSize(15),
   lineHeight: getLineHeight(15),
 };
 

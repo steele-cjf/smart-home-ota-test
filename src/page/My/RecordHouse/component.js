@@ -280,7 +280,7 @@ function RecordHouse(props) {
                       <Text
                         numberOfLines={1}
                         style={[
-                          { fontSize: 14, paddingRight: 10 },
+                          { fontSize: $screen.scaleSize(14), paddingRight: 10 },
                           styles.textAlignR,
                         ]}>
                         {regionName}
@@ -288,7 +288,7 @@ function RecordHouse(props) {
                       <AntDesign
                         name="right"
                         style={{
-                          fontSize: 12,
+                          fontSize: $screen.scaleSize(12),
                           color: Theme.textSecondary,
                         }}
                       />
@@ -320,7 +320,7 @@ function RecordHouse(props) {
                       onPress={() => openSettings(selfList, 2, 'self')}>
                       <Text
                         style={[
-                          { fontSize: 14, paddingRight: 10 },
+                          { fontSize: $screen.scaleSize(14), paddingRight: 10 },
                           styles.textAlignR,
                         ]}>
                         {selectedSelfValue}
@@ -328,7 +328,7 @@ function RecordHouse(props) {
                       <AntDesign
                         name="right"
                         style={{
-                          fontSize: 12,
+                          fontSize: $screen.scaleSize(12),
                           color: Theme.textSecondary,
                         }}
                       />
@@ -498,7 +498,7 @@ function RecordHouse(props) {
                       <Body>
                         <Text
                           style={{
-                            fontSize: 14,
+                            fontSize: $screen.scaleSize(14),
                             paddingLeft: 22,
                           }}>
                           电梯
@@ -581,7 +581,7 @@ function RecordHouse(props) {
                       }>
                       <Text
                         style={[
-                          { fontSize: 14, paddingRight: 10 },
+                          { fontSize: $screen.scaleSize(14), paddingRight: 10 },
                           styles.textAlignR,
                         ]}>
                         {selectedDirectionValue}
@@ -589,7 +589,7 @@ function RecordHouse(props) {
                       <AntDesign
                         name="right"
                         style={{
-                          fontSize: 12,
+                          fontSize: $screen.scaleSize(12),
                           color: Theme.textSecondary,
                         }}
                       />
@@ -631,13 +631,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   defaultSize: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
   },
   marginLeft0: {
     marginLeft: 0,
   },
   publishTitle: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textTitle,
     paddingBottom: 24,
     paddingTop: 32,
@@ -647,13 +647,13 @@ const styles = StyleSheet.create({
     paddingBottom: 14,
   },
   ImgTitle: {
-    fontSize: 16,
+    fontSize: $screen.scaleSize(16),
     color: Theme.textTitle,
     paddingTop: 32,
     paddingBottom: 5,
   },
   imgDec: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: Theme.textSecondary,
   },
   labelTitle: {

@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
         backgroundColor: Theme.background,
     },
     textTitle: {
-        fontSize: 16,
+        fontSize: $screen.scaleSize(16),
         color: Theme.textDefault,
     },
     formBox: {
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
         height: 40,
         lineHeight: 40,
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: $screen.scaleSize(16),
         color: '#FFFFFF',
     },
 })

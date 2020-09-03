@@ -183,11 +183,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   normalTitle: {
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: '#ddd',
   },
   smallTitle: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: '#ddd',
   },
 });

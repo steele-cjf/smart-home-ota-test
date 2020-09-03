@@ -80,14 +80,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 88,
     top: 18,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   textMobile: {
     position: 'absolute',
     left: 88,
     top: 44,
-    fontSize: 14,
+    fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
   lineView: {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   textTip: {
     textAlign: 'center',
     marginTop: 26,
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: Theme.textSecondary,
   },
 });

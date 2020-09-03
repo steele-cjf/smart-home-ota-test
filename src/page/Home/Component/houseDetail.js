@@ -161,10 +161,10 @@ const styles = StyleSheet.create({
     },
     title: {
         color: Theme.primary,
-        fontSize: 33
+        fontSize: $screen.scaleSize(33)
     },
     desc: {
-        fontSize: 17,
+        fontSize: $screen.scaleSize(17),
         top: 16,
         color: Theme.primary
     },
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     rightBtn: {
         position: 'absolute',
         right: 16,
-        fontSize: 20,
+        fontSize: $screen.scaleSize(20),
         color: '#666',
         top: 10
     },
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     secondDes: {
         color: '#282828',
         marginTop: 8,
-        fontSize: 16
+        fontSize: $screen.scaleSize(16)
     },
     moduleTitle: {
         color: '#282828',
@@ -204,11 +204,11 @@ const styles = StyleSheet.create({
     },
     houseLayoutTitle: {
         color: '#282828',
-        fontSize: 18,
+        fontSize: $screen.scaleSize(18),
         marginBottom: 8
     },
     houseLayoutDesc: {
-        fontSize: 12,
+        fontSize: $screen.scaleSize(12),
         color: '#7C7C7C'
     },
     houseAdditionBox: {
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     houseAdditionText: {
-        fontSize: 14,
+        fontSize: $screen.scaleSize(14),
         color: '#7C7C7C',
         paddingHorizontal: 15,
         paddingVertical: 6
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
         // justifyContent: 'space-between'
     },
     houseLayoutIcon: {
-        fontSize: 24,
+        fontSize: $screen.scaleSize(24),
         color: '#666666',
         paddingBottom: 5
     },
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     },
     houseRatePlanDesc: {
         color: '#7C7C7C',
-        fontSize: 14,
+        fontSize: $screen.scaleSize(14),
         paddingRight: 5
     },
     houseRatePlanText: {

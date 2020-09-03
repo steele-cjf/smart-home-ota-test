@@ -115,7 +115,7 @@ function MyPage(props) {
                 <AntDesign
                   name="bells"
                   style={{
-                    fontSize: 20,
+                    fontSize: $screen.scaleSize(20),
                     color: '#fff',
                   }}
                 />
@@ -125,7 +125,7 @@ function MyPage(props) {
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Thumbnail style={{ marginRight: 16 }} source={(userInfo && userInfo.avatarImageUrl) ? {uri:userInfo.avatarImageUrl} : uri} />
                     <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                      <Text style={{ fontSize: 20, color: '#fff' }}>
+                      <Text style={{ fontSize: $screen.scaleSize(20), color: '#fff' }}>
                         {userInfo.name || userInfo.mobile}
                       </Text>
                       <TouchableOpacity style={[styles.statusBox,{backgroundColor: statusColor[userInfo.status],},]} 
@@ -138,7 +138,7 @@ function MyPage(props) {
                     <AntDesign
                       name="right"
                       style={{
-                        fontSize: 20,
+                        fontSize: $screen.scaleSize(20),
                         color: '#fff',
                       }}
                     />
@@ -172,7 +172,7 @@ function MyPage(props) {
                   rounded
                   onPress={() => logoutSubmit()}
                   style={{ borderColor: '#7C7C7C', marginVertical: 20, height: 40 }}>
-                  <Text style={{ color: '#7C7C7C', fontSize: 16 }}>退出登录</Text>
+                  <Text style={{ color: '#7C7C7C', fontSize: $screen.scaleSize(16) }}>退出登录</Text>
                 </Button>
               </View>
             </ScrollView>
@@ -209,14 +209,14 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   topTitle: {
-    fontSize: 24,
+    fontSize: $screen.scaleSize(24),
     color: '#fff',
   },
   InfoBox: {
     marginTop: 20,
   },
   statusText: {
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     color: '#fff',
   },
   statusBox: {

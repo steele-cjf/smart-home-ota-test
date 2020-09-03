@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#527BDF',
     padding: 5,
     borderRadius: 5,
-    fontSize: 12
+    fontSize: $screen.scaleSize(12)
   },
   selectMarker: {
     backgroundColor: '#FD8D22'
@@ -224,11 +224,11 @@ const styles = StyleSheet.create({
   },
   contentTitle: {
     color: '#282828',
-    fontSize: 20,
+    fontSize: $screen.scaleSize(20),
   },
   contentDes: {
     color: '#7C7C7C',
-    fontSize: 12,
+    fontSize: $screen.scaleSize(12),
     position: 'absolute',
     right: 17,
     top: 8
