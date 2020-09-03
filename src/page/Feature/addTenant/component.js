@@ -71,17 +71,13 @@ export default function AddTenant(props) {
         let url = '/tenant/family/qrcode'
         let formData = {
           houseId,
-          userId: data.id
+          userId: data.id,
+          tenantUserId
         }
         if (type !== 'member') {
           formData['houseType'] = houseType
           formData['roomIds'] = houseType !== FULL_RENT && roomIds || []
           url = '/tenant/qrcode'
-          formData = {
-            houseId,
-            userId: data.id,
-            tenantUserId
-          }
         }
         props.scanAddTenant(url, formData, res => requestCalBack(res))
       } else {

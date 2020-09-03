@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import MyPage from '../page/My/MyPage';
 import PersonalInfo from '../page/My/PersonalInfo';
 import AuthenticationPage from '../page/Home/AuthenticationPage';
@@ -22,8 +22,8 @@ import TenantList from '../page/Feature/TenantList';
 import AddTenant from '../page/Feature/addTenant';
 import HouseCollectionList from '../page/My/HouseCollectionList'
 import PublishHouseDetail from '../page/Home/PublishHouseDetail';
-
-import {AppRoute} from './AppRoutes';
+import { Text } from 'react-native'
+import { AppRoute } from './AppRoutes';
 
 const MyPageNavigator = createStackNavigator();
 
@@ -75,7 +75,8 @@ export const MyPageStackComponent = () => {
         name={AppRoute.MYQRCODE}
         component={MyQRCode}
         options={{
-          headerShown: false,
+          headerTitle: props => <Text>aaaaa</Text>
+          // headerShown: false,
         }}
       />
       <MyPageNavigator.Screen
@@ -87,7 +88,7 @@ export const MyPageStackComponent = () => {
           headerShown: false,
         }}
       />
-       <MyPageNavigator.Screen
+      <MyPageNavigator.Screen
         name={AppRoute.USERPASSED}
         component={UserPassedPage}
         options={{
