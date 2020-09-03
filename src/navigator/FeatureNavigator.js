@@ -11,6 +11,9 @@ import ComponentTest from '../page/ComponentTest/index';
 import { AppRoute } from './AppRoutes';
 import MyPublishHouse from '../page/My/MyPublishHouse';
 import RecordHouse from '../page/My/RecordHouse';
+import VertifyDetailsPage from '../page/Home/VertifyDetails';
+import PersonalInfo from '../page/My/PersonalInfo';
+import UserPassedPage from '../page/Home/VertifyDetails/UserPassedPage';
 
 const FeatureStack = createStackNavigator();
 
@@ -90,6 +93,27 @@ export const FeatureStackComponent = () => {
       <FeatureStack.Screen
         name={AppRoute.PUBLISHLISE}
         component={MyPublishHouse}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.VERDETAILS}
+        component={VertifyDetailsPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.PERSONALINFO}
+        component={PersonalInfo}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.USERPASSED}
+        component={UserPassedPage}
         options={{
           headerShown: false,
         }}
