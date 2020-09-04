@@ -61,9 +61,9 @@ export const httpService = (url, config) => {
           if (config.successConfig && config.successConfig.callback) {
             config.successConfig.callback(response);
           }
-          if (response.code !== 401 && response.code !== 0) {
-            showToast(response.message)
-          }
+          // if (response.code !== 401 && response.code !== 0) {
+          //   showToast(response.message)
+          // }
         })
         .catch(error => {
           showToast('请求出错，请联系管理员')

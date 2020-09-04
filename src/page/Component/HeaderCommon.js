@@ -32,17 +32,17 @@ export default function HeaderCommon(props) {
     }
     return (
         <Header style={styles.container}>
-            <Left style={Platform.OS && { flex: 1 }}>
+            <Left style={Platform.OS == 'android' && { flex: 1 }}>
                 <TouchableOpacity style={{ flexDirection: 'row', }} onPress={() => NavigatorService.goBack()}>
                     {/* <Icon style={styles.actionColor} name="left" /> */}
-                    <AntDesign name="left" style={[styles.actionColor, Platform.OS && styles.androidIcon]} />
+                    <AntDesign name="left" style={[styles.actionColor, Platform.OS == 'android' && styles.androidIcon]} />
                     {renderBackTitle()}
                 </TouchableOpacity>
             </Left>
-            <Body style={[styles.BodyBox, Platform.OS && styles.androidBody]}>
+            <Body style={[styles.BodyBox, Platform.OS == 'android' && styles.androidBody]}>
                 <Text style={styles.BodyTitle}>{options.title || '--'}</Text>
             </Body>
-            <Right style={Platform.OS && { flex: 1 }}>
+            <Right style={Platform.OS == 'android' && { flex: 1 }}>
                 {renderRightButton()}
             </Right>
         </Header>)
