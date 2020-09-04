@@ -132,10 +132,10 @@ android {
         cruncherEnabled = false
 //        useNewCruncher = false
     }
-//    lintOptions {
+    lintOptions {
 //        checkReleaseBuilds false
-//        abortOnError false
-//    }
+        abortOnError false
+    }
     defaultConfig {
         applicationId "com.thingsmatrix.smarthome"
         minSdkVersion rootProject.ext.minSdkVersion

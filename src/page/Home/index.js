@@ -62,12 +62,17 @@ function HomePage(props) {
       position => {
         console.log('position: ' + JSON.stringify(position))
         if (position.coords) {
-          props.getRecommandList(position.coords, res => {
+          props.getRecommandList(position.coords, res => { // 获取推荐列表
             setRecommandList(res.data)
           })
         }
       },
-      error => showToast('Error', JSON.stringify(error))
+      error => {
+        props.getRecommandList({}, res => { // 获取推荐列表
+          setRecommandList(res.data)
+        })
+        // showToast('Error', JSON.stringify(error))
+      }
     )
   }
 

@@ -40,7 +40,9 @@ function HouseList(props) {
           setCenter(arr.join(','))
         }
       },
-      error => showToast('Error', JSON.stringify(error))
+      error => {
+        // showToast('Error', JSON.stringify(error))
+      }
     )
   }
 
