@@ -3,6 +3,7 @@ import { appApi, ip } from '../config';
 import RNFetchBlob from 'rn-fetch-blob'
 import storage from './storage';
 import { AppRoute } from '../navigator/AppRoutes'
+import showToast from './toast';
 // 默认配置
 export const DEFAULT_CONFIG = {
   method: 'GET',
@@ -41,7 +42,9 @@ export const httpService = (url, config) => {
       config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
       config = Object.assign({}, DEFAULT_CONFIG, config);
       if (config.body && config.headers && config.headers['Content-Type'] === 'application/json') {
-        config.body = cleanNullData(config.body && JSON.stringify(config.body))
+        if (config.body) {
+          config.body = JSON.stringify(cleanNullData(config.body))
+        }
       }
       return fetch(appApi + url, config)
         .then(response => response.json())
@@ -57,6 +60,9 @@ export const httpService = (url, config) => {
           }
           if (config.successConfig && config.successConfig.callback) {
             config.successConfig.callback(response);
+          }
+          if (response.code !== 401 && response.code !== 0) {
+            showToast(response.message)
           }
         })
         .catch(error => {
@@ -95,15 +101,15 @@ export const postImage = (url, callback, isAbsolute) => {
 }
 function cleanNullData(json) {
   console.log('&&&&&22222start', json)
-  if (!json) return {}
+  // if (!json) return {}
   let result = {}
   for (var i in json) {
     if (json[i] != null) {
       result[i] = json[i]
     }
   }
-  console.log('&&&&&22222', result)
-  return result
+  // console.log('&&&&&22222', result)
+  return json
 }
 
 function fetchGetImage(method, url, callback, isAbsolute) {

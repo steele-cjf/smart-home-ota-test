@@ -9,7 +9,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import DropdownMenu from '../../Component/housingList/filter';
 
 function HouseList(props) {
-  const data = [{ type: 'text', value: '位置', key: 'location' }, { type: 'text', value: '方式/户型', key: 'houseType' }, { type: 'text', value: '租金', key: 'rent' }, { type: 'icon', value: 'filter', key: 'filter' }];
+  const data = [{ type: 'text', value: '位置', key: 'location' }, { type: 'text', value: '方式/户型', key: 'houseType' }, { type: 'text', value: '租金', key: 'rent' }, { type: 'icon', value: '排序', key: 'filter' }];
   const filterParamsList = [
     [{ distance: null }, { distance: '1' }, { distance: '2' }, { distance: '3' }],
     [],

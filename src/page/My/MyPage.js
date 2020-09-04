@@ -101,80 +101,79 @@ function MyPage(props) {
       NavigatorService.navigate(AppRoute.VERDETAILS);
     }
   }
-
   const uri = require('../../assets/images/head.png');
 
   return (
     <View style={styles.container}>
-            <View style={styles.headerContent}>
-              <View style={[styles.flex, styles.topBox]}>
-                <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.MYQRCODE)}>
-                  <Text style={styles.topTitle}>我的</Text>
+      <View style={styles.headerContent}>
+        <View style={[styles.flex, styles.topBox]}>
+          <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.MYQRCODE)}>
+            <Text style={styles.topTitle}>我的</Text>
+          </TouchableOpacity>
+          <AntDesign
+            name="bells"
+            style={{
+              fontSize: $screen.scaleSize(20),
+              color: '#fff'
+            }}
+          />
+        </View>
+        <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
+          <View style={[styles.flex, styles.InfoBox]}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Thumbnail style={{ marginRight: 16 }} source={(userInfo && userInfo.avatarImageUrl) ? { uri: userInfo && userInfo.avatarImageUrl } : uri} />
+              <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: $screen.scaleSize(20), color: '#fff' }}>
+                  {userInfo && (userInfo.name || userInfo.mobile)}
+                </Text>
+                <TouchableOpacity style={[styles.statusBox, { backgroundColor: statusColor[userInfo && userInfo.status], },]}
+                  onPress={goVertifyDetailPage}>
+                  <Text style={styles.statusText}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text>
                 </TouchableOpacity>
-                <AntDesign
-                  name="bells"
-                  style={{
-                    fontSize: $screen.scaleSize(20),
-                    color: '#fff',
-                  }}
-                />
               </View>
-              <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
-                <View style={[styles.flex, styles.InfoBox]}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Thumbnail style={{ marginRight: 16 }} source={(userInfo && userInfo.avatarImageUrl) ? {uri:userInfo.avatarImageUrl} : uri} />
-                    <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                      <Text style={{ fontSize: $screen.scaleSize(20), color: '#fff' }}>
-                        {userInfo.name || userInfo.mobile}
-                      </Text>
-                      <TouchableOpacity style={[styles.statusBox,{backgroundColor: statusColor[userInfo.status],},]} 
-                      onPress={goVertifyDetailPage}>
-                        <Text style={styles.statusText}>{props.dictionaryMappings.user_status[userInfo.status]}</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View>
-                    <AntDesign
-                      name="right"
-                      style={{
-                        fontSize: $screen.scaleSize(20),
-                        color: '#fff',
-                      }}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
             </View>
-            <ScrollView style={styles.myContent}>
-              <View style={{ marginHorizontal: 16, paddingTop: 15 }}>
-                <View
-                  style={{
-                    display: userInfo.status !== 'audit_pass' ? 'none' : 'flex',
-                  }}>
-                  {getItem(MORE_MENU.Owner)}
-                  <View style={styles.line} />
-                  {getItem(MORE_MENU.Tenement)}
-                  <View style={styles.line} />
-                </View>
-                {getItem(MORE_MENU.House_Collect)}
-                <View style={styles.groupTitle} />
-                {getItem(MORE_MENU.Setting)}
-                <View style={styles.line} />
-                {getItem(MORE_MENU.Feedback)}
-                <View style={styles.line} />
-                {getItem(MORE_MENU.Privacy_Policy)}
-                <View style={styles.line} />
-                {getItem(MORE_MENU.About)}
-                <Button
-                  bordered
-                  full
-                  rounded
-                  onPress={() => logoutSubmit()}
-                  style={{ borderColor: '#7C7C7C', marginVertical: 20, height: 40 }}>
-                  <Text style={{ color: '#7C7C7C', fontSize: $screen.scaleSize(16) }}>退出登录</Text>
-                </Button>
-              </View>
-            </ScrollView>
+            <View>
+              <AntDesign
+                name="right"
+                style={{
+                  fontSize: $screen.scaleSize(20),
+                  color: '#fff',
+                }}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <ScrollView style={styles.myContent}>
+        <View style={{ marginHorizontal: 16, paddingTop: 15 }}>
+          <View
+            style={{
+              display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex',
+            }}>
+            {getItem(MORE_MENU.Owner)}
+            <View style={styles.line} />
+            {getItem(MORE_MENU.Tenement)}
+            <View style={styles.line} />
+          </View>
+          {getItem(MORE_MENU.House_Collect)}
+          <View style={styles.groupTitle} />
+          {getItem(MORE_MENU.Setting)}
+          <View style={styles.line} />
+          {getItem(MORE_MENU.Feedback)}
+          <View style={styles.line} />
+          {getItem(MORE_MENU.Privacy_Policy)}
+          <View style={styles.line} />
+          {getItem(MORE_MENU.About)}
+          <Button
+            bordered
+            full
+            rounded
+            onPress={() => logoutSubmit()}
+            style={{ borderColor: '#7C7C7C', marginVertical: 20, height: 40 }}>
+            <Text style={{ color: '#7C7C7C', fontSize: $screen.scaleSize(16) }}>退出登录</Text>
+          </Button>
+        </View>
+      </ScrollView>
     </View>
   );
 }
