@@ -58,7 +58,7 @@ function HouseList(props) {
     });
   }
   const renderContent = () => {
-    if (houseList.list.length) {
+    if (houseList.list && houseList.list.length) {
       return (
         <HouseListComponent list={houseList} handlerHouseList={(page) => fetchHouseList(page)} />
       )
