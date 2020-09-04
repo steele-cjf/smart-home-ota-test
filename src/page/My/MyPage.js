@@ -3,7 +3,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Thumbnail, Button, Spinner } from 'native-base';
 import { useFocusEffect } from '@react-navigation/native';
@@ -102,25 +102,24 @@ function MyPage(props) {
     }
   }
   const uri = require('../../assets/images/head.png');
+  const scan = require('../../assets/images/scan.png');
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContent}>
         <View style={[styles.flex, styles.topBox]}>
-          <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.MYQRCODE)}>
-            <Text style={styles.topTitle}>我的</Text>
-          </TouchableOpacity>
+          <Text style={styles.topTitle}>我的</Text>
           <AntDesign
             name="bells"
             style={{
               fontSize: $screen.scaleSize(20),
-              color: '#fff'
+              color: '#fff' 
             }}
           />
         </View>
         <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
           <View style={[styles.flex, styles.InfoBox]}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center',  flex:1,}}>
               <Thumbnail style={{ marginRight: 16 }} source={(userInfo && userInfo.avatarImageUrl) ? { uri: userInfo && userInfo.avatarImageUrl } : uri} />
               <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                 <Text style={{ fontSize: $screen.scaleSize(20), color: '#fff' }}>
@@ -129,6 +128,11 @@ function MyPage(props) {
                 <TouchableOpacity style={[styles.statusBox, { backgroundColor: statusColor[userInfo && userInfo.status], },]}
                   onPress={goVertifyDetailPage}>
                   <Text style={styles.statusText}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{position: 'absolute', right: 24}}  >
+                <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.MYQRCODE)}>
+                  <Image style={{width: 34, height: 34,}} source={scan} />
                 </TouchableOpacity>
               </View>
             </View>

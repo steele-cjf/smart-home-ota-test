@@ -153,6 +153,15 @@ export default function VertifyDetailsPage(props) {
     });
   }
 
+  function goBackOrTop() {
+    const {params} = props.route;
+    if (params && params.userId) {
+      NavigatorService.goBack();
+    } else {
+      props.navigation.popToTop();
+    }
+  }
+
   const img = require('../../../assets/images/head.png');
 
   const [authStatus, setAuthStatus] = useState('audit_pending');
@@ -168,7 +177,7 @@ export default function VertifyDetailsPage(props) {
     <View style={{flex: 1}}>
       <Header style={{backgroundColor: Theme.background, borderBottomColor: '#E9E9E9', height:44,}}>
         <Left>
-          <Button transparent onPress={() => NavigatorService.goBack()} >
+          <Button transparent onPress={goBackOrTop} >
             <Icon name="md-chevron-back" style={{justifyContent: 'center'}}/>
             <Text style={[styles.headerText, {marginLeft: -7}]}>返回</Text>
           </Button>
