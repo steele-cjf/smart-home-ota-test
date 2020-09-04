@@ -185,7 +185,7 @@ function HomePage(props) {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Text style={styles.listTitle}>房源推荐</Text>
                   <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
-                    <Text style={{ color: Theme.textLink }} >查看更多</Text>
+                    <Text style={{ color: Theme.textLink, fontSize: $screen.scaleSize(14) }} >查看更多</Text>
                   </Button>
                 </View>
               </View>
@@ -244,6 +244,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
+    paddingBottom: Platform.OS == 'ios' ? 16: 5,
     top: -20,
     // paddingTop: 25,
     flex: 1,
@@ -254,8 +255,5 @@ const styles = StyleSheet.create({
     color: '#282828'
   },
   listMore: {
-    // position: 'absolute',
-    // right: 0,
-    // top: -10
   }
 });

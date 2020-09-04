@@ -1,52 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Platform } from 'react-native'
 import { Button, Icon, Text, Left, Right, Header, Body, Input } from 'native-base';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../../navigator/AppRoutes';
-
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 export default function SearchHeader(props) {
     const [searchItem, setSearchItem] = useState('');
     return (
         <View>
             <Header hasSegment style={styles.container}>
-                <Left style={{ flex: 1 }}>
+                <Left style={[{ flex: 1 }, Platform.OS == 'android' && {top: -2, left: -2}]}>
                     <Button transparent onPress={() => NavigatorService.goBack()} >
                         <AntDesign name="left" style={styles.actionColor} />
-                        <Text style={{color: Theme.textLink, fontSize: $screen.scaleSize(14)}}>返回</Text>
+                        <Text style={[styles.backBtn, Platform.OS == 'android' && styles.backBtnAndroid]}>返回</Text>
                     </Button>
                 </Left>
-                <Body style={{flexDirection: 'row', flex: 4, alignItems: 'center',backgroundColor: '#E9E9E9', height: 30,borderRadius: 20, }}>
-                    <Icon name="ios-search" style={styles.searchIcon} />
+                <Body style={{ flexDirection: 'row', flex: 4, alignItems: 'center', backgroundColor: '#E9E9E9', height: 30, borderRadius: 20, }}>
+                    <EvilIcons name='search' style={styles.searchIcon} />
                     <Input
-                       style={styles.Input}
-                       value={searchItem}
-                       onChangeText={setSearchItem}
-                       onBlur={() => props.getSearchParams(searchItem)} 
-                       placeholder='地区/小区' />
+                        style={styles.Input}
+                        value={searchItem}
+                        onChangeText={setSearchItem}
+                        onBlur={() => props.getSearchParams(searchItem)}
+                        placeholder='地区/小区' />
                 </Body>
                 <Right style={{ flex: 0.5 }}>
                     <Entypo style={styles.RightIcon} name='location' onPress={() => NavigatorService.navigate(AppRoute.MAPHOUSE)} />
                 </Right>
             </Header>
-            {/* <Segment style={styles.selectBox}>
-                <View style={styles.select}>
-                    <Text style={styles.text}>位置</Text>
-                    <AntDesign name='caretdown' />
-                </View>
-                <View style={{flex: 3, flexDirection: 'row'}}>
-                    <Text style={styles.text}>方式/户型</Text>
-                    <AntDesign name='caretdown' />
-                </View>
-                <View style={styles.select}>
-                    <Text style={styles.text}>租金</Text>
-                    <AntDesign name='caretdown' />
-                </View>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <FontAwesome name='sort' style={{fontSize: $screen.scaleSize(14)}}></FontAwesome>
-                </View>
-            </Segment> */}
         </View>
     );
 }
@@ -55,7 +38,7 @@ const styles = StyleSheet.create({
     container: {
         // height: 50,
         padding: 10,
-        backgroundColor: '#fff',
+        backgroundColor: '#fff'
     },
     selectBox: {
         borderTopWidth: 1,
@@ -83,7 +66,8 @@ const styles = StyleSheet.create({
         // zIndex: 10
     },
     Input: {
-        paddingLeft: 10
+        paddingLeft: 10,
+        fontSize: $screen.scaleSize(14)
     },
     select: {
         flex: 2,
@@ -98,5 +82,13 @@ const styles = StyleSheet.create({
     text: {
         color: '#282828',
         paddingHorizontal: 10
+    },
+    backBtn: {
+        color: Theme.textLink,
+        fontSize: $screen.scaleSize(14)
+    },
+    backBtnAndroid: {
+        left: -10,
+        top: 1
     }
 });

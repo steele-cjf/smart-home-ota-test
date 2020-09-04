@@ -266,7 +266,10 @@ class DropdownMenu extends Component {
       <View style={{ flexDirection: 'column', flex: 1 }}>
         <View style={{
           flexDirection: 'row',
-          backgroundColor: this.props.bgColor ? this.props.bgColor : this.defaultConfig.bgColor
+          backgroundColor: this.props.bgColor ? this.props.bgColor : this.defaultConfig.bgColor,
+          borderTopWidth: 1,
+          borderBottomWidth: 1,
+          borderColor: '#E9E9E9'
         }} >
           {
             this.props.data.map((rows, index) =>
@@ -315,7 +318,7 @@ const styles = StyleSheet.create({
     fontSize: $screen.scaleSize(14)
   },
   house_type_content: {
-    padding: 16,
+    padding: 16
   },
   house_title: {
     fontSize: $screen.scaleSize(16),

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import {
     Header,
     Left,
     Right,
-    Body,
-    Icon,
-    Button
+    Body
 } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -26,7 +24,7 @@ export default function HeaderCommon(props) {
     }
     const renderRightButton = () => {
         return (
-            <TouchableOpacity transparent style={{display: options.rightShow || 'none'}}
+            <TouchableOpacity transparent style={{ display: options.rightShow || 'none' }}
                 onPress={() => PropsRightPress()}>
                 <Text style={styles.rightText}>{options.rightTitle || '--'}</Text>
             </TouchableOpacity>
@@ -34,17 +32,17 @@ export default function HeaderCommon(props) {
     }
     return (
         <Header style={styles.container}>
-            <Left>
+            <Left style={Platform.OS && { flex: 1 }}>
                 <TouchableOpacity style={{ flexDirection: 'row', }} onPress={() => NavigatorService.goBack()}>
                     {/* <Icon style={styles.actionColor} name="left" /> */}
-                    <AntDesign name="left" style={styles.actionColor} />
+                    <AntDesign name="left" style={[styles.actionColor, Platform.OS && styles.androidIcon]} />
                     {renderBackTitle()}
                 </TouchableOpacity>
             </Left>
-            <Body style={styles.BodyBox}>
+            <Body style={[styles.BodyBox, Platform.OS && styles.androidBody]}>
                 <Text style={styles.BodyTitle}>{options.title || '--'}</Text>
             </Body>
-            <Right>
+            <Right style={Platform.OS && { flex: 1 }}>
                 {renderRightButton()}
             </Right>
         </Header>)
@@ -71,5 +69,13 @@ const styles = StyleSheet.create({
     },
     rightText: {
         color: Theme.textLink,
+    },
+    androidIcon: {
+        top: 4,
+        right: -6
+    },
+    androidBody: {
+        textAlign: 'center',
+        flex: 1
     }
 })

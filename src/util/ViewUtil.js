@@ -76,7 +76,7 @@ export default class ViewUtil {
       <TouchableOpacity
         style={{padding: 8, paddingLeft: 12}}
         onPress={callBack}>
-        <Ionicons name={'ios-arrow-back'} size={26} style={{color: 'white'}} />
+        <Ionicons name={'arrow-back'} size={26} style={{color: 'white'}} />
       </TouchableOpacity>
     );
   }

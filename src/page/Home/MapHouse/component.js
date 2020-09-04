@@ -148,7 +148,7 @@ function MapHouse(props) {
       <HeaderCommon
         options={{
           backTitle: '返回',
-          title: '地图找房',
+          title: '地图找房'
         }}
       />
       <DropdownMenu
