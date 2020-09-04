@@ -40,17 +40,12 @@ export const httpService = (url, config) => {
       DEFAULT_CONFIG.headers.Authorization = 'Bearer ' + token;
       config.headers = Object.assign({}, DEFAULT_CONFIG.headers, config.headers);
       config = Object.assign({}, DEFAULT_CONFIG, config);
-      if (
-        config.body &&
-        config.headers &&
-        config.headers['Content-Type'] === 'application/json'
-      ) {
-        config.body = config.body && JSON.stringify(config.body);
+      if (config.body && config.headers && config.headers['Content-Type'] === 'application/json') {
+        config.body = cleanNullData(config.body && JSON.stringify(config.body))
       }
       return fetch(appApi + url, config)
         .then(response => response.json())
         .then(response => {
-          console.log(response, 'response')
           if (response.code == 401 || (response.error && response.error == "invalid_token")) {
             NavigatorService.navigate(AppRoute.LOGIN)
           }
@@ -66,7 +61,6 @@ export const httpService = (url, config) => {
         })
         .catch(error => {
           showToast('请求出错，请联系管理员')
-          console.log('error', error);
         });
     })();
   };
@@ -99,6 +93,19 @@ export const getImage = (url, callback, isAbsolute) => {
 export const postImage = (url, callback, isAbsolute) => {
   fetchGetImage('POST', url, callback, isAbsolute)
 }
+function cleanNullData(json) {
+  console.log('&&&&&22222start', json)
+  if (!json) return {}
+  let result = {}
+  for (var i in json) {
+    if (json[i] != null) {
+      result[i] = json[i]
+    }
+  }
+  console.log('&&&&&22222', result)
+  return result
+}
+
 function fetchGetImage(method, url, callback, isAbsolute) {
   let uri = isAbsolute && ip + url || appApi + url
   storage.get('token').then(accessToken => {

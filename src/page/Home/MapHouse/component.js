@@ -14,7 +14,7 @@ const snapPoints = [0.6 * h, 0.5 * h, 0.4 * h, 0.3 * h, 0.2 * h, 0.1 * h, 0]
 function MapHouse(props) {
   const data = [{ type: 'text', value: '位置', key: 'location' }, { type: 'text', value: '方式/户型', key: 'houseType' }, { type: 'text', value: '租金', key: 'rent' }];
   const filterParamsList = [
-    [{ distance: '1' }, { distance: '2' }, { distance: '3' }],
+    [{ distance: null }, { distance: '1' }, { distance: '2' }, { distance: '3' }],
     [],
     [{ priceHigh: null, priceLow: null }, { priceHigh: 1000, priceLow: 0 }, { priceHigh: 2000, priceLow: 1000 }, { priceHigh: 3000, priceLow: 2000 }, { priceHigh: 4000, priceLow: 3000 }, { priceHigh: null, priceLow: 4000 }],
     [{ orderBy: 'newest' }, { orderBy: 'price_up' }, { orderBy: 'price_down' }]
@@ -30,6 +30,7 @@ function MapHouse(props) {
   })
   const [houseList, setHouseList] = useState({})
   const mapRef = useRef()
+  const [loc, setLoc] = useState({})
   const bottomSheetRef = React.useRef(null)
 
   useFocusEffect(useCallback(() => {
@@ -46,7 +47,9 @@ function MapHouse(props) {
           setCenter(position.coords);
         }
       },
-      error => showToast('Error', JSON.stringify(error))
+      error => {
+        // showToast('Error', JSON.stringify(error))
+      }
     )
   }, [props.route])
   )
@@ -63,16 +66,18 @@ function MapHouse(props) {
       bottomSheetRef.current.snapTo(snapIndex)
     }
   }
-  const searchMarker = (data) => {
-    // let { latitude, longitude, latitudeDelta, longitudeDelta } = loc.region
-    // let bottom = latitude - latitudeDelta / 2
-    // let left = longitude - longitudeDelta / 2
-    // let right = longitude + longitudeDelta / 2
-    // let top = latitude + latitudeDelta / 2
-    // let data = { bottom, left, top, right, bottom }
-    console.log('mapData', data);
-    props.getSearchSummaries(data, res => {
-      console.log('resData', res);
+  const searchMarker = () => {
+    let data = {}
+    if (loc && loc.region) {
+      let { latitude, longitude, latitudeDelta, longitudeDelta } = loc.region
+      let bottom = latitude - latitudeDelta / 2
+      let left = longitude - longitudeDelta / 2
+      let right = longitude + longitudeDelta / 2
+      let top = latitude + latitudeDelta / 2
+      data = { bottom, left, top, right, bottom }
+    }
+    let result = Object.assign({}, data, params)
+    props.getSearchSummaries(result, res => {
       if (!res.code && res.data) {
         setMarker(res.data)
       }
@@ -94,7 +99,7 @@ function MapHouse(props) {
     const data = filterParamsList[sec][row]
     const newData = Object.assign(params, data)
     setParams(newData)
-    searchMarker(newData)
+    searchMarker()
   }
   const getSection = (arr1, arr2) => {
     const houseParams = {
@@ -102,9 +107,9 @@ function MapHouse(props) {
       roomCount: arr2
     }
     const newData = Object.assign(params, houseParams)
-    console.log('newData2', newData);
+    // console.log('newData2', newData);
     setParams(newData)
-    searchMarker(newData)
+    searchMarker()
   }
 
   // 渲染marker 
@@ -168,6 +173,7 @@ function MapHouse(props) {
           onClick={() => mapClick()}
           showsLocationButton
           onStatusChangeComplete={(region) => {
+            setLoc(region)
             searchMarker()
           }}
           center={center}

@@ -259,7 +259,8 @@ const styles = StyleSheet.create({
         paddingRight: 5
     },
     houseRatePlanText: {
-        color: '#282828'
+        color: '#282828',
+        fontSize: $screen.scaleSize(14)
     },
     mapBox: {
         width: '100%',
