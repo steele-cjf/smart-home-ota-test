@@ -97,32 +97,32 @@ export default function IdCardVertifyPage(props) {
     });
     message = vertifyCn[index] && vertifyCn[index].errorMsg[0];
 
-    // console.log('****3:', formData);
-    // if (formData) {
-    //   var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; 
+    console.log('****3:', formData);
+    if (formData) {
+      var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; 
 
-    //   var nowDateTime = new Date();
-    //   var selDateTime = new Date(formData.birthDate);
+      var nowDateTime = new Date();
+      var selDateTime = new Date(formData.birthDate);
 
-    //   if (!reg.test(formData.identificationNo)) {
-    //     message = '身份证输入不合法';
-    //   } else if ( nowDateTime.getTime() < selDateTime.getTime()) {
-    //     message = '出生日期不能大于当前日期';
-    //   }
-    // } 
+      if (!reg.test(formData.identificationNo)) {
+        message = '身份证输入不合法';
+      } else if ( nowDateTime.getTime() < selDateTime.getTime()) {
+        message = '出生日期不能大于当前日期';
+      }
+    } 
 
-    // if (!message) {
-    //   // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
-    //   console.log(111, formImage);
+    if (!message) {
+      // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
+      console.log(111, formImage);
 
-    //   for (var i = 0; i < 3; i++) {
-    //     let item = formImage[i];
-    //     if (!item) {
-    //       message = '请上传三张图片';
-    //       break;
-    //     }
-    //   }
-    // }
+      for (var i = 0; i < 3; i++) {
+        let item = formImage[i];
+        if (!item) {
+          message = '请上传三张图片';
+          break;
+        }
+      }
+    }
 
     if (message) {
       showToast(message);
@@ -173,6 +173,7 @@ export default function IdCardVertifyPage(props) {
 
   const changeForm = data => {
     setFormData(data);
+    setOldData(data);
   };
 
   return (

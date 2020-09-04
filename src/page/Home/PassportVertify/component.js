@@ -154,6 +154,7 @@ export default function PassportVertifyPage(props) {
     }
     const changeForm = data => {
         setFormData(data);
+        setOldData(data);
     };
 
     

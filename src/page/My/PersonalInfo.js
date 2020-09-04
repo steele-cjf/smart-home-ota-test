@@ -161,9 +161,11 @@ const PersonalInfoPage = (props) => {
 
     console.log('传入avatarImage: **:  ', imageObj);
     console.log('传入result: **:  ', result);
+    setLoading(true);
 
     const userId = props.userInfo.data.id;
     props.modifyPersonalInfo(userId, result, res => {
+      setLoading(false);
       console.log('modifyPersonalInfo****kkkk:', res);
 
       if (!res.code) {
