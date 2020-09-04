@@ -102,8 +102,7 @@ function MyPage(props) {
     }
   }
 
-  const uri = require('../../assets/images/head.png')
-  console.log("userInfo.avatarImageUrl******", userInfo.avatarImageUrl);
+  const uri = require('../../assets/images/head.png');
 
   return (
     <View style={styles.container}>
