@@ -10,18 +10,12 @@ import { bindActionCreators } from 'redux';
 import { addUserFeedback } from '../../store/user/index';
 import showToast from '../../util/toast';
 
-//问题1. 图片超过4张容易出错
 const SuggestionPage = (props) => {
 
   const setImageForm = (index, obj) => {
     let dataArr = Object.assign([], formImages);
-    if (!obj) {
-      if (dataArr.length === 6 && dataArr[5] !== '') {
-        console.log('&&&&&&&&&&&&&&&')
-        dataArr.push('');
-      }  
-      dataArr.splice(index, 1); 
-    } else {
+
+    if (obj) {
       dataArr[index] = obj;
       if (dataArr.length < 6) {
         dataArr.push('');
@@ -30,6 +24,18 @@ const SuggestionPage = (props) => {
 
     setFormImages(dataArr);
   };
+
+  const deleteImage = (index) => {
+    let dataArr = Object.assign([], formImages);
+
+    if (dataArr.length === 6 && dataArr[5] !== '') {
+      console.log('&&&&&&&&&&&&&&&')
+      dataArr.push('');
+    }  
+    dataArr.splice(index, 1);
+
+    setFormImages(dataArr);
+  }
 
   function submitInfo() {
 
@@ -85,7 +91,11 @@ const SuggestionPage = (props) => {
     return (
       formImages.map((item, index) => {
         return (
-          <ImageUpload setImageForm={(obj) => setImageForm(index, obj)} imgUrl={item.uri || ''}/>
+          <ImageUpload 
+            setImageForm={(obj) => setImageForm(index, obj)} 
+            handlerDelete={() => deleteImage(index)} 
+            imgUrl={item.uri || ''}
+          />
         )
       })
     );

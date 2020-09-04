@@ -9,7 +9,7 @@ import { AppRoute } from '../../../navigator/AppRoutes';
 
 export default function PassportVertifyPage(props) {
     const [formData, setFormData] = useState({});
-    const [formImage, setFormImage] = useState([]);
+    const [formImages, setFormImages] = useState([]);
     const [userId, setUserId] = useState(null);
     const [oldData, setOldData] = useState({});
     const [loading, setLoading] = useState(false);
@@ -99,7 +99,7 @@ export default function PassportVertifyPage(props) {
         if (!message) {
             // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
             for (var i = 0; i < 3; i++) {
-                let item = formImage[i]
+                let item = formImages[i]
                 if (!item) {
                     message = '请上传三张图片';
                     break;
@@ -143,20 +143,27 @@ export default function PassportVertifyPage(props) {
         for (var index in formData) {
             result.append(index, formData[index])
         }
-        for (var i in formImage) {
-            result.append('images', formImage[i])
+        for (var i in formImages) {
+            result.append('images', formImages[i])
         }
     }
-    const setImageForm = (type, obj) => {
-        let data = Object.assign([], formImage)
-        data[type] = obj
-        setFormImage(data)
-    }
+
     const changeForm = data => {
         setFormData(data);
         setOldData(data);
     };
 
+    const setImageForm = (type, obj) => {
+        let data = Object.assign([], formImages)
+        data[type] = obj
+        setFormImages(data)
+    }
+
+    const deleteImage = (index) => {
+        let dataArr = Object.assign([], formImages);
+        dataArr.splice(index, 1);
+        setFormImages(dataArr);
+    }
     
 
     return (
@@ -179,13 +186,19 @@ export default function PassportVertifyPage(props) {
                     />
                     <Text style={styles.textTitle}>照片上传</Text>
                     <View style={styles.ImageUploadBox}>
-                        <ImageUpload title='护照个人信息' setImageForm={(obj) => setImageForm(0, obj)} 
+                        <ImageUpload title='护照个人信息' 
+                        setImageForm={(obj) => setImageForm(0, obj)} 
+                        handlerDelete={() => deleteImage(0)}
                         // imgUrl={imageUrl1} 
                         />
-                        <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} 
+                        <ImageUpload title='护照入境信息' 
+                        setImageForm={(obj) => setImageForm(1, obj)} 
+                        handlerDelete={() => deleteImage(1)}
                         // imgUrl={imageUrl2} 
                         />
-                        <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} 
+                        <ImageUpload title='手持护照' 
+                        setImageForm={(obj) => setImageForm(2, obj)} 
+                        handlerDelete={() => deleteImage(2)}
                         // imgUrl={imageUrl3} 
                         />
                     </View>
