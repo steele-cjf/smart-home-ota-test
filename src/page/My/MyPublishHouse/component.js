@@ -12,7 +12,8 @@ import Theme from '../../../style/colors';
 import { Divider } from 'react-native-elements';
 import Feather from 'react-native-vector-icons/Feather';
 import showToast from '../../../util/toast';
-import HeaderCommon from '../../Component/HeaderCommon'
+import HeaderCommon from '../../Component/HeaderCommon';
+import BlankPage from '../../Component/BlankPage';
 
 function MyPublishList(props) {
   const [loading, setLoading] = useState(true);
@@ -53,7 +54,21 @@ function MyPublishList(props) {
       setMappings(res);
     });
   }, []);
-
+  
+  const renderContent = () => {
+    if (houseList.length) {
+      return (
+        <FlatList
+          data={houseList}
+          // 唯一 ID
+          keyExtractor={item => item.id}
+          renderItem={_houseItem}
+        />
+      )
+    } else {
+      return (<BlankPage errorMsg='暂无房源, 请先发布' />)
+    }
+  }
   const goPublishHousePage = () => {
     NavigatorService.navigate(AppRoute.PUBLISH, {
       id: houseId,
@@ -175,7 +190,7 @@ function MyPublishList(props) {
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-          <View>
+          <View style={{flex: 1}}>
             <HeaderCommon
               options={{
                 backTitle: '返回',
@@ -197,12 +212,7 @@ function MyPublishList(props) {
               </View>
             </View>
             <Divider style={{ marginHorizontal: 15 }} />
-            <FlatList
-              data={houseList}
-              // 唯一 ID
-              keyExtractor={item => item.id}
-              renderItem={_houseItem}
-            />
+            {renderContent()}
           </View>
         )}
     </Root>

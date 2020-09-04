@@ -7,6 +7,7 @@ import HouseListComponent from '../../Component/housingList/list';
 import SearchHeader from '../Component/searchHeader'
 import { useFocusEffect } from '@react-navigation/native';
 import DropdownMenu from '../../Component/housingList/filter';
+import BlankPage from '../../Component/BlankPage';
 
 function HouseList(props) {
   const data = [{ type: 'text', value: '位置', key: 'location' }, { type: 'text', value: '方式/户型', key: 'houseType' }, { type: 'text', value: '租金', key: 'rent' }, { type: 'icon', value: '排序', key: 'filter' }];
@@ -16,7 +17,7 @@ function HouseList(props) {
     [{ priceHigh: null, priceLow: null }, { priceHigh: 1000, priceLow: 0 }, { priceHigh: 2000, priceLow: 1000 }, { priceHigh: 3000, priceLow: 2000 }, { priceHigh: 4000, priceLow: 3000 }, { priceHigh: null, priceLow: 4000 }],
     [{ orderBy: 'newest' }, { orderBy: 'price_up' }, { orderBy: 'price_down' }]
   ]
-  const [houseList, setHouseList] = useState()
+  const [houseList, setHouseList] = useState([])
   const [params, setParams] = useState({})
   const [center, setCenter] = useState('');
   const [loading, setLoading] = useState(false)
@@ -56,7 +57,15 @@ function HouseList(props) {
       setLoading(false)
     });
   }
-
+  const renderContent = () => {
+    if (houseList.list.length) {
+      return (
+        <HouseListComponent list={houseList} handlerHouseList={(page) => fetchHouseList(page)} />
+      )
+    } else {
+      return (<BlankPage errorMsg='没有房源，请尝试更换筛选条件' />)
+    }
+  }
   const getFilter = (sec, row) => {
     if (sec === 1) {
       return
@@ -102,7 +111,7 @@ function HouseList(props) {
         multipleSection={(arr1, arr2) => getSection(arr1, arr2)}
         data={data}
       >
-        <HouseListComponent list={houseList} handlerHouseList={(page) => fetchHouseList(page)} />
+        {renderContent()}
       </DropdownMenu>
       {/* </View>)} */}
     </View>
