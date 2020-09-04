@@ -8,20 +8,16 @@ import {
 import { useFocusEffect } from '@react-navigation/native';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
-import HeaderCommon from '../../Component/HeaderCommon'
+import HeaderCommon from '../../Component/HeaderCommon';
+import BlankPage from '../../Component/BlankPage';
+
 function MyHouseList(props) {
   const statusColor = {
     audit_pending: '#5C8BFF',
     audit_reject: '#FF7373',
   };
   const [loading, setLoading] = useState(true);
-  const [houseList, setHouseList] = useState([
-    {
-      address: '深圳市南山区沿山社区网谷科技大厦501',
-      houseLayout: {},
-      id: '488400405136433152',
-    },
-  ]);
+  const [houseList, setHouseList] = useState([]);
   const [mappings, setMappings] = useState({});
   // useEffect(() => {
   //   init();
@@ -51,6 +47,31 @@ function MyHouseList(props) {
     });
   });
 
+  const renderContent = () => {
+    if (houseList.length) {
+      return (
+        <View>
+          <HeaderCommon
+            options={{
+              backTitle: '返回',
+              title: '房源列表',
+              rightShow: 'flex',
+              rightTitle: '新增房源',
+              rightPress: () => goAddHousePage()
+            }}
+          />
+          <FlatList
+            data={houseList}
+            // 唯一 ID
+            keyExtractor={item => item.id}
+            renderItem={_houseItem}
+          />
+        </View>
+      )
+    } else {
+      return (<BlankPage errorMsg='暂无房源' />)
+    }
+  }
   const handleToDetailPage = item => {
     NavigatorService.navigate(AppRoute.HOUSEDETAIL, {
       id: item.id,
@@ -112,23 +133,7 @@ function MyHouseList(props) {
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-          <View>
-            <HeaderCommon
-              options={{
-                backTitle: '返回',
-                title: '房源列表',
-                rightShow: 'flex',
-                rightTitle: '新增房源',
-                rightPress: () => goAddHousePage()
-              }}
-            />
-            <FlatList
-              data={houseList}
-              // 唯一 ID
-              keyExtractor={item => item.id}
-              renderItem={_houseItem}
-            />
-          </View>
+        renderContent()
         )}
     </Root>
   );

@@ -6,6 +6,7 @@ import {AppRoute} from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
 import Feather from 'react-native-vector-icons/Feather';
 import HeaderCommon from '../../Component/HeaderCommon';
+import BlankPage from '../../Component/BlankPage';
 
 function TenantHouseList(props) {
   const [loading, setLoading] = useState(true);
@@ -26,7 +27,22 @@ function TenantHouseList(props) {
       }
     });
   });
-  
+  const renderContent = () => {
+    if (houseList.length) {
+      return (
+        <View style={{backgroundColor: '#fff', flex: 1}}>
+          <FlatList
+            data={houseList}
+            // 唯一 ID
+            keyExtractor={item => item.id}
+            renderItem={_houseItem}
+          />
+        </View>
+      )
+    } else {
+      return (<BlankPage errorMsg='暂无房源' />)
+    }
+  }
   const openSettings = item => {
     const CANCEL_INDEX = 2;
     const BUTTONS = ['家庭成员', '临时钥匙', '取消'];
@@ -109,14 +125,7 @@ function TenantHouseList(props) {
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-        <View style={{backgroundColor: '#fff', flex: 1}}>
-          <FlatList
-            data={houseList}
-            // 唯一 ID
-            keyExtractor={item => item.id}
-            renderItem={_houseItem}
-          />
-        </View>
+        renderContent()
       )}
     </Root>
   );

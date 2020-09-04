@@ -7,6 +7,7 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import HeaderCommon from '../../Component/HeaderCommon';
+import BlankPage from '../../Component/BlankPage';
 
 function HouseCollectionList(props) {
   const [loading, setLoading] = useState(true);
@@ -26,7 +27,22 @@ function HouseCollectionList(props) {
       }
     });
   });
-
+  
+  const renderContent = () => {
+    if (houseList.length) {
+      return (
+        <FlatList
+          style={{paddingTop: 16}}
+          data={houseList}
+          // 唯一 ID
+          keyExtractor={item => item.id}
+          renderItem={_houseItem}
+        />
+      )
+    } else {
+      return (<BlankPage errorMsg='暂无房源' />)
+    }
+  }
   const changeCollection = (item) => {
     props.publishSetCollection({
         publishInfoId: item.publishInfoId,
@@ -87,7 +103,7 @@ function HouseCollectionList(props) {
     );
   };
   return (
-    <View>
+    <View style={{flex: 1}}>
       <HeaderCommon
         options={{
           backTitle: '返回',
@@ -97,15 +113,7 @@ function HouseCollectionList(props) {
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-        <View>
-          <FlatList
-            style={{paddingTop: 16}}
-            data={houseList}
-            // 唯一 ID
-            keyExtractor={item => item.id}
-            renderItem={_houseItem}
-          />
-        </View>
+        renderContent()
       )}
     </View>
   );

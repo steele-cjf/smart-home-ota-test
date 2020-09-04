@@ -11,6 +11,7 @@ import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
 import HouseListComponent from '../Component/housingList/list';
+import BlankPage from '../Component/BlankPage';
 import Theme from '../../style/colors';
 import { useFocusEffect } from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
@@ -106,6 +107,15 @@ function HomePage(props) {
     setLoadingStatus(false)
   }, [props.myHouseList])
 
+  const renderContent = () => {
+    if (recommandList && recommandList.length) {
+      return (
+        <HouseListComponent list={recommandList} />
+      )
+    } else {
+      return (<View style={{top: 50}}><BlankPage errorMsg='暂无房源' /></View>)
+    }
+  }
   // 数据字典
   function storageDataDictionary() {
     props.getAllData(res => {
@@ -195,8 +205,8 @@ function HomePage(props) {
                 </View>
               </View>
             </StickyHeader>
-            <View style={{ top: -30 }}>
-              <HouseListComponent list={recommandList} />
+            <View style={{ top: -30}}>
+              {renderContent()}
             </View>
           </Animated.ScrollView>
         </View>

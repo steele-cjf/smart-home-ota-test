@@ -4,20 +4,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
-  Header,
-  Left,
-  Body,
-  Right,
-  Button,
-  Icon,
-  Title,
   Text,
   Spinner,
 } from 'native-base';
 import DialogInput from '../../Component/dialogInput';
 import Theme from '../../../style/colors';
 import showToast from '../../../util/toast';
-import HeaderCommon from '../../Component/HeaderCommon'
+import HeaderCommon from '../../Component/HeaderCommon';
+import BlankPage from '../../Component/BlankPage';
 
 export default function RoomPage(props) {
   const [loading, setLoading] = useState(true);
@@ -42,7 +36,20 @@ export default function RoomPage(props) {
     });
     setHouseInfo(props.houseDetail.data);
   });
-
+  const renderContent = () => {
+    if (RoomList.length) {
+      return (
+        <FlatList
+            showsVerticalScrollIndicator={false}
+            data={RoomList}
+            renderItem={_renderItem}
+            keyExtractor={(_, index) => index.toString()}
+          />
+      )
+    } else {
+      return (<BlankPage errorMsg='暂无房间，请先添加' />)
+    }
+  }
   const handlerDelete = item => {
     setLoading(true);
     console.log('ddd', item.id);
@@ -125,9 +132,6 @@ export default function RoomPage(props) {
       addRoomFunc(data);
     }
   };
-  const goToPage = () => {
-    props.navigation.goBack();
-  };
   const _renderItem = ({ item, index }) => {
     return (
       <View style={styles.room_item_style}>
@@ -185,13 +189,7 @@ export default function RoomPage(props) {
                 <Text style={styles.main_color}>{houseInfo.address}</Text>
               </View>
             </View>
-            {/* <Divider /> */}
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={RoomList}
-              renderItem={_renderItem}
-              keyExtractor={(_, index) => index.toString()}
-            />
+            {renderContent()}
           </View>
         )}
       <DialogInput
@@ -214,6 +212,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   room_wrapper: {
+    flex: 1,
     padding: 10,
     paddingTop: 0,
   },
