@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import Form from '../../Component/form';
 import ImageUpload from '../../Component/imageUpload';
 import { AppRoute } from '../../../navigator/AppRoutes';
-import { Spinner } from 'native-base'
+import { Spinner, Content } from 'native-base'
 import vertifyCn from '../config/IdCardVertifyCn';
 import Theme from '../../../style/colors';
 import HeaderCommon from '../../Component/HeaderCommon'
@@ -184,6 +184,7 @@ export default function IdCardVertifyPage(props) {
         }}
       />
       {loading ? <Spinner></Spinner> :
+      <Content>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Text style={styles.textTitle}>基本资料</Text>
           <Form
@@ -213,7 +214,9 @@ export default function IdCardVertifyPage(props) {
           <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
             <Text style={styles.btnText}>确认</Text>
           </TouchableOpacity>
-        </ScrollView>}
+        </ScrollView>
+      </Content>
+      }
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import { Spinner } from 'native-base'
+import {View, ScrollView, KeyboardAvoidingView, Text, TextInput, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import { Spinner, Content } from 'native-base'
 import ImagePicker from 'react-native-image-picker';
 import Picker from 'react-native-picker';
 import Theme from '../../style/colors';
@@ -222,7 +222,9 @@ const PersonalInfoPage = (props) => {
         }}
       />
       {loading ? <Spinner></Spinner> :
-      <View style={styles.containerStyle}>
+      // <Content>
+      <KeyboardAvoidingView behavior='padding'> 
+      <ScrollView style={styles.containerStyle}>
         <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
           <Text style={styles.textTitle}>头像</Text>
           <Image style={styles.headImageStyle} source={headImage} />
@@ -263,7 +265,9 @@ const PersonalInfoPage = (props) => {
         <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
           <Text style={styles.btnTextStyle}>保存</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
+      {/* </Content> */}
+      </KeyboardAvoidingView>
       }
     </View>
   ); 
@@ -275,7 +279,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerStyle: {
-    flex: 1,
+    //flex: 1,
     paddingHorizontal: 16,
     backgroundColor: Theme.background,
   },
@@ -329,10 +333,11 @@ const styles = StyleSheet.create({
     //backgroundColor: 'red'
   },
   btnStyle: {
-    position: 'absolute',
-    left: 16,
-    right: 16,
-    bottom: 50,
+    // position: 'absolute',
+    // left: 16,
+    // right: 16,
+    marginTop: 100,
+    marginBottom: 50,
     height: 40,
     borderRadius: 20,
     backgroundColor: '#5C8BFF'
