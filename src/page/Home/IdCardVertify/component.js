@@ -10,7 +10,7 @@ import HeaderCommon from '../../Component/HeaderCommon'
 
 export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
-  const [formImage, setFormImage] = useState([]);
+  const [formImages, setFormImages] = useState([]);
   const [userId, setUserId] = useState('');
   const [loading, setLoading] = useState(false);
   // const [imageUrl1, setImageUrl1] = useState(''); 
@@ -111,10 +111,10 @@ export default function IdCardVertifyPage(props) {
 
     if (!message) {
       // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
-      console.log(111, formImage);
+      console.log(111, formImages);
 
       for (var i = 0; i < 3; i++) {
-        let item = formImage[i];
+        let item = formImages[i];
         if (!item) {
           message = '请上传三张图片';
           break;
@@ -158,20 +158,27 @@ export default function IdCardVertifyPage(props) {
     for (var index in formData) {
       result.append(index, formData[index]);
     }
-    for (var i in formImage) {
-      result.append('images', formImage[i]);
+    for (var i in formImages) {
+      result.append('images', formImages[i]);
     }
-  };
-
-  const setImageForm = (type, obj) => {
-    let data = Object.assign([], formImage);
-    data[type] = obj;
-    setFormImage(data);
   };
 
   const changeForm = data => {
     setFormData(data);
   };
+
+  const setImageForm = (index, obj) => {
+    let data = Object.assign([], formImages);
+    data[index] = obj;
+    setFormImages(data);
+  };
+
+  const deleteImage = (index) => {
+    let dataArr = Object.assign([], formImages);
+    dataArr.splice(index, 1);
+    setFormImages(dataArr);
+  }
+
 
   return (
     <View style={styles.container}>
@@ -196,16 +203,19 @@ export default function IdCardVertifyPage(props) {
             <ImageUpload
               title="身份证正面"
               setImageForm={obj => setImageForm(0, obj)}
+              handlerDelete={() => deleteImage(0)}
               //imgUrl={imageUrl1}
             />
             <ImageUpload
               title="身份证反面"
               setImageForm={obj => setImageForm(1, obj)}
+              handlerDelete={() => deleteImage(1)}
               // imgUrl={imageUrl2}
             />
             <ImageUpload
               title="手持身份证"
               setImageForm={obj => setImageForm(2, obj)}
+              handlerDelete={() => deleteImage(2)}
               // imgUrl={imageUrl3}
             />
           </View>
