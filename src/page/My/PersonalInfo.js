@@ -161,9 +161,11 @@ const PersonalInfoPage = (props) => {
 
     console.log('传入avatarImage: **:  ', imageObj);
     console.log('传入result: **:  ', result);
+    setLoading(true);
 
     const userId = props.userInfo.data.id;
     props.modifyPersonalInfo(userId, result, res => {
+      setLoading(false);
       console.log('modifyPersonalInfo****kkkk:', res);
 
       if (!res.code) {
@@ -218,56 +220,56 @@ const PersonalInfoPage = (props) => {
       <HeaderCommon
         options={{
         backTitle: '返回',
-        title: '个人信息'
+        title: '个人信息' 
         }}
       />
       {loading ? <Spinner></Spinner> :
-      // <Content>
-      <KeyboardAvoidingView behavior='padding'> 
-      <ScrollView style={styles.containerStyle}>
-        <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
-          <Text style={styles.textTitle}>头像</Text>
-          <Image style={styles.headImageStyle} source={headImage} />
-          <AntDesign name="right" style={styles.rightArrow} />
-        </TouchableOpacity>
-        <View style={[styles.sigContainer, {paddingBottom: 10}]}>
-          <Text style={[styles.textTitle, styles.fontSize16]}>基本资料</Text>
-          {
-            renderBasicView()
-          }
-        </View>
-        { 
-          Object.keys(otherData).map((item, index) => { 
-           
-            if (index === 0) {
-              return (
-                <TouchableOpacity style={styles.sigContainer} onPress={pickerAction}>
-                  <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
-                  <Text style={[styles.textContent,styles.rightInput]}>{otherData[item]}</Text>
-                  <AntDesign name="right" style={styles.rightArrow} />
-                </TouchableOpacity>
-              ); 
-            } else {
-              return (
-                <View style={styles.sigContainer}>
-                  <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
-                  <TextInput style={[styles.textContent,styles.rightInput]} 
-                    onChangeText={(text) => {setSaveData(item, text);}}
-                    value={otherData[item]}
-                    editable={true}
-                  />
-                </View>
-              ); 
+      <Content>
+      {/* <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>  */}
+        <ScrollView style={styles.containerStyle}>
+          <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
+            <Text style={styles.textTitle}>头像</Text>
+            <Image style={styles.headImageStyle} source={headImage} />
+            <AntDesign name="right" style={styles.rightArrow} />
+          </TouchableOpacity>
+          <View style={[styles.sigContainer, {paddingBottom: 10}]}>
+            <Text style={[styles.textTitle, styles.fontSize16]}>基本资料</Text>
+            {
+              renderBasicView()
             }
+          </View>
+          { 
+            Object.keys(otherData).map((item, index) => { 
             
-          })
-        }
-        <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
-          <Text style={styles.btnTextStyle}>保存</Text>
-        </TouchableOpacity>
-      </ScrollView>
-      {/* </Content> */}
-      </KeyboardAvoidingView>
+              if (index === 0) {
+                return (
+                  <TouchableOpacity style={styles.sigContainer} onPress={pickerAction}>
+                    <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
+                    <Text style={[styles.textContent,styles.rightInput]}>{otherData[item]}</Text>
+                    <AntDesign name="right" style={styles.rightArrow} />
+                  </TouchableOpacity>
+                ); 
+              } else {
+                return (
+                  <View style={styles.sigContainer}>
+                    <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
+                    <TextInput style={[styles.textContent,styles.rightInput]} 
+                      onChangeText={(text) => {setSaveData(item, text);}}
+                      value={otherData[item]}
+                      editable={true}
+                    />
+                  </View>
+                ); 
+              }
+              
+            })
+          }
+          <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
+            <Text style={styles.btnTextStyle}>保存</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </Content>
+      // </KeyboardAvoidingView>
       }
     </View>
   ); 
@@ -326,11 +328,10 @@ const styles = StyleSheet.create({
   rightArrow: {
     position: 'absolute', 
     right: -3, 
-    top: 17,
+    top: 18,
     fontSize: $screen.scaleSize(14), 
     color: Theme.textSecondary, 
     textAlign: 'right',
-    //backgroundColor: 'red'
   },
   btnStyle: {
     // position: 'absolute',
