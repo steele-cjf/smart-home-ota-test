@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import Form from '../../Component/form'
 import ImageUpload from '../../Component/imageUpload'
 import vertifyCn from '../config/PassportVertify'
-import { Spinner } from 'native-base'
+import { Spinner, Content } from 'native-base'
 import HeaderCommon from '../../Component/HeaderCommon'
 import { AppRoute } from '../../../navigator/AppRoutes';
 
@@ -167,30 +167,32 @@ export default function PassportVertifyPage(props) {
                 }}
             />
             {loading ? <Spinner></Spinner> :
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                <Text style={styles.textTitle}>基本资料</Text>
-                <Form 
-                    config={vertifyCn} 
-                    class={styles.formBox} 
-                    changeForm={changeForm} 
-                    oldData={oldData}
-                />
-                <Text style={styles.textTitle}>照片上传</Text>
-                <View style={styles.ImageUploadBox}>
-                    <ImageUpload title='护照个人信息' setImageForm={(obj) => setImageForm(0, obj)} 
-                    // imgUrl={imageUrl1} 
+            <Content>
+                <ScrollView contentContainerStyle={styles.scrollContainer}>
+                    <Text style={styles.textTitle}>基本资料</Text>
+                    <Form 
+                        config={vertifyCn} 
+                        class={styles.formBox} 
+                        changeForm={changeForm} 
+                        oldData={oldData}
                     />
-                    <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} 
-                    // imgUrl={imageUrl2} 
-                    />
-                    <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} 
-                    // imgUrl={imageUrl3} 
-                    />
-                </View>
-                <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
-                    <Text style={styles.btnText}>确认</Text>
-                </TouchableOpacity>
-            </ScrollView>
+                    <Text style={styles.textTitle}>照片上传</Text>
+                    <View style={styles.ImageUploadBox}>
+                        <ImageUpload title='护照个人信息' setImageForm={(obj) => setImageForm(0, obj)} 
+                        // imgUrl={imageUrl1} 
+                        />
+                        <ImageUpload title='护照入境信息' setImageForm={(obj) => setImageForm(1, obj)} 
+                        // imgUrl={imageUrl2} 
+                        />
+                        <ImageUpload title='手持护照' setImageForm={(obj) => setImageForm(2, obj)} 
+                        // imgUrl={imageUrl3} 
+                        />
+                    </View>
+                    <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
+                        <Text style={styles.btnText}>确认</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </Content>
             }
         </View>
     );
