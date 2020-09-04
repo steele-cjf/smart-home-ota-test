@@ -12,7 +12,6 @@ export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState([]);
   const [userId, setUserId] = useState('');
-  const [oldData, setOldData] = useState({});
   const [loading, setLoading] = useState(false);
   // const [imageUrl1, setImageUrl1] = useState(''); 
   // const [imageUrl2, setImageUrl2] = useState(''); 
@@ -60,7 +59,6 @@ export default function IdCardVertifyPage(props) {
           oldData.gender = 'male';
         }
         console.log(999, oldData);
-        setOldData(Object.assign({}, oldData));
         setFormData(oldData);
 
         console.log('data.imageUrls***', res.data.imageUrls);
@@ -173,7 +171,6 @@ export default function IdCardVertifyPage(props) {
 
   const changeForm = data => {
     setFormData(data);
-    setOldData(data);
   };
 
   return (
@@ -192,7 +189,7 @@ export default function IdCardVertifyPage(props) {
             config={vertifyCn}
             class={styles.formBox}
             changeForm={changeForm}
-            oldData={oldData}
+            oldData={formData} 
           />
           <Text style={styles.textTitle}>照片上传</Text>
           <View style={styles.ImageUploadBox}>
