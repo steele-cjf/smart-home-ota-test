@@ -2,7 +2,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { Form, Item, Input, Label, Text, Button, CheckBox, Root, ActionSheet, Body, Spinner } from 'native-base';
+import { CheckBox } from 'react-native-elements';
+import { Form, Item, Input, Label, Text, Button, Root, ActionSheet, Body, Spinner } from 'native-base';
 import storage from '../../../util/storage';
 import Theme from '../../../style/colors';
 import ImageUpload from '../../Component/imageUpload';
@@ -466,7 +467,7 @@ function RecordHouse(props) {
                       />
                       <Text style={[styles.labelTitle, styles.defaultSize]}>
                         层 / 第
-                    </Text>
+                      </Text>
                       <Input
                         keyboardType="numeric"
                         value={
@@ -487,23 +488,16 @@ function RecordHouse(props) {
                       style={{
                         flex: 2,
                         flexDirection: 'row',
-                        paddingLeft: 20,
                       }}>
                       <CheckBox
-                        center
-                        containerStyle={styles.checkbox_style}
+                        containerStyle={styles.checkBoxContainer}
+                        titleStyle={styles.checkBoxTitle}
+                        title="电梯"
+                        checkedColor={Theme.primary}
+                        uncheckedColor={Theme.primary}
                         checked={hasElevator}
                         onPress={toggleSwitch}
                       />
-                      <Body>
-                        <Text
-                          style={{
-                            fontSize: $screen.scaleSize(14),
-                            paddingLeft: 22,
-                          }}>
-                          电梯
-                      </Text>
-                      </Body>
                     </View>
                   </Item>
                   <Item style={styles.marginLeft0} inlineLabel>
@@ -670,6 +664,14 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  checkBoxContainer: {
+    borderColor: 'transparent',
+    backgroundColor: 'transparent',
+  },
+  checkBoxTitle: {
+    fontSize: $screen.scaleSize(14),
+    color: Theme.textDefault,
   },
 });
 

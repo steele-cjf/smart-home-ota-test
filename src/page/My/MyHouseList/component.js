@@ -50,23 +50,12 @@ function MyHouseList(props) {
   const renderContent = () => {
     if (houseList.length) {
       return (
-        <View>
-          <HeaderCommon
-            options={{
-              backTitle: '返回',
-              title: '房源列表',
-              rightShow: 'flex',
-              rightTitle: '新增房源',
-              rightPress: () => goAddHousePage()
-            }}
-          />
-          <FlatList
-            data={houseList}
-            // 唯一 ID
-            keyExtractor={item => item.id}
-            renderItem={_houseItem}
-          />
-        </View>
+        <FlatList
+          data={houseList}
+          // 唯一 ID
+          keyExtractor={item => item.id}
+          renderItem={_houseItem}
+        />
       )
     } else {
       return (<BlankPage errorMsg='暂无房源' />)
@@ -133,7 +122,18 @@ function MyHouseList(props) {
       {loading ? (
         <Spinner color="#5C8BFF" />
       ) : (
-        renderContent()
+        <View style={{flex: 1}}>
+          <HeaderCommon
+            options={{
+              backTitle: '返回',
+              title: '房源列表',
+              rightShow: 'flex',
+              rightTitle: '新增房源',
+              rightPress: () => goAddHousePage()
+            }}
+          />
+          {renderContent()}
+        </View>
         )}
     </Root>
   );
