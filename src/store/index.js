@@ -8,7 +8,8 @@ import {
   webSocketInfo,
   codeInfo,
   dictionaryMappings,
-  homeHouse
+  homeHouse,
+  featureHouse
 } from './common/index';
 import {roomList} from './feature/index';
 const allReducers = combineReducers({
@@ -20,7 +21,8 @@ const allReducers = combineReducers({
   webSocketInfo,
   codeInfo,
   dictionaryMappings,
-  homeHouse
+  homeHouse,
+  featureHouse
 });
 const store = createStore(allReducers, applyMiddleware(thunk));
 export default store;

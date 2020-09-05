@@ -7,6 +7,7 @@ import { Spinner, Root, ActionSheet, Button } from 'native-base';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useFocusEffect } from '@react-navigation/native';
 import { getMyHouseList } from '../../store/home/index';
+import { setFeatureHouse } from '../../store/common/index'
 import ViewUtil from '../../util/ViewUtil';
 import { MORE_MENU } from '../../common/MORE_MENU';
 import { AppRoute } from '../../navigator/AppRoutes';
@@ -23,18 +24,23 @@ function FeaturePage(props) {
   // useEffect(() => {
   //   props.getMyHouseList() // 获取本人的房源
   // }, []);
-  useFocusEffect(
-    useCallback(() => {
-      props.getMyHouseList()
-    }, [props.route])
-  )
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     props.getMyHouseList()
+  //   }, [props.route])
+  // )
 
   useEffect(() => {
     // 获取本人的房源
     if (props.myHouseList && props.myHouseList.data) {
       let { data } = props.myHouseList
       setHouseList(data)
-      data.length && setSelectHouse(data[0])
+      let result = data[0]
+      if (props.featureHouse) {
+        let res = data.filter((item) => item.houseId == props.featureHouse)
+        res.length && (result = res[0])
+      }
+      setSelectHouse(result)
     }
     setLoading(false);
   }, [props.myHouseList])
@@ -120,8 +126,8 @@ function FeaturePage(props) {
         },
         buttonIndex => {
           if (houseList[buttonIndex]) {
+            props.setFeatureHouse(houseList[buttonIndex].houseId)
             setSelectHouse(houseList[buttonIndex]);
-            console.log('selectHouse', selectHouse);
           }
         },
       );
@@ -178,11 +184,12 @@ function FeaturePage(props) {
 function mapStateToProps(state) {
   return {
     myHouseList: state.myHouseList,
-    userInfo: state.userInfo
+    userInfo: state.userInfo,
+    featureHouse: state.featureHouse
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getMyHouseList }, dispatch);
+  return bindActionCreators({ getMyHouseList, setFeatureHouse }, dispatch);
 }
 export default connect(
   mapStateToProps,

@@ -105,6 +105,7 @@ export default function PublishHouse(props) {
       }
     })
   }
+
   const setSelectedPros = (list, type, selectList) => {
     list.map(item => {
       item.selected = false;
@@ -204,6 +205,20 @@ export default function PublishHouse(props) {
   }
   // 提交发布
   const handlerPublish = () => {
+    let titleReg = /^.{1,50}$/;
+    console.log('titleReg.test(title)', titleReg.test(title))
+    if (!title) {
+      showToast('请输入标题')
+      return
+    } else if (!titleReg.test(title)) {
+      showToast('请输入50个字符以内的标题')
+      return
+    }
+
+    if (!houseRatePlan.rentPrice) {
+      showToast('请填写房租')
+      return
+    }
     setLoading(true);
     const items = getSelectedItem(houseItem);
     const spots = getSelectedItem(houseSpots);
@@ -248,6 +263,7 @@ export default function PublishHouse(props) {
         console.log('resEdit', res);
         if (!res.code) {
           setLoading(false);
+          showToast('修改成功');
           props.navigation.goBack();
         } else {
           setLoading(false);
@@ -260,6 +276,7 @@ export default function PublishHouse(props) {
         console.log('resAdd', res);
         if (!res.code) {
           setLoading(false);
+          showToast('房源发布成功');
           props.navigation.goBack();
         } else {
           setLoading(false);

@@ -33,14 +33,27 @@ export function setHomeHouse (data) {
     });
   };
 }
-
+//功能记录选中的房源
+export function setFeatureHouse (data) {
+  return dispatch => {
+    dispatch({
+      type: 'FEATURE_HOUSE',
+      data: data
+    });
+  };
+}
 export function homeHouse(state = null, action) {
   if (action.type === 'HOME_HOUSE') {
     return action.data || null;
   }
   return state;
 }
-
+export function featureHouse(state = null, action) {
+  if (action.type === 'FEATURE_HOUSE') {
+    return action.data || null;
+  }
+  return state;
+}
 // 设置数据字典
 export function setCodeInfo(info) {
   return dispatch => {
@@ -105,5 +118,6 @@ export default {
   webSocketInfo,
   codeInfo,
   dictionaryMappings,
-  homeHouse
+  homeHouse,
+  featureHouse
 };

@@ -48,7 +48,6 @@ function HomePage(props) {
   useFocusEffect(
     useCallback(() => {
       handleAppStateChange()
-
     }, [props.route])
   )
   const initRemmcondList = () => {
@@ -96,6 +95,7 @@ function HomePage(props) {
     // 获取本人的房源
     if (props.myHouseList && props.myHouseList.data) {
       let { data } = props.myHouseList
+      console.log('props1', props.homeHouse);
       setHouseList(data)
       let result = data[0]
       if (props.homeHouse) {

@@ -118,9 +118,8 @@ function RecordHouse(props) {
   };
 
   const handlerAudit = () => {
+    setLoading(true);
     let result = new FormData();
-    // 是否有电梯 hasElevator
-
     objToFormData('houseHolder', houseHolder, result);
     objToFormData('houseLayout', houseLayout, result);
     if (houseHolder.self === 'others') { // 如果非本人
@@ -155,10 +154,13 @@ function RecordHouse(props) {
       props.updateHouse(houseId, result, res => {
         console.log('update', res);
         if (!res.code) {
+          setLoading(false);
+          showToast('修改成功');
           props.navigation.navigate(AppRoute.HOUSEDETAIL, {
             id: houseId,
           });
         } else {
+          setLoading(false);
           showToast(res.message);
         }
       });
@@ -166,8 +168,11 @@ function RecordHouse(props) {
       console.log('result123', result)
       props.addHouse(result, res => {
         if (!res.code) {
+          setLoading(false);
+          showToast('房源添加成功');
           props.navigation.goBack();
         } else {
+          setLoading(false);
           showToast(res.message);
         }
       });
