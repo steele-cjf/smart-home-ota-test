@@ -357,11 +357,11 @@ function HouseDetail(props) {
                   <Text style={styles.statusTitle}>房源审核中</Text>
                   <Text style={styles.statusDesc}>约两个工作日内完成审核</Text>
                 </View>
-              ) : houseInfo.status === 'audit_fail' ? (
+              ) : houseInfo.status === 'audit_reject' ? (
                 <View style={[styles.statusContent, styles.failColor]}>
                   <Text style={styles.statusTitle}>房源审核失败</Text>
                   <Text style={styles.statusDesc}>
-                    房产证与本人不符，请修改{houseInfo.auditOpinions}
+                    {houseInfo.auditOpinions}
                   </Text>
                 </View>
               ) : null}
@@ -375,10 +375,11 @@ function HouseDetail(props) {
                       styles.fontSize14,
                     ]}>
                     房屋地址
-                </Text>
+                  </Text>
                 </View>
-                <View style={styles.rightContent}>
+                <View style={{flex: 1}}>
                   <Text
+                    numberOfLines={1}
                     style={[
                       styles.textAlignR,
                       styles.mainColor,
@@ -421,7 +422,7 @@ function HouseDetail(props) {
                     房产证及授权文件
                 </Text>
                 </View>
-                <TouchableOpacity style={styles.rightContent} onPress={() => setShowImage(true)}>
+                <TouchableOpacity onPress={() => setShowImage(true)}>
                   <Text
                     style={{
                       color: Theme.textLink,
@@ -575,7 +576,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 16
   },
-  rightContent: {},
+  rightContent: {
+    // flex: 1,
+  },
   item_content: {
     padding: 10,
     paddingTop: 20,

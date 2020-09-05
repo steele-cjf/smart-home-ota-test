@@ -21,7 +21,6 @@ function RecordHouse(props) {
   const [houseDirectionList, setHouseDirection] = useState([]);
   const [selectedDirectionValue, setSelectedDirectionValue] = useState('');
   const [hasElevator, setHasElevator] = useState(false);
-  const toggleSwitch = () => setHasElevator(previousState => !previousState);
 
   const [certificateImage, setCertificateImage] = useState('')
   const [idCardImage, setIdCardImage] = useState('')
@@ -61,7 +60,6 @@ function RecordHouse(props) {
   const getDetail = useCallback((obj, id) => {
     props.getHouseDetail(id, res => {
       if (!res.code) {
-        setLoading(false)
         if (res.data) {
           const info = res.data;
           let initAddress = info.address.split(info.formattedAddress)
@@ -76,14 +74,13 @@ function RecordHouse(props) {
           setHasElevator(info.houseLayout.hasElevator);
           setSelectedSelfValue(obj.house_holder[info.houseHolder.self]);
           setSelectedDirectionValue(obj.house_direction[info.houseLayout.direction]);
-
-          setLoading(false);
           setTabs(res.data.regions.concat(initTabs))
           
           
-          $getImage(info.housePropertyCertificateImageUrl, res => {
-            setHousePropertyCertificateImage([res])
+          $getImage(info.housePropertyCertificateImageUrl, async res => {
+            await setHousePropertyCertificateImage([res])
             setImage(res.uri);
+            setLoading(false);
           }, true)
           $getImage(info.houseHolder.certificateFileUrl, res => {
             setCertificateFilesImg([res])
@@ -122,18 +119,20 @@ function RecordHouse(props) {
 
   const handlerAudit = () => {
     let result = new FormData();
+    // 是否有电梯 hasElevator
+
     objToFormData('houseHolder', houseHolder, result);
     objToFormData('houseLayout', houseLayout, result);
-    // 是否有电梯 hasElevator
-    result.append('houseLayout.hasElevator', hasElevator);
     if (houseHolder.self === 'others') { // 如果非本人
       if (certificateFilesImg && certificateFilesImg[0]) {
+        console.log('123')
         result.append(
           'houseHolder.certificateFile',
           certificateFilesImg[0],
         );
       }
       if (idCardFile && idCardFile[0]) {
+        console.log('234')
         result.append(
           'houseHolder.idCardFile',
           idCardFile[0],
@@ -151,8 +150,7 @@ function RecordHouse(props) {
     result.append('address', regionName + address);
 
     if (houseId) {
-      console.log('houseHolder', houseHolder);
-      result.append('id', houseId);
+      console.log('houseHolder', houseLayout);
       console.log('houseLayout.id', result)
       props.updateHouse(houseId, result, res => {
         console.log('update', res);
@@ -183,22 +181,23 @@ function RecordHouse(props) {
   };
 
   const setImageForm = (key, obj, type) => {
+    console.log('obj', obj);
     let data;
     if (type === 'houseCert') {
       data = Object.assign([], housePropertyCertificateImage);
-      setHousePropertyCertificateImage(data);
       data[key] = obj;
-      console.log('houseI', housePropertyCertificateImage)
+      setHousePropertyCertificateImage(data);
+      console.log('houseI', data)
     } else if (type === 'cert') {
       data = Object.assign([], certificateFilesImg);
       data[key] = obj;
       setCertificateFilesImg(data);
-      console.log('cert', certificateFilesImg)
+      console.log('cert', data)
     } else {
       data = Object.assign([], idCardFile);
       data[key] = obj;
       setIdCardFile(data);
-      console.log('idCard', idCardFile)
+      console.log('idCard', data)
     }
   };
 
@@ -245,6 +244,11 @@ function RecordHouse(props) {
       setHouseLayout(data);
     }
   };
+  const changeSwitch = () => {
+    setHasElevator(value => !value);
+    setData('hasElevator', !hasElevator, 'houseLayout');
+
+  }
 
   return (
     <Root>
@@ -424,27 +428,27 @@ function RecordHouse(props) {
                   <Item
                     style={[
                       styles.marginLeft0,
-                      { flexDirection: 'row', alignItems: 'center' },
+                      { flexDirection: 'row', alignItems: 'center'},
                     ]}
                     inlineLabel>
                     <Label
                       style={[
                         styles.labelTitle,
                         styles.defaultSize,
-                        styles.width100,
-                        { flex: 3 },
+                        { flex: 1 },
                       ]}>
                       楼层
-                  </Label>
+                    </Label>
                     <View
                       style={{
-                        flex: 4,
                         flexDirection: 'row',
                         alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        flex: 3
                       }}>
                       <Text style={[styles.labelTitle, styles.defaultSize]}>
                         共
-                    </Text>
+                      </Text>
                       <Input
                         keyboardType="numeric"
                         value={
@@ -482,13 +486,7 @@ function RecordHouse(props) {
                       />
                       <Text style={[styles.labelTitle, styles.defaultSize]}>
                         层
-                    </Text>
-                    </View>
-                    <View
-                      style={{
-                        flex: 2,
-                        flexDirection: 'row',
-                      }}>
+                      </Text>
                       <CheckBox
                         containerStyle={styles.checkBoxContainer}
                         titleStyle={styles.checkBoxTitle}
@@ -496,7 +494,7 @@ function RecordHouse(props) {
                         checkedColor={Theme.primary}
                         uncheckedColor={Theme.primary}
                         checked={hasElevator}
-                        onPress={toggleSwitch}
+                        onPress={changeSwitch}
                       />
                     </View>
                   </Item>
@@ -668,6 +666,8 @@ const styles = StyleSheet.create({
   checkBoxContainer: {
     borderColor: 'transparent',
     backgroundColor: 'transparent',
+    padding: 0,
+    margin: 0
   },
   checkBoxTitle: {
     fontSize: $screen.scaleSize(14),

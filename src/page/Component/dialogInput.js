@@ -70,7 +70,8 @@ class DialogInput extends PureComponent {
             style={styles.container}
             activeOpacity={1}
             onPress={this.handleOnCloseDialog}>
-            <View style={[styles.modal_container, {...dialogStyleProps}]}>
+            {/* 阻止时间冒泡 */}
+            <View  onStartShouldSetResponder={() => true} onMoveShouldSetResponder={() => true} style={[styles.modal_container, {...dialogStyleProps}]}>
               <View style={styles.modal_body}>
                 <Text style={styles.title_modal}>{title}</Text>
                 <Text

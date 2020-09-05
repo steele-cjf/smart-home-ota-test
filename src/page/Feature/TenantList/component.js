@@ -48,9 +48,18 @@ export default function TenantList(props) {
       }
     });
   };
-  const goToPage = () => {
-    props.navigation.goBack();
-  };
+  const renderRoomName = () => {
+    const nameList = props.route.params.roomNames;
+    if (nameList && nameList.length) {
+        nameList.map(item => {
+          return (
+            <Text style={[styles.main_color, styles.MT_5]}>{item} </Text>
+          )
+        })
+    } else {
+      return <Text style={[styles.main_color, {fontSize: $screen.scaleSize(14)}]}>整租</Text>
+    }
+  }
   const goDetailPage = (item) => {
     if (item.status === 'audit_pass') {
       NavigatorService.navigate(AppRoute.USERPASSED, {userId: item.userId, tenantUserId: tenantId, houseId: houseId});
@@ -64,7 +73,7 @@ export default function TenantList(props) {
     return (
       <TouchableOpacity style={styles.room_item_style} onPress={() => goDetailPage(item)}>
         <View style={styles.left_content}>
-          <Text style={styles.main_color}>{item.userName} - {item.gender}</Text>
+          <Text style={styles.main_color}>{item.userName} - {props.dictionaryMappings.gender[item.gender]}</Text>
         </View>
         <View style={styles.icon_content}>
           <Text style={styles.status_style}>{props.dictionaryMappings.tenant_status[item.status]}</Text>
@@ -111,11 +120,7 @@ export default function TenantList(props) {
                 <Text style={{ color: '#7C7C7C' }}>所属房间</Text>
               </View>
               <View style={{ alignItems: 'flex-end' }}>
-                {props.route.params.roomNames.map(item => {
-                  return (
-                    <Text style={[styles.main_color, styles.MT_5]}>{item}</Text>
-                  )
-                })}
+                {renderRoomName()}
               </View>
             </View>
             {/* <Divider /> */}

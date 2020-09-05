@@ -107,6 +107,7 @@ export default function RoomPage(props) {
         setIsDialogVisible(false);
         fetchRoomList();
       } else {
+        setIsDialogVisible(false);
         showToast(res.message);
       }
     });
@@ -171,7 +172,7 @@ export default function RoomPage(props) {
           backTitle: '返回',
           title: '房间管理',
           rightShow: 'flex',
-          rightTitle: '新增房屋',
+          rightTitle: '新增房间',
           rightPress: () => addRoom()
         }} />
       {loading ? (
