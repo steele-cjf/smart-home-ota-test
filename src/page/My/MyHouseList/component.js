@@ -58,7 +58,7 @@ function MyHouseList(props) {
         />
       )
     } else {
-      return (<BlankPage errorMsg='暂无房源' />)
+      return (<BlankPage errorMsg='没有已登记的房源，请先新增房源' />)
     }
   }
   const handleToDetailPage = item => {

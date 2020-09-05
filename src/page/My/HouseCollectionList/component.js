@@ -40,7 +40,7 @@ function HouseCollectionList(props) {
         />
       )
     } else {
-      return (<BlankPage errorMsg='暂无房源' />)
+      return (<BlankPage errorMsg='您还没有收藏记录' />)
     }
   }
   const changeCollection = (item) => {

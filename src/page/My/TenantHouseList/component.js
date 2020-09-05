@@ -40,7 +40,7 @@ function TenantHouseList(props) {
         </View>
       )
     } else {
-      return (<BlankPage errorMsg='暂无房源' />)
+      return (<BlankPage errorMsg='没有已入住的房源，请找房东申请入住' />)
     }
   }
   const openSettings = item => {

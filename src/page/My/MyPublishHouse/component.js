@@ -66,7 +66,7 @@ function MyPublishList(props) {
         />
       )
     } else {
-      return (<BlankPage errorMsg='暂无房源, 请先发布' />)
+      return (<BlankPage errorMsg='没有房源可发布，请先新增发布' />)
     }
   }
   const goPublishHousePage = () => {

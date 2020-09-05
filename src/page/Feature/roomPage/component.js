@@ -47,7 +47,7 @@ export default function RoomPage(props) {
           />
       )
     } else {
-      return (<BlankPage errorMsg='暂无房间，请先添加' />)
+      return (<BlankPage errorMsg='没有合租的房间，请先新增房间' />)
     }
   }
   const handlerDelete = item => {
