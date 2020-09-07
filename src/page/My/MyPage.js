@@ -130,7 +130,8 @@ function MyPage(props) {
                   <Text style={styles.statusText}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text>
                 </TouchableOpacity>
               </View>
-              <View style={{position: 'absolute', right: 24}}  >
+              <View style={{position: 'absolute', right: 24, 
+              display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'}}  >
                 <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.MYQRCODE)}>
                   <Image style={{width: 34, height: 34,}} source={scan} />
                 </TouchableOpacity>

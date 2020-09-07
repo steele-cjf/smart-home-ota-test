@@ -43,14 +43,14 @@ export default AgreementPage = (props) => {
   const l = "(e)如您是适格的知识产权投诉人并已提起投诉，应被投诉人要求，向被投诉人披露，以便双方处理可能的权利纠纷；"
 
   return(
-    <View>  
+    <View style={{flex: 1}}>  
       <HeaderCommon
         options={{
         backTitle: '返回',
         title: '房屋租赁服务协议'
         }}
       />
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <Text style={styles.tipText}>
         {sp+a+b+c+d}
       </Text>
@@ -85,9 +85,9 @@ export default AgreementPage = (props) => {
       <Text>{'' || ''}</Text>
       <Text>{0 || '未能获取wifi'}</Text> */}
 
-      <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}>
+      {/* <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}>
         <Text style={styles.btnTextStyle}>提交</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
     </ScrollView>
     </View>
