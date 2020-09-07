@@ -206,7 +206,7 @@ const PersonalInfoPage = (props) => {
       let a = (
         <View>
           <Text style={[styles.textTitle, styles.colorSecondary]}>{item.title}</Text>
-          <Text style={[styles.textContent, styles.colorSecondary]}>{item.content}</Text>
+          <Text style={[styles.textContent]}>{item.content}</Text>
         </View>
       );
       arr.push(a);
@@ -244,7 +244,7 @@ const PersonalInfoPage = (props) => {
               if (index === 0) {
                 return (
                   <TouchableOpacity style={styles.sigContainer} onPress={pickerAction}>
-                    <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
+                    <Text style={[styles.textTitle]}>{item}</Text>
                     <Text style={[styles.textContent,styles.rightInput]}>{otherData[item]}</Text>
                     <AntDesign name="right" style={styles.rightArrow} />
                   </TouchableOpacity>
@@ -252,7 +252,7 @@ const PersonalInfoPage = (props) => {
               } else {
                 return (
                   <View style={styles.sigContainer}>
-                    <Text style={[styles.textTitle, styles.colorDefault]}>{item}</Text>
+                    <Text style={[styles.textTitle]}>{item}</Text>
                     <TextInput style={[styles.textContent,styles.rightInput]} 
                       onChangeText={(text) => {setSaveData(item, text);}}
                       value={otherData[item]}

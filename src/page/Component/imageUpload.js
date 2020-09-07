@@ -56,7 +56,7 @@ export default function ImageUpload(props) {
       onPress={() => {
         selectPhotoTapped();
       }}>
-      <View style={[styles.avatar, styles.avatarContainer, { marginBottom: 20 }]}>
+      <View style={[styles.avatar, styles.avatarContainer, { marginBottom: 10 }]}>
         {avatarSource === null ? (
           <Text style={styles.addBtn}>+</Text>
         ) : (
