@@ -13,12 +13,6 @@ export default function IdCardVertifyPage(props) {
   const [formImages, setFormImages] = useState(['', '', '']);
   const [userId, setUserId] = useState('');
   const [loading, setLoading] = useState(false);
-  const [imageUrl1, setImageUrl1] = useState('');
-  const [imageUrl2, setImageUrl2] = useState('');
-  const [imageUrl3, setImageUrl3] = useState('');
-  // const [imageFile1, setImageFile1] = useState({});
-  // const [imageFile2, setImageFile2] = useState({});
-  // const [imageFile3, setImageFile3] = useState({});
 
   // 初始化获取用户信息
   useEffect(() => {
@@ -62,68 +56,17 @@ export default function IdCardVertifyPage(props) {
         setFormData(oldData);
 
         let imgs = []
-        console.log(4444, res.data.imageUrls);
         if (res.data.imageUrls && res.data.imageUrls.length) {
           res.data.imageUrls.map((item, index) => {
-            let num = index
-
-            // let response = $getImage(item, null, true);
-            // let data = Object.assign([], imgs);
-            // data[num] = response;
-            // // ['setImageUrl' + (Number(num) + 1)](response.uri);
-            // // if (num >= res.data.imageUrls.length - 1) {
-            // // setImageUrl3(response.uri);
-            // console.log('$$$$$$$$@@@@@@^^^^^^', response);
-            // // imgs.push(response);
-            // //setImageUrl1(res.uri);
-            // setFormImages(data);
-
             $getImage(item, response => {
               let data = Object.assign([], imgs);
-              data[num] = response;
-              imgs[num] = response;
+              imgs[index] = response;
+             
+              data[index] = response;
               setFormImages(data);
             }, true)
           })
         }
-
-
-        // if (res.data.imageUrls && res.data.imageUrls[0]) {
-        //   $getImage(res.data.imageUrls[0], async res => {
-        //     console.log("!!!!!!!!!!!res1:", res);
-        //     setImageUrl1(res.uri);
-
-        //     //setImageFile1(res); //[res]
-        //     let data = Object.assign([], formImages);
-        //     data[0] = res;
-        //     await setFormImages(data);
-
-        //   }, true);
-        // }
-        // if (res.data.imageUrls && res.data.imageUrls[1]) {
-        //   $getImage(res.data.imageUrls[1], async res => {
-        //     console.log("!!!!!!!!!!!res2:", res);
-        //     setImageUrl2(res.uri);
-
-        //     //setImageFile2(res);
-        //     let data = Object.assign([], formImages);
-        //     data[1] = res;
-        //     await setFormImages(data);
-
-        //   }, true);
-        // }
-        // if (res.data.imageUrls && res.data.imageUrls[2]) {
-        //   $getImage(res.data.imageUrls[2], async res => {
-        //     console.log("!!!!!!!!!!!res3:", res);
-        //     setImageUrl3(res.uri);
-
-        //     //setImageFile3(res);
-        //     let data = Object.assign([], formImages);
-        //     data[2] = res;
-        //     await setFormImages(data);
-
-        //   }, true);
-        // }
 
       } else {
         showToast(res.message);
@@ -157,23 +100,7 @@ export default function IdCardVertifyPage(props) {
     }
 
     if (!message) {
-      // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
-      // if (idCardFile && idCardFile[0]) {
-      //   console.log('234')
-      //   result.append(
-      //     'houseHolder.idCardFile',
-      //     idCardFile[0],
-      //   );
-      // }
-
-      // let data = Object.assign([], formImages);
-      // data[0] = imageFile1;
-      // data[1] = imageFile2;
-      // data[2] = imageFile3;
-      // setFormImages(data);
-
       console.log(111, formImages);
-      return;
 
       for (var i = 0; i < 3; i++) {
         let item = formImages[i];
@@ -209,7 +136,6 @@ export default function IdCardVertifyPage(props) {
         }
 
       } else {
-        console.log('^^^^^^^^^^^^');
         showToast(res.message)
       }
     })
@@ -229,29 +155,6 @@ export default function IdCardVertifyPage(props) {
     setFormData(data);
   };
 
-  // setImageForm={obj => setImageForm(0, obj, 'idCard')}
-  // const [idCardFile, setIdCardFile] = useState([]);
-  // const setImageForm = (key, obj, type) => {
-  //   console.log('obj', obj);
-  //   let data;
-  //   if (type === 'houseCert') {
-  //     data = Object.assign([], housePropertyCertificateImage);
-  //     data[key] = obj;
-  //     setHousePropertyCertificateImage(data);
-  //     console.log('houseI', data)
-  //   } else if (type === 'cert') {
-  //     data = Object.assign([], certificateFilesImg);
-  //     data[key] = obj;
-  //     setCertificateFilesImg(data);
-  //     console.log('cert', data)
-  //   } else {
-  //     data = Object.assign([], idCardFile);
-  //     data[key] = obj;
-  //     setIdCardFile(data);
-  //     console.log('idCard', data)
-  //   }
-  // };
-
   const setImageForm = (index, obj) => {
     console.log("dsdsdsffdsdfsfdsdsfsdfsdf");
     console.log("^^^^^^^^^^^^^", obj);
@@ -259,19 +162,7 @@ export default function IdCardVertifyPage(props) {
     let data = Object.assign([], formImages);
     data[index] = obj;
     setFormImages(data);
-
-    //setIdCardFile(data);
-    //setFormImages(data);
   };
-
-  const deleteImage = (index) => {
-    let dataArr = Object.assign([], formImages);
-    console.log("@@@@@@", dataArr);
-
-    dataArr.splice(index, 1);
-    setFormImages(dataArr);
-  }
-
 
   return (
     <View style={styles.container}>
@@ -296,19 +187,19 @@ export default function IdCardVertifyPage(props) {
               <ImageUpload
                 title="身份证正面"
                 setImageForm={obj => setImageForm(0, obj)}
-                handlerDelete={() => deleteImage(0)}
+                //handlerDelete={() => deleteImage(0)}
                 imgUrl={formImages[0] && formImages[0].uri}
               />
               <ImageUpload
                 title="身份证反面"
                 setImageForm={obj => setImageForm(1, obj)}
-                handlerDelete={() => deleteImage(1)}
+                //handlerDelete={() => deleteImage(1)}
                 imgUrl={formImages[1] && formImages[1].uri}
               />
               <ImageUpload
                 title="手持身份证"
                 setImageForm={obj => setImageForm(2, obj)}
-                handlerDelete={() => deleteImage(2)}
+                //handlerDelete={() => deleteImage(2)}
                 imgUrl={formImages[2] && formImages[2].uri}
               />
             </View>
