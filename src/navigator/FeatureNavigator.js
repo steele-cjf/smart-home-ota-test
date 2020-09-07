@@ -14,7 +14,8 @@ import RecordHouse from '../page/My/RecordHouse';
 import VertifyDetailsPage from '../page/Home/VertifyDetails';
 import PersonalInfo from '../page/My/PersonalInfo';
 import UserPassedPage from '../page/Home/VertifyDetails/UserPassedPage';
-
+import IdCardVertify from '../page/Home/IdCardVertify';
+import PassportVertify from '../page/Home/PassportVertify';
 const FeatureStack = createStackNavigator();
 
 export const FeatureStackComponent = () => {
@@ -115,6 +116,20 @@ export const FeatureStackComponent = () => {
       <FeatureStack.Screen
         name={AppRoute.USERPASSED}
         component={UserPassedPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.IDCARDVERTIFY}
+        component={IdCardVertify}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.PASSPORTVERTIFY}
+        component={PassportVertify}
         options={{
           headerShown: false,
         }}

@@ -123,12 +123,21 @@ function fetchGetImage(method, url, callback, isAbsolute) {
         Authorization: 'Bearer ' + accessToken
       })
       .then((res) => {
-        // the temp file path
-        callback({
-          uri: 'file://' + res.path(),
-          name: 'upload.jpg',
-          type: 'image/jpeg'
-        })
+        if (callback) {
+          // the temp file path
+          callback({
+            uri: 'file://' + res.path(),
+            name: 'upload.jpg',
+            type: 'image/jpeg'
+          })
+        } else {
+          return {
+            uri: 'file://' + res.path(),
+            name: 'upload.jpg',
+            type: 'image/jpeg'
+          }
+        }
+
       })
   })
 }

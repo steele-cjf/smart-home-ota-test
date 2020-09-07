@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Spinner, Form, Textarea } from 'native-base'
 import ImageUpload from '../Component/imageUpload'
 import Theme from '../../style/colors';
@@ -89,13 +89,15 @@ const SuggestionPage = (props) => {
 
   const renderImage = () => {
     return (
-      formImages.map((item, index) => {
+      formImages.map((item, index) => { 
         return (
-          <ImageUpload 
-            setImageForm={(obj) => setImageForm(index, obj)} 
-            handlerDelete={() => deleteImage(index)} 
-            imgUrl={item.uri || ''}
-          />
+          <View style={{width: Dimensions.get('window').width * 0.3,}}>
+            <ImageUpload 
+              setImageForm={(obj) => setImageForm(index, obj)} 
+              handlerDelete={() => deleteImage(index)} 
+              imgUrl={item.uri || ''}
+            />
+          </View>
         )
       })
     );
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: 0,
-    justifyContent: "space-between",
+    //justifyContent: "space-between",
     height: 260,
   },
   btnStyle: {

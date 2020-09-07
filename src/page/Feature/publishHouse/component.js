@@ -518,11 +518,13 @@ export default function PublishHouse(props) {
           <View
             style={{
               flexDirection: 'row',
-              flexWrap: 'wrap',
+              //flexWrap: 'wrap',
               paddingTop: 16,
+              backgroundColor: 'red'
             }}>
             {
               houseImages.map((item, index) => {
+                console.log("#########item:",item);
                 return (
                   <View style={{width: Dimensions.get('window').width  * 0.3}}>
                   <ImageUpload imgUrl={item && item.uri || ''} handlerDelete={() => deleteImage(index)} setImageForm={obj => setImageForm(index, obj)} /></View>
