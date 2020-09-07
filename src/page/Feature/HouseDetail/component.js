@@ -97,22 +97,32 @@ function HouseDetail(props) {
   };
   const checkImgLength = () => {
     const arr = [{ url: houseInfo.housePropertyCertificateImageUrl }, { url: houseInfo.houseHolder.certificateFileUrl }, { url: houseInfo.houseHolder.idCardFileUrl }];
+    if (imageList.length) {
+      setShowImage(true)
+      return
+    }
     const images = []
     setLoading(true)
-    arr.map((item, index) => {
-      if (item.url) {
-        $getImage(item.url, res => {
-          images.push({ url: res.uri })
-          setImageList(images);
-          if (index >= (arr.length - 1)) {
-            setLoading(false)
-            setShowImage(true)
-          }
-        }, true)
+    let imgArr = []
+    // 过滤url:null的情况
+    arr.map(ArrItem => {
+      if (ArrItem.url) {
+        imgArr.push(ArrItem)
       }
     })
-    if (!arr.length) {
-      showToast('房东未上传房产证!')
+    // 转换image到本地
+    imgArr.map((item, index) => {
+      $getImage(item.url, function (res) {
+        images.push({ url: res.uri })
+        setImageList(images);
+        if (index >= (imgArr.length - 1)) {
+          setLoading(false)
+          setTimeout(() => setShowImage(true))
+        }
+      }, true)
+    })
+    if (!imgArr.length) {
+      showToast('房东未上传证件照!')
       return
     }
   }

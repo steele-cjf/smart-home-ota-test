@@ -22,7 +22,13 @@ export default (props) => {
         setItems(props.items)
     }, [props.items])
     return (
-        <Swiper style={styles.wrapper} autoplay={true} autoplayTimeout={3} loop={true} showsPagination={true} paginationStyle={styles.dotStyle}>
+        <Swiper
+            style={styles.wrapper}
+            autoplay={false}
+            autoplayTimeout={3}
+            loop={true}
+            showsPagination={true}
+            paginationStyle={styles.dotStyle}>
             {items && items.map((item) => {
                 return (
                     <View testID="Hello" style={styles.slide}>

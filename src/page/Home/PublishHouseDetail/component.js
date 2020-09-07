@@ -20,7 +20,6 @@ function PublicHouseDetail(props) {
         setData(Object.assign({}, res.data))
         setLoading(false)
         let picture = res.data.houseAddition.images
-        console.log(888, picture)
         if (picture && picture.length) {
           let i = picture.map((item) => {
             return { uri: item }

@@ -20,7 +20,6 @@ function HouseDetail(props) {
     const [code] = useState(props.code)
     useEffect(() => {
         setOptions(props.data)
-        console.log('props.data', props.data, 2)
         if (props.data) {
             setLoading(false)
         }
@@ -62,7 +61,7 @@ function HouseDetail(props) {
             let data = item.headKey ? options[item.headKey] : options
             let text = ''
             if (item.keyType === 'array') {
-                text = (data[item.key[0]] || '--') + '/' + (data[item.key[1]] || '--')
+                text = (data[item.key[1]] || '--') + '/' + (data[item.key[0]] || '--') + '层'
             } else {
                 text = (item.codeKey ? code[item.codeKey][data[item.key]] : data[item.key]) || '--'
             }
@@ -98,7 +97,6 @@ function HouseDetail(props) {
                 <Text style={styles.houseLayoutDesc}>{code['house_item'][val] || '--'}</Text>
             </View>)
         })
-        console.log(result, 'result')
         return (result.length && <View style={styles.houseItemBox}>{result}</View>) || null
     }
     // 相关费用
@@ -127,7 +125,7 @@ function HouseDetail(props) {
                     </View>
                     <Text style={styles.secondDes}>
                         {code['house_type'][options.houseType]}·{options
-                            .regionFullName}·{options.houseLayout.roomCount}房·{options.houseLayout.hallCount}厅·{options.houseLayout.toiletCount}卫</Text>
+                            .regionFullName}·{options.houseLayout.roomCount}房{options.houseLayout.hallCount}厅{options.houseLayout.toiletCount}卫</Text>
                     {renderHouseLayout()}
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>

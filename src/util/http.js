@@ -125,6 +125,13 @@ function fetchGetImage(method, url, callback, isAbsolute) {
           name: 'upload.jpg',
           type: 'image/jpeg'
         })
+      }).catch((error) => {
+        console.log(999, error)
+        callback({
+          uri: '',
+          name: 'upload.jpg',
+          type: 'image/jpeg'
+        })
       })
   })
 }
