@@ -8,6 +8,7 @@ import {
   Alert,
   Modal,
   Dimensions,
+  Platform
 } from 'react-native';
 import {
   Button,
@@ -323,7 +324,7 @@ function HouseDetail(props) {
                   name="add"
                   style={{
                     fontSize: $screen.scaleSize(14),
-                    color: Theme.textLink,
+                    color: Theme.textLink
                   }}
                 />
                 <TouchableOpacity

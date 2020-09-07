@@ -3,6 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AuthNavigator from './AuthNavigator';
 import TabNavigator from './TabNavigator';
 import { AppRoute } from './AppRoutes';
+import Agreement from '../page/Login/Agreement';
+
 const Stack = createStackNavigator()
 
 // const AuthRefreshRoute = [AppRoute.HOME, AppRoute.ADDTENANT]
@@ -16,6 +18,7 @@ export const AppNavigator = (props) => {
         //   console.log('*******7changeRoute', navigation)
         // }}
         component={TabNavigator} />
+      <Stack.Screen name={AppRoute.AGREEMENT} component={Agreement} />
     </Stack.Navigator>
   )
 }

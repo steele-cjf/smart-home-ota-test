@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, Keyboard, ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Text, Input, Button, CheckBox } from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Content} from 'native-base';
+import { Content } from 'native-base';
 import { AppRoute } from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
@@ -64,7 +64,7 @@ function LoginPage(props) {
     });
   }
 
-  function handleSubmit() {     
+  function handleSubmit() {
     //NavigatorService.navigate(AppRoute.HOME);
 
     if (!mobile) {
@@ -141,81 +141,80 @@ function LoginPage(props) {
   const [count, setCount] = useState(times);
 
   return (
-    <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.loginTitle}>登录</Text>
-        <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
+    // <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.loginTitle}>登录</Text>
+      <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
+      <Input
+        inputStyle={styles.inputPhone}
+        ref={refMobile}
+        keyboardType="numeric"
+        placeholder="请输入中国大陆手机号"
+        placeholderTextColor={Theme.textMuted}
+        //leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
+        leftIcon={
+          <AntDesign
+            name="calendar"
+            style={{ fontSize: $screen.scaleSize(14), color: Theme.primary, marginRight: 8 }}
+          />
+        }
+        value={mobile}
+        //errorMessage={mobileError}
+        // onSubmitEditing={() => refMobile.current.focus()}
+        onChangeText={setMobile}
+        onBlur={() => validateField('mobile')}
+      />
+      <View>
         <Input
-          inputStyle={styles.inputPhone}
-          ref={refMobile}
+          inputStyle={styles.verCodeInput}
+          ref={refVerifyCode}
           keyboardType="numeric"
-          placeholder="请输入中国大陆手机号"
+          placeholder="请输入验证码"
           placeholderTextColor={Theme.textMuted}
-          //leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
           leftIcon={
             <AntDesign
-              name="calendar"
+              name="lock1"
               style={{ fontSize: $screen.scaleSize(14), color: Theme.primary, marginRight: 8 }}
             />
           }
-          value={mobile}
-          //errorMessage={mobileError}
-          // onSubmitEditing={() => refMobile.current.focus()}
-          onChangeText={setMobile}
-          onBlur={() => validateField('mobile')}
+          value={verifyCode}
+          //errorMessage={verifyCodeError}
+          // onSubmitEditing={() => refVerifyCode.current.focus()}
+          onChangeText={setVerifyCode}
         />
-        <View>
-          <Input
-            inputStyle={styles.verCodeInput}
-            ref={refVerifyCode}
-            keyboardType="numeric"
-            placeholder="请输入验证码"
-            placeholderTextColor={Theme.textMuted}
-            leftIcon={
-              <AntDesign
-                name="lock1"
-                style={{ fontSize: $screen.scaleSize(14), color: Theme.primary, marginRight: 8 }}
-              />
-            }
-            value={verifyCode}
-            //errorMessage={verifyCodeError}
-            // onSubmitEditing={() => refVerifyCode.current.focus()}
-            onChangeText={setVerifyCode}
-          />
-          <Button
-            containerStyle={styles.codeBtnPosition}
-            buttonStyle={styles.verCodeBtn}
-            titleStyle={styles.verCodeTitle}
-            title={isSend ? "剩余" + count + "秒" : "发送短信验证码"}
-            disabled={isSend}
-            type="solid"
-            onPress={handleGetCode}
-          />
-        </View>
-        <View>
-          <CheckBox
-            containerStyle={styles.checkBoxContainer}
-            titleStyle={styles.checkBoxTitle}
-            title="同意"
-            //checkedIcon="dot-circle-o"
-            // uncheckedIcon="circle-o"
-            checkedColor={Theme.primary}
-            uncheckedColor={Theme.primary}
-            checked={checked}
-            onPress={() => setChecked(!checked)}
-          />
-          <Button
-            containerStyle={styles.protocolContainer}
-            titleStyle={styles.protocolTitle}
-            type="clear"
-            title="《用户服务协议》"
-            onPress={() => { props.navigation.navigate(AppRoute.AGREEMENT); }}
-          />
-        </View>
-        <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
-        <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户</Text>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <Button
+          containerStyle={styles.codeBtnPosition}
+          buttonStyle={styles.verCodeBtn}
+          titleStyle={styles.verCodeTitle}
+          title={isSend ? "剩余" + count + "秒" : "发送短信验证码"}
+          disabled={isSend}
+          type="solid"
+          onPress={handleGetCode}
+        />
+      </View>
+      <View>
+        <CheckBox
+          containerStyle={styles.checkBoxContainer}
+          titleStyle={styles.checkBoxTitle}
+          title="同意"
+          //checkedIcon="dot-circle-o"
+          // uncheckedIcon="circle-o"
+          checkedColor={Theme.primary}
+          uncheckedColor={Theme.primary}
+          checked={checked}
+          onPress={() => setChecked(!checked)}
+        />
+        <Button
+          containerStyle={styles.protocolContainer}
+          titleStyle={styles.protocolTitle}
+          type="clear"
+          title="《用户服务协议》"
+          onPress={() => { props.navigation.navigate(AppRoute.AGREEMENT); }}
+        />
+      </View>
+      <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
+      <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户</Text>
+    </ScrollView>
   );
 }
 
