@@ -61,11 +61,9 @@ export const httpService = (url, config) => {
           if (config.successConfig && config.successConfig.callback) {
             config.successConfig.callback(response);
           }
-          // if (response.code !== 401 && response.code !== 0) {
-          //   showToast(response.message)
-          // }
         })
         .catch(error => {
+          console.log('error', error)
           showToast('请求出错，请联系管理员')
         });
     })();
@@ -100,7 +98,6 @@ export const postImage = (url, callback, isAbsolute) => {
   fetchGetImage('POST', url, callback, isAbsolute)
 }
 function cleanNullData(json) {
-  console.log('&&&&&22222start', json)
   // if (!json) return {}
   let result = {}
   for (var i in json) {
@@ -108,7 +105,6 @@ function cleanNullData(json) {
       result[i] = json[i]
     }
   }
-  // console.log('&&&&&22222', result)
   return json
 }
 

@@ -74,7 +74,7 @@ function HouseDetail(props) {
                     <Text style={styles.houseLayoutDesc}>{item.name}</Text>
                 </View>)
         })
-        return (<View style={styles.houseLayoutBox}>{result}</View>)
+        return (result.length && <View style={styles.houseLayoutBox}>{result}</View>) || null
     }
     // 房屋亮点(spots) & 出租要求(requirements)
     const renderHouseAddition = (type) => {
@@ -88,7 +88,7 @@ function HouseDetail(props) {
                 <Text style={styles.houseAdditionText}>{code[key][item] || '--'}</Text>
             </View>)
         })
-        return (<View style={styles.houseAdditionBox}>{result}</View>)
+        return (result.length && <View style={styles.houseAdditionBox}>{result}</View>) || null
     }
     // 房源信息
     const renderHouseItem = () => {
@@ -98,7 +98,8 @@ function HouseDetail(props) {
                 <Text style={styles.houseLayoutDesc}>{code['house_item'][val] || '--'}</Text>
             </View>)
         })
-        return (<View style={styles.houseItemBox}>{result}</View>)
+        console.log(result, 'result')
+        return (result.length && <View style={styles.houseItemBox}>{result}</View>) || null
     }
     // 相关费用
     const renderHouseRatePlan = () => {
@@ -110,7 +111,7 @@ function HouseDetail(props) {
                 </View>
             )
         })
-        return (<View style={styles.houseRatePlanBox}>{result}</View>)
+        return (result.length && <View style={styles.houseRatePlanBox}>{result}</View>) || null
     }
 
     return (
@@ -131,7 +132,7 @@ function HouseDetail(props) {
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>
                     {renderHouseItem()}
-                    <Text style={{ marginBottom: 16 }}>{options.houseAddition.description}</Text>
+                    {options.houseAddition.description && <Text style={{ marginBottom: 16 }}>{options.houseAddition.description}</Text>}
                     {renderHouseAddition('requirements')}
                     {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>
@@ -212,13 +213,14 @@ const styles = StyleSheet.create({
         color: '#7C7C7C'
     },
     houseAdditionBox: {
-        flexDirection: 'row',
-        marginBottom: 20
+        flexWrap: 'wrap',
+        flexDirection: 'row'
     },
     houseAdditionModule: {
         backgroundColor: '#ECF2FF',
         marginRight: 16,
-        borderRadius: 5
+        borderRadius: 5,
+        marginBottom: 20
     },
     houseAdditionText: {
         fontSize: $screen.scaleSize(14),
@@ -240,6 +242,7 @@ const styles = StyleSheet.create({
     },
     houseItemModule: {
         alignItems: 'flex-start',
+        alignItems: 'center',
         marginRight: 40,
         marginBottom: 20
     },

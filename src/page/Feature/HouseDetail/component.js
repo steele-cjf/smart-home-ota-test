@@ -48,18 +48,6 @@ function HouseDetail(props) {
     props.getHouseDetail(params.id, res => {
       if (!res.code) {
         if (res.data) {
-          console.log('data', res.data);
-          const arr = [{url: res.data.housePropertyCertificateImageUrl}, {url: res.data.houseHolder.certificateFileUrl}, {url: res.data.houseHolder.idCardFileUrl}];
-          const images = []
-          console.log('arr', arr);
-          arr.map(item => {
-            if (item.url) {
-              $getImage(item.url, res => {
-                images.push({url: res.uri})
-                setImageList(images);
-              }, true)
-            }
-          })
           setHouseInfo(res.data);
           setLoading(false);
         }
@@ -83,7 +71,6 @@ function HouseDetail(props) {
       },
       { text: '确定', onPress: () => handlerDelete() },
       {
-        // cancelable and onDismiss only work on Android.
         cancelable: true,
         onDismiss: () =>
           console.log(
@@ -108,6 +95,27 @@ function HouseDetail(props) {
       id: houseInfo.id,
     });
   };
+  const checkImgLength = () => {
+    const arr = [{ url: houseInfo.housePropertyCertificateImageUrl }, { url: houseInfo.houseHolder.certificateFileUrl }, { url: houseInfo.houseHolder.idCardFileUrl }];
+    const images = []
+    setLoading(true)
+    arr.map((item, index) => {
+      if (item.url) {
+        $getImage(item.url, res => {
+          images.push({ url: res.uri })
+          setImageList(images);
+          if (index >= (arr.length - 1)) {
+            setLoading(false)
+            setShowImage(true)
+          }
+        }, true)
+      }
+    })
+    if (!arr.length) {
+      showToast('房东未上传房产证!')
+      return
+    }
+  }
   // 跳转房间管理
   const handleToRoomPage = () => {
     NavigatorService.navigate(AppRoute.ROOM, {
@@ -377,7 +385,7 @@ function HouseDetail(props) {
                     房屋地址
                   </Text>
                 </View>
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                   <Text
                     numberOfLines={1}
                     style={[
@@ -422,7 +430,7 @@ function HouseDetail(props) {
                     房产证及授权文件
                 </Text>
                 </View>
-                <TouchableOpacity onPress={() => setShowImage(true)}>
+                <TouchableOpacity onPress={() => checkImgLength()}>
                   <Text
                     style={{
                       color: Theme.textLink,
@@ -519,8 +527,16 @@ function HouseDetail(props) {
             </View>
           </ScrollView>
         )}
-      <Modal style={{ flex: 1 }} visible={showImage} transparent={true} onRequestClose={() => Alert.alert("Modal has been closed.")}>
-        <ImageViewer imageUrls={imageList}  onClick={() => setShowImage(false)}/>
+      <Modal style={{ flex: 1 }}
+        onPress={() => { console.log('111111111') }}
+        onClick={() => { console.log('11222222') }}
+
+        visible={showImage} transparent={true}
+        onRequestClose={() => Alert.alert("Modal has been closed.")}>
+        <ImageViewer imageUrls={imageList} />
+        <TouchableOpacity style={styles.closeBox} onPress={() => setShowImage(false)}>
+          <Text style={styles.closeBtn}>X</Text>
+        </TouchableOpacity>
       </Modal>
     </View>
   );
@@ -616,6 +632,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: 2,
+  },
+  closeBox: {
+    position: 'absolute',
+    backgroundColor: 'red',
+    borderRadius: 50,
+    width: 30,
+    alignItems: 'center',
+    height: 30,
+    right: 20,
+    top: 30
+  },
+  closeBtn: {
+    color: '#fff',
+    fontSize: 20
   }
 });
 export default HouseDetail;

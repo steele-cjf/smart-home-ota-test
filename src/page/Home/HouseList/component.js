@@ -50,7 +50,6 @@ function HouseList(props) {
   const fetchHouseList = (pageNum = 1) => {
     setLoading(true)
     const data = { ...params, ...{ pageNum: pageNum } }
-    console.log('data', data);
     props.getHousingList(data, (res) => {
       console.log('hose', res)
       setHouseList(res.data)
