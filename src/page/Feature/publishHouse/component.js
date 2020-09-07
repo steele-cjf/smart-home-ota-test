@@ -249,6 +249,13 @@ export default function PublishHouse(props) {
     }
 
     let resultImg = Object.assign([], houseImages);
+    resultImg = resultImg.map(item => {
+      return {
+        uri: item.uri,
+        name: 'upload.jpg',
+        type: 'image/jpeg'
+      }
+    })
     console.log('resultImg', resultImg);
     for (let c = 0; c < resultImg.length; c++) {
       if (resultImg[resultImg.length - 1].uri === '') {

@@ -63,6 +63,7 @@ function RecordHouse(props) {
     props.getHouseDetail(id, res => {
       if (!res.code) {
         if (res.data) {
+          console.log('detail', res.data);
           const info = res.data;
           let initAddress = info.address.split(info.formattedAddress)
           setAddress(initAddress[1] || initAddress[0]);
