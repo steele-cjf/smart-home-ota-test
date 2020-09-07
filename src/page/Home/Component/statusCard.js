@@ -117,7 +117,7 @@ export default function StatusCard(props) {
             {options && options.showLocation &&
                 <TouchableOpacity style={styles.topBox} onPress={() => props.showList()}>
                     <Entypo style={styles.LeftIcon} name='location-pin' />
-                    <Text style={styles.location}>{options.name || '--'}</Text>
+                    <Text style={styles.location} numberOfLines={1}>{options.name || '--'}</Text>
                     <AntDesign name='caretdown' style={styles.RightIcon} />
                 </TouchableOpacity>
             }

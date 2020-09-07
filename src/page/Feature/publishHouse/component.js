@@ -249,6 +249,13 @@ export default function PublishHouse(props) {
     }
 
     let resultImg = Object.assign([], houseImages);
+    resultImg = resultImg.map(item => {
+      return {
+        uri: item.uri,
+        name: 'upload.jpg',
+        type: 'image/jpeg'
+      }
+    })
     console.log('resultImg', resultImg);
     for (let c = 0; c < resultImg.length; c++) {
       if (resultImg[resultImg.length - 1].uri === '') {
@@ -561,8 +568,8 @@ const styles = StyleSheet.create({
   publishTitle: {
     fontSize: $screen.scaleSize(16),
     color: Theme.textTitle,
-    paddingBottom: 24,
-    paddingTop: 32,
+    paddingBottom: 14,
+    paddingTop: 22,
   },
   specialPadding: {
     paddingTop: 16,
