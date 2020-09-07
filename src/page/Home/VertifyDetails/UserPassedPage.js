@@ -19,7 +19,7 @@ const UserPassedPage = (props) => {
     const {params} = props.route;
 
     if (params.userId === userMeId) {
-      setCanDelete(false);    //家庭成员的本人(排在列表的第一个成员)不能删除，其他可删除
+      //setCanDelete(false);    //家庭成员的本人(排在列表的第一个成员)不能删除，其他可删除(改为：添加的本人也能被删除)
     } else {
       setCanDelete(true);
     }
@@ -31,7 +31,7 @@ const UserPassedPage = (props) => {
       if (!res.code) {
         dealDataRefresh(res.data);
       } else {
-        showToast("90909"+res.message);
+        showToast(res.message);
       }
     });
 
@@ -51,11 +51,15 @@ const UserPassedPage = (props) => {
     setHeadData(actualHeadData);
 
     var sex = props.dictionaryMappings.gender[data.gender];
+    var strNum = data.identificationNo;
+    if (strNum && strNum.length > 5) {
+      strNum = strNum.substr(0, 3) + "*************" + strNum.substr(strNum.length-2, 2)
+    }
     const actualBasicData = [
       {title: "性别", content: sex},
       {title: "民族", content: data.nation},
       {title: "出生日期", content: data.birthDate},
-      {title: "证件号", content: data.identificationNo},
+      {title: "证件号", content: strNum},
       {title: "所在区域", content: data.regionId},
       {title: "详细地址", content: data.address},
       {title: "教育程度", content: data.educationLevel},
@@ -93,7 +97,7 @@ const UserPassedPage = (props) => {
         showToast("删除成功");
         NavigatorService.goBack();
       } else {
-        showToast("90909"+res.message);
+        showToast(res.message);
       }
     });
   }

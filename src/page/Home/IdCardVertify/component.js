@@ -80,7 +80,7 @@ export default function IdCardVertifyPage(props) {
         // }
 
       } else {
-        showToast("90909"+res.message);
+        showToast(res.message);
       }
     });
   }

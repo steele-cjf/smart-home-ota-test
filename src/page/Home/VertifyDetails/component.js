@@ -59,7 +59,7 @@ export default function VertifyDetailsPage(props) {
       if (!res.code) {
         dealDataRefresh(res.data);
       } else {
-        showToast("90909"+res.message);
+        showToast(res.message);
       }
     });
   }
@@ -148,7 +148,7 @@ export default function VertifyDetailsPage(props) {
         showToast("删除成功");
         NavigatorService.goBack();
       } else {
-        showToast("90909"+res.message);
+        showToast(res.message);
       }
     });
   }
