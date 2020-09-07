@@ -153,7 +153,7 @@ const SuggestionPage = (props) => {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    //flex: 1,
+    flex: 1,
     paddingHorizontal: 16,
     paddingTop: 16,
     backgroundColor: Theme.background,

@@ -31,7 +31,7 @@ const UserPassedPage = (props) => {
       if (!res.code) {
         dealDataRefresh(res.data);
       } else {
-        showToast("90909"+res.message);
+        showToast(res.message);
       }
     });
 
@@ -93,7 +93,7 @@ const UserPassedPage = (props) => {
         showToast("删除成功");
         NavigatorService.goBack();
       } else {
-        showToast("90909"+res.message);
+        showToast(res.message);
       }
     });
   }

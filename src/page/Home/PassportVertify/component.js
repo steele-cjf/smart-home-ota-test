@@ -75,7 +75,7 @@ export default function PassportVertifyPage(props) {
                 // }
                 
             } else {
-                showToast("90909"+res.message);
+                showToast(res.message);
             }
         });
     }
