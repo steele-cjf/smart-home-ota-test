@@ -256,7 +256,6 @@ export default function PublishHouse(props) {
       }
       result.append('houseAddition.images', resultImg[c]);
     }
-    console.log('result', result);
     if (props.route.params.publishId) {
       result.append('id', publishId);
       props.updatePublishInfo(result, publishId, res => {
