@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   },
   room_wrapper: {
     flex: 1,
-    padding: 10,
+    padding: 16,
     paddingTop: 0,
   },
   house_address: {
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   left_content: {
-    flex: 85,
+    flex: 75,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   icon_content: {
-    flex: 15,
+    flex: 25,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

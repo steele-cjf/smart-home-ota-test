@@ -264,14 +264,14 @@ export default function AddTenant(props) {
         <ActionSheet ref={(c) => { setActionSheet(c) }} />
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>房屋信息</Text>
-          <Item style={styles.marginLeft0} inlineLabel picker>
+          <Item style={styles.marginLeft0} inlineLabel>
             <Label style={[styles.labelTitle, styles.defaultSize]}>
               房屋地址
             </Label>
             <Input
-              value={house.regionFullName || '--'}
+              value={house.address || '--'}
               disabled={true}
-              style={[styles.defaultSize, styles.textAlignR]}
+              style={[styles.defaultSize, styles.textAlignR, {flex: 4,}]}
             />
           </Item>
           <Item style={[styles.marginLeft0, { paddingVertical: 14, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>

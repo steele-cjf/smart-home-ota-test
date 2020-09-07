@@ -68,7 +68,7 @@ export default function ImageUpload(props) {
                 onPress={() => {
                   setAvatarSource(null);
                   props.setImageForm(null);
-                  props.handlerDelete()
+                  props.handlerDelete && props.handlerDelete();
                 }}
                 containerStyle={{ position: 'absolute', top: -4, right: -4 }}
               />

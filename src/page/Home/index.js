@@ -108,6 +108,7 @@ function HomePage(props) {
   }, [props.myHouseList])
 
   const renderContent = () => {
+    console.log('recommandList', recommandList)
     if (recommandList && recommandList.length) {
       return (
         <HouseListComponent list={recommandList} />
@@ -183,7 +184,7 @@ function HomePage(props) {
             <View style={styles.header}>
               <Text style={styles.title}>首页</Text>
               <View style={styles.SwiperBox} >
-                <Swiper items={imgList} />
+                <Swiper items={imgList} imgStyle={{borderRadius: 10}}/>
               </View>
               {
                 loadingStatus ?

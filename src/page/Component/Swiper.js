@@ -12,21 +12,27 @@ var styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
-        borderRadius: 10
     }
 })
 
 export default (props) => {
     const [items, setItems] = useState(props.items)
+    const [styleImg] = useState(props.imgStyle)  
     useEffect(() => {
         setItems(props.items)
     }, [props.items])
     return (
-        <Swiper style={styles.wrapper} autoplay={true} autoplayTimeout={3} loop={true} showsPagination={true} paginationStyle={styles.dotStyle}>
+        <Swiper
+            style={styles.wrapper}
+            autoplay={false}
+            autoplayTimeout={3}
+            loop={true}
+            showsPagination={true}
+            paginationStyle={styles.dotStyle}>
             {items && items.map((item) => {
                 return (
                     <View testID="Hello" style={styles.slide}>
-                        <Image style={styles.image} source={item} />
+                        <Image style={[styles.image, styleImg]} source={item} />
                     </View>
                 )
             })}

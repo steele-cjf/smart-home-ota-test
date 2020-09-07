@@ -54,11 +54,11 @@ const houseRatePlanCn = [{
     unit: '元/平方米'
 }, {
     name: '燃气',
-    key: ' gasFeeUnitPrice',
+    key: 'gasFeeUnitPrice',
     unit: '元/立方米'
 }, {
     name: '暖气',
-    key: ' heatingFeeUnitPrice',
+    key: 'heatingFeeUnitPrice',
     unit: '元/立方米'
 }]
 export {

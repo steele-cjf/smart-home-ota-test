@@ -61,11 +61,9 @@ export const httpService = (url, config) => {
           if (config.successConfig && config.successConfig.callback) {
             config.successConfig.callback(response);
           }
-          // if (response.code !== 401 && response.code !== 0) {
-          //   showToast(response.message)
-          // }
         })
         .catch(error => {
+          console.log('error', error)
           showToast('请求出错，请联系管理员')
         });
     })();
@@ -100,7 +98,6 @@ export const postImage = (url, callback, isAbsolute) => {
   fetchGetImage('POST', url, callback, isAbsolute)
 }
 function cleanNullData(json) {
-  console.log('&&&&&22222start', json)
   // if (!json) return {}
   let result = {}
   for (var i in json) {
@@ -108,7 +105,6 @@ function cleanNullData(json) {
       result[i] = json[i]
     }
   }
-  // console.log('&&&&&22222', result)
   return json
 }
 
@@ -123,21 +119,19 @@ function fetchGetImage(method, url, callback, isAbsolute) {
         Authorization: 'Bearer ' + accessToken
       })
       .then((res) => {
-        if (callback) {
-          // the temp file path
-          callback({
-            uri: 'file://' + res.path(),
-            name: 'upload.jpg',
-            type: 'image/jpeg'
-          })
-        } else {
-          return {
-            uri: 'file://' + res.path(),
-            name: 'upload.jpg',
-            type: 'image/jpeg'
-          }
-        }
-
+        // the temp file path
+        callback({
+          uri: 'file://' + res.path(),
+          name: 'upload.jpg',
+          type: 'image/jpeg'
+        })
+      }).catch((error) => {
+        console.log(999, error)
+        callback({
+          uri: '',
+          name: 'upload.jpg',
+          type: 'image/jpeg'
+        })
       })
   })
 }
