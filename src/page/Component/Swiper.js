@@ -12,12 +12,12 @@ var styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
-        borderRadius: 10
     }
 })
 
 export default (props) => {
     const [items, setItems] = useState(props.items)
+    const [styleImg] = useState(props.imgStyle)  
     useEffect(() => {
         setItems(props.items)
     }, [props.items])
@@ -32,7 +32,7 @@ export default (props) => {
             {items && items.map((item) => {
                 return (
                     <View testID="Hello" style={styles.slide}>
-                        <Image style={styles.image} source={item} />
+                        <Image style={[styles.image, styleImg]} source={item} />
                     </View>
                 )
             })}

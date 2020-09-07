@@ -184,7 +184,7 @@ function HomePage(props) {
             <View style={styles.header}>
               <Text style={styles.title}>首页</Text>
               <View style={styles.SwiperBox} >
-                <Swiper items={imgList} />
+                <Swiper items={imgList} imgStyle={{borderRadius: 10}}/>
               </View>
               {
                 loadingStatus ?

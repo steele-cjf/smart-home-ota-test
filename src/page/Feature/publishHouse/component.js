@@ -561,8 +561,8 @@ const styles = StyleSheet.create({
   publishTitle: {
     fontSize: $screen.scaleSize(16),
     color: Theme.textTitle,
-    paddingBottom: 24,
-    paddingTop: 32,
+    paddingBottom: 14,
+    paddingTop: 22,
   },
   specialPadding: {
     paddingTop: 16,

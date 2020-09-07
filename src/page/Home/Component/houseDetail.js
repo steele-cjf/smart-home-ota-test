@@ -130,7 +130,7 @@ function HouseDetail(props) {
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>
                     {renderHouseItem()}
-                    {options.houseAddition.description && <Text style={{ marginBottom: 16 }}>{options.houseAddition.description}</Text>}
+                    {options.houseAddition.description && <Text style={{ marginBottom: 16, color: '#282828', fontSize: $screen.scaleSize(12)}}>{options.houseAddition.description}</Text>}
                     {renderHouseAddition('requirements')}
                     {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
     secondDes: {
         color: '#282828',
         marginTop: 8,
+        marginBottom: 10,
         fontSize: $screen.scaleSize(16)
     },
     moduleTitle: {
@@ -192,14 +193,15 @@ const styles = StyleSheet.create({
 
     },
     houseLayoutBox: {
-        padding: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
     houseLayoutModule: {
         flexDirection: 'column',
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: 10
     },
     houseLayoutTitle: {
         color: '#282828',
@@ -218,7 +220,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ECF2FF',
         marginRight: 16,
         borderRadius: 5,
-        marginBottom: 20
+        marginBottom: 10
     },
     houseAdditionText: {
         fontSize: $screen.scaleSize(14),
@@ -242,7 +244,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         alignItems: 'center',
         marginRight: 40,
-        marginBottom: 20
+        marginBottom: 10
     },
     houseRatePlanBox: {
         flexDirection: 'row',
