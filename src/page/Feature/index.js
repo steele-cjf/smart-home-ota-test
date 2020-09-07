@@ -24,11 +24,11 @@ function FeaturePage(props) {
   // useEffect(() => {
   //   props.getMyHouseList() // 获取本人的房源
   // }, []);
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     props.getMyHouseList()
-  //   }, [props.route])
-  // )
+  useFocusEffect(
+    useCallback(() => {
+      props.getMyHouseList()
+    }, [props.route])
+  )
 
   useEffect(() => {
     // 获取本人的房源

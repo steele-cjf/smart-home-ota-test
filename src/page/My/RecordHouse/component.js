@@ -27,7 +27,9 @@ function RecordHouse(props) {
   const [image, setImage] = useState('')
   const [address, setAddress] = useState('');
   const [houseHolder, setHouseHolder] = useState({});
-  const [houseLayout, setHouseLayout] = useState({});
+  const [houseLayout, setHouseLayout] = useState({
+    hasElevator: false,
+  });
   const [
     housePropertyCertificateImage,
     setHousePropertyCertificateImage,
@@ -192,6 +194,7 @@ function RecordHouse(props) {
       data = Object.assign([], housePropertyCertificateImage);
       data[key] = obj;
       setHousePropertyCertificateImage(data);
+      setImage(data[0].uri);
       console.log('houseI', data)
     } else if (type === 'cert') {
       data = Object.assign([], certificateFilesImg);
@@ -252,7 +255,6 @@ function RecordHouse(props) {
   const changeSwitch = () => {
     setHasElevator(value => !value);
     setData('hasElevator', !hasElevator, 'houseLayout');
-
   }
 
   return (
