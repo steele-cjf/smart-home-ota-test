@@ -524,9 +524,8 @@ export default function PublishHouse(props) {
           <View
             style={{
               flexDirection: 'row',
-              //flexWrap: 'wrap',
+              flexWrap: 'wrap',
               paddingTop: 16,
-              backgroundColor: 'red'
             }}>
             {
               houseImages.map((item, index) => {
