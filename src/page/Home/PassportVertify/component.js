@@ -13,9 +13,6 @@ export default function PassportVertifyPage(props) {
     const [userId, setUserId] = useState(null);
     const [oldData, setOldData] = useState({});
     const [loading, setLoading] = useState(false);
-    // const [imageUrl1, setImageUrl1] = useState(''); 
-    // const [imageUrl2, setImageUrl2] = useState(''); 
-    // const [imageUrl3, setImageUrl3] = useState(''); 
 
     // 初始化获取用户信息
     useEffect(() => {
@@ -58,21 +55,18 @@ export default function PassportVertifyPage(props) {
                 setOldData(Object.assign({}, oldData));
                 setFormData(oldData);
 
-                // if (res.data.imageUrls && res.data.imageUrls[0]) {
-                //     $getImage(res.data.imageUrls[0], uri => {
-                //         setImageUrl1(uri);
-                //     });
-                // }
-                // if (res.data.imageUrls && res.data.imageUrls[1]) {
-                //     $getImage(res.data.imageUrls[1], uri => {
-                //         setImageUrl2(uri);
-                //     });
-                // }
-                // if (res.data.imageUrls && res.data.imageUrls[2]) {
-                //     $getImage(res.data.imageUrls[2], uri => {
-                //         setImageUrl3(uri);
-                //     });
-                // }
+                let imgs = [];
+                if (res.data.imageUrls && res.data.imageUrls.length) {
+                  res.data.imageUrls.map((item, index) => {
+                    $getImage(item, response => {
+                      let data = Object.assign([], imgs);
+                      data[index] = response;
+                      setFormImages(data);
+        
+                      imgs[index] = response;
+                    }, true)
+                  })
+                }
                 
             } else {
                 showToast(res.message);
@@ -97,7 +91,6 @@ export default function PassportVertifyPage(props) {
         } 
 
         if (!message) {
-            // const imageUrls = [imageUrl1, imageUrl2, imageUrl3];
             for (var i = 0; i < 3; i++) {
                 let item = formImages[i]
                 if (!item) {
@@ -158,12 +151,6 @@ export default function PassportVertifyPage(props) {
         data[type] = obj
         setFormImages(data)
     }
-
-    const deleteImage = (index) => {
-        let dataArr = Object.assign([], formImages);
-        dataArr.splice(index, 1);
-        setFormImages(dataArr);
-    }
     
 
     return (
@@ -188,18 +175,15 @@ export default function PassportVertifyPage(props) {
                     <View style={styles.ImageUploadBox}>
                         <ImageUpload title='护照个人信息' 
                         setImageForm={(obj) => setImageForm(0, obj)} 
-                        handlerDelete={() => deleteImage(0)}
-                        // imgUrl={imageUrl1} 
+                        imgUrl={formImages[0] && formImages[0].uri}
                         />
                         <ImageUpload title='护照入境信息' 
                         setImageForm={(obj) => setImageForm(1, obj)} 
-                        handlerDelete={() => deleteImage(1)}
-                        // imgUrl={imageUrl2} 
+                        imgUrl={formImages[1] && formImages[1].uri}
                         />
                         <ImageUpload title='手持护照' 
                         setImageForm={(obj) => setImageForm(2, obj)} 
-                        handlerDelete={() => deleteImage(2)}
-                        // imgUrl={imageUrl3} 
+                        imgUrl={formImages[2] && formImages[2].uri}
                         />
                     </View>
                     <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>

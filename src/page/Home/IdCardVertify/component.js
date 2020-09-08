@@ -55,15 +55,16 @@ export default function IdCardVertifyPage(props) {
         }
         setFormData(oldData);
 
-        let imgs = []
+        let imgs = [];
         if (res.data.imageUrls && res.data.imageUrls.length) {
           res.data.imageUrls.map((item, index) => {
             $getImage(item, response => {
               let data = Object.assign([], imgs);
-              imgs[index] = response;
-             
               data[index] = response;
               setFormImages(data);
+
+              imgs[index] = response;
+              //setFormImages(imgs);
             }, true)
           })
         }
