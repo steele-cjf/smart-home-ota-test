@@ -89,7 +89,7 @@ function HouseList(props) {
     fetchHouseList(1)
   }
   const getSearchParams = (item) => {
-    const data = { address: item }
+    const data = { keyword: item }
     const newData = Object.assign(params, data)
     console.log('newData1', newData);
     setParams(newData)
