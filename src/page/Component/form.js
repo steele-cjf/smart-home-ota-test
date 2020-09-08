@@ -27,9 +27,6 @@ export default function Form(props) {
   }, [props.oldData]);
 
   function pickerAction(data, selOldValue) {   
-    // console.log('333333333data', data);
-    // console.log('4444444444selOldValue', selOldValue);
-
     Picker.init({
       pickerTitleText: '选择民族',
       pickerCancelBtnText: "取消",

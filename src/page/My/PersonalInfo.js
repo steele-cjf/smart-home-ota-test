@@ -210,12 +210,15 @@ const PersonalInfoPage = (props) => {
         return item.name;
       }
     });
-    console.log('333333nameArr:', nameArr);
+    
+    if(nameArr && !nameArr[nameArr.length-1]) {
+      nameArr.pop()
+    }
+
     let nameStr = nameArr.join('-');
     let otData = Object.assign({}, otherData);
     otData["所在区域"] = nameStr;
     setOtherData(otData);
-
   };
 
   const img = require('../../assets/images/head.png');
