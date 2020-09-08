@@ -67,8 +67,6 @@ function RecordHouse(props) {
           const info = res.data;
           let initAddress = info.address.split(info.formattedAddress)
           setAddress(initAddress[1] || initAddress[0]);
-          setHouseHolder(info.houseHolder);
-          console.log('houseHolder123', houseHolder);
           setHouseLayout(info.houseLayout);
           setCertificateFilesImg(info.houseHolder.certificateFileUrls || []);
           setRegionId(info.regionId);
@@ -79,19 +77,25 @@ function RecordHouse(props) {
           setSelectedDirectionValue(obj.house_direction[info.houseLayout.direction]);
           setTabs(res.data.regions.concat(initTabs))
           
+          if (info.houseHolder.self === 'self') {
+            info.houseHolder.holderName = ''
+            info.houseHolder.holderIdCardNumber = ''
+          } else {
+            $getImage(info.houseHolder.certificateFileUrl, res => {
+              setCertificateFilesImg([res])
+              setCertificateImage(res.uri);
+            }, true)
+            $getImage(info.houseHolder.idCardFileUrl, res => {
+              setIdCardFile([res])
+              setIdCardImage(res.uri);
+            }, true)
+          }
+          setHouseHolder(info.houseHolder);
           
           $getImage(info.housePropertyCertificateImageUrl, async res => {
             await setHousePropertyCertificateImage([res])
             setImage(res.uri);
             setLoading(false);
-          }, true)
-          $getImage(info.houseHolder.certificateFileUrl, res => {
-            setCertificateFilesImg([res])
-            setCertificateImage(res.uri);
-          }, true)
-          $getImage(info.houseHolder.idCardFileUrl, res => {
-            setIdCardFile([res])
-            setIdCardImage(res.uri);
           }, true)
         }
       }
@@ -195,18 +199,23 @@ function RecordHouse(props) {
       data = Object.assign([], housePropertyCertificateImage);
       data[key] = obj;
       setHousePropertyCertificateImage(data);
-      setImage(data[0].uri);
-      console.log('houseI', data)
+      if (obj) {
+        setImage(data[0].uri);
+      }
     } else if (type === 'cert') {
       data = Object.assign([], certificateFilesImg);
       data[key] = obj;
       setCertificateFilesImg(data);
-      console.log('cert', data)
+      if (obj) {
+        setCertificateImage(data[0].uri)
+      }
     } else {
       data = Object.assign([], idCardFile);
       data[key] = obj;
       setIdCardFile(data);
-      console.log('idCard', data)
+      if (obj) {
+        setIdCardImage(data[0].uri)
+      }
     }
   };
 

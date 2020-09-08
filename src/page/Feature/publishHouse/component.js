@@ -219,6 +219,10 @@ export default function PublishHouse(props) {
       showToast('请填写房租')
       return
     }
+    if (!houseImages[0].uri) {
+      showToast('请至少添加1张图片')
+      return
+    }
     setLoading(true);
     const items = getSelectedItem(houseItem);
     const spots = getSelectedItem(houseSpots);
