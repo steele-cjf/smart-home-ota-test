@@ -24,7 +24,7 @@ export default function SearchHeader(props) {
                         value={searchItem}
                         onChangeText={setSearchItem}
                         onBlur={() => props.getSearchParams(searchItem)}
-                        placeholder='地区/小区' />
+                        placeholder='搜索房源' />
                 </Body>
                 <Right style={{ flex: 0.5 }}>
                     <Entypo style={styles.RightIcon} name='location' onPress={() => NavigatorService.navigate(AppRoute.MAPHOUSE)} />
