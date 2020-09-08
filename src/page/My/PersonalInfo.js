@@ -52,7 +52,7 @@ const PersonalInfoPage = (props) => {
     });
   }
 
-  function pickerAction() {
+  function pickerAction(selOldItem) {
     let data = ['无', '大专', '本科', '硕士', '博士'];
     
     Picker.init({
@@ -62,7 +62,7 @@ const PersonalInfoPage = (props) => {
       pickerCancelBtnColor: [124, 124, 124, 1],
       pickerConfirmBtnColor: [82, 123, 223, 1],
       pickerData: data,
-      selectedValue:  ['本科'],
+      selectedValue: [selOldItem],
       onPickerCancel: item => {
         console.log(item);
       },
@@ -86,11 +86,15 @@ const PersonalInfoPage = (props) => {
   // )
   useEffect(() => {
     handleInfo(); 
+    return () => {
+      if (Picker) {
+        Picker.hide();
+      }
+    };
   }, []);
 
   function handleInfo() {
     props.getUserInfo(res => {
-      console.log('getPersonalInfo_userInfo1:', res);
       setLoading(false);
       if (!res.code) {
         dealDataRefresh(res.data);
@@ -243,7 +247,7 @@ const PersonalInfoPage = (props) => {
             
               if (index === 0) {
                 return (
-                  <TouchableOpacity style={styles.sigContainer} onPress={pickerAction}>
+                  <TouchableOpacity style={styles.sigContainer} onPress={() => pickerAction(otherData[item])}>
                     <Text style={[styles.textTitle]}>{item}</Text>
                     <Text style={[styles.textContent,styles.rightInput]}>{otherData[item]}</Text>
                     <AntDesign name="right" style={styles.rightArrow} />
