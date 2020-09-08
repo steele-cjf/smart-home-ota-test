@@ -17,10 +17,19 @@ export default function Form(props) {
   const [obj, setObj] = useState(props.oldData);
 
   useEffect(() => {
-    setObj(props.oldData)
+    setObj(props.oldData);
+
+    return () => {
+      if (Picker) {
+        Picker.hide();
+      }
+    };
   }, [props.oldData]);
 
-  function pickerAction(data) {   
+  function pickerAction(data, selOldValue) {   
+    // console.log('333333333data', data);
+    // console.log('4444444444selOldValue', selOldValue);
+
     Picker.init({
       pickerTitleText: '选择民族',
       pickerCancelBtnText: "取消",
@@ -28,7 +37,7 @@ export default function Form(props) {
       pickerCancelBtnColor: [124, 124, 124, 1],
       pickerConfirmBtnColor: [82, 123, 223, 1],
       pickerData: data.selectOptions,
-      selectedValue:  ['汉族'],
+      selectedValue:  [selOldValue],
       onPickerCancel: item => {
         console.log(item);
       },
@@ -141,7 +150,7 @@ export default function Form(props) {
                     editable={false}
                     value={obj[key]}
                     onTouchStart={() => {
-                      pickerAction(data);
+                      pickerAction(data, obj[key]);
                     }}
                     placeholder={placeholder}
                     placeholderTextColor={Theme.textMuted} 
