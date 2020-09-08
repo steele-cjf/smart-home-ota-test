@@ -142,8 +142,13 @@ const PersonalInfoPage = (props) => {
       setHeadImage({uri: data.avatarImageUrl}); 
     }
 
-    setRegionId(data.regionId);
-    setTabs(data.regions.concat(initTabs));      
+    if (data.regionId) {
+      setRegionId(data.regionId);
+    }
+    if (data.regions) {
+      setTabs(data.regions.concat(initTabs)); 
+    }
+         
   }
 
   //请求保存数据
@@ -214,8 +219,8 @@ const PersonalInfoPage = (props) => {
     if(nameArr && !nameArr[nameArr.length-1]) {
       nameArr.pop()
     }
-
     let nameStr = nameArr.join('-');
+    
     let otData = Object.assign({}, otherData);
     otData["所在区域"] = nameStr;
     setOtherData(otData);
