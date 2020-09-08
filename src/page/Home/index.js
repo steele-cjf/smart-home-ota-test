@@ -108,7 +108,7 @@ function HomePage(props) {
   }, [props.myHouseList])
 
   const renderContent = () => {
-    console.log('recommandList', recommandList)
+    //console.log('recommandList', recommandList)
     if (recommandList && recommandList.length) {
       return (
         <HouseListComponent list={recommandList} />

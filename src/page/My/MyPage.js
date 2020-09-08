@@ -26,7 +26,7 @@ function MyPage(props) {
   useEffect(() => {
     // eslint-disable-next-line no-undef
     storage.get('info').then(res => {
-      console.log('info', res);
+      //console.log('info', res);
       setUserInfo(res);
     });
   }, [props.userInfo]);

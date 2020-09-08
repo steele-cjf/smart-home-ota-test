@@ -37,8 +37,9 @@ function AuthenticationPage(props) {
           //返回结果
           console.log('state, errorCode, message', state, errorCode, message)
           if (state === 'RPStatePass') {
-            showToast("认证返回成功");
+            // showToast("认证返回成功");
             props.getVerifyResult({ bizId });
+            NavigatorService.navigate(AppRoute.HOME);
           } else if (state === 'RPStateFail') {
             showToast("认证不通过");
           } else if (state === 'RPStateNotVerify') {
@@ -52,6 +53,7 @@ function AuthenticationPage(props) {
         if (ret === 'success') {
           // 认证结果返回
           props.getVerifyResult({ bizId });
+          NavigatorService.navigate(AppRoute.HOME);
         } else {
           showToast('认证失败');
         }

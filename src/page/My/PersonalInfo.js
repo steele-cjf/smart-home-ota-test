@@ -7,6 +7,7 @@ import Picker from 'react-native-picker';
 import Theme from '../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';  
 import HeaderCommon from '../Component/HeaderCommon'
+import RegionPicker from '../Component/citySelect';
 
 import storage from '../../util/storage';
 import {connect} from 'react-redux';
@@ -95,6 +96,8 @@ const PersonalInfoPage = (props) => {
 
   function handleInfo() {
     props.getUserInfo(res => {
+      console.log('getUserInfo****kkkk:', res.data);
+
       setLoading(false);
       if (!res.code) {
         dealDataRefresh(res.data);
@@ -128,7 +131,7 @@ const PersonalInfoPage = (props) => {
 
     const actualOtherData = {
       "教育程度": data.educationLevel,
-      "所在区域": data.regionId,
+      "所在区域": data.regionFullName, 
       "详细地址": data.address, 
     };
 
@@ -138,6 +141,9 @@ const PersonalInfoPage = (props) => {
     if (data.avatarImageUrl) {
       setHeadImage({uri: data.avatarImageUrl}); 
     }
+
+    setRegionId(data.regionId);
+    setTabs(data.regions.concat(initTabs));      
   }
 
   //请求保存数据
@@ -148,7 +154,7 @@ const PersonalInfoPage = (props) => {
       result.append('educationLevel', otherData['教育程度']);
     }
     if (otherData['所在区域']) {
-      result.append('regionId', otherData['所在区域']);
+      result.append('regionId', regionId);
     }
     if (otherData['详细地址']) {
       result.append('address', otherData['详细地址']);
@@ -195,7 +201,29 @@ const PersonalInfoPage = (props) => {
     setOtherData(data);
   };
 
+  const handleFunc = (flag, data) => {
+    setModalVisible(flag);
+    setRegionId(data);
+
+    let nameArr = tabs.map(item => {
+      if (item.id) {
+        return item.name;
+      }
+    });
+    console.log('333333nameArr:', nameArr);
+    let nameStr = nameArr.join('-');
+    let otData = Object.assign({}, otherData);
+    otData["所在区域"] = nameStr;
+    setOtherData(otData);
+
+  };
+
   const img = require('../../assets/images/head.png');
+
+  const initTabs = { name: '请选择', id: 0 }
+  const [tabs, setTabs] = useState([initTabs]);
+  const [regionId, setRegionId] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [basicData, setBasicData] = useState([]);
   const [otherData, setOtherData] = useState({});
@@ -244,10 +272,14 @@ const PersonalInfoPage = (props) => {
           </View>
           { 
             Object.keys(otherData).map((item, index) => { 
-            
-              if (index === 0) {
-                return (
-                  <TouchableOpacity style={styles.sigContainer} onPress={() => pickerAction(otherData[item])}>
+              if (index !== 2) {
+                return ( 
+                  <TouchableOpacity 
+                    style={styles.sigContainer} 
+                    onPress={() => 
+                      index === 0 ? pickerAction(otherData[item]) : setModalVisible(true)
+                    }
+                  >
                     <Text style={[styles.textTitle]}>{item}</Text>
                     <Text style={[styles.textContent,styles.rightInput]}>{otherData[item]}</Text>
                     <AntDesign name="right" style={styles.rightArrow} />
@@ -265,15 +297,22 @@ const PersonalInfoPage = (props) => {
                   </View>
                 ); 
               }
-              
             })
           }
           <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
             <Text style={styles.btnTextStyle}>保存</Text>
           </TouchableOpacity>
         </ScrollView>
+
+        <RegionPicker
+          visible={modalVisible} 
+          tabs={tabs}
+          setTabs={data => setTabs(data)}
+          close={(flag, data) => handleFunc(flag, data)}
+        />
       </Content>
       // </KeyboardAvoidingView>
+
       }
     </View>
   ); 
