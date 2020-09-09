@@ -219,7 +219,7 @@ const PersonalInfoPage = (props) => {
     if(nameArr && !nameArr[nameArr.length-1]) {
       nameArr.pop()
     }
-    let nameStr = nameArr.join('-');
+    let nameStr = nameArr.join(' - ');
     
     let otData = Object.assign({}, otherData);
     otData["所在区域"] = nameStr;
