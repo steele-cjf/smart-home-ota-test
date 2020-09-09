@@ -42,7 +42,8 @@ export const MyPageStackComponent = () => {
         name={AppRoute.MY}
         component={MyPage}
         options={{
-          headerShown: false,
+          // headerTintColor: 'red',
+          headerShown: false
         }}
       />
       <MyPageNavigator.Screen

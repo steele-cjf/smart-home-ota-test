@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 22,
   },
   topBox: {
-    marginTop: 50,
+    marginTop: 8
   },
   topTitle: {
     fontSize: $screen.scaleSize(24),

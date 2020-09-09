@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         padding: 16,
-        borderRadius: 10
+        borderRadius: 8
     },
     topBox: {
         borderBottomWidth: 1,
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     title: {
         color: '#282828',
         fontSize: $screen.scaleSize(16),
-        paddingBottom: 13
+        paddingBottom: 7
     },
     des: {
         color: '#7C7C7C',
