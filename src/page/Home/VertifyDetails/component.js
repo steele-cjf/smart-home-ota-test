@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import {Spinner, Header, Button, Title, Left, Right, Icon, Body} from 'native-base';
 import Theme from '../../../style/colors';
 import {AppRoute} from '../../../navigator/AppRoutes'; 
+import { ScrollView } from 'react-native-gesture-handler';
 
 const auth_status = {
   'audit_reject': {
@@ -50,7 +51,7 @@ export default function VertifyDetailsPage(props) {
       userId = params.userId;
       setCanDelete(true);
     } else {
-      setCanDelete(false);
+      setCanDelete(false); 
     }
 
     props.getManualAuditInfo(userId, res => {
@@ -66,11 +67,13 @@ export default function VertifyDetailsPage(props) {
 
   function dealDataRefresh(data) { 
     var authStatus = data.auditStatus;      
-    console.log('authStatus********: ', authStatus);
+  
+    if (authStatus === 'audit_reject' && data.auditOpinions) {
+      auth_status['audit_reject'].reasonDesc = data.auditOpinions;
+    }
 
     var sex = props.dictionaryMappings.gender[data.gender];
-    console.log('sex***', sex);
-    
+
     let actualDataArr;
     if (data.identificationType === 'id_card') { 
       actualDataArr = [   
@@ -191,16 +194,15 @@ export default function VertifyDetailsPage(props) {
           </Button>
         </Right>
       </Header>
-
       {loading ? <Spinner></Spinner> :
-      <View style={styles.containerStyle}> 
+      <ScrollView contentContainerStyle={styles.containerStyle}> 
         <View style={[styles.topViewFail, authStatus === 'audit_pending' && styles.topViewWait]}>
           <Text style={styles.topTextStyle1}>{authOptions.title}</Text>
           <Text style={styles.topTextStyle2}>{authOptions.reasonDesc}</Text>
         </View> 
         {
           data.map((item, index) => { 
-            return (  //{uri: imageUrl1}
+            return (
               <View>
                 <Text style={styles.textTitle}>{item.title}</Text>
                 <Text style={styles.textContent} numberOfLines={2} ellipsizeMode={'tail'}>{item.content}</Text>
@@ -219,7 +221,7 @@ export default function VertifyDetailsPage(props) {
             <Text style={styles.btnTextStyle}>删除</Text>
           </TouchableOpacity>
         }
-      </View> 
+      </ScrollView> 
       }  
     </View>
   );
@@ -233,13 +235,12 @@ const styles = StyleSheet.create({
     paddingTop: 5, 
   },
   containerStyle: {
-    flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingTop: 16,
     backgroundColor: Theme.background,
   },
   topViewFail: {
-    height: 70, 
+    //height: 70, 
     padding: 12,
     borderRadius: 4,
     marginBottom: 10,
@@ -289,10 +290,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   btnStyle: {
-    position: 'absolute',
-    left: 16,
-    right: 16,
-    bottom: 50,
+    // position: 'absolute',
+    // left: 16,
+    // right: 16,
+    // bottom: 50,
+    marginTop: 100,
+    marginBottom: 50,
     height: 40,
     borderRadius: 20,
     backgroundColor: '#E7263E'
