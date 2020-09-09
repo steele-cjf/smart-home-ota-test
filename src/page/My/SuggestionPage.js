@@ -75,14 +75,25 @@ const SuggestionPage = (props) => {
         showToast("提交成功");
         NavigatorService.goBack();
       } else {
-        showToast("90909" + res.message);
+        showToast(res.message);
       }
     });
 
   }
 
+  function handerTextarea (text) {
+    setDescribeInfo(text);
+    setTextLen(text.length);
+
+    if (text.length > 300) {
+      let subString = text.substr(0, 300);
+      setDescribeInfo(subString);
+      setTextLen(subString.length);
+    } 
+  }
   
   const [contactInfo, setContactInfo] = useState('');
+  const [textLen, setTextLen] = useState(0);
   const [describeInfo, setDescribeInfo] = useState('');
   const [formImages, setFormImages] = useState(['']);
   const [loading, setLoading] = useState(false);
@@ -115,16 +126,16 @@ const SuggestionPage = (props) => {
     <ScrollView contentContainerStyle={styles.containerStyle}>
       <Text style={styles.textTitle}>反馈详情</Text>
       <Text style={styles.textTitle2}>反馈描述</Text>
-      <Form>
+      <Form style={styles.textareaContainer}>
         <Textarea
           style={styles.textareaContent}
           rowSpan={5}
           placeholder="请输入具体反馈内容"
           placeholderTextColor={Theme.textMuted}
-          onChangeText={(text) => { setDescribeInfo(text); }}
-        //onChange={e => {setData('description', e.nativeEvent.text, 'houseAddition');}}
-        //value={}
+          onChangeText={(text) => {handerTextarea(text);}}
+          value={describeInfo}
         />
+        <Text style={styles.textareaTipLbl}>{'已输入'+textLen+'/300'}</Text>
       </Form>
       <View>
         <Text style={[styles.textTitle2]}>联系方式</Text>
@@ -133,7 +144,7 @@ const SuggestionPage = (props) => {
           placeholderTextColor={Theme.textMuted}
           onChangeText={(text) => { setContactInfo(text); }}
           // onChangeText={(e) => { setContactInfo(e.nativeEvent.text); }} ???
-          // value={'ddd'}
+         //value={'ddd'}
         />
       </View>
       <Text style={[styles.textTitle, styles.space]}>{'照片上传'}</Text>
@@ -169,12 +180,23 @@ const styles = StyleSheet.create({
     marginTop: 32,
     marginBottom: 15,
   },
-  textareaContent: {
-    fontSize: $screen.scaleSize(14), 
-    color: Theme.textDefault,
+  textareaContainer: {
     height: 146,
     borderRadius: 4,
     backgroundColor: Theme.cardBackground,
+  },
+  textareaContent: {
+    fontSize: $screen.scaleSize(14), 
+    color: Theme.textDefault,
+    height: 116,
+  },
+  textareaTipLbl: {
+    position: 'absolute',
+    right: 12,
+    bottom: 10,
+    fontSize: $screen.scaleSize(12), 
+    color: Theme.textSecondary,
+    //backgroundColor: 'red'
   },
   textContent: {
     position: 'absolute',
