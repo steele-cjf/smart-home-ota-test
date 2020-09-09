@@ -143,7 +143,7 @@ const SuggestionPage = (props) => {
           placeholder='手机/邮箱/QQ'
           placeholderTextColor={Theme.textMuted}
           onChangeText={(text) => { setContactInfo(text); }}
-          // onChangeText={(e) => { setContactInfo(e.nativeEvent.text); }} ???
+          allowFontScaling={false} //test
          //value={'ddd'}
         />
       </View>

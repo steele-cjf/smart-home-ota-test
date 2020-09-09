@@ -301,6 +301,7 @@ const PersonalInfoPage = (props) => {
                       onChangeText={(text) => {setSaveData(item, text);}}
                       value={otherData[item]}
                       editable={true}
+                      allowFontScaling={true} //test
                     />
                   </View>
                 ); 
