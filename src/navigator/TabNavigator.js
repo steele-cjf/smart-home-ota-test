@@ -1,3 +1,6 @@
+/**
+ * @router bottom tab
+ */
 import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,7 +10,6 @@ import { HomeStackComponent } from './HomeNavigator';
 import { FeatureStackComponent } from './FeatureNavigator';
 import { MyPageStackComponent } from './MyPageNavigator';
 
-// import DynamicPage from '../page/DynamicPage';
 import { AppRoute } from './AppRoutes';
 
 const Tab = createBottomTabNavigator();

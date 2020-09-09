@@ -1,3 +1,6 @@
+/**
+ * @router login
+ */
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginPage from '../page/Login/index';

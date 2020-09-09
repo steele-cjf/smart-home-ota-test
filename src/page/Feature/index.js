@@ -1,3 +1,6 @@
+/**
+ * @page feature
+ */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';

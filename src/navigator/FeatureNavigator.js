@@ -1,3 +1,6 @@
+/**
+ * @router feature
+ */
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import FeaturePage from '../page/Feature/index';
