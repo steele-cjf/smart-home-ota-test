@@ -3,6 +3,9 @@ export function getManualAuditInfo(id, callback) {
     successConfig: {
       callback,
     },
+    failConfig: {
+      callback
+    }
   });
 }
 

@@ -41,7 +41,7 @@ export default function PassportVertifyPage(props) {
             // console.log('*******AuditInfo:*******', res);
             setLoading(false);
           
-            if (!res.code) {
+            if (res.code === 0) {
                 if (!(res.data)
                     || (res.data.identificationType !== 'passport')) { 
                     return;
@@ -115,7 +115,7 @@ export default function PassportVertifyPage(props) {
         props.verifyIdCard(result, (res) => {
             console.log('huzhaorenzhxiugai: ',res)
             setLoading(false);
-            if (!res.code) {
+            if (res.code === 0) {
                 showToast('提交成功');
                 NavigatorService.navigate(AppRoute.VERDETAILS);
                 //NavigatorService.goBack();
