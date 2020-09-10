@@ -61,7 +61,7 @@ function FeaturePage(props) {
       // let { status } = props.userInfo.data
       return (
         <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          <Text>您还未通过实名认证，请先</Text>
+          <Text>您还未进行实名认证，请先</Text>
           <TouchableOpacity transparent onPress={() => NavigatorService.navigate(AppRoute.AUTHENTICATION)}>
             <Text style={{ color: Theme.primary, marginTop: 10 }}>实名认证</Text>
           </TouchableOpacity>
