@@ -40,9 +40,10 @@ export default function IdCardVertifyPage(props) {
     }
 
     props.getManualAuditInfo(uId, res => {
+      console.log("1111111res1", res);
       setLoading(false);
 
-      if (!res.code) {
+      if (res.code === 0) {
         if (!(res.data)
           || (res.data.identificationType !== 'id_card')) {
           return;
@@ -70,6 +71,7 @@ export default function IdCardVertifyPage(props) {
         }
 
       } else {
+        console.log("222222222res2", res);
         showToast(res.message);
       }
     });
@@ -125,8 +127,9 @@ export default function IdCardVertifyPage(props) {
     console.log('99userId: ', userId);
 
     props.verifyIdCard(result, res => {
+      console.log('^^^^^^res1',res)
       setLoading(false)
-      if (!res.code) {
+      if (res.code === 0) {
         showToast('提交成功');
         NavigatorService.navigate(AppRoute.VERDETAILS);
         //NavigatorService.goBack();
@@ -137,6 +140,7 @@ export default function IdCardVertifyPage(props) {
         }
 
       } else {
+        console.log('^^^^^^res2',res)
         showToast(res.message)
       }
     })
@@ -157,9 +161,6 @@ export default function IdCardVertifyPage(props) {
   };
 
   const setImageForm = (index, obj) => {
-    console.log("dsdsdsffdsdfsfdsdsfsdfsdf");
-    console.log("^^^^^^^^^^^^^", obj);
-
     let data = Object.assign([], formImages);
     data[index] = obj;
     setFormImages(data);

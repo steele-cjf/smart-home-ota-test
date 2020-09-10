@@ -40,6 +40,9 @@ export function verifyIdCard(data, callback) {
     successConfig: {
       callback,
     },
+    failConfig: {
+      callback
+    }
   });
 }
 // 获取发布房源列表
