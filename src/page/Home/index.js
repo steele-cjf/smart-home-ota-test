@@ -1,12 +1,15 @@
+/**
+ * @page home
+ */
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text, StyleSheet, Animated, Platform } from 'react-native';
+import { View, Text, StyleSheet, Animated, Platform, TouchableOpacity } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { getAllData, getDictionaryMapping } from '../../store/login/index';
 import { getRecommandList } from '../../store/map/index';
 import { setHomeHouse, setCodeInfo, setDictionaryMappings } from '../../store/common/index'
-import { Button, ActionSheet, Root, Spinner } from 'native-base'
+import { ActionSheet, Root, Spinner } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
@@ -114,7 +117,7 @@ function HomePage(props) {
         <HouseListComponent list={recommandList} />
       )
     } else {
-      return (<View style={{top: 50}}><BlankPage errorMsg='暂无房源' /></View>)
+      return (<View style={{ top: 50 }}><BlankPage errorMsg='暂无房源' /></View>)
     }
   }
   // 数据字典
@@ -184,7 +187,7 @@ function HomePage(props) {
             <View style={styles.header}>
               <Text style={styles.title}>首页</Text>
               <View style={styles.SwiperBox} >
-                <Swiper items={imgList} imgStyle={{borderRadius: 10}}/>
+                <Swiper items={imgList} imgStyle={{ borderRadius: 10 }} />
               </View>
               {
                 loadingStatus ?
@@ -194,19 +197,20 @@ function HomePage(props) {
             </View>
             <ActionSheet ref={(c) => { setActionSheet(c) }} />
             <StickyHeader
+              style={{ backgroundColor: '#527BDF', padding: 0, }}
               stickyHeaderY={headHeight} // 把头部高度传入
               stickyScrollY={scrollY}  // 把滑动距离传入
             >
               <View style={styles.listContent}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Text style={styles.listTitle}>房源推荐</Text>
-                  <Button transparent style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
+                  <TouchableOpacity style={styles.listMore} onPress={() => NavigatorService.navigate(AppRoute.HOUSELIST)}>
                     <Text style={{ color: Theme.textLink, fontSize: $screen.scaleSize(14) }} >查看更多</Text>
-                  </Button>
+                  </TouchableOpacity>
                 </View>
               </View>
             </StickyHeader>
-            <View style={{ top: -30}}>
+            <View style={{ flex: 1 }}>
               {renderContent()}
             </View>
           </Animated.ScrollView>
@@ -243,7 +247,8 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#527BDF',
     paddingHorizontal: 16,
-    paddingVertical: 35
+    paddingBottom: 16,
+    paddingTop: 8
   },
   title: {
     color: '#fff',
@@ -257,12 +262,9 @@ const styles = StyleSheet.create({
   },
   listContent: {
     backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     padding: 16,
-    paddingBottom: Platform.OS == 'ios' ? 16: 5,
-    top: -20,
-    // paddingTop: 25,
     flex: 1,
     flexDirection: 'column'
   },

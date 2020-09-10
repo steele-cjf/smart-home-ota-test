@@ -1,3 +1,6 @@
+/**
+ * @router mypage
+ */
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import MyPage from '../page/My/MyPage';
@@ -39,7 +42,8 @@ export const MyPageStackComponent = () => {
         name={AppRoute.MY}
         component={MyPage}
         options={{
-          headerShown: false,
+          // headerTintColor: 'red',
+          headerShown: false
         }}
       />
       <MyPageNavigator.Screen

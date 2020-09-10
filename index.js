@@ -1,5 +1,5 @@
 /**
- * @format
+ * @register app
  */
 import './src/util/global';
 import {AppRegistry} from 'react-native';

@@ -84,8 +84,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     backBtn: {
-        color: Theme.textLink,
-        fontSize: $screen.scaleSize(14)
+        color: Theme.backLink,
+        fontSize: 14,
+        fontWeight: 'normal'
     },
     backBtnAndroid: {
         left: -10,

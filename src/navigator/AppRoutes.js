@@ -1,3 +1,6 @@
+/**
+ * @router config
+ */
 export const AppRoute = {
   // AUTH: 'Auth',
   LOGIN: 'LoginPage',

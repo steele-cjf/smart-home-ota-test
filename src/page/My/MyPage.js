@@ -112,7 +112,7 @@ function MyPage(props) {
           <AntDesign
             name="bells"
             style={{
-              fontSize: $screen.scaleSize(20),
+              fontSize: 20,
               color: '#fff' 
             }}
           />
@@ -122,7 +122,7 @@ function MyPage(props) {
             <View style={{ flexDirection: 'row', alignItems: 'center',  flex:1,}}>
               <Thumbnail style={{ marginRight: 16 }} source={(userInfo && userInfo.avatarImageUrl) ? { uri: userInfo && userInfo.avatarImageUrl } : uri} />
               <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                <Text style={{ fontSize: $screen.scaleSize(20), color: '#fff' }}>
+                <Text style={{ fontSize: 20, color: '#fff' }}>
                   {userInfo && (userInfo.name || userInfo.mobile)}
                 </Text>
                 <TouchableOpacity style={[styles.statusBox, { backgroundColor: statusColor[userInfo && userInfo.status], },]}
@@ -198,18 +198,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#527BDF',
   },
   headerContent: {
-    height: parseInt(screenHeight * 0.25),
-    marginHorizontal: 16,
+    marginHorizontal: 16
   },
   myContent: {
-    flex: 1,
     backgroundColor: '#fff',
-    height: parseInt(screenHeight * 0.75),
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
   },
   topBox: {
-    marginTop: 30,
+    marginTop: 8
   },
   topTitle: {
     fontSize: $screen.scaleSize(24),
@@ -217,6 +214,7 @@ const styles = StyleSheet.create({
   },
   InfoBox: {
     marginTop: 20,
+    marginBottom: 24
   },
   statusText: {
     fontSize: $screen.scaleSize(12),

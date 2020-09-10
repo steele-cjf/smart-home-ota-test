@@ -35,6 +35,17 @@ export function publishSetCollection(data, callback) {
     }
   });
 }
+// 删除发布信息
+export function deletePublishInfo(id, callback) {
+  return $delete(`publish/${id}`, {
+    successConfig: {
+      callback
+    },
+    failConfig: {
+      callback
+    }
+  });
+}
 export default {
 };
 

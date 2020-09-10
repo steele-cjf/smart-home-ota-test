@@ -34,7 +34,7 @@ export default function HouseItem(props) {
           }}>
           <Text style={styles.houseInfo}>
             {houseInfo.roomCount || '--'}室{houseInfo.hallCount || '--'}厅
-            {houseInfo.toiletCount || '--'}
+            {houseInfo.toiletCount || '--'}卫
           </Text>
           <Text style={styles.houseInfo}> - {dictionary && dictionary['house_type'] && dictionary['house_type'][houseInfo.houseType]}</Text>
         </View>
@@ -53,17 +53,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 0.5,
+    // paddingLeft: 0,
     borderColor: '#E9E9E9',
-    marginLeft: 10,
-    marginRight: 10,
     paddingVertical: 15,
+    // paddingHorizontal: 16
+    marginHorizontal: 16
   },
   linkImage: {
     width: 75,
     height: 75,
     resizeMode: 'cover',
-    backgroundColor: '#f4f4f4',
-    borderRadius: 5,
+    borderRadius: 4
   },
   houseName: {
     fontSize: $screen.scaleSize(16),

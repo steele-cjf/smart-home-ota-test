@@ -1,7 +1,9 @@
+/**
+ * @entry router app
+ */
 import React, { useState, useEffect, useRef } from 'react';
 import { SafeAreaView, Text, AppState } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-// import {SafeAreaProvider} from 'react-native-safe-area-context';
 import { AppNavigator } from './src/navigator/AppNavigator';
 import { AppRoute } from './src/navigator/AppRoutes';
 import { Provider } from 'react-redux';
@@ -27,15 +29,9 @@ export default (props) => {
         <Camera />
         <RootSiblingParent>
           <NavigationContainer ref={navigatorRef}>
-            {/* {
-              loading ? (
-                <Spinner color="#5C8BFF" />
-              ) : ( */}
             <AppNavigator
               initialRouteName={AppRoute.HOME}
             />
-            {/* )
-            } */}
           </NavigationContainer>
         </RootSiblingParent>
       </Provider>

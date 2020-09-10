@@ -1,3 +1,6 @@
+/**
+ * @page feature
+ */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
@@ -219,7 +222,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 22,
   },
   topBox: {
-    marginTop: 50,
+    marginTop: 8
   },
   topTitle: {
     fontSize: $screen.scaleSize(24),
