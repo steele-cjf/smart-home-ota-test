@@ -138,6 +138,8 @@ export default function VertifyDetailsPage(props) {
 
   function deleteTenant() {
     const {params} = props.route;
+    console.log("%%%%2222222222", params);
+    return;
     const data = {
       userId: params.userId,
       houseId: params.houseId,
