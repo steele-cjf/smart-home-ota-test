@@ -92,6 +92,7 @@ export default function RoomPage(props) {
     props.addRoom(data, res => {
       console.log(res);
       if (!res.code) {
+        setLoading(false);
         setIsDialogVisible(false);
         fetchRoomList();
       } else {
@@ -104,9 +105,11 @@ export default function RoomPage(props) {
     props.updateRoomName(id, name, res => {
       console.log(res);
       if (!res.code) {
+        setLoading(false);
         setIsDialogVisible(false);
         fetchRoomList();
       } else {
+        setLoading(false);
         setIsDialogVisible(false);
         showToast(res.message);
       }

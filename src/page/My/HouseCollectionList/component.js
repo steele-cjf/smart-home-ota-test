@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList, Text, Image, Dimensions, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, FlatList, Text, Image, Dimensions, TouchableOpacity, Alert} from 'react-native';
 import {
   Spinner,
 } from 'native-base';
@@ -49,7 +49,7 @@ function HouseCollectionList(props) {
         add: false
     }, (res) => {
       if (!res.code) {
-          showToast('已取消收藏成功')
+          showToast('操作成功')
           init()
       } else {
           showToast(res.message || '操作失败')
@@ -58,8 +58,28 @@ function HouseCollectionList(props) {
   }
 
   const handleToDetailPage = item => {
-    NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, { id: item.publishInfoId });
+    if (!item.houseDeleted) {
+      NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, { id: item.publishInfoId });
+    } else {
+      Alert.alert('确定删除？', '', [
+        {
+          text: '取消',
+          onPress: () => console.log('Cancel Pressed'),
+        },
+        { text: '确定', onPress: () => changeCollection(item) },
+        {
+          cancelable: true,
+          onDismiss: () =>
+            console.log(
+              'This alert was dismissed by tapping outside of the alert dialog.',
+            ),
+        },
+      ]);
+    }
   };
+  const handlerDelete = () => {
+    console.log('hah')
+  }
   const _houseItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -168,6 +188,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 218,
     width: screenWidth - 32,
+    zIndex: 3
   }
 });
 export default HouseCollectionList;

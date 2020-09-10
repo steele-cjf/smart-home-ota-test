@@ -201,6 +201,8 @@ function RecordHouse(props) {
       setHousePropertyCertificateImage(data);
       if (obj) {
         setImage(data[0].uri);
+      } else {
+        setImage('')
       }
     } else if (type === 'cert') {
       data = Object.assign([], certificateFilesImg);
@@ -208,6 +210,8 @@ function RecordHouse(props) {
       setCertificateFilesImg(data);
       if (obj) {
         setCertificateImage(data[0].uri)
+      } else {
+        setCertificateImage('')
       }
     } else {
       data = Object.assign([], idCardFile);
@@ -215,6 +219,8 @@ function RecordHouse(props) {
       setIdCardFile(data);
       if (obj) {
         setIdCardImage(data[0].uri)
+      } else {
+        setIdCardImage('')
       }
     }
   };
@@ -323,6 +329,7 @@ function RecordHouse(props) {
                     <Input
                       value={address}
                       onChangeText={setAddress}
+                      allowFontScaling={false}
                       placeholder="街道、小区、楼与门牌号"
                       placeholderTextColor={Theme.textMuted}
                       style={[styles.defaultSize, styles.textAlignR]}

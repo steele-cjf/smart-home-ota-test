@@ -130,7 +130,7 @@ function HouseDetail(props) {
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>
                     {renderHouseItem()}
-                    {options.houseAddition.description && <Text style={{ marginBottom: 16, color: '#282828', fontSize: $screen.scaleSize(12)}}>{options.houseAddition.description}</Text>}
+                    {options.houseAddition.description ? <Text style={{ marginBottom: 16, color: '#282828', fontSize: $screen.scaleSize(12)}}>{options.houseAddition.description}</Text> : null}
                     {renderHouseAddition('requirements')}
                     {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>
