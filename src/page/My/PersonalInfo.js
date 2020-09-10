@@ -263,7 +263,7 @@ const PersonalInfoPage = (props) => {
         title: '个人信息' 
         }}
       />
-      {loading ? <Spinner></Spinner> :
+      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
       <Content>
       {/* <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>  */}
         <ScrollView style={styles.containerStyle}>

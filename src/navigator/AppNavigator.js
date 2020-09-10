@@ -13,8 +13,13 @@ const Stack = createStackNavigator()
 // const AuthRefreshRoute = [AppRoute.HOME, AppRoute.ADDTENANT]
 export const AppNavigator = (props) => {
   return (
-    <Stack.Navigator {...props} headerMode="none">
-      <Stack.Screen name={AppRoute.LOGIN} component={AuthNavigator} />
+    <Stack.Navigator {...props} headerMode="none" screenOptions={({ route, navigation }) => ({
+      gestureEnabled: false
+    })}>
+      <Stack.Screen
+        name={AppRoute.LOGIN} options={{
+          gestureEnabled: false
+        }} component={AuthNavigator} />
       <Stack.Screen name={AppRoute.HOME}
         component={TabNavigator} />
       <Stack.Screen name={AppRoute.AGREEMENT} component={Agreement} />

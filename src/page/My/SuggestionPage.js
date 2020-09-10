@@ -115,7 +115,7 @@ const SuggestionPage = (props) => {
   }
 
   return (
-    loading ? <Spinner></Spinner> :
+    loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
     <View style={{flex: 1}}>
       <HeaderCommon
         options={{

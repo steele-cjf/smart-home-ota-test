@@ -65,13 +65,12 @@ function RecordHouse(props) {
         if (res.data) {
           console.log('detail', res.data);
           const info = res.data;
-          let initAddress = info.address.split(info.formattedAddress)
-          setAddress(initAddress[1] || initAddress[0]);
+          setAddress(info.address.slice(info.regionFullName.length || 0));
           setHouseLayout(info.houseLayout);
           setCertificateFilesImg(info.houseHolder.certificateFileUrls || []);
           setRegionId(info.regionId);
 
-          setRegionName(info.formattedAddress);
+          setRegionName(info.regionFullName);
           setHasElevator(info.houseLayout.hasElevator);
           setSelectedSelfValue(obj.house_holder[info.houseHolder.self]);
           setSelectedDirectionValue(obj.house_direction[info.houseLayout.direction]);
@@ -270,7 +269,7 @@ function RecordHouse(props) {
   return (
     <Root>
       {loading ? (
-        <Spinner color="#5C8BFF" />
+        <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
           <View style={{ flex: 1 }}>
             <HeaderCommon

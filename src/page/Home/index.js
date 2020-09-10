@@ -19,6 +19,7 @@ import Theme from '../../style/colors';
 import { useFocusEffect } from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
 import StickyHeader from 'react-native-stickyheader';
+import { STYLES } from '../../style/styles';
 const imgList = [ // 暂时写死
   require('../../assets/images/mock/home1.jpg'),
   require('../../assets/images/mock/home2.jpg'),
@@ -37,10 +38,10 @@ function HomePage(props) {
   const [recommandList, setRecommandList] = useState(null);
   const handleAppStateChange = () => {
     props.getUserInfo((res) => {
-      setLoading(false)
       if (res.code !== 0) {
-        NavigatorService.navigate(AppRoute.LOGIN)
+        NavigatorService.reset(AppRoute.LOGIN)
       } else {
+        setLoading(false)
         storageDataDictionary();
         storageMappingDictionary();
         initRemmcondList(); // 获取房源推荐
@@ -78,7 +79,6 @@ function HomePage(props) {
       }
     )
   }
-
   // 获取用户信息
   useEffect(() => {
     const Info = props.userInfo;
@@ -98,7 +98,7 @@ function HomePage(props) {
     // 获取本人的房源
     if (props.myHouseList && props.myHouseList.data) {
       let { data } = props.myHouseList
-      console.log('props1', props.homeHouse);
+      console.log('props', props.homeHouse);
       setHouseList(data)
       let result = data[0]
       if (props.homeHouse) {
@@ -111,7 +111,6 @@ function HomePage(props) {
   }, [props.myHouseList])
 
   const renderContent = () => {
-    //console.log('recommandList', recommandList)
     if (recommandList && recommandList.length) {
       return (
         <HouseListComponent list={recommandList} />
@@ -142,11 +141,8 @@ function HomePage(props) {
   // 展示房源选择
   const showList = () => {
     let array = []
-    // console.log('hahah', houseList);
     if (houseList.length) {
-      // console.log('hahah', houseList);
       array = houseList.map((item) => {
-        // item.text = item.regionFullName.replace(/\//g, '')
         item.text = item.address
         return item
       })
@@ -171,7 +167,7 @@ function HomePage(props) {
   }
   return (
     <Root>
-      {loading ? (<Spinner></Spinner>) :
+      {loading ? (<Spinner style={STYLES.spinner} color="#5C8BFF"/>) :
         <View style={styles.container}>
           <Animated.ScrollView
             style={{ flex: 1 }}
@@ -191,7 +187,7 @@ function HomePage(props) {
               </View>
               {
                 loadingStatus ?
-                  <Spinner></Spinner> :
+                  <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
                   <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
               }
             </View>
@@ -239,7 +235,6 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: '#527BDF',
     backgroundColor: '#fff',
     flex: 1,
     flexDirection: 'column'

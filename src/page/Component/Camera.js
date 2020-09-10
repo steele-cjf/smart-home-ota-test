@@ -13,8 +13,17 @@ function Camera(props) {
 
     const scanCode = (result) => {
         let { data } = result
+
         props.getScanResult(data, (res) => {
-            hideScan(res)
+            let result = null
+            if (res.status) {
+                showToast(res.error)
+            } else if (res.code != 0) {
+                showToast(res.message)
+            } else {
+                result = res
+            }
+            hideScan(result)
         })
         return
     }
@@ -35,16 +44,6 @@ function Camera(props) {
                     });
             } else {
                 setCamera(props.cameraOpt)
-                // if (cameraRef.current) {
-                //     console.log(999999, cameraRef.current)
-                //     cameraRef.current.checkDeviceAuthorizationStatus()
-                //         .then(access => {
-                //             if (!access) {
-                //                 showToast('相机权限没打开', '请在iPhone的“设置-隐私”选项中,允许访问您的摄像头和麦克风')
-                //             }
-                //             else setCamera(props.cameraOpt)
-                //         });
-                // }
             }
         }
     }, [props.cameraOpt])
