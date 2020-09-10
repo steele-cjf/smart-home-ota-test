@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, Alert, StyleSheet } from 'react-na
 import { Spinner } from 'native-base'
 import Theme from '../../../style/colors';
 import HeaderCommon from '../../Component/HeaderCommon'
+import {AppRoute} from '../../../navigator/AppRoutes'; 
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
