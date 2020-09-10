@@ -17,7 +17,7 @@ function RecordHouse(props) {
   const [loading, setLoading] = useState();
   const [houseId, setHouseId] = useState('');
   const [selfList, setSelfList] = useState([]);
-  const [selectedSelfValue, setSelectedSelfValue] = useState('');
+  const [selectedSelfValue, setSelectedSelfValue] = useState('本人');
   const [houseDirectionList, setHouseDirection] = useState([]);
   const [selectedDirectionValue, setSelectedDirectionValue] = useState('');
   const [hasElevator, setHasElevator] = useState(false);
@@ -26,7 +26,7 @@ function RecordHouse(props) {
   const [idCardImage, setIdCardImage] = useState('')
   const [image, setImage] = useState('')
   const [address, setAddress] = useState('');
-  const [houseHolder, setHouseHolder] = useState({});
+  const [houseHolder, setHouseHolder] = useState({self: 'self'});
   const [houseLayout, setHouseLayout] = useState({
     hasElevator: false,
   });
@@ -130,14 +130,12 @@ function RecordHouse(props) {
     objToFormData('houseLayout', houseLayout, result);
     if (houseHolder.self === 'others') { // 如果非本人
       if (certificateFilesImg && certificateFilesImg[0]) {
-        console.log('123')
         result.append(
           'houseHolder.certificateFile',
           certificateFilesImg[0],
         );
       }
       if (idCardFile && idCardFile[0]) {
-        console.log('234')
         result.append(
           'houseHolder.idCardFile',
           idCardFile[0],
