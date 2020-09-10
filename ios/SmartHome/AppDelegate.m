@@ -1,4 +1,6 @@
 #import "AppDelegate.h"
+//#import <IQKeyboardManager/IQKeyboardManager.h>
+#import "IQKeyboardManager.h"
 #import <Firebase.h>
 
 #import <React/RCTBridge.h>
@@ -54,6 +56,13 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [FIRApp configure];
+  
+  IQKeyboardManager *IQManager = [IQKeyboardManager sharedManager];
+  IQManager.enable = YES;                                //控制整个功能是否启用
+  IQManager.enableAutoToolbar = YES;                     //控制是否显示键盘上的工具条
+  IQManager.shouldResignOnTouchOutside = YES;            //控制点击背景是否收起键盘
+  IQManager.shouldShowToolbarPlaceholder = NO;           //是否显示占位文字
+
   return YES;
 }
 
