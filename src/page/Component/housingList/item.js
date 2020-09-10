@@ -34,7 +34,7 @@ export default function HouseItem(props) {
           }}>
           <Text style={styles.houseInfo}>
             {houseInfo.roomCount || '--'}室{houseInfo.hallCount || '--'}厅
-            {houseInfo.toiletCount || '--'}
+            {houseInfo.toiletCount || '--'}卫
           </Text>
           <Text style={styles.houseInfo}> - {dictionary && dictionary['house_type'] && dictionary['house_type'][houseInfo.houseType]}</Text>
         </View>

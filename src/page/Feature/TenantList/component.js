@@ -50,12 +50,13 @@ export default function TenantList(props) {
   };
   const renderRoomName = () => {
     const nameList = props.route.params.roomNames;
+    console.log('rooms', nameList);
     if (nameList && nameList.length) {
-        nameList.map(item => {
-          return (
-            <Text style={[styles.main_color, styles.MT_5]}>{item} </Text>
-          )
-        })
+      return nameList.map(item => {
+                return (
+                  <Text style={[styles.main_color, styles.MT_5]}>{item}</Text>
+                )
+              })
     } else {
       return <Text style={[styles.main_color, {fontSize: $screen.scaleSize(14)}]}>整租</Text>
     }

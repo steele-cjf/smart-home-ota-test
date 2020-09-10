@@ -116,7 +116,7 @@ function HouseDetail(props) {
 
     return (
         <View style={styles.container}>
-            {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
+            {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF" /> :
                 <View>
                     <View style={styles.flexRow}>
                         <Text style={styles.title}>{options.houseRatePlan.rentPrice}</Text>
@@ -132,11 +132,7 @@ function HouseDetail(props) {
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>
                     {renderHouseItem()}
-                    {options.houseAddition && options.houseAddition.description &&
-                        <Text style={{ marginBottom: 16, color: '#282828', fontSize: $screen.scaleSize(12) }}>
-                            {options.houseAddition.description}
-                        </Text> || null
-                    }
+                    {options.houseAddition.description ? <Text style={{ marginBottom: 16, color: '#282828', fontSize: $screen.scaleSize(12) }}>{options.houseAddition.description}</Text> : null}
                     {renderHouseAddition('requirements')}
                     {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>

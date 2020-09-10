@@ -145,8 +145,8 @@ function LoginPage(props) {
 
   return ( 
     // <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
-    <Content style={styles.container}>
-    {/* <ScrollView contentContainerStyle={styles.container}> */}
+    // <Content style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
       <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
       <Input
@@ -218,8 +218,8 @@ function LoginPage(props) {
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
       <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户</Text>
-    {/* </ScrollView> */}
-    </Content>
+    </ScrollView>
+    //</Content>
   );
 }
 

@@ -28,12 +28,18 @@ export default function AddTenant(props) {
   const [form, setForm] = useState(data)
   const [actionSheet, setActionSheet] = useState(null);
   const [type, setType] = useState('');
+  const [titleName, setTitleName] = useState('住户')
 
   function updateIndex(index) {
     setSelectedIndex(index);
   }
   useEffect(() => {
     const { params } = props.route;
+    if ( params.type === 'member') {
+      setTitleName('家庭成员')
+    } else {
+      setTitleName('住户')
+    }
     if (params.type === 'member') {
       setType(params.type)
       return
@@ -128,10 +134,10 @@ export default function AddTenant(props) {
           style={{ width: 115, height: 115 }}
         />
         <Button rounded full style={styles.scanBtn} onPress={() => { props.openCamera({ open: true, result: null }) }}>
-          <Text style={{ color: '#fff' }}>扫码添加住户</Text>
+          <Text style={{ color: '#fff' }}>扫码添加{titleName}</Text>
         </Button>
         <TouchableOpacity onPress={() => updateIndex(1)}>
-          <Text style={styles.scanText}>没有二维码？手动添加住户并实名</Text>
+          <Text style={styles.scanText}>没有二维码？手动添加{titleName}并实名</Text>
         </TouchableOpacity>
       </View>)
   }
@@ -257,7 +263,7 @@ export default function AddTenant(props) {
       <HeaderCommon
         options={{
           backTitle: '返回',
-          title: props.route.params.type === 'member' ? '添加家庭成员' : '添加住户',
+          title: `新增${titleName}`,
         }}
       />
       <View style={styles.container}>
@@ -294,11 +300,11 @@ export default function AddTenant(props) {
             style={
               ({ paddingHorizontal: 10 }, selectedIndex ? { display: 'none' } : '')
             }>
-            <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
+            <Text style={[styles.title, { marginTop: 20 }]}>{titleName}信息</Text>
             {renderCameraContent()}
           </View>
           <View style={selectedIndex !== 1 ? { display: 'none' } : ''}>
-            <Text style={[styles.title, { marginTop: 20 }]}>住户信息</Text>
+          <Text style={[styles.title, { marginTop: 20 }]}>{titleName}信息</Text>
             <Item style={styles.marginLeft0} inlineLabel picker>
               <Label style={[styles.labelTitle, styles.defaultSize]}>
                 真实姓名
@@ -354,7 +360,7 @@ export default function AddTenant(props) {
             </Item>
             <View style={{ alignItems: 'center', paddingBottom: 60 }}>
               <Button rounded full style={styles.scanBtn} onPress={() => saveTenant()}>
-                <Text style={{ color: '#fff' }}>添加住户并开始实名</Text>
+                <Text style={{ color: '#fff' }}>添加{titleName}并开始实名</Text>
               </Button>
               <TouchableOpacity onPress={() => updateIndex(0)}>
                 <Text style={styles.scanText}>已实名？扫码立即添加</Text>

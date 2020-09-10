@@ -97,7 +97,7 @@ function MyPage(props) {
       NavigatorService.navigate(AppRoute.PERSONALINFO);
     } else if (userInfo.status === 'not_audit') {
       NavigatorService.navigate(AppRoute.AUTHENTICATION);
-    } else {
+    } else if ((userInfo.status === 'audit_pending') || (userInfo.status === 'audit_reject')) {
       NavigatorService.navigate(AppRoute.VERDETAILS);
     }
   }
