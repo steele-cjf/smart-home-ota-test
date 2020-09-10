@@ -63,7 +63,11 @@ export const httpService = (url, config) => {
           }
         })
         .catch(error => {
-          showToast('请求出错，请联系管理员')
+          console.log('error', error)
+          if (error.message !== "Network request failed") {
+            showToast('请求出错，请联系管理员')
+          }
+         
           if (config.failConfig && config.failConfig.callback) {
             config.failConfig.callback(error);
           }

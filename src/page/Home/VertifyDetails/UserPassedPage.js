@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, Alert, StyleSheet } from 'react-na
 import { Spinner } from 'native-base'
 import Theme from '../../../style/colors';
 import HeaderCommon from '../../Component/HeaderCommon'
+import {AppRoute} from '../../../navigator/AppRoutes'; 
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -84,6 +85,8 @@ const UserPassedPage = (props) => {
 
   function deleteTenant() {
     const {params} = props.route;
+    console.log("@@@@@@@@", params);
+   
     const data = {
       userId: params.userId,
       houseId: params.houseId,
@@ -95,7 +98,11 @@ const UserPassedPage = (props) => {
 
       if (!res.code) {
         showToast("删除成功");
-        NavigatorService.goBack();
+        if (params.familyMember) {
+          NavigatorService.goBack();
+        } else {
+          NavigatorService.navigate(AppRoute.HOUSEDETAIL);
+        }
       } else {
         showToast(res.message);
       }

@@ -44,6 +44,9 @@ class DropdownMenu extends Component {
     };
 
   }
+  componentWillMount() {
+    this.resetFunc()
+  }
   // tab切换选择
   renderChcek(index, title) {
     var activityIndex = this.state.activityIndex;
