@@ -64,7 +64,11 @@ export const httpService = (url, config) => {
         })
         .catch(error => {
           console.log('error', error)
+          console.log('error.message', error.message)
           showToast('请求出错，请联系管理员')
+          if (config.failConfig && config.failConfig.callback) {
+            config.failConfig.callback(error);
+          }
         });
     })();
   };

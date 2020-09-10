@@ -18,10 +18,16 @@ export function getVerifyToken(data, callback) {
 }
 
 // 获取验证结果
-export function getVerifyResult(data) {
+export function getVerifyResult(data, callback) {
   return $get('/rp/verifyResult', {
     queryData: data,
     actionType: 'VERIFY_RESULT',
+    successConfig: {
+      callback,
+    },
+    failConfig: {
+      callback
+    }
   });
 }
 
