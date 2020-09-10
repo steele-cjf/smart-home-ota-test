@@ -369,24 +369,26 @@ export default function PublishHouse(props) {
             </Item>
             <Item style={[styles.marginLeft0, {marginBottom: 15}]} inlineLabel>
               <Label
-                style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
+                style={[styles.labelTitle, styles.defaultSize]}>
                 房间类型
               </Label>
-              <TouchableOpacity
-                style={styles.input_item}
-                onPress={() => openSettings(houseTypeList, 2, 'houseType')}>
-                <Text
-                  style={[{fontSize: $screen.scaleSize(14), paddingRight: 10}, styles.textAlignR]}>
-                  {selectedTypeValue}
-                </Text>
-                <AntDesign
-                  name="right"
-                  style={{
-                    fontSize: $screen.scaleSize(12),
-                    color: Theme.textSecondary,
-                  }}
-                />
-              </TouchableOpacity>
+              <View style={styles.flex1}>
+                <TouchableOpacity
+                  style={styles.input_item}
+                  onPress={() => openSettings(houseTypeList, 2, 'houseType')}>
+                  <Text
+                    style={[{fontSize: $screen.scaleSize(14), paddingRight: 10}, styles.textAlignR]}>
+                    {selectedTypeValue}
+                  </Text>
+                  <AntDesign
+                    name="right"
+                    style={{
+                      fontSize: $screen.scaleSize(12),
+                      color: Theme.textSecondary,
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
             </Item>
             {houseType === 'co_rent' ? (
               rooms.length ? (
@@ -409,24 +411,26 @@ export default function PublishHouse(props) {
           <Form>
             <Item style={styles.marginLeft0} inlineLabel>
               <Label
-                style={[styles.labelTitle, styles.defaultSize, styles.flex1]}>
+                style={[styles.labelTitle, styles.defaultSize]}>
                 装修
               </Label>
-              <TouchableOpacity
-                style={styles.input_item}
-                onPress={() => openSettings(houseDecorator, 4, 'decorator')}>
-                <Text
-                  style={[{fontSize: $screen.scaleSize(14), paddingRight: 10}, styles.textAlignR]}>
-                  {selectedDecoratorValue}
-                </Text>
-                <AntDesign
-                  name="right"
-                  style={{
-                    fontSize: $screen.scaleSize(12),
-                    color: Theme.textSecondary,
-                  }}
-                />
-              </TouchableOpacity>
+              <View style={styles.flex1}>
+                <TouchableOpacity
+                  style={styles.input_item}
+                  onPress={() => openSettings(houseDecorator, 4, 'decorator')}>
+                  <Text
+                    style={[{fontSize: $screen.scaleSize(14), paddingRight: 10}, styles.textAlignR]}>
+                    {selectedDecoratorValue}
+                  </Text>
+                  <AntDesign
+                    name="right"
+                    style={{
+                      fontSize: $screen.scaleSize(12),
+                      color: Theme.textSecondary,
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
             </Item>
             <View style={styles.label_content}>
               <LabelSelect
@@ -606,6 +610,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   topViewFail: {
     height: 70, 
