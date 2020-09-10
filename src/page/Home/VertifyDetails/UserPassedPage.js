@@ -84,6 +84,8 @@ const UserPassedPage = (props) => {
 
   function deleteTenant() {
     const {params} = props.route;
+    console.log("@@@@@@@@", params);
+   
     const data = {
       userId: params.userId,
       houseId: params.houseId,
@@ -95,7 +97,11 @@ const UserPassedPage = (props) => {
 
       if (!res.code) {
         showToast("删除成功");
-        NavigatorService.goBack();
+        if (params.familyMember) {
+          NavigatorService.goBack();
+        } else {
+          NavigatorService.navigate(AppRoute.HOUSEDETAIL);
+        }
       } else {
         showToast(res.message);
       }
