@@ -63,9 +63,9 @@ export default function TenantList(props) {
   }
   const goDetailPage = (item) => {
     if (item.status === 'audit_pass') {
-      NavigatorService.navigate(AppRoute.USERPASSED, {userId: item.userId, tenantUserId: tenantId, houseId: houseId});
+      NavigatorService.navigate(AppRoute.USERPASSED, {userId: item.userId, tenantUserId: tenantId, houseId: houseId, familyMember: item.familyMember});
     } else {
-      NavigatorService.navigate(AppRoute.VERDETAILS, {userId: item.userId, tenantUserId: tenantId, houseId: houseId});
+      NavigatorService.navigate(AppRoute.VERDETAILS, {userId: item.userId, tenantUserId: tenantId, houseId: houseId, familyMember: item.familyMember});
     }
   }
 
@@ -105,7 +105,7 @@ export default function TenantList(props) {
         <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
           <View style={styles.room_wrapper}>
-            <View style={styles.house_address}>
+            <View style={[styles.house_address, styles.line]}>
               <View style={{ width: 70 }}>
                 <Text style={{ color: '#7C7C7C' }}>房屋地址</Text>
               </View>
@@ -113,7 +113,7 @@ export default function TenantList(props) {
                 <Text style={[styles.main_color, styles.MT_5]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={styles.main_color}>{houseInfo.address}</Text>
+                <Text style={styles.main_color}>{houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
               </View>
             </View>
             <View style={styles.house_address}>
@@ -146,6 +146,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 15,
+  },
+  line: {
+    borderBottomColor: Theme.textMuted,
+    borderBottomWidth: 0.5,
   },
   MT_5: {
     marginBottom: 5,
