@@ -357,7 +357,7 @@ function HouseDetail(props) {
   return (
     <View style={styles.container}>
       {loading ? (
-        <Spinner color="#5C8BFF" />
+        <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
           <ScrollView>
             <HeaderCommon

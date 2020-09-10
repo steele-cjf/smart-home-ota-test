@@ -22,6 +22,7 @@ export default function ImageUpload(props) {
     const options = {
       quality: 1.0,
       maxWidth: 500,
+      imageCount: 9,
       maxHeight: 500,
       title: '选择照片',
       takePhotoButtonTitle: '拍照',

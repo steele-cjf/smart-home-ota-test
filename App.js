@@ -8,10 +8,8 @@ import { AppNavigator } from './src/navigator/AppNavigator';
 import { AppRoute } from './src/navigator/AppRoutes';
 import { Provider } from 'react-redux';
 import store from './src/store';
-import storage from './src/util/storage';
 import Camera from './src/page/Component/Camera';
 import { RootSiblingParent } from 'react-native-root-siblings';
-import { Spinner } from 'native-base';
 
 
 export default (props) => {

@@ -343,7 +343,7 @@ export default function PublishHouse(props) {
         }}
       />
       {loading ? (
-        <Spinner color="#5C8BFF" />
+        <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
       <ScrollView>
         <View style={styles.container}>

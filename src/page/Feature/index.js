@@ -179,7 +179,7 @@ function FeaturePage(props) {
   }
   return (
     <View>
-      {loading ? <Spinner color="#5C8BFF" /> : renderSpinner()}
+      {loading ? <Spinner  style={STYLES.spinner} color="#5C8BFF"/> : renderSpinner()}
     </View>
   );
 }

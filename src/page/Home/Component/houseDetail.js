@@ -7,6 +7,7 @@ import Theme from '../../../style/colors';
 import LocationsMap from '../../../page/Component/map/locations';
 import { houseLayoutCn, houseItemCn, houseRatePlanCn } from '../config/houseDetailCn'
 import showToast from '../../../util/toast';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const loc = {
     "name": "房子",
@@ -20,6 +21,7 @@ function HouseDetail(props) {
     const [code] = useState(props.code)
     useEffect(() => {
         setOptions(props.data)
+        console.log('props.data', props.data)
         if (props.data) {
             setLoading(false)
         }
@@ -92,7 +94,7 @@ function HouseDetail(props) {
     // 房源信息
     const renderHouseItem = () => {
         let result = options.houseAmenity.items.map((val) => {
-            return (<View style={styles.houseItemModule}>
+            return (<View style={styles.houseItemModule} key={val}>
                 <AntDesign name={houseItemCn[val]} style={styles.houseLayoutIcon} />
                 <Text style={styles.houseLayoutDesc}>{code['house_item'][val] || '--'}</Text>
             </View>)
@@ -103,7 +105,7 @@ function HouseDetail(props) {
     const renderHouseRatePlan = () => {
         let result = houseRatePlanCn.map((val) => {
             return (
-                <View style={styles.houseRatePlanModule}>
+                <View style={styles.houseRatePlanModule} key={val.key}>
                     <Text style={styles.houseRatePlanDesc}>{val.name}:</Text>
                     <Text style={styles.houseRatePlanText}>{options.houseRatePlan[val.key] || '--'} {val.unit}</Text>
                 </View>
@@ -114,7 +116,7 @@ function HouseDetail(props) {
 
     return (
         <View style={styles.container}>
-            {loading ? <Spinner /> :
+            {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF" /> :
                 <View>
                     <View style={styles.flexRow}>
                         <Text style={styles.title}>{options.houseRatePlan.rentPrice}</Text>
@@ -130,10 +132,14 @@ function HouseDetail(props) {
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>
                     {renderHouseItem()}
-                    {options.houseAddition.description ? <Text style={{ marginBottom: 16, color: '#282828', fontSize: $screen.scaleSize(12)}}>{options.houseAddition.description}</Text> : null}
+                    {options.houseAddition.description ? <Text style={{ marginBottom: 16, color: '#282828', fontSize: $screen.scaleSize(12) }}>{options.houseAddition.description}</Text> : null}
                     {renderHouseAddition('requirements')}
                     {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>
+                    <View style={styles.locBox}>
+                        <Entypo style={styles.locIcon} name='location-pin' />
+                        <Text style={styles.locText}>{options.address || loc.name}</Text>
+                    </View>
                     <View style={styles.mapBox}>
                         <LocationsMap loc={{
                             latitude: options.latitude || loc.latitude,
@@ -231,7 +237,7 @@ const styles = StyleSheet.create({
     houseItemBox: {
         flexDirection: 'row',
         paddingVertical: 20,
-        paddingHorizontal: 20,
+        // paddingHorizontal: 20,
         flexWrap: 'wrap',
         // justifyContent: 'space-between'
     },
@@ -243,8 +249,10 @@ const styles = StyleSheet.create({
     houseItemModule: {
         alignItems: 'flex-start',
         alignItems: 'center',
-        marginRight: 40,
-        marginBottom: 10
+        marginHorizontal: 10,
+        width: 40,
+        // backgroundColor:'red',
+        marginBottom: 25
     },
     houseRatePlanBox: {
         flexDirection: 'row',
@@ -275,6 +283,23 @@ const styles = StyleSheet.create({
         backgroundColor: '#5C8BFF',
         borderRadius: 50,
         marginTop: 35
+    },
+    locBox: {
+        backgroundColor: '#F5F7F9',
+        padding: 9,
+        marginBottom: 12,
+        flexDirection: 'row',
+    },
+    locIcon: {
+        textAlignVertical: 'center',
+        paddingRight: 10,
+        fontSize: 15,
+        color: '#7C7C7C'
+    },
+    locText: {
+        flex: 1,
+        color: '#282828',
+        fontSize: 14
     }
 });
 export default HouseDetail;

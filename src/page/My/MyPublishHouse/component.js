@@ -188,7 +188,7 @@ function MyPublishList(props) {
   return (
     <Root>
       {loading ? (
-        <Spinner color="#5C8BFF" />
+        <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
           <View style={{flex: 1}}>
             <HeaderCommon

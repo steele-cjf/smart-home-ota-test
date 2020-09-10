@@ -44,7 +44,7 @@ function PublicHouseDetail(props) {
         }}
       />
       <ScrollView>
-        <View style={{ height: 250 }} >
+        <View style={{ height: 250, backgroundColor: '#E1E5EB' }} >
           <Swiper items={img} />
         </View>
         {
