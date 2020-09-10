@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Spinner } from 'native-base';
 import Geolocation from '@react-native-community/geolocation';
 import HouseListComponent from '../../Component/housingList/list';
 import SearchHeader from '../Component/searchHeader'
@@ -42,7 +41,7 @@ function HouseList(props) {
         }
       },
       error => {
-        // showToast('Error', JSON.stringify(error))
+        showToast('Error', JSON.stringify(error))
       }
     )
   }
@@ -97,10 +96,6 @@ function HouseList(props) {
   }
   return (
     <View style={styles.container}>
-      {/* {loading ? (
-        <Spinner color="#5C8BFF" />
-      ) : (
-      <View style={styles.container}> */}
       <SearchHeader getSearchParams={(data) => getSearchParams(data)} />
       <DropdownMenu
         bgColor={'white'}

@@ -188,7 +188,7 @@ function MyPublishList(props) {
   return (
     <Root>
       {loading ? (
-        <Spinner color="#5C8BFF" />
+        <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
           <View style={{flex: 1}}>
             <HeaderCommon
@@ -208,7 +208,7 @@ function MyPublishList(props) {
                 <Text style={[styles.main_color, styles.MT_5]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={styles.main_color}>{houseInfo.address}</Text>
+                <Text style={styles.main_color}>{houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
               </View>
             </View>
             <Divider style={{ marginHorizontal: 15 }} />

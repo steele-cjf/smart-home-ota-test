@@ -50,15 +50,15 @@ export const httpService = (url, config) => {
         .then(response => response.json())
         .then(response => {
           if (response.code == 401 || (response.error && response.error == "invalid_token")) {
-            NavigatorService.navigate(AppRoute.LOGIN)
+            NavigatorService.reset(AppRoute.LOGIN)
           }
-          if (config.actionType) {
+          if (config && config.actionType) {
             dispatch({
               type: config.actionType,
               [config.actionDataKey]: response,
             });
           }
-          if (config.successConfig && config.successConfig.callback) {
+          if (config && config.successConfig && config.successConfig.callback) {
             config.successConfig.callback(response);
           }
         })
@@ -132,7 +132,6 @@ function fetchGetImage(method, url, callback, isAbsolute) {
           type: 'image/jpeg'
         })
       }).catch((error) => {
-        console.log(999, error)
         callback({
           uri: '',
           name: 'upload.jpg',

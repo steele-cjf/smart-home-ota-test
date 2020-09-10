@@ -179,7 +179,7 @@ export default function RoomPage(props) {
           rightPress: () => addRoom()
         }} />
       {loading ? (
-        <Spinner color="#5C8BFF" />
+        <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
           <View style={styles.room_wrapper}>
             <View style={styles.house_address}>
@@ -190,7 +190,7 @@ export default function RoomPage(props) {
                 <Text style={[styles.main_color, styles.MT_5]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={styles.main_color}>{houseInfo.address}</Text>
+                <Text style={styles.main_color}>{houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
               </View>
             </View>
             {renderContent()}

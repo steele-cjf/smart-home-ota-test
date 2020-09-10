@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { Thumbnail, Button, Spinner } from 'native-base';
+import { Thumbnail, Button } from 'native-base';
 import { useFocusEffect } from '@react-navigation/native';
 import ViewUtil from '../../util/ViewUtil';
 import { MORE_MENU } from '../../common/MORE_MENU';
@@ -86,7 +86,7 @@ function MyPage(props) {
         // eslint-disable-next-line no-undef
         (async () => {
           await storage.set('token', null);
-          props.navigation.navigate(AppRoute.LOGIN);
+          NavigatorService.reset(AppRoute.LOGIN)
         })();
       }
     });

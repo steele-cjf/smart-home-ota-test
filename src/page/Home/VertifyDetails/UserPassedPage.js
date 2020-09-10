@@ -116,7 +116,7 @@ const UserPassedPage = (props) => {
         title: '成员详情'
         }}
       />
-      {loading ? <Spinner></Spinner> :
+      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
       <View style={styles.containerStyle}>
         <Image style={styles.headImageStyle} source={headData.headImage} />
         <Text style={styles.textName}>{headData.name}</Text>

@@ -161,7 +161,7 @@ export default function PassportVertifyPage(props) {
                 title: '护照认证'
                 }}
             />
-            {loading ? <Spinner></Spinner> :
+            {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
             <Content>
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <Text style={styles.textTitle}>基本资料</Text>

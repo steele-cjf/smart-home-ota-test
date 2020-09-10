@@ -138,6 +138,8 @@ export default function VertifyDetailsPage(props) {
 
   function deleteTenant() {
     const {params} = props.route;
+    console.log("%%%%2222222222", params);
+    return;
     const data = {
       userId: params.userId,
       houseId: params.houseId,
@@ -194,7 +196,7 @@ export default function VertifyDetailsPage(props) {
           </Button>
         </Right>
       </Header>
-      {loading ? <Spinner></Spinner> :
+      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
       <ScrollView contentContainerStyle={styles.containerStyle}> 
         <View style={[styles.topViewFail, authStatus === 'audit_pending' && styles.topViewWait]}>
           <Text style={styles.topTextStyle1}>{authOptions.title}</Text>

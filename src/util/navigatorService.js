@@ -1,5 +1,5 @@
 
-import { StackActions } from '@react-navigation/native';
+import { StackActions, CommonActions } from '@react-navigation/native';
 import { NavigationActions } from '@react-navigation/compat'
 
 let _container; // eslint-disable-line
@@ -7,26 +7,21 @@ let _container; // eslint-disable-line
 function setContainer(container) {
 	_container = container;
 }
-function reset(routeName, params) {
+function reset(routeName) {
 	_container.dispatch(
-		StackActions.reset({
+		CommonActions.reset({
 			index: 0,
-			actions: [
-				NavigationActions.navigate({
-					type: 'Navigation/NAVIGATE',
-					routeName,
-					params,
-				}),
+			routes: [
+				{ name: routeName }
 			],
-		}),
-	);
+		})
+	)
 }
 
 function navigate(routeName, params) {
 	_container.dispatch(
-		NavigationActions.navigate({
-			type: 'Navigation/NAVIGATE',
-			routeName,
+		CommonActions.navigate({
+			name: routeName,
 			params,
 			key: params && params.key
 		}),
@@ -40,11 +35,9 @@ function navigateDeep(actions) {
 	_container.dispatch(
 		actions.reduceRight(
 			(prevAction, action) =>
-				NavigationActions.navigate({
-					type: 'Navigation/NAVIGATE',
-					routeName: action.routeName,
-					params: action.params,
-					action: prevAction,
+				CommonActions.navigate({
+					name: action.routeName,
+					params: action.params
 				}),
 			undefined,
 		),

@@ -84,7 +84,9 @@ export default function PublishHouse(props) {
         setTitle(info.title);
         setHouseRatePlan(info.houseRatePlan);
         setSelectedPros(props.roomList.data, 'rooms', info.roomIds);
-        setHouseAddition({description: info.houseAddition.description});
+        if (info.houseAddition.description) {
+          setHouseAddition({description: info.houseAddition.description});
+        }
         setSelectedPros(props.codeInfo.house_item, 'houseItem', info.houseAmenity.items);
         setSelectedPros(props.codeInfo.house_spots, 'houseSpots', info.houseAddition.spots);
         setSelectedPros(props.codeInfo.rent_requirements, 'rentReq', info.houseAddition.requirements);
@@ -260,13 +262,14 @@ export default function PublishHouse(props) {
         type: 'image/jpeg'
       }
     })
-    console.log('resultImg', resultImg);
     for (let c = 0; c < resultImg.length; c++) {
       if (resultImg[resultImg.length - 1].uri === '') {
         resultImg.splice(resultImg.length-1, 1);
       }
       result.append('houseAddition.images', resultImg[c]);
     }
+
+    console.log('resultImg', result);
     if (props.route.params.publishId) {
       result.append('id', publishId);
       props.updatePublishInfo(result, publishId, res => {
@@ -343,7 +346,7 @@ export default function PublishHouse(props) {
         }}
       />
       {loading ? (
-        <Spinner color="#5C8BFF" />
+        <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
       <ScrollView>
         <View style={styles.container}>
@@ -533,7 +536,6 @@ export default function PublishHouse(props) {
             }}>
             {
               houseImages.map((item, index) => {
-                console.log("#########item:",item);
                 return (
                   <View style={{width: Dimensions.get('window').width  * 0.3}}>
                   <ImageUpload imgUrl={item && item.uri || ''} handlerDelete={() => deleteImage(index)} setImageForm={obj => setImageForm(index, obj)} /></View>
