@@ -24,6 +24,7 @@ const PersonalInfoPage = (props) => {
       takePhotoButtonTitle:'拍照',
       chooseFromLibraryButtonTitle:'选择相册',
       // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+      durationLimit: 10,
       quality:0.75,
       allowsEditing:true,
       noData:false,
@@ -51,11 +52,15 @@ const PersonalInfoPage = (props) => {
         setImageObj(imageObj);
       }
     });
-  }
+    
+   }
 
   function pickerAction(selOldItem) {
     let data = ['无', '大专', '本科', '硕士', '博士'];
-    
+    if (!selOldItem) {
+      selOldItem = '无';
+    }
+
     Picker.init({
       pickerTitleText: '选择学历',
       pickerCancelBtnText: "取消",

@@ -27,6 +27,10 @@ export default function Form(props) {
   }, [props.oldData]);
 
   function pickerAction(data, selOldValue) {   
+    if (!selOldValue) {
+      selOldValue = '汉族';
+    }
+
     Picker.init({
       pickerTitleText: '选择民族',
       pickerCancelBtnText: "取消",
