@@ -138,19 +138,19 @@ function HouseDetail(props) {
     const { params } = props.route;
     let result = tenantList && tenantList.length && tenantList.map(item => {
       const rooms = item.rooms.map(item => { return item.name });
-      return (<View style={styles.listBox} key={item.userId}>
+      return (<TouchableOpacity style={styles.listBox} key={item.userId}  onPress={() => {
+        NavigatorService.navigate(AppRoute.TENANTLIST, {
+          houseId: params.id,
+          tenantId: item.userId,
+          roomNames: rooms
+        });
+      }}>
         <View style={[styles.leftContent, styles.flex]}>
           <Text style={[styles.labelTitle, styles.mainColor, styles.fontSize14]}>
             {item.username || '--'}
           </Text>
         </View>
-        <TouchableOpacity style={styles.rightContent} onPress={() => {
-          NavigatorService.navigate(AppRoute.TENANTLIST, {
-            houseId: params.id,
-            tenantId: item.userId,
-            roomNames: rooms
-          });
-        }}>
+        <View style={styles.rightContent}>
           <Text
             style={styles.rightText}>
             {(item.tenantCount || 0) + '位住户'}
@@ -159,8 +159,8 @@ function HouseDetail(props) {
             name="right"
             style={styles.rightIcon}
           />
-        </TouchableOpacity>
-      </View>)
+        </View>
+      </TouchableOpacity>)
     })
     return result || null
   }
@@ -308,7 +308,11 @@ function HouseDetail(props) {
               </View>
             </TouchableOpacity>
             {/* 住户信息 */}
-            <View style={[styles.listBox, styles.paddingTop15]}>
+            <TouchableOpacity style={[styles.listBox, styles.paddingTop15]} onPress={() =>
+                    NavigatorService.navigate(AppRoute.ADDTENANT, {
+                      id: houseInfo.id
+                    })
+                  }>
               <View style={styles.leftContent}>
                 <Text
                   style={[
@@ -317,28 +321,22 @@ function HouseDetail(props) {
                     styles.fontSize14,
                   ]}>
                   住户信息
-              </Text>
+                </Text>
               </View>
-              <View style={(styles.rightContent, styles.flex)}>
-                <Ionicons
-                  name="add"
-                  style={{
-                    fontSize: $screen.scaleSize(14),
-                    color: Theme.textLink
-                  }}
-                />
-                <TouchableOpacity
-                  onPress={() =>
-                    NavigatorService.navigate(AppRoute.ADDTENANT, {
-                      id: houseInfo.id
-                    })
-                  }>
+                <View
+                  style={(styles.rightContent, styles.flex)}>
+                  <Ionicons
+                    name="add"
+                    style={{
+                      fontSize: $screen.scaleSize(14),
+                      color: Theme.textLink
+                    }}
+                  />
                   <Text style={{ fontSize: $screen.scaleSize(14), color: Theme.textLink }}>
                     新增住户
                 </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+                </View>
+            </TouchableOpacity>
             {renderTenantList()}
           </View>
           <Button
@@ -439,28 +437,26 @@ function HouseDetail(props) {
                       styles.fontSize14,
                     ]}>
                     房产证及授权文件
-                </Text>
-                </View>
-                <TouchableOpacity onPress={() => checkImgLength()}>
-                  <Text
-                    style={{
-                      color: Theme.textLink,
-                      paddingRight: 20,
-                      fontSize: $screen.scaleSize(14),
-                    }}>
-                    查看
                   </Text>
-                  <AntDesign
-                    name="right"
-                    style={{
-                      fontSize: $screen.scaleSize(14),
-                      color: Theme.textLink,
-                      position: 'absolute',
-                      right: 0,
-                      top: 2,
-                    }}
-                  />
-                </TouchableOpacity>
+                </View>
+                <View style={{flex: 1}}>
+                  <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}} onPress={() => checkImgLength()}>
+                    <Text
+                      style={{
+                        color: Theme.textLink,
+                        fontSize: $screen.scaleSize(14),
+                      }}>
+                      查看
+                    </Text>
+                    <AntDesign
+                      name="right"
+                      style={{
+                        fontSize: $screen.scaleSize(14),
+                        color: Theme.textLink,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
               <Divider style={{ marginTop: 16 }} />
               <View style={styles.listBox}>

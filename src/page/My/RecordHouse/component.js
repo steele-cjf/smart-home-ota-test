@@ -17,7 +17,7 @@ function RecordHouse(props) {
   const [loading, setLoading] = useState();
   const [houseId, setHouseId] = useState('');
   const [selfList, setSelfList] = useState([]);
-  const [selectedSelfValue, setSelectedSelfValue] = useState('');
+  const [selectedSelfValue, setSelectedSelfValue] = useState('本人');
   const [houseDirectionList, setHouseDirection] = useState([]);
   const [selectedDirectionValue, setSelectedDirectionValue] = useState('');
   const [hasElevator, setHasElevator] = useState(false);
@@ -26,7 +26,7 @@ function RecordHouse(props) {
   const [idCardImage, setIdCardImage] = useState('')
   const [image, setImage] = useState('')
   const [address, setAddress] = useState('');
-  const [houseHolder, setHouseHolder] = useState({});
+  const [houseHolder, setHouseHolder] = useState({self: 'self'});
   const [houseLayout, setHouseLayout] = useState({
     hasElevator: false,
   });
@@ -130,14 +130,12 @@ function RecordHouse(props) {
     objToFormData('houseLayout', houseLayout, result);
     if (houseHolder.self === 'others') { // 如果非本人
       if (certificateFilesImg && certificateFilesImg[0]) {
-        console.log('123')
         result.append(
           'houseHolder.certificateFile',
           certificateFilesImg[0],
         );
       }
       if (idCardFile && idCardFile[0]) {
-        console.log('234')
         result.append(
           'houseHolder.idCardFile',
           idCardFile[0],
@@ -290,36 +288,38 @@ function RecordHouse(props) {
                   房源资料
               </Text>
                 <Form>
-                  <Item style={styles.marginLeft0} inlineLabel>
+                  <Item style={[styles.marginLeft0, styles.flex1]} inlineLabel>
                     <Label
                       style={[
                         styles.labelTitle,
                         styles.defaultSize,
-                        styles.flex1,
+                        // styles.flex1,
                       ]}>
                       所在地区
-                  </Label>
-                    <TouchableOpacity
-                      style={styles.input_item}
-                      onPress={() => {
-                        setModalVisible(true);
-                      }}>
-                      <Text
-                        numberOfLines={1}
-                        style={[
-                          { fontSize: $screen.scaleSize(14), paddingRight: 10 },
-                          styles.textAlignR,
-                        ]}>
-                        {regionName}
-                      </Text>
-                      <AntDesign
-                        name="right"
-                        style={{
-                          fontSize: $screen.scaleSize(12),
-                          color: Theme.textSecondary,
-                        }}
-                      />
-                    </TouchableOpacity>
+                    </Label>
+                    <View style={styles.flex1}>
+                      <TouchableOpacity
+                        style={[styles.input_item]}
+                        onPress={() => {
+                          setModalVisible(true);
+                        }}>
+                        <Text
+                          numberOfLines={1}
+                          style={[
+                            { fontSize: $screen.scaleSize(14), paddingRight: 10 },
+                            styles.textAlignR,
+                          ]}>
+                          {regionName}
+                        </Text>
+                        <AntDesign
+                          name="right"
+                          style={{
+                            fontSize: $screen.scaleSize(12),
+                            color: Theme.textSecondary,
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </Item>
                   <Item style={styles.marginLeft0} inlineLabel>
                     <Label style={[styles.labelTitle, styles.defaultSize]}>
@@ -342,25 +342,27 @@ function RecordHouse(props) {
                         styles.flex1,
                       ]}>
                       房屋所有者
-                  </Label>
-                    <TouchableOpacity
-                      style={styles.input_item}
-                      onPress={() => openSettings(selfList, 2, 'self')}>
-                      <Text
-                        style={[
-                          { fontSize: $screen.scaleSize(14), paddingRight: 10 },
-                          styles.textAlignR,
-                        ]}>
-                        {selectedSelfValue}
-                      </Text>
-                      <AntDesign
-                        name="right"
-                        style={{
-                          fontSize: $screen.scaleSize(12),
-                          color: Theme.textSecondary,
-                        }}
-                      />
-                    </TouchableOpacity>
+                    </Label>
+                    <View style={styles.flex1}>
+                      <TouchableOpacity
+                        style={styles.input_item}
+                        onPress={() => openSettings(selfList, 2, 'self')}>
+                        <Text
+                          style={[
+                            { fontSize: $screen.scaleSize(14), paddingRight: 10 },
+                            styles.textAlignR,
+                          ]}>
+                          {selectedSelfValue}
+                        </Text>
+                        <AntDesign
+                          name="right"
+                          style={{
+                            fontSize: $screen.scaleSize(12),
+                            color: Theme.textSecondary,
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </Item>
                   {/*  非本人 */}
                   <View
@@ -588,27 +590,29 @@ function RecordHouse(props) {
                         styles.flex1,
                       ]}>
                       房屋朝向
-                  </Label>
-                    <TouchableOpacity
-                      style={styles.input_item}
-                      onPress={() =>
-                        openSettings(houseDirectionList, 4, 'direction')
-                      }>
-                      <Text
-                        style={[
-                          { fontSize: $screen.scaleSize(14), paddingRight: 10 },
-                          styles.textAlignR,
-                        ]}>
-                        {selectedDirectionValue}
-                      </Text>
-                      <AntDesign
-                        name="right"
-                        style={{
-                          fontSize: $screen.scaleSize(12),
-                          color: Theme.textSecondary,
-                        }}
-                      />
-                    </TouchableOpacity>
+                    </Label>
+                    <View style={styles.flex1}>
+                      <TouchableOpacity
+                        style={styles.input_item}
+                        onPress={() =>
+                          openSettings(houseDirectionList, 4, 'direction')
+                        }>
+                        <Text
+                          style={[
+                            { fontSize: $screen.scaleSize(14), paddingRight: 10 },
+                            styles.textAlignR,
+                          ]}>
+                          {selectedDirectionValue}
+                        </Text>
+                        <AntDesign
+                          name="right"
+                          style={{
+                            fontSize: $screen.scaleSize(12),
+                            color: Theme.textSecondary,
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </Item>
                 </Form>
                 <Button
@@ -685,6 +689,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   checkBoxContainer: {
     borderColor: 'transparent',
