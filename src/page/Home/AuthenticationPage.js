@@ -38,8 +38,16 @@ function AuthenticationPage(props) {
           console.log('state, errorCode, message', state, errorCode, message)
           if (state === 'RPStatePass') {
             // showToast("认证返回成功");
-            props.getVerifyResult({ bizId });
-            NavigatorService.navigate(AppRoute.HOME);
+            setLoading(true);
+            props.getVerifyResult({ bizId }, (res) => {
+              setLoading(false);
+              if(res.code === 0) {
+                NavigatorService.navigate(AppRoute.HOME);
+              } else {
+                showToast(res.message)
+                console.log('res.message*****: ',res.message)
+              }
+            });
           } else if (state === 'RPStateFail') {
             showToast("认证不通过");
           } else if (state === 'RPStateNotVerify') {
@@ -52,8 +60,16 @@ function AuthenticationPage(props) {
       NativeModules.AliyunVerify.show(verifyToken, ret => {
         if (ret === 'success') {
           // 认证结果返回
-          props.getVerifyResult({ bizId });
-          NavigatorService.navigate(AppRoute.HOME);
+          setLoading(true);
+          props.getVerifyResult({ bizId }, (res) => {
+            setLoading(false);
+            if(res.code === 0) {
+              NavigatorService.navigate(AppRoute.HOME);
+            } else {
+              showToast(res.message)
+              console.log('res.message*****: ',res.message)
+            }
+          });
         } else {
           showToast('认证失败');
         }
@@ -131,7 +147,9 @@ function AuthenticationPage(props) {
   //const [userInfo, setUserInfo] = useState(0);
   const [userId, setUserId] = useState('');
   const [userStatus, setUserStatus] = useState('');
+  const [loading, setLoading] = useState(false);
   const AliyunVerify = useRef();
+
   return (
     <View style={styles.container0}>
       <HeaderCommon
@@ -140,6 +158,7 @@ function AuthenticationPage(props) {
           title: '实名认证'
         }}
       />
+      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
       <View style={styles.container} ref={AliyunVerify}>
         <View>
           <Text style={styles.tipStatus}>当前状态：</Text>
@@ -170,6 +189,7 @@ function AuthenticationPage(props) {
           <Text style={styles.btnText}>开始认证</Text>
         </TouchableOpacity>
       </View>
+      }
     </View>
   );
 }
