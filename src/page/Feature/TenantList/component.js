@@ -77,7 +77,7 @@ export default function TenantList(props) {
           <Text style={styles.main_color}>{item.userName} - {props.dictionaryMappings.gender[item.gender]}</Text>
         </View>
         <View style={styles.icon_content}>
-          <Text style={styles.status_style}>{props.dictionaryMappings.tenant_status[item.status]}</Text>
+          <Text style={[styles.status_style, item.status === 'audit_reject' && styles.status_style_reject]}>{props.dictionaryMappings.tenant_status[item.status]}</Text>
           <AntDesign
             name="right"
             size={12}
@@ -177,5 +177,8 @@ const styles = StyleSheet.create({
     color: '#9C9C9C',
     fontSize: $screen.scaleSize(14),
     paddingRight: 5,
+  },
+  status_style_reject: {
+    color: '#E7263E',
   }
 });
