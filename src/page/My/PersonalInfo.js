@@ -249,9 +249,9 @@ const PersonalInfoPage = (props) => {
     for (let index = 0; index < basicData.length; index++) {
       const item = basicData[index];
       let a = (
-        <View>
+        <View style={{paddingVertical: 10,}}>
           <Text style={[styles.textTitle, styles.colorSecondary]}>{item.title}</Text>
-          <Text style={[styles.textContent]}>{item.content}</Text>
+          <Text style={[styles.textContent, {top: 10}]}>{item.content}</Text>
         </View>
       );
       arr.push(a);
@@ -264,21 +264,21 @@ const PersonalInfoPage = (props) => {
     <View style={styles.containerStyle0}>
       <HeaderCommon
         options={{
-        backTitle: '返回',
+        backTitle: '返回',  
         title: '个人信息' 
         }}
       />
-      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
+      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> : 
       <Content>
-      {/* <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>  */}
+      {/* <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>  */} 
         <ScrollView style={styles.containerStyle}>
           <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
-            <Text style={styles.textTitle}>头像</Text>
+            <Text style={[styles.textTitle, {paddingVertical: 16}]}>头像</Text>
             <Image style={styles.headImageStyle} source={headImage} />
             <AntDesign name="right" style={styles.rightArrow} />
           </TouchableOpacity>
-          <View style={[styles.sigContainer, {paddingBottom: 10}]}>
-            <Text style={[styles.textTitle, styles.fontSize16]}>基本资料</Text>
+          <View style={[styles.sigContainer,]}> 
+            <Text style={[styles.textTitle, styles.fontSize16, {marginBottom: 16}]}>基本资料</Text>
             {
               renderBasicView()
             }
@@ -302,7 +302,7 @@ const PersonalInfoPage = (props) => {
                 return (
                   <View style={styles.sigContainer}>
                     <Text style={[styles.textTitle]}>{item}</Text>
-                    <TextInput style={[styles.textContent,styles.rightInput]} 
+                    <TextInput style={[styles.textContent,styles.rightInput, {top: 0, paddingVertical: 17}]} 
                       onChangeText={(text) => {setSaveData(item, text);}}
                       value={otherData[item]}
                       editable={true}
@@ -354,11 +354,11 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   sigContainer: {
+    paddingVertical: 18,
     borderBottomWidth: 1,
     borderBottomColor: '#E9E9E9',
   },
   textTitle: {
-    paddingVertical: 18,
     fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
   },
@@ -367,19 +367,16 @@ const styles = StyleSheet.create({
   },
   colorSecondary: {
     color: Theme.textSecondary,
-    paddingVertical: 10,
   },
   textContent: {
     position: 'absolute',
     left: 80,
     right: 0,
-    paddingVertical: 18,
+    top: 18,
     textAlign: 'right',
     fontSize: $screen.scaleSize(14),
-    color: Theme.textDefault,
   },
   rightInput: {
-    //fontSize: $screen.scaleSize(14),
     paddingRight: 24,
   },
   rightArrow: {

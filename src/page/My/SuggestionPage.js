@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingHorizontal: 0,
     //justifyContent: "space-between",
-    height: 260,
+    //height: 260,
   },
   btnStyle: {
     // position: 'absolute',
