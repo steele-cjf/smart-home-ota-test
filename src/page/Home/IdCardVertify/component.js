@@ -167,6 +167,7 @@ export default function IdCardVertifyPage(props) {
   };
 
   return (
+    loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
     <View style={styles.container}>
       <HeaderCommon
         options={{
@@ -174,43 +175,41 @@ export default function IdCardVertifyPage(props) {
           title: '身份证认证'
         }}
       />
-      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
-        <Content>
-          <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <Text style={styles.textTitle}>基本资料</Text>
-            <Form
-              config={vertifyCn}
-              class={styles.formBox}
-              changeForm={changeForm}
-              oldData={formData}
+      <Content>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <Text style={styles.textTitle}>基本资料</Text>
+          <Form
+            config={vertifyCn}
+            class={styles.formBox}
+            changeForm={changeForm}
+            oldData={formData}
+          />
+          <Text style={styles.textTitle}>照片上传</Text>
+          <View style={styles.ImageUploadBox}>
+            <ImageUpload
+              title="身份证正面"
+              setImageForm={obj => setImageForm(0, obj)}
+              //handlerDelete={() => deleteImage(0)}
+              imgUrl={formImages[0] && formImages[0].uri}
             />
-            <Text style={styles.textTitle}>照片上传</Text>
-            <View style={styles.ImageUploadBox}>
-              <ImageUpload
-                title="身份证正面"
-                setImageForm={obj => setImageForm(0, obj)}
-                //handlerDelete={() => deleteImage(0)}
-                imgUrl={formImages[0] && formImages[0].uri}
-              />
-              <ImageUpload
-                title="身份证反面"
-                setImageForm={obj => setImageForm(1, obj)}
-                //handlerDelete={() => deleteImage(1)}
-                imgUrl={formImages[1] && formImages[1].uri}
-              />
-              <ImageUpload
-                title="手持身份证"
-                setImageForm={obj => setImageForm(2, obj)}
-                //handlerDelete={() => deleteImage(2)}
-                imgUrl={formImages[2] && formImages[2].uri}
-              />
-            </View>
-            <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
-              <Text style={styles.btnText}>确认</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        </Content>
-      }
+            <ImageUpload
+              title="身份证反面"
+              setImageForm={obj => setImageForm(1, obj)}
+              //handlerDelete={() => deleteImage(1)}
+              imgUrl={formImages[1] && formImages[1].uri}
+            />
+            <ImageUpload
+              title="手持身份证"
+              setImageForm={obj => setImageForm(2, obj)}
+              //handlerDelete={() => deleteImage(2)}
+              imgUrl={formImages[2] && formImages[2].uri}
+            />
+          </View>
+          <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
+            <Text style={styles.btnText}>确认</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </Content>
     </View>
   );
 }

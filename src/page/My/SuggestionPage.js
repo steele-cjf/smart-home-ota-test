@@ -72,8 +72,10 @@ const SuggestionPage = (props) => {
       console.log('addUserFeedback****kkkk:', res);
       
       if (!res.code) {
-        showToast("提交成功");
-        NavigatorService.goBack();
+        if (props.navigation.canGoBack()) {
+          showToast("提交成功");
+          NavigatorService.goBack();
+        }
       } else {
         showToast(res.message);
       }
@@ -115,7 +117,6 @@ const SuggestionPage = (props) => {
   }
 
   return (
-    loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
     <View style={{flex: 1}}>
       <HeaderCommon
         options={{
@@ -123,41 +124,43 @@ const SuggestionPage = (props) => {
         title: '意见反馈'
         }}
       />
-    <ScrollView contentContainerStyle={styles.containerStyle}>
-      <Text style={styles.textTitle}>反馈详情</Text>
-      <Text style={styles.textTitle2}>反馈描述</Text>
-      <Form style={styles.textareaContainer}>
-        <Textarea
-          style={styles.textareaContent}
-          rowSpan={5}
-          placeholder="请输入具体反馈内容"
-          placeholderTextColor={Theme.textMuted}
-          onChangeText={(text) => {handerTextarea(text);}}
-          value={describeInfo}
-        />
-        <Text style={styles.textareaTipLbl}>{'已输入'+textLen+'/300'}</Text>
-      </Form>
-      <View>
-        <Text style={[styles.textTitle2]}>联系方式</Text>
-        <TextInput style={styles.textContent}
-          placeholder='手机/邮箱/QQ'
-          placeholderTextColor={Theme.textMuted}
-          onChangeText={(text) => { setContactInfo(text); }}
-          allowFontScaling={false} //test
-         //value={'ddd'}
-        />
-      </View>
-      <Text style={[styles.textTitle, styles.space]}>{'照片上传'}</Text>
-      <Text style={[styles.textTitle3]}>{'最多6张'}</Text>
-      <View style={styles.ImageBox}>
-        {
-          renderImage()
-        }
-      </View>
-      <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}>
-        <Text style={styles.btnTextStyle}>提交</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
+      <ScrollView contentContainerStyle={styles.containerStyle}>
+        <Text style={styles.textTitle}>反馈详情</Text>
+        <Text style={styles.textTitle2}>反馈描述</Text>
+        <Form style={styles.textareaContainer}>
+          <Textarea
+            style={styles.textareaContent}
+            rowSpan={5}
+            placeholder="请输入具体反馈内容"
+            placeholderTextColor={Theme.textMuted}
+            onChangeText={(text) => {handerTextarea(text);}}
+            value={describeInfo}
+          />
+          <Text style={styles.textareaTipLbl}>{'已输入'+textLen+'/300'}</Text>
+        </Form>
+        <View>
+          <Text style={[styles.textTitle2]}>联系方式</Text>
+          <TextInput style={styles.textContent}
+            placeholder='手机/邮箱/QQ'
+            placeholderTextColor={Theme.textMuted}
+            onChangeText={(text) => { setContactInfo(text); }}
+            allowFontScaling={false} //test
+            value={contactInfo}
+          />
+        </View>
+        <Text style={[styles.textTitle, styles.space]}>{'照片上传'}</Text>
+        <Text style={[styles.textTitle3]}>{'最多6张'}</Text>
+        <View style={styles.ImageBox}>
+          {
+            renderImage()
+          }
+        </View>
+        <TouchableOpacity style={styles.btnStyle} onPress={submitInfo}>
+          <Text style={styles.btnTextStyle}>提交</Text>
+        </TouchableOpacity>
+      </ScrollView>
+      }
     </View>
   );
 
