@@ -133,6 +133,23 @@ function HouseDetail(props) {
       id: houseInfo.id
     });
   };
+  // 添加住户
+  const handlerAddTenant = () => {
+    props.checkHouseIsEmpty(houseInfo.id, res => {
+      console.log('check', res)
+      if (!res.code) {
+        if (!res.data) {
+          NavigatorService.navigate(AppRoute.ADDTENANT, {
+            id: houseInfo.id
+          })
+        } else {
+          showToast('您的房间已全部住满，请添加房间或先删除住户。')
+        }
+      } else {
+        showToast(res.message)
+      }
+    })
+  }
   // 渲染住户
   const renderTenantList = () => {
     const { params } = props.route;
@@ -308,11 +325,7 @@ function HouseDetail(props) {
               </View>
             </TouchableOpacity>
             {/* 住户信息 */}
-            <TouchableOpacity style={[styles.listBox, styles.paddingTop15]} onPress={() =>
-                    NavigatorService.navigate(AppRoute.ADDTENANT, {
-                      id: houseInfo.id
-                    })
-                  }>
+            <TouchableOpacity style={[styles.listBox, styles.paddingTop15]} onPress={() => handlerAddTenant()}>
               <View style={styles.leftContent}>
                 <Text
                   style={[

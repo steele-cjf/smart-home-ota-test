@@ -61,7 +61,7 @@ function HouseCollectionList(props) {
     if (!item.houseDeleted) {
       NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, { id: item.publishInfoId });
     } else {
-      Alert.alert('确定删除？', '', [
+      Alert.alert('是否删除此收藏？', '', [
         {
           text: '取消',
           onPress: () => console.log('Cancel Pressed'),

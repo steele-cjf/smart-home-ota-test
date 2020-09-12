@@ -58,6 +58,17 @@ export function getTenantHouseList(data, callback) {
     },
   });
 }
+// 判断房屋是否全部出租
+export function checkHouseIsEmpty(id, callback) {
+  return $get(`/house/${id}/isAllRented`, {
+    queryData: {
+      houseId: id
+    },
+    successConfig: {
+      callback
+    }
+  })
+}
 // 房源收藏列表
 export function getHouseCollectionList(data, callback) {
   return $get('/houseCollection/listMine', {
@@ -74,7 +85,6 @@ export function houseDetail(state = null, action) {
   }
   return state;
 }
-
 export default {
   houseDetail,
 };
