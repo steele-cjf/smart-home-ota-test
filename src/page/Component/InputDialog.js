@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Modal,
   Platform,
@@ -9,76 +9,57 @@ import {
   View,
 } from 'react-native';
 
-class DialogInput extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {inputModal: props.initValueTextInput, opening: true};
-  }
+function DialogInput (props) {
+  const [value, setValue] = useState(props.initValueTextInput || '');
+  const [title] = useState(props.title || '');
+  const [hintInput] = useState(props.hintInput || '');
+  const [textProps] = useState(props.textInputProps || null);
+  const [modalStyleProps] = useState(props.modalStyle || {});
+  const [dialogStyleProps] = useState(props.dialogStyle || {});
+  const [placeholderTextColor] = useState(props.placeholderTextColor);
+  const [animationType] = useState(props.animationType || 'fade');
+  const [cancelText] = useState('取消')
+  const [submitText] = useState('保存')
 
-  handleOnRequestClose = () => {
-    this.props.closeDialog();
-    this.setState({inputModal: ''});
-  };
-
-  handleOnKeyPress = () => {
-    this.setState({opening: false});
-  };
-
-  handleOnChangeText = inputModal => {
-    this.setState({inputModal, opening: false});
-  };
+  useEffect(() => {
+    if (props.initValueTextInput) {
+      setValue(props.initValueTextInput)
+    } else {
+      setValue('')
+    }
+  }, [props.initValueTextInput]);
 
   handleOnCloseDialog = () => {
-    this.props.closeDialog();
-    this.setState({inputModal: '', opening: true});
+    props.closeDialog();
   };
 
   handleSubmit = () => {
-    this.props.submitInput(this.state.inputModal);
-    this.setState({inputModal: ''});
+    props.submitInput(value);
   };
 
-  render() {
-    const title = this.props.title || '';
-    const hintInput = this.props.hintInput || '';
-    let value = '';
-    if (!this.state.opening) {
-      value = this.state.inputModal;
-    } else {
-      value = this.props.initValueTextInput
-        ? this.props.initValueTextInput
-        : '';
-    }
+  handleOnChangeText = (value) => {
+    setValue(value)
+  }
 
-    const textProps = this.props.textInputProps || null;
-    const modalStyleProps = this.props.modalStyle || {};
-    const dialogStyleProps = this.props.dialogStyle || {};
-    const placeholderTextColor = this.props.placeholderTextColor;
-    const animationType = this.props.animationType || 'fade';
-    let cancelText = this.props.cancelText || '取消';
-    let submitText = this.props.submitText || '确定';
-    // cancelText = Platform.OS === 'ios' ? cancelText : cancelText.toUpperCase();
-    // submitText = Platform.OS === 'ios' ? submitText : submitText.toUpperCase();
     return (
       <Modal
         animationType={animationType}
         transparent={true}
-        visible={this.props.isDialogVisible}
-        onRequestClose={this.handleOnRequestClose}>
+        visible={props.isDialogVisible}>
         <View style={[styles.container, {...modalStyleProps}]}>
           <TouchableOpacity
             style={styles.container}
             activeOpacity={1}
-            onPress={this.handleOnCloseDialog}>
+            onPress={handleOnCloseDialog}>
             {/* 阻止时间冒泡 */}
             <View style={[styles.modal_container, {...dialogStyleProps}]}>
               <View style={styles.modal_body} onStartShouldSetResponder={() => true} onMoveShouldSetResponder={() => true}>
                 <Text style={styles.title_modal}>{title}</Text>
                 <Text
                   style={[
-                    this.props.message ? styles.message_modal : {height: 0},
+                    props.message ? styles.message_modal : {height: 0},
                   ]}>
-                  {this.props.message}
+                  {props.message}
                 </Text>
                 <TextInput
                   style={styles.input_container}
@@ -116,18 +97,17 @@ class DialogInput extends PureComponent {
                       : null
                   }
                   autoFocus={true}
-                  onKeyPress={this.handleOnKeyPress}
                   underlineColorAndroid="transparent"
                   placeholder={hintInput}
                   placeholderTextColor={placeholderTextColor}
-                  onChangeText={this.handleOnChangeText}
+                  onChangeText={handleOnChangeText}
                   value={value}
-                />
+                ></TextInput>
               </View>
               <View style={styles.btn_container}>
                 <TouchableOpacity
                   style={styles.touch_modal}
-                  onPress={this.handleOnCloseDialog}>
+                  onPress={handleOnCloseDialog}>
                   <Text style={styles.btn_modal_left}>{cancelText}</Text>
                 </TouchableOpacity>
                 <View style={styles.divider_btn} />
@@ -142,7 +122,6 @@ class DialogInput extends PureComponent {
         </View>
       </Modal>
     );
-  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -187,7 +166,7 @@ const styles = StyleSheet.create({
     }),
   },
   title_modal: {
-    fontWeight: 'bold',
+    color: '#282828',
     fontSize: $screen.scaleSize(20),
     ...Platform.select({
       ios: {
@@ -223,7 +202,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingTop: 5,
         borderWidth: 1,
-        borderColor: '#B0B0B0',
+        borderColor: '#E9E9E9',
         paddingBottom: 5,
         paddingLeft: 10,
         marginBottom: 15,
@@ -243,7 +222,7 @@ const styles = StyleSheet.create({
       ios: {
         justifyContent: 'center',
         borderTopWidth: 1,
-        borderColor: '#B0B0B0',
+        borderColor: '#E9E9E9',
         maxHeight: 48,
       },
       android: {
@@ -258,7 +237,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         width: 1,
-        backgroundColor: '#B0B0B0',
+        backgroundColor: '#E9E9E9',
       },
       android: {
         width: 0,
@@ -282,7 +261,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       ios: {
         fontSize: $screen.scaleSize(18),
-        color: '#408AE2',
+        color: '#282828',
         textAlign: 'center',
         borderRightWidth: 5,
         borderColor: '#B0B0B0',

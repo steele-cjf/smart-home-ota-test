@@ -7,7 +7,7 @@ import {
   Text,
   Spinner,
 } from 'native-base';
-import DialogInput from '../../Component/dialogInput';
+import DialogInput from '../../Component/InputDialog';
 import Theme from '../../../style/colors';
 import showToast from '../../../util/toast';
 import HeaderCommon from '../../Component/HeaderCommon';
@@ -88,37 +88,35 @@ export default function RoomPage(props) {
     setIsDialogVisible(true);
   };
   const addRoomFunc = data => {
-    setLoading(true);
+    // setLoading(true);
     props.addRoom(data, res => {
       console.log(res);
       if (!res.code) {
-        setLoading(false);
+        // setLoading(false);
         setIsDialogVisible(false);
         fetchRoomList();
       } else {
+        // setLoading(false);
         showToast(res.message);
       }
     });
   };
   const editRoomFunc = (id, name) => {
-    setLoading(true);
+    // setLoading(true);
     props.updateRoomName(id, name, res => {
       console.log(res);
       if (!res.code) {
-        setLoading(false);
+        // setLoading(false);
         setIsDialogVisible(false);
         fetchRoomList();
       } else {
-        setLoading(false);
-        setIsDialogVisible(false);
+        // setLoading(false);
         showToast(res.message);
       }
     });
   };
   const sendInput = value => {
-    console.log('vale', value);
-    console.log(selectItem.name);
-    if (!value && selectItem.name) {
+    if (value === selectItem.name) {
       showToast('请输入你要更改的房间名');
       return;
     }
@@ -190,7 +188,7 @@ export default function RoomPage(props) {
                 <Text style={[styles.main_color, styles.MT_5]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={styles.main_color}>{houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
+                <Text style={styles.main_color}>{houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
               </View>
             </View>
             {renderContent()}
@@ -199,6 +197,7 @@ export default function RoomPage(props) {
       <DialogInput
         isDialogVisible={isDialogVisible}
         title={'房间名'}
+        textInputProps={{maxLength: 20}}
         initValueTextInput={selectItem.name}
         hintInput={'请输入房间名'}
         submitInput={inputText => {
