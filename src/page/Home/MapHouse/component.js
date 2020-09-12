@@ -48,7 +48,6 @@ function MapHouse(props) {
         }
       },
       error => {
-        // showToast('Error', JSON.stringify(error))
       }
     )
   }, [props.route])

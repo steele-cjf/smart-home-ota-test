@@ -41,7 +41,6 @@ function HouseList(props) {
         }
       },
       error => {
-        showToast('Error', JSON.stringify(error))
       }
     )
   }

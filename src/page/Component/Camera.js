@@ -17,7 +17,7 @@ function Camera(props) {
         props.getScanResult(data, (res) => {
             let result = null
             if (res.status) {
-                showToast(res.error)
+                showToast('找不到该用户，请重新扫码添加')
             } else if (res.code != 0) {
                 showToast(res.message)
             } else {

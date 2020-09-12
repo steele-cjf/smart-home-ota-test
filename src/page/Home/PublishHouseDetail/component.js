@@ -45,13 +45,13 @@ function PublicHouseDetail(props) {
       />
       <ScrollView>
         <View style={{ height: 250, backgroundColor: '#E1E5EB' }} >
-          <Swiper items={img} />
+          {loading ? <Spinner></Spinner> : <Swiper items={img} showPage />}
         </View>
+
         {
           loading ? <Spinner></Spinner> : <HouseDetail data={data} code={code} setCollection={(data, callback) => setCollection(data, callback)} />
         }
       </ScrollView>
-
     </View>
   );
 }

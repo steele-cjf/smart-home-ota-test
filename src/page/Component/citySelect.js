@@ -35,7 +35,7 @@ export default function RegionPicker(props) {
             <Icon name="close" size={25} style={styles.close} />
           </TouchableOpacity>
         </View>
-        <TabView style={[styles.tabView]} tabs={tabs} getRegion={getRegion} />
+        <TabView style={[styles.tabView]} tabs={tabs} getRegion={getRegion} close={() => close()}/>
       </Animated.View>
     </Modal>
   );

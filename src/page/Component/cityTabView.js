@@ -32,6 +32,9 @@ function TabView(props) {
     data.splice(data.length - 1, 0, item);
     setSelectIndex(data.length - 1);
     setTabs(data);
+    // if(data.length >= 3) {
+    //   props.close()
+    // }
   };
   const _renderTab = () => {
     return (
