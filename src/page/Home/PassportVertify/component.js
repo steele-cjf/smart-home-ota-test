@@ -118,7 +118,6 @@ export default function PassportVertifyPage(props) {
             if (res.code === 0) {
                 showToast('提交成功');
                 NavigatorService.navigate(AppRoute.VERDETAILS);
-                //NavigatorService.goBack();
 
                 const {params} = props.route;
                 if (params && params.refreshStatus) {
@@ -126,8 +125,11 @@ export default function PassportVertifyPage(props) {
                 }
                 
             } else {
-                showToast(res.message)
-                console.log('res.message*****: ',res.message)
+                if (res.message === "Network request failed") {
+                    showToast('网络请求失败')
+                  } else {
+                    showToast(res.message)
+                  }
             }
         })
     };

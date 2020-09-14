@@ -132,8 +132,7 @@ export default function IdCardVertifyPage(props) {
       if (res.code === 0) {
         showToast('提交成功');
         NavigatorService.navigate(AppRoute.VERDETAILS);
-        //NavigatorService.goBack();
-
+       
         const { params } = props.route;
         if (params && params.refreshStatus) {
           params.refreshStatus();
@@ -141,7 +140,11 @@ export default function IdCardVertifyPage(props) {
 
       } else {
         console.log('^^^^^^res2',res)
-        showToast(res.message)
+        if (res.message === "Network request failed") {
+          showToast('网络请求失败')
+        } else {
+          showToast(res.message)
+        }
       }
     })
   };

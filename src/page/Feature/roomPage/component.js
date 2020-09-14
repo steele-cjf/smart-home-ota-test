@@ -140,9 +140,9 @@ export default function RoomPage(props) {
     return (
       <View style={styles.room_item_style}>
         <View style={styles.left_content}>
-          <Text style={styles.main_color}>{item.name}</Text>
+          <Text style={[styles.main_color, {fontSize: 14}]}>{item.name}</Text>
           {/* <Input value={item.name} /> */}
-          <Text style={styles.status_color}>
+          <Text style={[styles.status_color, { fontSize: 14}]}>
             {item.tenantCount > 0 ? '已入住' : '未入住'}
           </Text>
         </View>
@@ -184,10 +184,10 @@ export default function RoomPage(props) {
           <View style={styles.room_wrapper}>
             <View style={styles.house_address}>
               <View style={{ width: 70 }}>
-                <Text style={{ color: '#7C7C7C' }}>房屋地址</Text>
+                <Text style={{ color: '#7C7C7C', fontSize: 14 }}>房屋地址</Text>
               </View>
               <View style={{ alignItems: 'flex-end' }}>
-                <Text style={[styles.main_color, styles.MT_5]}>
+                <Text style={[styles.main_color, styles.MT_5, {fontSize: 14}]}>
                   {houseInfo.regionFullName}
                 </Text>
                 <Text style={styles.main_color}>{houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   room_item_style: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
+    padding: 16,
     borderColor: Theme.textMuted,
     borderWidth: 0.5,
     borderRadius: 4,
