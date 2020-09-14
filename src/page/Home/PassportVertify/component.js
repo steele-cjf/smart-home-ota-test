@@ -112,6 +112,7 @@ export default function PassportVertifyPage(props) {
         setLoading(true);
         console.log('88userId: ', userId);
 
+        console.log('huzhao^^^^^^^^: ',result);
         props.verifyIdCard(result, (res) => {
             console.log('huzhaorenzhxiugai: ',res)
             setLoading(false);

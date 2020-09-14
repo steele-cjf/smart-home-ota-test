@@ -11,7 +11,9 @@ import { ActionSheet } from 'native-base'
 import { Avatar, Badge } from 'react-native-elements';
 // import ImagePicker from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
+
 const initOptions = { width: 300, height: 400, useFrontCamera: true, mediaType: 'photo', multiple: false }
+
 export default function ImageUpload(props) {
   const [avatarSource, setAvatarSource] = useState(null);
   const [actionSheet, setActionSheet] = useState(null);
@@ -31,7 +33,12 @@ export default function ImageUpload(props) {
   }, [props.options]);
 
   function selectPhotoTapped() {
-    if (actionSheet !== null) {
+    if (actionSheet !== null ) {
+
+      if (options.multiple && avatarSource !== null) {
+        return;
+      }
+
       actionSheet._root.showActionSheet(
         {
           options: ['拍照', '相册', 'cancel'],
@@ -42,24 +49,40 @@ export default function ImageUpload(props) {
           if (buttonIndex < 2) {
             let arr = ['openCamera', 'openPicker']
             ImagePicker[arr[buttonIndex]](options).then(image => {
-              let source = { uri: image.path };
-              setAvatarSource(source);
-              //注意，iOS 获取的图片地址要替换掉"file://",这是后面上传遇到的坑
-              let imageObj = {
-                uri:
-                  Platform.OS === 'ios'
-                    ? image.sourceURL
-                    : image.path,
-                name: image.filename || 'upload.jpg',
-                type: image.mime
-              };
-              props.setImageForm(imageObj);
+              if (!options.multiple) {
+                let source = { uri: image.path };
+                setAvatarSource(source);
+                //注意，iOS 获取的图片地址要替换掉"file://",这是后面上传遇到的坑
+                let imageObj = {
+                  //uri: Platform.OS === 'ios' ? image.sourceURL : image.path,
+                  uri: Platform.OS === 'ios' ? image.path.replace('file://', '') : image.path,
+                  name: image.fileName || 'upload.jpg',
+                  type: image.mime,
+
+                };
+                props.setImageForm(imageObj);
+              } else {
+                console.log("111111111111",image);
+                let imgObjs = [];
+                image.map((itemImage, index) => { 
+                  let imageObj = {
+                    //uri: Platform.OS === 'ios' ? itemImage.sourceURL : itemImage.path,
+                    uri: Platform.OS === 'ios' ? itemImage.path.replace('file://', '') : itemImage.path,
+                    name: itemImage.filename || 'upload.jpg',
+                    type: itemImage.mime
+                  };
+                  imgObjs.push(imageObj);
+                })
+                props.setImageForm(imgObjs);
+              }
             });
           }
         }
       )
     }
   }
+
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -67,9 +90,8 @@ export default function ImageUpload(props) {
       }}>
       <ActionSheet ref={(c) => { setActionSheet(c) }} />
       <View style={[styles.avatar, styles.avatarContainer, { marginBottom: 10 }]}>
-        {avatarSource === null ? (
-          <Text style={styles.addBtn}>+</Text>
-        ) : (
+        {avatarSource === null ? 
+          (<Text style={styles.addBtn}>+</Text>) : (
             <View>
               <Avatar style={styles.avatar} source={avatarSource} />
               <Badge
