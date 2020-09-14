@@ -114,10 +114,10 @@ function HouseCollectionList(props) {
             <Text style={[styles.highColor, styles.miniSize]}>元/月</Text>
             <Text style={styles.houseInfo}>
               {item.area || '--'}㎡ -{' '}
-              {item.roomCount || '--'}室
-              {item.hallCount || '--'}厅
-              {item.toiletCount || '--'}卫 -{' '}
-              {props.dictionaryMappings.house_direction[item.direction] || '--'}
+              {item.roomCount || 0}室
+              {item.hallCount || 0}厅
+              {item.toiletCount || 0}卫 -{' '}
+              {props.dictionaryMappings.house_type[item.houseType] || '--'}
             </Text>
           </View>
         </View>

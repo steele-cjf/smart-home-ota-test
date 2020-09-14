@@ -93,9 +93,9 @@ function MyHouseList(props) {
             }}>
             <Text style={styles.houseInfo}>
               {item.houseLayout.area || '--'}㎡ -{' '}
-              {item.houseLayout.roomCount || '--'}室
-              {item.houseLayout.hallCount || '--'}厅
-              {item.houseLayout.toiletCount || '--'}卫 -{' '}
+              {item.houseLayout.roomCount || 0}室
+              {item.houseLayout.hallCount || 0}厅
+              {item.houseLayout.toiletCount || 0}卫 -{' '}
               {mappings.house_direction[item.houseLayout.direction] || '--'}
               {item.houseLayout.hasElevator ? ' - 电梯房' : ''}
             </Text>

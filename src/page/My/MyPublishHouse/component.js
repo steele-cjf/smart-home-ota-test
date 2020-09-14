@@ -160,8 +160,8 @@ function MyPublishList(props) {
               paddingVertical: 8,
             }}>
             <Text style={styles.houseInfo}>
-              {item.area || '--'}㎡ - {item.roomCount || '--'}室
-              {item.hallCount || '--'}厅{item.toiletCount || '--'}卫 -{' '}
+              {item.area || '--'}㎡ - {item.roomCount || 0}室
+              {item.hallCount || 0}厅{item.toiletCount || 0}卫 -{' '}
               {mappings.house_direction[item.direction] || '--'}
             </Text>
           </View>

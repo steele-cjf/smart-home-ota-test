@@ -33,8 +33,8 @@ export default function HouseItem(props) {
             paddingVertical: 8,
           }}>
           <Text style={styles.houseInfo}>
-            {houseInfo.roomCount || '--'}室{houseInfo.hallCount || '--'}厅
-            {houseInfo.toiletCount || '--'}卫
+            {houseInfo.roomCount || 0}室{houseInfo.hallCount || 0}厅
+            {houseInfo.toiletCount || 0}卫
           </Text>
           <Text style={styles.houseInfo}> - {dictionary && dictionary['house_type'] && dictionary['house_type'][houseInfo.houseType]}</Text>
         </View>
