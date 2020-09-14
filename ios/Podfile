@@ -81,6 +81,8 @@ target 'SmartHome' do
   # pod 'Firebase/Core'
   pod 'react-native-camera', path: '../node_modules/react-native-camera', subspecs: [ 'BarcodeDetectorMLKit' ]
 
+  pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
+
   target 'SmartHomeTests' do
     inherit! :complete
     # Pods for testing

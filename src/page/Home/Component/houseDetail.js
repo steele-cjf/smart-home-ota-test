@@ -36,9 +36,9 @@ function HouseDetail(props) {
             add: value
         }, (res) => {
             if (!res.code && value) {
-                showToast('收藏成功')
+                showToast('已收藏')
             } else if (!res.code && !value) {
-                showToast('已取消收藏成功')
+                showToast('已取消收藏')
             } else {
                 showToast(res.message || '操作失败')
             }
@@ -111,9 +111,19 @@ function HouseDetail(props) {
                 </View>
             )
         })
+        result.unshift(
+            <View style={styles.houseRatePlanModule}>
+                <Text style={styles.houseRatePlanDesc}>装修:</Text>
+                <Text style={styles.houseRatePlanText}>{code['house_decorator'][options.houseAmenity.decoration] || '--'}</Text>
+            </View>)
+        result.unshift(
+            <View style={styles.houseRatePlanModule}>
+                <Text style={styles.houseRatePlanDesc}>户型:</Text>
+                <Text style={styles.houseRatePlanText}>{options.houseLayout.roomCount}房{options.houseLayout.hallCount}厅{options.houseLayout.toiletCount}卫</Text>
+            </View>)
         return (result.length && <View style={styles.houseRatePlanBox}>{result}</View>) || null
     }
-
+    //{code['house_type'][options.houseType]}·{options.regionFullName}·
     return (
         <View style={styles.container}>
             {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF" /> :
@@ -121,13 +131,12 @@ function HouseDetail(props) {
                     <View style={styles.flexRow}>
                         <Text style={styles.title}>{options.houseRatePlan.rentPrice}</Text>
                         <Text style={styles.desc}>元/月</Text>
+                        <Text style={styles.depPay}>押{options.houseRatePlan.deposit}付{options.houseRatePlan.payment}</Text>
                         <AntDesign style={[styles.rightBtn, options.collectedByMe && styles.activeBtn]}
                             onPress={() => { changeCollection('collectedByMe', !options.collectedByMe) }}
                             name={options.collectedByMe ? 'heart' : 'hearto'}></AntDesign>
                     </View>
-                    <Text style={styles.secondDes}>
-                        {code['house_type'][options.houseType]}·{options
-                            .regionFullName}·{options.houseLayout.roomCount}房{options.houseLayout.hallCount}厅{options.houseLayout.toiletCount}卫</Text>
+                    <Text style={styles.secondDes}>{options.title || '--'}</Text>
                     {renderHouseLayout()}
                     {renderHouseAddition('spots')}
                     <Text style={styles.moduleTitle}>房源简介</Text>
@@ -189,14 +198,14 @@ const styles = StyleSheet.create({
     },
     secondDes: {
         color: '#282828',
+        fontWeight: 'bold',
         marginTop: 8,
-        marginBottom: 10,
-        fontSize: $screen.scaleSize(16)
+        marginBottom: 24,
+        fontSize: $screen.scaleSize(18)
     },
     moduleTitle: {
         color: '#282828',
         marginVertical: 8,
-
     },
     houseLayoutBox: {
         paddingHorizontal: 20,
@@ -257,12 +266,13 @@ const styles = StyleSheet.create({
     houseRatePlanBox: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginVertical: 15
+        marginVertical: 15,
+        flexDirection: 'row'
     },
     houseRatePlanModule: {
         flexDirection: 'row',
-        width: '50%',
-        paddingBottom: 20
+        width: '100%',
+        marginBottom: 20
     },
     houseRatePlanDesc: {
         color: '#7C7C7C',
@@ -271,6 +281,8 @@ const styles = StyleSheet.create({
     },
     houseRatePlanText: {
         color: '#282828',
+        position: 'absolute',
+        right: 0,
         fontSize: $screen.scaleSize(14)
     },
     mapBox: {
@@ -300,6 +312,17 @@ const styles = StyleSheet.create({
         flex: 1,
         color: '#282828',
         fontSize: 14
+    },
+    depPay: {
+        backgroundColor: '#F5F7F9',
+        borderRadius: 4,
+        color: '#7C7C7C',
+        paddingHorizontal: 10,
+        height: 20,
+        textAlignVertical: 'center',
+        marginLeft: 10,
+        fontSize: $screen.scaleSize(12),
+        top: 15
     }
 });
 export default HouseDetail;

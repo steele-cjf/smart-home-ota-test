@@ -112,14 +112,16 @@ function HouseDetail(props) {
       }
     })
     // 转换image到本地
-    imgArr.map((item, index) => {
+    imgArr.map((item) => {
       $getImage(item.url, function (res) {
         images.push({ url: res.uri })
         setImageList(images);
-        if (index >= (imgArr.length - 1)) {
-          setLoading(false)
-          setTimeout(() => setShowImage(true))
-        }
+        setTimeout(() => {
+          if (images.length >= imgArr.length) {
+            setLoading(false)
+            setShowImage(true)
+          }
+        })
       }, true)
     })
     if (!imgArr.length) {
@@ -133,12 +135,29 @@ function HouseDetail(props) {
       id: houseInfo.id
     });
   };
+  // 添加住户
+  const handlerAddTenant = () => {
+    props.checkHouseIsEmpty(houseInfo.id, res => {
+      console.log('check', res)
+      if (!res.code) {
+        if (!res.data) {
+          NavigatorService.navigate(AppRoute.ADDTENANT, {
+            id: houseInfo.id
+          })
+        } else {
+          showToast('您的房间已全部住满，请添加房间或先删除住户。')
+        }
+      } else {
+        showToast(res.message)
+      }
+    })
+  }
   // 渲染住户
   const renderTenantList = () => {
     const { params } = props.route;
     let result = tenantList && tenantList.length && tenantList.map(item => {
       const rooms = item.rooms.map(item => { return item.name });
-      return (<TouchableOpacity style={styles.listBox} key={item.userId}  onPress={() => {
+      return (<TouchableOpacity style={styles.listBox} key={item.userId} onPress={() => {
         NavigatorService.navigate(AppRoute.TENANTLIST, {
           houseId: params.id,
           tenantId: item.userId,
@@ -309,10 +328,10 @@ function HouseDetail(props) {
             </TouchableOpacity>
             {/* 住户信息 */}
             <TouchableOpacity style={[styles.listBox, styles.paddingTop15]} onPress={() =>
-                    NavigatorService.navigate(AppRoute.ADDTENANT, {
-                      id: houseInfo.id
-                    })
-                  }>
+              NavigatorService.navigate(AppRoute.ADDTENANT, {
+                id: houseInfo.id
+              })
+            }>
               <View style={styles.leftContent}>
                 <Text
                   style={[
@@ -323,19 +342,19 @@ function HouseDetail(props) {
                   住户信息
                 </Text>
               </View>
-                <View
-                  style={(styles.rightContent, styles.flex)}>
-                  <Ionicons
-                    name="add"
-                    style={{
-                      fontSize: $screen.scaleSize(14),
-                      color: Theme.textLink
-                    }}
-                  />
-                  <Text style={{ fontSize: $screen.scaleSize(14), color: Theme.textLink }}>
-                    新增住户
+              <View
+                style={(styles.rightContent, styles.flex)}>
+                <Ionicons
+                  name="add"
+                  style={{
+                    fontSize: $screen.scaleSize(14),
+                    color: Theme.textLink
+                  }}
+                />
+                <Text style={{ fontSize: $screen.scaleSize(14), color: Theme.textLink }}>
+                  新增住户
                 </Text>
-                </View>
+              </View>
             </TouchableOpacity>
             {renderTenantList()}
           </View>
@@ -355,7 +374,7 @@ function HouseDetail(props) {
   return (
     <View style={styles.container}>
       {loading ? (
-        <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
+        <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
           <ScrollView>
             <HeaderCommon
@@ -439,8 +458,8 @@ function HouseDetail(props) {
                     房产证及授权文件
                   </Text>
                 </View>
-                <View style={{flex: 1}}>
-                  <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}} onPress={() => checkImgLength()}>
+                <View style={{ flex: 1 }}>
+                  <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }} onPress={() => checkImgLength()}>
                     <Text
                       style={{
                         color: Theme.textLink,

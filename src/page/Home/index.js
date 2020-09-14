@@ -75,7 +75,6 @@ function HomePage(props) {
         props.getRecommandList({}, res => { // 获取推荐列表
           setRecommandList(res.data)
         })
-        // showToast('Error', JSON.stringify(error))
       }
     )
   }
@@ -147,9 +146,9 @@ function HomePage(props) {
         return item
       })
     }
+    // console.log(99999, houseList)
     array.push({ text: "Cancel" })
     if (actionSheet !== null) {
-      // fix cannot read property '_root' of null
       actionSheet._root.showActionSheet(
         {
           options: array,
@@ -167,7 +166,7 @@ function HomePage(props) {
   }
   return (
     <Root>
-      {loading ? (<Spinner style={STYLES.spinner} color="#5C8BFF"/>) :
+      {loading ? (<Spinner style={STYLES.spinner} color="#5C8BFF" />) :
         <View style={styles.container}>
           <Animated.ScrollView
             style={{ flex: 1 }}
@@ -187,7 +186,7 @@ function HomePage(props) {
               </View>
               {
                 loadingStatus ?
-                  <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
+                  <Spinner style={STYLES.spinner} color="#5C8BFF" /> :
                   <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
               }
             </View>

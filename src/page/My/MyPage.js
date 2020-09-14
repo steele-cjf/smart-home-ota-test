@@ -3,7 +3,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Thumbnail, Button } from 'native-base';
 import { useFocusEffect } from '@react-navigation/native';
@@ -113,28 +113,33 @@ function MyPage(props) {
             name="bells"
             style={{
               fontSize: 20,
-              color: '#fff' 
+              color: '#fff'
             }}
           />
         </View>
-        <TouchableOpacity TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
+        <TouchableWithoutFeedback onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
           <View style={[styles.flex, styles.InfoBox]}>
-            <View style={{ flexDirection: 'row', alignItems: 'center',  flex:1,}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, }}>
               <Thumbnail style={{ marginRight: 16 }} source={(userInfo && userInfo.avatarImageUrl) ? { uri: userInfo && userInfo.avatarImageUrl } : uri} />
               <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                 <Text style={{ fontSize: 20, color: '#fff' }}>
                   {userInfo && (userInfo.name || userInfo.mobile)}
                 </Text>
-                <TouchableOpacity style={[styles.statusBox, { backgroundColor: statusColor[userInfo && userInfo.status], },]}
+                <TouchableWithoutFeedback style={[styles.statusBox, { backgroundColor: statusColor[userInfo && userInfo.status], },]}
                   onPress={goVertifyDetailPage}>
                   <Text style={styles.statusText}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text>
-                </TouchableOpacity>
+                </TouchableWithoutFeedback>
               </View>
-              <View style={{position: 'absolute', right: 24, 
-              display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'}}  >
-                <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute.MYQRCODE)}>
-                  <Image style={{width: 34, height: 34,}} source={scan} />
-                </TouchableOpacity>
+              <View style={{
+                position: 'absolute', right: 24,
+                display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'
+              }}  >
+                <TouchableWithoutFeedback onPress={(e) => {
+                  console.log(888, e)
+                  NavigatorService.navigate(AppRoute.MYQRCODE)
+                }}>
+                  <Image style={{ width: 34, height: 34, }} source={scan} />
+                </TouchableWithoutFeedback>
               </View>
             </View>
             <View>
@@ -147,7 +152,7 @@ function MyPage(props) {
               />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </View>
       <ScrollView style={styles.myContent}>
         <View style={{ marginHorizontal: 16, paddingTop: 15 }}>

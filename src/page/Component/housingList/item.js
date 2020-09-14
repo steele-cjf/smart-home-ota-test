@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   },
   rentPrice: {
     fontSize: $screen.scaleSize(20),
+    marginRight: 4,
   },
   miniSize: {
     fontSize: $screen.scaleSize(12),

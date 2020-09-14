@@ -482,9 +482,10 @@ function RecordHouse(props) {
                             : houseLayout.floorCount
                         }
                         onChange={e => {
+                          const newText = e.nativeEvent.text.replace(/[^\d]+/, '');
                           setData(
                             'floorCount',
-                            e.nativeEvent.text,
+                            newText,
                             'houseLayout',
                           );
                         }}
@@ -505,7 +506,8 @@ function RecordHouse(props) {
                             : houseLayout.floor
                         }
                         onChange={e => {
-                          setData('floor', e.nativeEvent.text, 'houseLayout');
+                          const newText = e.nativeEvent.text.replace(/[^\d]+/, '');
+                          setData('floor', newText, 'houseLayout');
                         }}
                         style={[styles.defaultSize, styles.textAlignC]}
                       />
@@ -540,7 +542,8 @@ function RecordHouse(props) {
                           : houseLayout.roomCount
                       }
                       onChange={e => {
-                        setData('roomCount', e.nativeEvent.text, 'houseLayout');
+                        const newText = e.nativeEvent.text.replace(/[^\d]+/, '');
+                        setData('roomCount', newText, 'houseLayout');
                       }}
                       style={[
                         styles.defaultSize,
@@ -559,7 +562,8 @@ function RecordHouse(props) {
                           : houseLayout.hallCount
                       }
                       onChange={e => {
-                        setData('hallCount', e.nativeEvent.text, 'houseLayout');
+                        const newText = e.nativeEvent.text.replace(/[^\d]+/, '');
+                        setData('hallCount', newText, 'houseLayout');
                       }}
                       style={[styles.defaultSize, styles.textAlignR]}
                     />
@@ -574,7 +578,8 @@ function RecordHouse(props) {
                           : houseLayout.toiletCount
                       }
                       onChange={e => {
-                        setData('toiletCount', e.nativeEvent.text, 'houseLayout');
+                        const newText = e.nativeEvent.text.replace(/[^\d]+/, '');
+                        setData('toiletCount', newText, 'houseLayout');
                       }}
                       style={[styles.defaultSize, styles.textAlignR]}
                     />

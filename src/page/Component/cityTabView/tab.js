@@ -8,7 +8,6 @@ export default function CityTab(props) {
     props.changeSelectId(i);
   };
   const renderItem = ({item, index}) => {
-    console.log('tab', item);
     return (
         <TouchableOpacity
           style={tabStyles.tabJoke}
@@ -27,30 +26,6 @@ export default function CityTab(props) {
       );
   }
   return (
-      // <View style={[tabStyles.container]}>
-      //   {props.options &&
-      //     props.options.map((tab, i) => {
-      //       if (!tab) {
-      //         return;
-      //       }
-      //       return (
-      //         <TouchableOpacity
-      //           style={tabStyles.tabJoke}
-      //           activeOpacity={0.9}
-      //           key={tab.id}
-      //           onPress={() => tabOnPress(i)}
-      //           removeClippedSubviews={false}>
-      //           <Text
-      //             style={[
-      //               tabStyles.text,
-      //               props.selectIndex === i && { color: '#e4393c' },
-      //             ]}>
-      //             {tab.name}
-      //           </Text>
-      //         </TouchableOpacity>
-      //       );
-      //     })}
-      // </View>
       <View style={[tabStyles.container]}>
         <FlatList
           horizontal={true}

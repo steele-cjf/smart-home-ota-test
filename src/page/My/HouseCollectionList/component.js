@@ -56,30 +56,32 @@ function HouseCollectionList(props) {
       }
     })
   }
+  const cancelCollection = (title, item) => {
+    const text = `是否${title}此收藏？`
+    Alert.alert(text, '', [
+      {
+        text: '取消',
+        onPress: () => console.log('Cancel Pressed'),
+      },
+      { text: '确定', onPress: () => changeCollection(item) },
+      {
+        cancelable: true,
+        onDismiss: () =>
+          console.log(
+            'This alert was dismissed by tapping outside of the alert dialog.',
+          ),
+      },
+    ]);
+  }
 
   const handleToDetailPage = item => {
     if (!item.houseDeleted) {
       NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, { id: item.publishInfoId });
     } else {
-      Alert.alert('确定删除？', '', [
-        {
-          text: '取消',
-          onPress: () => console.log('Cancel Pressed'),
-        },
-        { text: '确定', onPress: () => changeCollection(item) },
-        {
-          cancelable: true,
-          onDismiss: () =>
-            console.log(
-              'This alert was dismissed by tapping outside of the alert dialog.',
-            ),
-        },
-      ]);
+      cancelCollection('删除', item)
     }
   };
-  const handlerDelete = () => {
-    console.log('hah')
-  }
+
   const _houseItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -95,7 +97,7 @@ function HouseCollectionList(props) {
               ) : (null)
             }
             <AntDesign style={[styles.rightBtn]}
-              onPress={() => { changeCollection(item) }}
+              onPress={() => { cancelCollection('取消', item) }}
               name={'heart'}></AntDesign>
           </View>
           <Text style={styles.houseName} numberOfLines={1}>

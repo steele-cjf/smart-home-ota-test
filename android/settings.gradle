@@ -1,4 +1,6 @@
 include ':demo'
+include ':react-native-image-crop-picker'
+project(':react-native-image-crop-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-crop-picker/android')
 rootProject.name = 'SmartHome'
 include ':react-native-linking-settings'
 project(':react-native-linking-settings').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-linking-settings/android')
