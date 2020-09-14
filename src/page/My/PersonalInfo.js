@@ -128,6 +128,14 @@ const PersonalInfoPage = (props) => {
     Picker.show();
   }
 
+  function regionPickerAction() {
+    setModalVisible(true);
+    
+    if (Picker) {
+      Picker.hide();
+    }
+  }
+
   // useFocusEffect(
   //   useCallback(() => {
   //     handleInfo(); 
@@ -333,7 +341,7 @@ const PersonalInfoPage = (props) => {
                   <TouchableOpacity 
                     style={styles.sigContainer} 
                     onPress={() => 
-                      index === 0 ? pickerAction(otherData[item]) : setModalVisible(true)
+                      index === 0 ? pickerAction(otherData[item]) : regionPickerAction()
                     }
                   >
                     <Text style={[styles.textTitle]}>{item}</Text>
@@ -349,7 +357,11 @@ const PersonalInfoPage = (props) => {
                       onChangeText={(text) => {setSaveData(item, text);}}
                       value={otherData[item]}
                       editable={true}
-                      allowFontScaling={true} //test
+                      onFocus={() => {
+                        if (Picker) {
+                          Picker.hide();
+                        }
+                      }}
                     />
                   </View>
                 ); 
