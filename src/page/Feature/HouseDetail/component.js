@@ -415,7 +415,7 @@ function HouseDetail(props) {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text
-                    numberOfLines={1}
+                    numberOfLines={2}
                     style={[
                       styles.textAlignR,
                       styles.mainColor,
