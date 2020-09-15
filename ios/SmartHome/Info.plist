@@ -87,6 +87,8 @@
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSPhotoLibraryUsageDescription</key>

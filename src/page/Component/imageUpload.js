@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import { ActionSheet } from 'native-base'
 import { Avatar, Badge } from 'react-native-elements';
-// import ImagePicker from 'react-native-image-picker';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-crop-picker';
 const initOptions = { width: 300, height: 400, useFrontCamera: true, mediaType: 'photo', multiple: false }
 export default function ImageUpload(props) {
   const [avatarSource, setAvatarSource] = useState(null);
@@ -31,34 +31,67 @@ export default function ImageUpload(props) {
   }, [props.options]);
 
   function selectPhotoTapped() {
-    if (actionSheet !== null) {
-      actionSheet._root.showActionSheet(
-        {
-          options: ['拍照', '相册', 'cancel'],
-          cancelButtonIndex: 2,
-          title: "请选择"
-        },
-        buttonIndex => {
-          if (buttonIndex < 2) {
-            let arr = ['openCamera', 'openPicker']
-            ImagePicker[arr[buttonIndex]](options).then(image => {
-              let source = { uri: image.path };
-              setAvatarSource(source);
-              //注意，iOS 获取的图片地址要替换掉"file://",这是后面上传遇到的坑
-              let imageObj = {
-                uri:
-                  Platform.OS === 'ios'
-                    ? image.sourceURL
-                    : image.path,
-                name: image.filename || 'upload.jpg',
-                type: image.mime
-              };
-              props.setImageForm(imageObj);
-            });
-          }
-        }
-      )
-    }
+    var optionsOld = {
+      title:'请选择',
+      cancelButtonTitle:'取消',
+      takePhotoButtonTitle:'拍照',
+      chooseFromLibraryButtonTitle:'选择相册',
+      // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+      durationLimit: 10,
+      quality:0.75,
+      allowsEditing:true,
+      noData:false,
+      storageOptions: {
+          skipBackup: true,
+          path:'images'
+      }
+    };
+    ImagePicker.showImagePicker(optionsOld, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        setAvatarSource({uri: response.uri});
+        let imageObj = {
+          uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
+          name: response.fileName || 'upload.jpg',
+          type: response.type,
+        };
+        props.setImageForm(imageObj);
+      }
+    });
+    // if (actionSheet !== null) {
+    //   actionSheet._root.showActionSheet(
+    //     {
+    //       options: ['拍照', '相册', 'cancel'],
+    //       cancelButtonIndex: 2,
+    //       title: "请选择"
+    //     },
+    //     buttonIndex => {
+    //       if (buttonIndex < 2) {
+    //         let arr = ['openCamera', 'openPicker']
+    //         ImagePicker[arr[buttonIndex]](options).then(image => {
+    //           let source = { uri: image.path };
+    //           setAvatarSource(source);
+    //           //注意，iOS 获取的图片地址要替换掉"file://",这是后面上传遇到的坑
+    //           let imageObj = {
+    //             uri:
+    //               Platform.OS === 'ios'
+    //                 ? image.sourceURL
+    //                 : image.path,
+    //             name: image.filename || 'upload.jpg',
+    //             type: image.mime
+    //           };
+    //           console.log(99999, image)
+    //           props.setImageForm(imageObj);
+    //         });
+    //       }
+    //     }
+    //   )
+    // }
   }
   return (
     <TouchableOpacity

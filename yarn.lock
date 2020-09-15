@@ -5323,6 +5323,11 @@ react-native-amap3d@^2.0.2:
   resolved "https://registry.npm.taobao.org/react-native-amap3d/download/react-native-amap3d-2.0.2.tgz#aa2be7d713c4915e294fe0ad319da080354d90a8"
   integrity sha1-qivn1xPEkV4pT+CtMZ2ggDVNkKg=
 
+react-native-ble-manager@^7.3.1:
+  version "7.3.1"
+  resolved "https://registry.npm.taobao.org/react-native-ble-manager/download/react-native-ble-manager-7.3.1.tgz#f2cb982c2070cadd9650fde353a092d29ba00d97"
+  integrity sha1-8suYLCBwyt2WUP3jU6CS0pugDZc=
+
 react-native-camera@^3.33.0:
   version "3.36.0"
   resolved "https://registry.npm.taobao.org/react-native-camera/download/react-native-camera-3.36.0.tgz#573980154decba57929957733c300d028697f52c"
