@@ -328,9 +328,7 @@ function HouseDetail(props) {
             </TouchableOpacity>
             {/* 住户信息 */}
             <TouchableOpacity style={[styles.listBox, styles.paddingTop15]} onPress={() =>
-              NavigatorService.navigate(AppRoute.ADDTENANT, {
-                id: houseInfo.id
-              })
+              handlerAddTenant()
             }>
               <View style={styles.leftContent}>
                 <Text
