@@ -150,13 +150,13 @@ function FeaturePage(props) {
           />
         </View>
         <TouchableOpacity onPress={() => showList()}>
-          <View style={[styles.flex, styles.InfoBox]}>
+          <View style={[styles.InfoBox]}>
             <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
-            <Text style={{ fontSize: $screen.scaleSize(18), color: '#f9f9f9' }}>
+            <Text style={[styles.infoText, { fontSize: $screen.scaleSize(18), color: '#f9f9f9' }]}>
               {/* {selectHouse.regionFullName && selectHouse.regionFullName.replace(/\//g, '') || '暂无房源'} */}
               {selectHouse.address || '暂无房源'}
             </Text>
-            <AntDesign name="caretdown" color={'#f9f9f9'} size={14} />
+            <AntDesign style={styles.infoRightImg} name="caretdown" color={'#f9f9f9'} size={14} />
           </View>
         </TouchableOpacity>
         <ActionSheet ref={(c) => { setActionSheet(c) }} />
@@ -229,7 +229,17 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   InfoBox: {
-    marginTop: 30,
+    marginTop: 60,
+    justifyContent: 'center'
+  },
+  infoText: {
+    position: 'absolute',
+    left: 25,
+    right: 10,
+  },
+  infoRightImg: {
+    position: 'absolute',
+    right: 0,
   },
   line: {
     height: 1,

@@ -2,7 +2,9 @@ import React, {useState, useEffect, useCallback} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {View, ScrollView, KeyboardAvoidingView, Text, TextInput, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { Spinner, Content } from 'native-base'
-import ImagePicker from 'react-native-image-picker';
+//import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
+import { ActionSheet } from 'native-base'
 import Picker from 'react-native-picker';
 import Theme from '../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';  
@@ -18,6 +20,47 @@ import {modifyPersonalInfo} from '../../store/user/index';
 const PersonalInfoPage = (props) => {     
   
   function imagePickerAction() {
+
+    ActionSheet.show(
+      {
+        title: '请选择',
+        options: ['拍照', '选择相册', '取消'],
+        cancelButtonIndex: 2,
+      },
+      buttonIndex => {
+        if(buttonIndex === 0) {
+          ImagePicker.openCamera({  
+            width: 400,  
+            height: 400,  
+            cropping: true  
+          }).then(image => {  
+            console.log(image);  
+          }); 
+          
+        } else if (buttonIndex === 1) {
+          ImagePicker.openPicker({  
+            width: 400,  
+            height: 400,  
+            cropping: true,
+            multiple: false  
+          }).then(image => {   
+            setHeadImage({uri: image.path});
+
+            let imageObj = {
+              uri: Platform.OS === 'ios' ? image.path.replace('file://', '') : image.path,
+              name: image.fileName || 'upload.jpg',
+              type: image.mime,
+            };
+            setImageObj(imageObj);
+          });
+          
+        }
+      }
+    )
+
+   }
+
+  function imagePickerAction1() {
     var options = {
       title:'请选择',
       cancelButtonTitle:'取消',
@@ -83,6 +126,14 @@ const PersonalInfoPage = (props) => {
       }
     });
     Picker.show();
+  }
+
+  function regionPickerAction() {
+    setModalVisible(true);
+    
+    if (Picker) {
+      Picker.hide();
+    }
   }
 
   // useFocusEffect(
@@ -290,7 +341,7 @@ const PersonalInfoPage = (props) => {
                   <TouchableOpacity 
                     style={styles.sigContainer} 
                     onPress={() => 
-                      index === 0 ? pickerAction(otherData[item]) : setModalVisible(true)
+                      index === 0 ? pickerAction(otherData[item]) : regionPickerAction()
                     }
                   >
                     <Text style={[styles.textTitle]}>{item}</Text>
@@ -306,7 +357,11 @@ const PersonalInfoPage = (props) => {
                       onChangeText={(text) => {setSaveData(item, text);}}
                       value={otherData[item]}
                       editable={true}
-                      allowFontScaling={true} //test
+                      onFocus={() => {
+                        if (Picker) {
+                          Picker.hide();
+                        }
+                      }}
                     />
                   </View>
                 ); 
