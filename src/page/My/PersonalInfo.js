@@ -430,6 +430,9 @@ const styles = StyleSheet.create({
     top: 18,
     textAlign: 'right',
     fontSize: $screen.scaleSize(14),
+    fontFamily: 'Georgia',
+    fontStyle: 'normal', //fontStyle（'normal', 'italic'）：字体风格
+    //backgroundColor: 'red',
   },
   rightInput: {
     paddingRight: 24,
