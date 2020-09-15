@@ -132,6 +132,7 @@ export default class App extends Component {
       }
     });
   }
+  
 
   handleDiscoverPeripheral(peripheral){
     var peripherals = this.state.peripherals;
