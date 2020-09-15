@@ -101,10 +101,10 @@ function FeaturePage(props) {
       case MORE_MENU.Declare:
         RouteName = 'Declare';
         break;
-      // case MORE_MENU.ComponentTest:
-      //   RouteName = 'ComponentTest';
-      //   NavigatorService.navigate(AppRoute.COMPONENTTEST);
-      //   break;
+      case MORE_MENU.ComponentTest:
+        RouteName = 'ComponentTest';
+        NavigatorService.navigate(AppRoute.COMPONENTTEST);
+        break;
     }
   }
   function getItem(menu) {
@@ -170,8 +170,8 @@ function FeaturePage(props) {
           {getItem(MORE_MENU.Record)}
           <View style={styles.line} />
           {getItem(MORE_MENU.Declare)}
-          {/* <View style={styles.line} /> */}
-          {/* {getItem(MORE_MENU.ComponentTest)} */}
+          <View style={styles.line} />
+          {getItem(MORE_MENU.ComponentTest)}
           <View style={styles.line} />
         </View>
       </ScrollView>

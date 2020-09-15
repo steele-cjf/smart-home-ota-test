@@ -98,10 +98,10 @@ function HouseDetail(props) {
   };
   const checkImgLength = () => {
     const arr = [{ url: houseInfo.housePropertyCertificateImageUrl }, { url: houseInfo.houseHolder.certificateFileUrl }, { url: houseInfo.houseHolder.idCardFileUrl }];
-    if (imageList.length) {
-      setShowImage(true)
-      return
-    }
+    // if (imageList.length) {
+    //   setShowImage(true)
+    //   return
+    // }
     const images = []
     setLoading(true)
     let imgArr = []
@@ -561,7 +561,11 @@ function HouseDetail(props) {
         onRequestClose={() => Alert.alert("Modal has been closed.")}>
         <ImageViewer imageUrls={imageList} />
         <TouchableOpacity style={styles.closeBox} onPress={() => setShowImage(false)}>
-          <Text style={styles.closeBtn}>X</Text>
+          {/* <Text style={styles.closeBtn}>X</Text> */}
+          <AntDesign
+              name="closecircle"
+              style={{ fontSize: $screen.scaleSize(24), color: '#ED4B4B',}}
+            />
         </TouchableOpacity>
       </Modal>
     </View>
@@ -661,17 +665,12 @@ const styles = StyleSheet.create({
   },
   closeBox: {
     position: 'absolute',
-    backgroundColor: 'red',
-    borderRadius: 50,
-    width: 30,
+    width: 50,
     alignItems: 'center',
-    height: 30,
-    right: 20,
-    top: 30
+    justifyContent: 'center',
+    height: 50,
+    right: 10,
+    top: 40
   },
-  closeBtn: {
-    color: '#fff',
-    fontSize: 20
-  }
 });
 export default HouseDetail;
