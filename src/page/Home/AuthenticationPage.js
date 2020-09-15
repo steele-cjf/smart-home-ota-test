@@ -10,6 +10,7 @@ import {
   findNodeHandle,
   Platform,
 } from 'react-native';
+import { Spinner } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
 import { getVerifyToken, getVerifyResult } from '../../store/home/index';
 import Theme from '../../style/colors';
@@ -147,10 +148,11 @@ function AuthenticationPage(props) {
   //const [userInfo, setUserInfo] = useState(0);
   const [userId, setUserId] = useState('');
   const [userStatus, setUserStatus] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const AliyunVerify = useRef();
 
   return (
+    loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
     <View style={styles.container0}>
       <HeaderCommon
         options={{
@@ -158,7 +160,6 @@ function AuthenticationPage(props) {
           title: '实名认证'
         }}
       />
-      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
       <View style={styles.container} ref={AliyunVerify}>
         <View>
           <Text style={styles.tipStatus}>当前状态：</Text>
@@ -189,7 +190,6 @@ function AuthenticationPage(props) {
           <Text style={styles.btnText}>开始认证</Text>
         </TouchableOpacity>
       </View>
-      }
     </View>
   );
 }
