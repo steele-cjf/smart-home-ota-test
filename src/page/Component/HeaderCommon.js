@@ -24,7 +24,7 @@ export default function HeaderCommon(props) {
     }
     const renderRightButton = () => {
         return (
-            <TouchableOpacity transparent style={{ display: options.rightShow || 'none' }}
+            <TouchableOpacity transparent style={{ display: options.rightShow || 'none', alignItems: 'center', padding: 5 }}
                 onPress={() => PropsRightPress()}>
                 <Text style={styles.rightText}>{options.rightTitle || '--'}</Text>
             </TouchableOpacity>
@@ -33,7 +33,7 @@ export default function HeaderCommon(props) {
     return (
         <Header style={styles.container}>
             <Left style={Platform.OS == 'android' && { flex: 1 }}>
-                <TouchableOpacity style={{ flexDirection: 'row', }} onPress={() => NavigatorService.goBack()}>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', height: '100%'}} onPress={() => NavigatorService.goBack()}>
                     {/* <Icon style={styles.actionColor} name="left" /> */}
                     <AntDesign name="left" style={[styles.actionColor, Platform.OS == 'android' && styles.androidIcon]} />
                     {renderBackTitle()}
