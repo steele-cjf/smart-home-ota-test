@@ -37,6 +37,7 @@ export default function SearchHeader(props) {
 const styles = StyleSheet.create({
     container: {
         // height: 50,
+        height: 44,
         padding: 10,
         backgroundColor: '#fff'
     },
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
         color: Theme.textLink,
         fontSize: $screen.scaleSize(14),
         marginRight: 10,
-        marginTop: 3,
+        //marginTop: 3,
+        left: 3
     },
     searchIcon: {
         // position: 'absolute',
@@ -86,7 +88,8 @@ const styles = StyleSheet.create({
     backBtn: {
         color: Theme.backLink,
         fontSize: 14,
-        fontWeight: 'normal'
+        fontWeight: 'normal',
+        top: 0,
     },
     backBtnAndroid: {
         left: -10,

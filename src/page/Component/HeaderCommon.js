@@ -40,7 +40,7 @@ export default function HeaderCommon(props) {
                 </TouchableOpacity>
             </Left>
             <Body style={[styles.BodyBox, Platform.OS == 'android' && styles.androidBody]}>
-                <Text style={styles.BodyTitle}>{options.title || '--'}</Text>
+                <Text style={styles.BodyTitle} numberOfLines={1}>{options.title || '--'}</Text>
             </Body>
             <Right style={Platform.OS == 'android' && { flex: 1 }}>
                 {renderRightButton()}
@@ -56,13 +56,16 @@ const styles = StyleSheet.create({
         color: Theme.textLink,
         fontSize: $screen.scaleSize(14),
         marginRight: 10,
+        left: 3
     },
     BodyBox: {
-        alignItems: 'center'
+        alignItems: 'center',
     },
     BodyTitle: {
         color: '#282828',
-        fontSize: $screen.scaleSize(16)
+        fontSize: $screen.scaleSize(16),
+        width: 200,
+        textAlign: 'center'
     },
     backText: {
         color: Theme.textLink,

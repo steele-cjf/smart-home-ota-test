@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity, Alert, StyleSheet} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import {Spinner, Header, Button, Title, Left, Right, Icon, Body} from 'native-base';
+import {Spinner} from 'native-base';
+import HeaderCommon from '../../Component/HeaderCommon'
 import Theme from '../../../style/colors';
 import {AppRoute} from '../../../navigator/AppRoutes'; 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -184,22 +185,15 @@ export default function VertifyDetailsPage(props) {
 
   return (
     <View style={{flex: 1}}>
-      <Header style={{backgroundColor: Theme.background, borderBottomColor: '#E9E9E9', height:44,}}>
-        <Left>
-          <Button transparent onPress={goBackOrTop} >
-            <Icon name="md-chevron-back" style={{justifyContent: 'center'}}/>
-            <Text style={[styles.headerText, {marginLeft: -7}]}>返回</Text>
-          </Button>
-        </Left> 
-        <Body>
-          <Title>实名详情</Title>
-        </Body>
-        <Right>
-          <Button transparent onPress={handleModify}>
-            <Text style={[styles.headerText]}>{authOptions.btnTitle}</Text>
-          </Button>
-        </Right>
-      </Header>
+      <HeaderCommon
+        options={{
+          backTitle: '返回',
+          title: '实名详情',
+          rightShow: 'flex',
+          rightTitle: authOptions.btnTitle,
+          rightPress: handleModify
+        }}
+      />
       {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
       <ScrollView contentContainerStyle={styles.containerStyle}> 
         <View style={[styles.topViewFail, authStatus === 'audit_pending' && styles.topViewWait]}>
@@ -234,12 +228,6 @@ export default function VertifyDetailsPage(props) {
 }
 
 const styles = StyleSheet.create({  
-  headerText: {
-    color: '#527BDF', 
-    fontSize: $screen.scaleSize(16),
-    justifyContent: 'center', 
-    paddingTop: 5, 
-  },
   containerStyle: {
     paddingHorizontal: 16,
     paddingTop: 16,
