@@ -60,10 +60,10 @@ function Camera(props) {
                 type={RNCamera.Constants.Type.back}
                 autoFocusPointOfInterest={{ x: 0.5, y: 0.5 }}
                 androidCameraPermissionOptions={{
-                    title: 'Permission to use camera',
-                    message: 'We need your permission to use your camera',
-                    buttonPositive: 'Ok',
-                    buttonNegative: 'Cancel'
+                    title: '需要使用相机的权限',
+                    message: '我们需要您打开相机的权限',
+                    buttonPositive: '确定',
+                    buttonNegative: '取消'
                 }}
                 onBarCodeRead={(result) => {
                     scanCode(result)

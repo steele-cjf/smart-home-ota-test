@@ -147,7 +147,7 @@ function HomePage(props) {
       })
     }
     // console.log(99999, houseList)
-    array.push({ text: "Cancel" })
+    array.push({ text: "取消" })
     if (actionSheet !== null) {
       actionSheet._root.showActionSheet(
         {

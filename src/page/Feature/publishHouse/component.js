@@ -144,7 +144,7 @@ export default function PublishHouse(props) {
         value: item.code,
       };
     });
-    list.push({text: '取消', value: 'cancel'});
+    list.push({text: '取消', value: '取消'});
     return list;
   };
   const openSettings = (BUTTONS, CANCEL_INDEX, TYPE) => {

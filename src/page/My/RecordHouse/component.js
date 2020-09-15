@@ -108,7 +108,7 @@ function RecordHouse(props) {
         value: item.code,
       };
     });
-    list.push({ text: '取消', value: 'cancel' });
+    list.push({ text: '取消', value: '取消' });
     return list;
   };
 

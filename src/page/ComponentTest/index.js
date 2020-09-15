@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { openCamera } from '../../store/common/index'
 import { Text, Button } from 'react-native-elements';
-import { View, PermissionsAndroid, Platform, StyleSheet, Linking, NativeModules, NativeEventEmitter } from 'react-native';
+import { View, PermissionsAndroid, Platform, StyleSheet, Linking, NativeModules, NativeEventEmitter, ScrollView, FlatList, TouchableHighlight } from 'react-native';
 import { NetworkInfo } from 'react-native-network-info';
 import Geolocation from '@react-native-community/geolocation';
 // import NotifService from './NotifService';
@@ -13,27 +13,26 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 
 function ComponentTest(props) {
     const [wifi, setWifi] = useState('')
+    var [BLEList, setBLEList] = useState([])
+    var config = []
+
+    // 蓝牙处理
     useEffect(() => {
-        console.log(9999, BleManager)
         BleManager.start({ showAlert: false }).then(() => {
             console.log("Module initialized")
         })
-        BleManager.enableBluetooth()
-            .then(() => {
-                // Success code
-                console.log("2The bluetooth is already enabled or the user confirm");
-            })
-            .catch((error) => {
-                // Failure code
-                console.log("1The user refuse to enable bluetooth");
-            });
-        // bleManagerEmitter.removeListener('BleManagerDiscoverPeripheral');
-        // bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', (args) => {
-        //     console.log('*****', args)
-        // } );
+        var listener = bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', showBLElist);
+        return () => {
+            listener.remove()
+        };
     }, [])
     const NotificationInfo = () => { }
-
+    const showBLElist = (args) => {
+        if (!args.name) return
+        config[args.id] = args
+        var x = Array.from(Object.values(config))
+        setBLEList(x)
+    }
     const getWifi = async () => {
         if (Platform.OS !== 'ios') {
             await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
@@ -63,21 +62,41 @@ function ComponentTest(props) {
         }
     }
     const getBleList = () => {
-        console.log(7777)
-        BleManager.scan([], 15, false, {
-            numberOfMatches: 3,
-            matchMode: 1,
-            scanMode: 2,
-            reportDelay: 0
-          }).then((results) => {
-            console.log('Scanning...', results);
-            BleManager.getDiscoveredPeripherals([]).then((peripheralsArray) => {
-                // Success code
-                console.log(peripheralsArray);
-            });
-        })
-
+        config = {}
+        BleManager.scan([], 3, true)
     }
+    const test = (peripheral) => {
+        console.log(peripheral)
+        if (peripheral) {
+            if (peripheral.connected) {
+                BleManager.disconnect(peripheral.id);
+            } else {
+                BleManager.connect(peripheral.id).then(() => {
+                    let peripherals = this.state.peripherals;
+                    let p = peripherals.get(peripheral.id);
+                    if (p) {
+                        p.connected = true;
+                        peripherals.set(peripheral.id, p);
+                        this.setState({ peripherals });
+                    }
+                    console.log('Connected to ' + peripheral.id);
+                })
+            }
+        }
+    }
+    const renderItem = (item) => {
+        const color = item.connected ? 'green' : '#fff';
+        return (
+            <TouchableHighlight onPress={() => test(item)}>
+                <View style={[styles.row, { backgroundColor: color }]}>
+                    <Text style={{ fontSize: 12, textAlign: 'center', color: '#333333', padding: 10 }}>{item.name || ' --'}</Text>
+                    <Text style={{ fontSize: 10, textAlign: 'center', color: '#333333', padding: 2 }}>RSSI: {item.rssi}</Text>
+                    <Text style={{ fontSize: 8, textAlign: 'center', color: '#333333', padding: 2, paddingBottom: 20 }}>{item.id}</Text>
+                </View>
+            </TouchableHighlight>
+        );
+    }
+
 
     return (
         <View style={{ margin: 20, flex: 1 }}>
@@ -88,6 +107,18 @@ function ComponentTest(props) {
             <Button style={styles.mrg} title='打开设置' onPress={() => { openApp('setting') }}></Button>
             <Button style={styles.mrg} title='打开通知' onPress={() => { NotificationInfo() }}></Button>
             <Button style={styles.mrg} title='扫描蓝牙' onPress={() => { getBleList() }}></Button>
+            <ScrollView style={styles.scroll}>
+                {(BLEList.length == 0) &&
+                    <View style={{ flex: 1, margin: 20 }}>
+                        <Text style={{ textAlign: 'center' }}>No peripherals</Text>
+                    </View>
+                }
+                <FlatList
+                    data={BLEList}
+                    renderItem={({ item }) => renderItem(item)}
+                    keyExtractor={item => item.id}
+                />
+            </ScrollView>
         </View>
     );
 }
@@ -105,5 +136,19 @@ export default connect(
 const styles = StyleSheet.create({
     mrg: {
         marginBottom: 20
-    }
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#FFF',
+        width: window.width,
+        height: window.height
+    },
+    scroll: {
+        flex: 1,
+        backgroundColor: '#f0f0f0',
+        margin: 10,
+    },
+    row: {
+        margin: 10
+    },
 })
