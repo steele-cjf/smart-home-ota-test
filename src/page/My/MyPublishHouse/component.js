@@ -215,7 +215,9 @@ function MyPublishList(props) {
                 <Text style={[styles.main_color, styles.MT_5]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={styles.main_color}>{houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
+                <Text style={[styles.main_color, {width: 240, textAlign: 'right'}]} numberOfLines={1}>
+                  {houseInfo.address.split(houseInfo.regionFullName)[1]}
+                </Text>
               </View>
             </View>
             <Divider style={{ marginHorizontal: 15 }} />
