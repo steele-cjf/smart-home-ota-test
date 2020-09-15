@@ -40,7 +40,7 @@ export default function ImageUpload(props) {
       // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
       durationLimit: 10,
       quality:0.75,
-      allowsEditing:true,
+      allowsEditing:false,
       noData:false,
       storageOptions: {
           skipBackup: true,

@@ -2,8 +2,8 @@ import React, {useState, useEffect, useCallback} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {View, ScrollView, KeyboardAvoidingView, Text, TextInput, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { Spinner, Content } from 'native-base'
-//import ImagePicker from 'react-native-image-picker';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-picker';
+//import ImagePicker from 'react-native-image-crop-picker';
 import { ActionSheet } from 'native-base'
 import Picker from 'react-native-picker';
 import Theme from '../../style/colors';
@@ -19,7 +19,7 @@ import {modifyPersonalInfo} from '../../store/user/index';
 
 const PersonalInfoPage = (props) => {     
   
-  function imagePickerAction() {
+  function imagePickerAction1() {
 
     ActionSheet.show(
       {
@@ -60,7 +60,7 @@ const PersonalInfoPage = (props) => {
 
    }
 
-  function imagePickerAction1() {
+  function imagePickerAction() {
     var options = {
       title:'请选择',
       cancelButtonTitle:'取消',

@@ -12,35 +12,35 @@ import showToast from '../../util/toast';
 
 const SuggestionPage = (props) => {
 
-  // const setImageForm = (index, obj) => {
-  //   console.log('33333333333', obj);
-  //   let dataArr = Object.assign([], formImages);
-
-  //   if (obj) {
-  //     dataArr[index] = obj;
-  //     if (dataArr.length < 6) {
-  //       dataArr.push('');
-  //     }
-  //   }
-
-  //   setFormImages(dataArr);
-  // };
-
-  const setImageForm = (objs) => {
+  const setImageForm = (index, obj) => {
+    console.log('33333333333', obj);
     let dataArr = Object.assign([], formImages);
 
-    if (objs && dataArr.length && dataArr[dataArr.length-1] === '') {
-      dataArr.splice(dataArr.length-1, 1);
+    if (obj) {
+      dataArr[index] = obj;
+      if (dataArr.length < 6) {
+        dataArr.push('');
+      }
     }
 
-    let arr = dataArr.concat(objs);
-    setMaxImageFiles(6 - arr.length);
-
-    if(arr.length < 6) {
-      arr.push('');
-    }
-    setFormImages(arr);
+    setFormImages(dataArr);
   };
+
+  // const setImageForm = (objs) => {
+  //   let dataArr = Object.assign([], formImages);
+
+  //   if (objs && dataArr.length && dataArr[dataArr.length-1] === '') {
+  //     dataArr.splice(dataArr.length-1, 1);
+  //   }
+
+  //   let arr = dataArr.concat(objs);
+  //   setMaxImageFiles(6 - arr.length);
+
+  //   if(arr.length < 6) {
+  //     arr.push('');
+  //   }
+  //   setFormImages(arr);
+  // };
 
   const deleteImage = (index) => {
     let dataArr = Object.assign([], formImages);
@@ -49,7 +49,7 @@ const SuggestionPage = (props) => {
       dataArr.push('');
     }  
     dataArr.splice(index, 1);
-    setMaxImageFiles(maxImageFiles + 1);
+    //setMaxImageFiles(maxImageFiles + 1);
 
     setFormImages(dataArr);
   }
@@ -115,7 +115,7 @@ const SuggestionPage = (props) => {
   const [textLen, setTextLen] = useState(0);
   const [describeInfo, setDescribeInfo] = useState('');
   const [formImages, setFormImages] = useState(['']);
-  const [maxImageFiles, setMaxImageFiles] = useState(6);
+  //const [maxImageFiles, setMaxImageFiles] = useState(6);
   const [loading, setLoading] = useState(false);
 
   const renderImage = () => {
@@ -124,9 +124,9 @@ const SuggestionPage = (props) => {
         return (
           <View style={{width: Dimensions.get('window').width * 0.3,}}>
             <ImageUpload 
-              options={{multiple: true, maxFiles: maxImageFiles}}
-              //setImageForm={(obj) => setImageForm(index, obj)} 
-              setImageForm={(objs) => setImageForm(objs)} 
+              //options={{multiple: true, maxFiles: maxImageFiles}}
+              //setImageForm={(objs) => setImageForm(objs)} 
+              setImageForm={(obj) => setImageForm(index, obj)} 
               handlerDelete={() => deleteImage(index)} 
               imgUrl={item.uri || ''}
             />
