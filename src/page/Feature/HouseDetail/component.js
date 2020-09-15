@@ -328,9 +328,7 @@ function HouseDetail(props) {
             </TouchableOpacity>
             {/* 住户信息 */}
             <TouchableOpacity style={[styles.listBox, styles.paddingTop15]} onPress={() =>
-              NavigatorService.navigate(AppRoute.ADDTENANT, {
-                id: houseInfo.id
-              })
+              handlerAddTenant()
             }>
               <View style={styles.leftContent}>
                 <Text
@@ -415,7 +413,7 @@ function HouseDetail(props) {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text
-                    numberOfLines={1}
+                    numberOfLines={2}
                     style={[
                       styles.textAlignR,
                       styles.mainColor,
