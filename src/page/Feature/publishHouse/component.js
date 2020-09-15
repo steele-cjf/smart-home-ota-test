@@ -67,6 +67,7 @@ export default function PublishHouse(props) {
         setRooms(props.roomList.data, 'rooms');
       } else if (props.route.params.publishId) {
         console.log('edit');
+        console.log('hahha', props.roomList.data)
         setPublishId(props.route.params.publishId)
         getDetail(props.route.params.publishId);
       }

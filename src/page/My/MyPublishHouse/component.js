@@ -135,6 +135,13 @@ function MyPublishList(props) {
       },
     );
   };
+  const renderRooms = (list) => {
+    return (
+      list.map(item => {
+      return <Text>{item.name} {' '}</Text>
+      })
+    )
+  }
   const _houseItem = ({ item, index }) => {
     return (
       <View key={index} style={styles.container}>
@@ -172,7 +179,7 @@ function MyPublishList(props) {
             }}>
             <Text style={[styles.rentPrice, styles.highColor, { flex: 1 }]}>
               {mappings.publishinfo_status[item.status]} |{' '}
-              {!item.roomNames.length ? '整租' : item.roomNames[0]}
+              {!item.rooms.length ? '整租' : renderRooms(item.rooms)}
             </Text>
             <Feather
               name={'more-horizontal'}
