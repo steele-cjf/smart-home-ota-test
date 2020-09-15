@@ -61,6 +61,7 @@ function RecordHouse(props) {
 
   const getDetail = useCallback((obj, id) => {
     props.getHouseDetail(id, res => {
+      setLoading(false);
       if (!res.code) {
         if (res.data) {
           console.log('detail', res.data);
@@ -94,7 +95,7 @@ function RecordHouse(props) {
           $getImage(info.housePropertyCertificateImageUrl, async res => {
             await setHousePropertyCertificateImage([res])
             setImage(res.uri);
-            setLoading(false);
+            // setLoading(false);
           }, true)
         }
       }
@@ -108,7 +109,7 @@ function RecordHouse(props) {
         value: item.code,
       };
     });
-    list.push({ text: '取消', value: 'cancel' });
+    list.push({ text: '取消', value: '取消' });
     return list;
   };
 
@@ -655,7 +656,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   defaultSize: {
-    fontSize: $screen.scaleSize(14),
+    // fontSize: $screen.scaleSize(14),
   },
   marginLeft0: {
     marginLeft: 0,

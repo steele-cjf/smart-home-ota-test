@@ -1,8 +1,8 @@
 /**
  * @entry router app
  */
-import React, { useState, useEffect, useRef } from 'react';
-import { SafeAreaView, Text, AppState } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppNavigator } from './src/navigator/AppNavigator';
 import { AppRoute } from './src/navigator/AppRoutes';
@@ -14,7 +14,6 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default (props) => {
   // This value is used to determine the initial screen1
-  const [loading, setLoading] = useState(false);
   const navigatorRef = useRef(null)
 
   useEffect(() => {

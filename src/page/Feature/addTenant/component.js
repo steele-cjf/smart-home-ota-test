@@ -179,7 +179,7 @@ export default function AddTenant(props) {
   }
   // 房屋类型选择
   const renderRightPicker = () => {
-    let cancel = { text: '取消', value: 'cancel' },
+    let cancel = { text: '取消', value: '取消' },
       array = []
 
     houseTypeList.forEach((val) => {

@@ -30,7 +30,7 @@ function MapHouse(props) {
   })
   const [houseList, setHouseList] = useState({})
   const mapRef = useRef()
-  const [loc, setLoc] = useState({})
+  var [loc, setLoc] = useState({})
   const bottomSheetRef = React.useRef(null)
 
   useFocusEffect(useCallback(() => {
@@ -65,20 +65,31 @@ function MapHouse(props) {
       bottomSheetRef.current.snapTo(snapIndex)
     }
   }
-  const searchMarker = () => {
+  const searchMarker = (reg) => {
     let data = {}
-    if (loc && loc.region) {
-      let { latitude, longitude, latitudeDelta, longitudeDelta } = loc.region
+    let location = reg || loc
+    if (location && location.region) {
+      let { latitude, longitude, latitudeDelta, longitudeDelta } = location.region
       let bottom = latitude - latitudeDelta / 2
       let left = longitude - longitudeDelta / 2
       let right = longitude + longitudeDelta / 2
       let top = latitude + latitudeDelta / 2
-      data = { bottom, left, top, right, bottom }
+      let bottomRight = right + ',' + bottom
+      let topLeft = left + ',' + top
+      data = { bottomRight, topLeft }
+      if (params && !params.center) {
+        let center = Object.values(location.center).reverse().join(',')
+        data.center = center
+      }
     }
     let result = Object.assign({}, data, params)
+    console.log('params', result)
     props.getSearchSummaries(result, res => {
       if (!res.code && res.data) {
+        console.log('result', res.data)
         setMarker(res.data)
+      } else {
+        setMarker([])
       }
     })
   }
@@ -106,7 +117,6 @@ function MapHouse(props) {
       roomCount: arr2
     }
     const newData = Object.assign(params, houseParams)
-    // console.log('newData2', newData);
     setParams(newData)
     searchMarker()
   }
@@ -165,15 +175,13 @@ function MapHouse(props) {
       >
         <MapView style={{ flex: 1 }}
           zoomLevel={10}
-          // maxZoomLevel={10}
-          // minZoomLevel={2}
           locationEnabled
           rotateEnabled={false}
           onClick={() => mapClick()}
           showsLocationButton
           onStatusChangeComplete={(region) => {
             setLoc(region)
-            searchMarker()
+            searchMarker(region)
           }}
           center={center}
           ref={mapRef}>

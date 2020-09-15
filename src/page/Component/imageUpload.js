@@ -33,18 +33,18 @@ export default function ImageUpload(props) {
 
   function selectPhotoTapped() {
     var optionsOld = {
-      title:'请选择',
-      cancelButtonTitle:'取消',
-      takePhotoButtonTitle:'拍照',
-      chooseFromLibraryButtonTitle:'选择相册',
+      title: '请选择',
+      cancelButtonTitle: '取消',
+      takePhotoButtonTitle: '拍照',
+      chooseFromLibraryButtonTitle: '选择相册',
       // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
       durationLimit: 10,
       quality:0.75,
       allowsEditing:false,
       noData:false,
       storageOptions: {
-          skipBackup: true,
-          path:'images'
+        skipBackup: true,
+        path: 'images'
       }
     };
     ImagePicker.showImagePicker(optionsOld, (response) => {
@@ -55,7 +55,7 @@ export default function ImageUpload(props) {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        setAvatarSource({uri: response.uri});
+        setAvatarSource({ uri: response.uri });
         let imageObj = {
           uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
           name: response.fileName || 'upload.jpg',
@@ -68,7 +68,7 @@ export default function ImageUpload(props) {
     if (actionSheet !== null) {
       actionSheet._root.showActionSheet(
         {
-          options: ['拍照', '相册', 'cancel'],
+          options: ['拍照', '相册', '取消'],
           cancelButtonIndex: 2,
           title: "请选择"
         },
@@ -89,9 +89,9 @@ export default function ImageUpload(props) {
                 };
                 props.setImageForm(imageObj);
               } else {
-                console.log("111111111111",image);
+                console.log("111111111111", image);
                 let imgObjs = [];
-                image.map((itemImage, index) => { 
+                image.map((itemImage, index) => {
                   let imageObj = {
                     //uri: Platform.OS === 'ios' ? itemImage.sourceURL : itemImage.path,
                     uri: Platform.OS === 'ios' ? itemImage.path.replace('file://', '') : itemImage.path,
@@ -117,7 +117,7 @@ export default function ImageUpload(props) {
       }}>
       <ActionSheet ref={(c) => { setActionSheet(c) }} />
       <View style={[styles.avatar, styles.avatarContainer, { marginBottom: 10 }]}>
-        {avatarSource === null ? 
+        {avatarSource === null ?
           (<Text style={styles.addBtn}>+</Text>) : (
             <View>
               <Avatar style={styles.avatar} source={avatarSource} />

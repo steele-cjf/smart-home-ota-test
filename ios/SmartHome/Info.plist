@@ -75,6 +75,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSCameraUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSContactsUsageDescription</key>
@@ -86,8 +88,6 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>此 App 需要您的同意才能读取媒体资料库</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
@@ -117,6 +117,7 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>bluetooth-central</string>
 		<string>fetch</string>
 		<string>location</string>
 		<string>processing</string>
