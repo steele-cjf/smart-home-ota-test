@@ -194,10 +194,14 @@ export default function AddTenant(props) {
         <Text style={styles.dec}>{house.type === FULL_RENT ? '整租' : '合租'}</Text>)
     }
     return (
-      <Button transparent onPress={() => { showActionSheet(array, 'houseType') }}>
+      // <Button transparent onPress={() => { showActionSheet(array, 'houseType') }}>
+      //   <Text>{form.houseType === FULL_RENT ? '整租' : '合租'}</Text>
+      //   <AntDesign name="right" style={{ fontSize: $screen.scaleSize(12), color: Theme.textSecondary, paddingLeft: 10 }} />
+      // </Button>
+      <TouchableOpacity onPress={() => { showActionSheet(array, 'houseType') }} style={{flexDirection: 'row'}}> 
         <Text>{form.houseType === FULL_RENT ? '整租' : '合租'}</Text>
         <AntDesign name="right" style={{ fontSize: $screen.scaleSize(12), color: Theme.textSecondary, paddingLeft: 10 }} />
-      </Button>
+      </TouchableOpacity>
     )
   }
   // 房间渲染
@@ -271,16 +275,19 @@ export default function AddTenant(props) {
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>房屋信息</Text>
           <Item style={styles.marginLeft0} inlineLabel>
-            <Label style={[styles.labelTitle, styles.defaultSize]}>
+            <Label style={[styles.labelTitle, styles.defaultSize, {marginBottom: 20}]}>
               房屋地址
             </Label>
-            <Input
+            {/* <Input
               value={house.address || '--'}
               disabled={true}
               style={[styles.defaultSize, styles.textAlignR, {flex: 4,}]}
-            />
+            /> */}
+            <Text style={[styles.defaultSize, styles.textAlignR, {flex: 4, marginBottom: 20, color: '#7C7C7C',}]} numberOfLines={2}>
+              {house.address || '--'}
+            </Text>
           </Item>
-          <Item style={[styles.marginLeft0, { paddingVertical: 14, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>
+          <Item style={[styles.marginLeft0, { paddingVertical: 16, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>
             <Label style={[styles.labelTitle, styles.defaultSize]}>
               房屋类型
             </Label>
@@ -390,11 +397,11 @@ const styles = StyleSheet.create({
   dec: {
     color: '#7C7C7C'
   },
-  scanText: {
-    color: '#527BDF',
-    fontSize: $screen.scaleSize(14),
-    marginTop: 16
-  },
+  // scanText: {
+  //   color: '#527BDF',
+  //   fontSize: $screen.scaleSize(14),
+  //   marginTop: 16
+  // },
   submit: {
     paddingHorizontal: 10,
     height: 60
@@ -407,7 +414,7 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   scanText: {
-    color: '#7C7C7C',
+    color: '#527BDF',  // '#7C7C7C',
     fontSize: $screen.scaleSize(12),
     textDecorationLine: 'underline'
   },
@@ -419,9 +426,9 @@ const styles = StyleSheet.create({
   roomListBox: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    borderTopColor: '#E9E9E9',
     backgroundColor: '#fff',
-    borderTopWidth: 1,
+    //borderTopColor: '#E9E9E9',
+    //borderTopWidth: 1,
     paddingTop: 16
   },
   activeColor: {
