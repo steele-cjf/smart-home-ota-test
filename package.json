@@ -31,6 +31,7 @@
     "react-native-amap3d": "^2.0.2",
     "react-native-ble-manager": "^7.3.1",
     "react-native-camera": "^3.33.0",
+    "react-native-custom-actionsheet": "^0.1.1",
     "react-native-elements": "^2.0.4",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-crop-picker": "^0.34.1",
