@@ -667,12 +667,12 @@ const styles = StyleSheet.create({
   },
   closeBox: {
     position: 'absolute',
-    width: 50,
+    width: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 50,
+    height: 60,
     right: 10,
-    top: 40
+    top: 20
   },
 });
 export default HouseDetail;
