@@ -132,13 +132,14 @@ function MyPage(props) {
               </View>
               <View style={{
                 position: 'absolute', right: 24,
-                display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'
-              }}  >
+                //display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex' 
+              }}>
                 <TouchableWithoutFeedback onPress={(e) => {
                   console.log(888, e)
                   NavigatorService.navigate(AppRoute.MYQRCODE)
                 }}>
-                  <Image style={{ width: 34, height: 34, }} source={scan} />
+                  <Image style={{ width: 34, height: 34, display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'}} 
+                  source={scan} />
                 </TouchableWithoutFeedback>
               </View>
             </View>

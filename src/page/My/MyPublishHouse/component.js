@@ -220,7 +220,7 @@ function MyPublishList(props) {
                 </Text>
               </View>
             </View>
-            <Divider style={{ marginHorizontal: 15 }} />
+            <Divider style={{ marginHorizontal: 15, backgroundColor: '#E9E9E9' }} />
             {renderContent()}
           </View>
         )}
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     borderBottomWidth: 0.5,
-    borderColor: 'darkgray',
+    borderBottomColor: '#E9E9E9',
     marginLeft: 16,
     marginRight: 16,
     paddingVertical: 15,
