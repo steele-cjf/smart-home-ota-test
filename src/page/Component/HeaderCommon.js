@@ -35,7 +35,8 @@ export default function HeaderCommon(props) {
             <Left style={Platform.OS == 'android' && { flex: 1 }}>
                 <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', height: '100%'}} onPress={() => NavigatorService.goBack()}>
                     {/* <Icon style={styles.actionColor} name="left" /> */}
-                    <AntDesign name="left" style={[styles.actionColor, Platform.OS == 'android' && styles.androidIcon]} />
+                    {/* <AntDesign name="left" style={[styles.actionColor, Platform.OS == 'android' && styles.androidIcon]} /> */}
+                    <AntDesign name="left" style={[styles.actionColor]} />
                     {renderBackTitle()}
                 </TouchableOpacity>
             </Left>

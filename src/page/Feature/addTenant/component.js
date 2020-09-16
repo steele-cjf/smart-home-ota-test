@@ -209,13 +209,17 @@ export default function AddTenant(props) {
     if (roomList && roomList.length) {
       let result = roomList.map((item) => {
         let active = form.roomIds && form.roomIds.indexOf(item.id) > -1 && styles.activeColor
-        return (<Button
-          style={[styles.roomList, active]}
-          onPress={() => selectRoom(item.id)}
-          key={item.id}
-          bordered
-          disabled={item.tenantCount > 0 ? true : null}
-        ><Text style={[styles.btnColor, active]}>{item.name}{(item.tenantCount > 0 ? '(已租)' : '')}</Text></Button>)
+        return (
+          <Button
+            style={[styles.roomList, active, item.tenantCount > 0 && {backgroundColor: '#EEEEEE'}]}
+            onPress={() => selectRoom(item.id)}
+            key={item.id}
+            bordered
+            disabled={item.tenantCount > 0 ? true : null}
+          >
+            {/* <Text style={[styles.btnColor, active]}>{item.name}{(item.tenantCount > 0 ? '(已租)' : '')}</Text> */}
+            <Text style={[styles.btnColor, active, item.tenantCount > 0 && {color: '#7C7C7C'}]}>{item.name}</Text>
+          </Button>)
       })
       return (<View style={styles.roomListBox}>{result}</View>)
     } else {
@@ -436,14 +440,15 @@ const styles = StyleSheet.create({
     borderColor: '#527BDF'
   },
   btnColor: {
-    color: '#C7C7C7'
+    color: '#282828', //'#C7C7C7'
+    marginHorizontal: 10,
   },
   roomList: {
     paddingHorizontal: 16,
     height: 34,
     marginBottom: 15,
     borderColor: '#C7C7C7',
-    marginRight: 10
+    marginRight: 16
   },
   defaultSize: {
     fontSize: $screen.scaleSize(14),
