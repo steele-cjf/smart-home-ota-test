@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { View, StyleSheet, ScrollView, Image, Platform } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckBox } from 'react-native-elements';
-import { Form, Item, Input, Label, Text, Button, Root, ActionSheet, Body, Spinner } from 'native-base';
+import { Form, Item, Input, Label, Text, Button, Root, Body, Spinner } from 'native-base';
 import storage from '../../../util/storage';
 import Theme from '../../../style/colors';
 import ImageUpload from '../../Component/imageUpload';
@@ -12,6 +12,7 @@ import RegionPicker from '../../Component/citySelect';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import showToast from '../../../util/toast';
 import HeaderCommon from '../../Component/HeaderCommon'
+import ActionSheet from 'react-native-custom-actionsheet'
 
 function RecordHouse(props) {
   const [loading, setLoading] = useState();
@@ -21,12 +22,18 @@ function RecordHouse(props) {
   const [houseDirectionList, setHouseDirection] = useState([]);
   const [selectedDirectionValue, setSelectedDirectionValue] = useState('');
   const [hasElevator, setHasElevator] = useState(false);
+  const ActionSheetRef = useRef(null);
+  const [ActionSheetConfig, setActionSheetConfig] = useState({
+    options: ['cancel'],
+    TYPE: '',
+    CANCEL_INDEX: 0
+  })
 
   const [certificateImage, setCertificateImage] = useState('')
   const [idCardImage, setIdCardImage] = useState('')
   const [image, setImage] = useState('')
   const [address, setAddress] = useState('');
-  const [houseHolder, setHouseHolder] = useState({self: 'self'});
+  const [houseHolder, setHouseHolder] = useState({ self: 'self' });
   const [houseLayout, setHouseLayout] = useState({
     hasElevator: false,
   });
@@ -76,7 +83,7 @@ function RecordHouse(props) {
           setSelectedSelfValue(obj.house_holder[info.houseHolder.self]);
           setSelectedDirectionValue(obj.house_direction[info.houseLayout.direction]);
           setTabs(res.data.regions.concat(initTabs))
-          
+
           if (info.houseHolder.self === 'self') {
             info.houseHolder.holderName = ''
             info.houseHolder.holderIdCardNumber = ''
@@ -91,7 +98,7 @@ function RecordHouse(props) {
             }, true)
           }
           setHouseHolder(info.houseHolder);
-          
+
           $getImage(info.housePropertyCertificateImageUrl, async res => {
             await setHousePropertyCertificateImage([res])
             setImage(res.uri);
@@ -223,27 +230,24 @@ function RecordHouse(props) {
     }
   };
 
-  const openSettings = (BUTTONS, CANCEL_INDEX, TYPE) => {
-    ActionSheet.show(
-      {
-        options: BUTTONS,
-        cancelButtonIndex: CANCEL_INDEX,
-        // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
-        // title: i18n.t("settings")
-      },
-      buttonIndex => {
-        if (buttonIndex === CANCEL_INDEX) {
-          return;
-        }
-        handleSetValue(buttonIndex, TYPE);
-        console.log('Logout was clicked ' + BUTTONS[buttonIndex]);
-      },
-    );
+  const openSettings = (BUTTONS, cancelIndex, TYPE) => {
+
+    const options = BUTTONS.map((item) => {
+      return item.text
+    })
+    setActionSheetConfig({
+      CANCEL_INDEX:cancelIndex,
+      TYPE,
+      options
+    })
+    setTimeout(() => {
+      ActionSheetRef.current.show()
+    })
   };
   const handleSetValue = (index, type) => {
     switch (type) {
       case 'self':
-        setHouseHolder({...houseHolder, ...{ self: selfList[index].value }});
+        setHouseHolder({ ...houseHolder, ...{ self: selfList[index].value } });
         setSelectedSelfValue(selfList[index].text);
         break;
       case 'direction':
@@ -274,7 +278,7 @@ function RecordHouse(props) {
   return (
     <Root>
       {loading ? (
-        <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
+        <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
           <View style={{ flex: 1 }}>
             <HeaderCommon
@@ -409,19 +413,19 @@ function RecordHouse(props) {
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
                       }}>
-                      <View style={{alignItems: 'center', marginRight: 40}}>
+                      <View style={{ alignItems: 'center', marginRight: 40 }}>
                         <ImageUpload
                           imgUrl={certificateImage}
                           setImageForm={obj => setImageForm(0, obj, 'cert')}
                         />
-                        <Text style={{color: '#c7c7c7'}}>授权文件</Text>
+                        <Text style={{ color: '#c7c7c7' }}>授权文件</Text>
                       </View>
-                      <View style={{alignItems: 'center'}}>
+                      <View style={{ alignItems: 'center' }}>
                         <ImageUpload
                           imgUrl={idCardImage}
                           setImageForm={obj => setImageForm(0, obj, 'idCard')}
                         />
-                        <Text style={{color: '#c7c7c7'}}>房主身份证</Text>
+                        <Text style={{ color: '#c7c7c7' }}>房主身份证</Text>
                       </View>
                     </View>
                   </View>
@@ -454,7 +458,7 @@ function RecordHouse(props) {
                   <Item
                     style={[
                       styles.marginLeft0,
-                      { flexDirection: 'row', alignItems: 'center'},
+                      { flexDirection: 'row', alignItems: 'center' },
                     ]}
                     inlineLabel>
                     <Label
@@ -638,6 +642,16 @@ function RecordHouse(props) {
             />
           </View>
         )}
+
+      <ActionSheet
+        ref={ActionSheetRef}
+        options={ActionSheetConfig.options}
+        cancelButtonIndex={ActionSheetConfig.CANCEL_INDEX}
+        onPress={(index) => {
+          console.log(index, ActionSheetConfig.options[index])
+          if (index < ActionSheetConfig.CANCEL_INDEX) { handleSetValue(index, ActionSheetConfig.TYPE) }
+        }}
+      />
     </Root>
   );
 }

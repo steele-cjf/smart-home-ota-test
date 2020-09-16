@@ -5335,6 +5335,11 @@ react-native-camera@^3.33.0:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-custom-actionsheet@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npm.taobao.org/react-native-custom-actionsheet/download/react-native-custom-actionsheet-0.1.1.tgz#a89b01582c931b48e77a8008a64f971c582355d2"
+  integrity sha1-qJsBWCyTG0jneoAIpk+XHFgjVdI=
+
 react-native-drawer@2.5.1:
   version "2.5.1"
   resolved "https://registry.npm.taobao.org/react-native-drawer/download/react-native-drawer-2.5.1.tgz#08b9314184f48c724f1b467f8859797369798654"

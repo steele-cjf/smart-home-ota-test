@@ -124,7 +124,7 @@ export default function VertifyDetailsPage(props) {
 
   function alertDelete() {
     Alert.alert('确定删除', '', [
-      { text: '取消', onPress: () => console.log('Ask me later pressed')},
+      { text: '取消', onPress: () => console.log('Ask me later pressed')}, {},
       { text: '确定', onPress: () => deleteTenant() },
       {
         // cancelable and onDismiss only work on Android.

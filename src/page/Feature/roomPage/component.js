@@ -68,7 +68,7 @@ export default function RoomPage(props) {
       {
         text: '取消',
         onPress: () => console.log('Cancel Pressed'),
-      },
+      }, {},
       { text: '确定', onPress: () => handlerDelete(item) },
       {
         // cancelable and onDismiss only work on Android.

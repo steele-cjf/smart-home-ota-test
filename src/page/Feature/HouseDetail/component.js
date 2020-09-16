@@ -67,10 +67,12 @@ function HouseDetail(props) {
   const alertDeleteModal = () => {
     Alert.alert('确定删除？', '', [
       {
-        text: '取消',
-        onPress: () => console.log('Cancel Pressed'),
+        text: '取消'
+      }, {},
+      {
+        text: '确定',
+        onPress: () => handlerDelete()
       },
-      { text: '确定', onPress: () => handlerDelete() },
       {
         cancelable: true,
         onDismiss: () =>
@@ -345,8 +347,10 @@ function HouseDetail(props) {
                 <Ionicons
                   name="add"
                   style={{
+                    top: Platform.OS === 'android' && 2 || 0,
+                    right: Platform.OS === 'android' && 4 || 0,
                     fontSize: $screen.scaleSize(14),
-                    color: Theme.textLink
+                    color: Theme.textLink,
                   }}
                 />
                 <Text style={{ fontSize: $screen.scaleSize(14), color: Theme.textLink }}>
@@ -561,9 +565,9 @@ function HouseDetail(props) {
         <TouchableOpacity style={styles.closeBox} onPress={() => setShowImage(false)}>
           {/* <Text style={styles.closeBtn}>X</Text> */}
           <AntDesign
-              name="closecircle"
-              style={{ fontSize: $screen.scaleSize(24), color: '#ED4B4B',}}
-            />
+            name="closecircle"
+            style={{ fontSize: $screen.scaleSize(24), color: '#ED4B4B', }}
+          />
         </TouchableOpacity>
       </Modal>
     </View>

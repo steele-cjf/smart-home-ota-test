@@ -39,9 +39,15 @@ export default function ImageUpload(props) {
       chooseFromLibraryButtonTitle: '选择相册',
       // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
       durationLimit: 10,
-      quality:0.75,
-      allowsEditing:false,
-      noData:false,
+      quality: 0.75,
+      allowsEditing: false,
+      noData: false,
+      permissionDenied: {
+        title: '权限拒绝',
+        text: '请打开相机权限，才能从库中选择图像。',
+        reTryTitle: '确定',
+        okTitle: '重试'
+      },
       storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -51,6 +57,7 @@ export default function ImageUpload(props) {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
+        showToast('系统设置拒绝访问相册权限')
         console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);

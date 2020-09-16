@@ -13,7 +13,7 @@ export default function SearchHeader(props) {
             <Header hasSegment style={styles.container}>
                 <Left style={[{ flex: 1 }, Platform.OS == 'android' && {top: -2, left: -2}]}>
                     <Button transparent onPress={() => NavigatorService.goBack()} >
-                        <AntDesign name="left" style={styles.actionColor} />
+                        <AntDesign name="left" style={[styles.actionColor, Platform.OS == 'android' && {top: 2}]} />
                         <Text style={[styles.backBtn, Platform.OS == 'android' && styles.backBtnAndroid]}>返回</Text>
                     </Button>
                 </Left>
@@ -79,7 +79,10 @@ const styles = StyleSheet.create({
     },
     RightIcon: {
         color: '#333333',
-        fontSize: $screen.scaleSize(19)
+        fontSize: $screen.scaleSize(19),
+        width: '100%',
+        textAlign: 'center',
+        paddingVertical: 5
     },
     text: {
         color: '#282828',

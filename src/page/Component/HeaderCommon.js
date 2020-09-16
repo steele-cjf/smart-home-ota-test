@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         color: Theme.textLink,
     },
     androidIcon: {
-        top: 4,
+        top: 1,
         right: -6
     },
     androidBody: {

@@ -178,7 +178,7 @@ function MapHouse(props) {
           locationEnabled
           rotateEnabled={false}
           onClick={() => mapClick()}
-          showsLocationButton
+          // showsLocationButton
           onStatusChangeComplete={(region) => {
             setLoc(region)
             searchMarker(region)
@@ -238,13 +238,17 @@ const styles = StyleSheet.create({
   contentTitle: {
     color: '#282828',
     fontSize: $screen.scaleSize(20),
+    flexWrap: 'wrap',
+    flex: 1
   },
   contentDes: {
     color: '#7C7C7C',
     fontSize: $screen.scaleSize(12),
-    position: 'absolute',
-    right: 17,
-    top: 8
+    // position: 'absolute',
+    // right: 17,
+    paddingHorizontal: 10,
+    top: 8,
+    alignItems: 'center'
   }
 })
 export default MapHouse;

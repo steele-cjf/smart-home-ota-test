@@ -14,22 +14,56 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 function ComponentTest(props) {
     const [wifi, setWifi] = useState('')
     var [BLEList, setBLEList] = useState([])
+    var [selectBle, setSelectBle] = useState(null)
     var config = []
 
     // 蓝牙处理
     useEffect(() => {
-        BleManager.start({ showAlert: false }).then(() => {
-            console.log("Module initialized")
-        })
-        var listener = bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', showBLElist);
-        return () => {
-            listener.remove()
-        };
+        if (Platform.OS === 'android') {
+            BleManager.enableBluetooth()
+                .then(() => {
+                    // Success code
+                    console.log("The bluetooth is already enabled or the user confirm");
+                    BleManager.start({ showAlert: false }).then(() => {
+                        console.log("Module initialized")
+                    })
+                    var listener = bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', showBLElist);
+                    return () => {
+                        listener.remove()
+                    };
+                })
+                .catch((error) => {
+                    // Failure code
+                    console.log("The user refuse to enable bluetooth");
+                });
+        }
     }, [])
+    // 蓝牙连接
+    const test = (peripheral) => {
+        if (peripheral) {
+            if (peripheral.connected) {
+                BleManager.disconnect(peripheral.id);
+            } else {
+                console.log(1111111, peripheral.id)
+                BleManager.connect(peripheral.id).then(() => {
+                    let p = config[peripheral.id]
+                    if (p) {
+                        p.connected = true;
+                    }
+                    console.log(2222222, peripheral.id, config)
+                    setSelectBle(p)
+                    // console.log('Connected to ' + peripheral.id, p);
+                }).catch((err) => {
+                    console.log('err', err)
+                })
+            }
+        }
+    }
     const NotificationInfo = () => { }
     const showBLElist = (args) => {
         if (!args.name) return
         config[args.id] = args
+        console.log(8888888)
         var x = Array.from(Object.values(config))
         setBLEList(x)
     }
@@ -63,26 +97,18 @@ function ComponentTest(props) {
     }
     const getBleList = () => {
         config = {}
+        // 扫描，uuid、时间、能否重复
         BleManager.scan([], 3, true)
+        setBLEList([])
     }
-    const test = (peripheral) => {
-        console.log(peripheral)
-        if (peripheral) {
-            if (peripheral.connected) {
-                BleManager.disconnect(peripheral.id);
-            } else {
-                BleManager.connect(peripheral.id).then(() => {
-                    let peripherals = this.state.peripherals;
-                    let p = peripherals.get(peripheral.id);
-                    if (p) {
-                        p.connected = true;
-                        peripherals.set(peripheral.id, p);
-                        this.setState({ peripherals });
-                    }
-                    console.log('Connected to ' + peripheral.id);
-                })
-            }
-        }
+    const checkConnect = () => {
+        console.log(888, selectBle)
+        // BleManager.retrieveServices(selectBle.id).then(
+        //     (peripheralInfo) => {
+        //         // Success code
+        //         console.log("Peripheral info:", peripheralInfo);
+        //     }
+        // );
     }
     const renderItem = (item) => {
         const color = item.connected ? 'green' : '#fff';
@@ -107,6 +133,7 @@ function ComponentTest(props) {
             <Button style={styles.mrg} title='打开设置' onPress={() => { openApp('setting') }}></Button>
             <Button style={styles.mrg} title='打开通知' onPress={() => { NotificationInfo() }}></Button>
             <Button style={styles.mrg} title='扫描蓝牙' onPress={() => { getBleList() }}></Button>
+            <Button style={styles.mrg} title='检查连接' onPress={() => { checkConnect() }}></Button>
             <ScrollView style={styles.scroll}>
                 {(BLEList.length == 0) &&
                     <View style={{ flex: 1, margin: 20 }}>
