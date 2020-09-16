@@ -62,7 +62,7 @@ function HouseCollectionList(props) {
       {
         text: '取消',
         onPress: () => console.log('Cancel Pressed'),
-      },
+      }, {},
       { text: '确定', onPress: () => changeCollection(item) },
       {
         cancelable: true,

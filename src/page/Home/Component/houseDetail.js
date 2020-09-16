@@ -119,7 +119,7 @@ function HouseDetail(props) {
         result.unshift(
             <View style={styles.houseRatePlanModule}>
                 <Text style={styles.houseRatePlanDesc}>户型:</Text>
-                <Text style={styles.houseRatePlanText}>{options.houseLayout.roomCount}房{options.houseLayout.hallCount}厅{options.houseLayout.toiletCount}卫</Text>
+                <Text style={styles.houseRatePlanText}>{options.houseLayout.roomCount}室{options.houseLayout.hallCount}厅{options.houseLayout.toiletCount}卫</Text>
             </View>)
         return (result.length && <View style={styles.houseRatePlanBox}>{result}</View>) || null
     }
@@ -175,11 +175,12 @@ const styles = StyleSheet.create({
     },
     title: {
         color: Theme.primary,
-        fontSize: $screen.scaleSize(33)
+        fontSize: $screen.scaleSize(24),
+        paddingRight: 5
     },
     desc: {
-        fontSize: $screen.scaleSize(17),
-        top: 16,
+        fontSize: $screen.scaleSize(12),
+        top: 10,
         color: Theme.primary
     },
     flexRow: {
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
         right: 16,
         fontSize: $screen.scaleSize(20),
         color: '#666',
-        top: 10
+        // top: 10
     },
     activeBtn: {
         color: '#E7263E'
@@ -322,7 +323,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         marginLeft: 10,
         fontSize: $screen.scaleSize(12),
-        top: 15
+        // top: 15
     }
 });
 export default HouseDetail;
