@@ -110,13 +110,13 @@ function HomePage(props) {
   }, [props.myHouseList])
 
   const renderContent = () => {
-    if (recommandList && recommandList.length) {
-      return (
-        <HouseListComponent list={recommandList} />
-      )
-    } else {
-      return (<View style={{ top: 50 }}><BlankPage errorMsg='暂无房源' /></View>)
-    }
+    // if (recommandList && recommandList.length) {
+    //   return (
+    //     <HouseListComponent list={recommandList} />
+    //   )
+    // } else {
+    //   return (<View style={{ top: 50 }}><BlankPage errorMsg='暂无房源' /></View>)
+    // }
   }
   // 数据字典
   function storageDataDictionary() {

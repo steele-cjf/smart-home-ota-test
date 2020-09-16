@@ -151,7 +151,7 @@ function MyPage(props) {
           </View>
         </TouchableWithoutFeedback>
       </View>
-      <ScrollView style={styles.myContent}>
+      <ScrollView bounces={false} style={styles.myContent}>
         <View style={{ marginHorizontal: 16, paddingTop: 15 }}>
           <View
             style={{

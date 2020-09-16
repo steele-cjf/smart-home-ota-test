@@ -33,7 +33,8 @@ class DropdownMenu extends Component {
       selectIndex: selectIndex,
       rentalType: rentalType,
       houseTypeList: houseTypeList,
-      rotationAnims: props.data.map(() => new Animated.Value(0))
+      rotationAnims: props.data.map(() => new Animated.Value(0)),
+      prevData: Object.assign(this.props.data)
     };
 
     this.defaultConfig = {
@@ -79,7 +80,7 @@ class DropdownMenu extends Component {
   renderItemList(arr) {
     return (
       arr.map((title, index) =>
-        <TouchableOpacity key={index} activeOpacity={1} style={{ flex: 1, height: 40 }} onPress={this.itemOnPress.bind(this, index)} >
+        <TouchableOpacity key={index} activeOpacity={1} style={{ flex: 1, height: 40 }} onPress={this.itemOnPress.bind(this, index, title)} >
           {this.renderChcek(index, title)}
         </TouchableOpacity>)
     )
@@ -120,6 +121,18 @@ class DropdownMenu extends Component {
     const arr2 = this.getSelectedItem(this.state.houseTypeList)
     if (this.props.multipleSection) {
       this.props.multipleSection(arr1, arr2);
+    }
+
+    if (arr1.length || arr2.length) {
+      this.setState((state) => {
+        state.prevData[this.state.activityIndex].selected = true
+        return state.prevData
+      })
+    } else {
+      this.setState((state) => {
+        state.prevData[this.state.activityIndex].selected = false
+        return state.prevData
+      })
     }
     this.openOrClosePanel(this.state.activityIndex);
   }
@@ -227,7 +240,7 @@ class DropdownMenu extends Component {
     ).start();
   }
 
-  itemOnPress(index) {
+  itemOnPress(index, title) {
     if (this.state.activityIndex > -1) {
       var selectIndex = this.state.selectIndex;
       selectIndex[this.state.activityIndex] = index;
@@ -235,6 +248,11 @@ class DropdownMenu extends Component {
       this.setState({
         selectIndex: selectIndex
       });
+      this.setState((state) => {
+        state.prevData[this.state.activityIndex].value = title.label
+        state.prevData[this.state.activityIndex].selected = true
+        return state.prevData
+      })
       if (this.props.handler) {
         this.props.handler(this.state.activityIndex, index);
       }
@@ -242,7 +260,7 @@ class DropdownMenu extends Component {
     this.openOrClosePanel(this.state.activityIndex);
   }
 
-  renderDropDownArrow(index) {
+  renderDropDownArrow(index, rows) {
     var icon = this.props.arrowImg ? this.props.arrowImg : this.defaultConfig.arrowImg;
     return (
       <Animated.Image
@@ -251,7 +269,7 @@ class DropdownMenu extends Component {
           width: 6,
           height: 4,
           marginLeft: 8,
-          tintColor: (index === this.state.activityIndex) ? (this.props.activityTintColor ? this.props.activityTintColor : this.defaultConfig.activityTintColor) : (this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor),
+          tintColor: (index === this.state.activityIndex  || rows.selected === true) ? (this.props.activityTintColor ? this.props.activityTintColor : this.defaultConfig.activityTintColor) : (this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor),
           transform: [{
             rotateZ: this.state.rotationAnims[index].interpolate({
               inputRange: [0, 1],
@@ -261,6 +279,10 @@ class DropdownMenu extends Component {
         }}
       />
     );
+  }
+  
+  split(data){
+    return data.length > 5 ? data.substring(0,5) + '...' : data
   }
 
   render() {
@@ -275,7 +297,7 @@ class DropdownMenu extends Component {
           borderColor: '#E9E9E9'
         }} >
           {
-            this.props.data.map((rows, index) =>
+            this.state.prevData.map((rows, index) =>
               <TouchableOpacity
                 activeOpacity={1}
                 onPress={this.openOrClosePanel.bind(this, index)}
@@ -287,15 +309,15 @@ class DropdownMenu extends Component {
                       styles.title_style,
                       this.props.titleStyle,
                       {
-                        color: (index === this.state.activityIndex) ?
+                        color: (index === this.state.activityIndex || rows.selected === true) ?
                           (this.props.activityTintColor ? this.props.activityTintColor : this.defaultConfig.activityTintColor)
                           :
                           (this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor)
                       }
                     ]} >
-                    {rows.value}
+                    {this.split(rows.value)}
                   </Text>
-                  {this.renderDropDownArrow(index)}
+                  {this.renderDropDownArrow(index, rows)}
                 </View>
               </TouchableOpacity>)
           }

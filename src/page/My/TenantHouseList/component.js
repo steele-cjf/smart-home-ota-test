@@ -100,7 +100,7 @@ function TenantHouseList(props) {
               alignItems: 'center',
             }}>
             <Text style={[styles.rentPrice, styles.highColor, {flex: 1}]}>
-              {item.status ? '已退租' : '正在入住'}
+              {item.status ? '已退租' : '已入住'}
             </Text>
             <Feather
               name={'more-horizontal'}

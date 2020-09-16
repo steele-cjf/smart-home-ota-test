@@ -18,7 +18,7 @@ function HouseListComponent(props) {
 
   const scrollToListTop = () => {
     const listElementCur = listElement.current;
-    if (houseListData.length) {
+    if (houseListData().length) {
       listElementCur && listElementCur.scrollToIndex({ index: 0, viewOffset: 0 });
     }
   };
@@ -37,6 +37,7 @@ function HouseListComponent(props) {
   };
   const updateResultData = resultData => {
     updateLoadingState(false)
+    console.log('props', resultData);
     if (resultData && resultData.list) {
       const data = resultData.list;
       const page = {
@@ -53,14 +54,21 @@ function HouseListComponent(props) {
         setHouses(list);
       } else {
         setHouses(data);
+        scrollToListTop();
       }
     } else {
       setHouses(resultData);
+      scrollToListTop();
     }
   };
 
   const fetchHouseList = (pageNum = 1) => {
+    console.log('refresh');
+    // updateLoadingState(true);
     props.handlerHouseList(pageNum);
+    // setTimeout(() => {
+    //   updateLoadingState(false);
+    // }, 3000);
   }
   useEffect(() => {
     updateLoadingState(true);
@@ -101,10 +109,9 @@ function HouseListComponent(props) {
   };
   // 渲染列表脚部的三种状态：空、加载中、无更多、上拉加载
   const renderListFooterView = () => {
-    if (!houseListData.length) {
+    if (!houseListData().length) {
       return null;
     }
-
     if (isLoading) {
       return (
         <View style={[styles.centerContainer, styles.loadMoreViewContainer]}>
@@ -112,16 +119,13 @@ function HouseListComponent(props) {
         </View>
       );
     }
-
     if (isNoMoreData()) {
-      console.log('到底了');
       return (
         <View style={[styles.centerContainer, styles.loadMoreViewContainer]}>
           <Text style={styles.smallTitle}>已经到底了</Text>
         </View>
       );
     }
-
     return (
       <View style={[styles.centerContainer, styles.loadMoreViewContainer]}>
         <Text style={[styles.smallTitle, { marginLeft: 20 }]}>
@@ -143,11 +147,11 @@ function HouseListComponent(props) {
         // 列表为空时渲染
         ListEmptyComponent={renderListEmptyView()}
         // 加载更多时渲染
-        ListFooterComponent={renderListFooterView}
+        ListFooterComponent={renderListFooterView()}
         // 当前列表 loading 状态
-        refreshing={isLoading}
+        // refreshing={isLoading}
         // 刷新
-        onRefresh={fetchHouseList}
+        // onRefresh={fetchHouseList}
         // 加载更多安全距离（相对于屏幕高度的比例）
         onEndReachedThreshold={IS_IOS ? 0.05 : 0.2}
         // 加载更多

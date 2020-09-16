@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Platform, Alert } from 'react-native';
 import { MapView } from "react-native-amap3d";
 import BottomSheet from 'reanimated-bottom-sheet'
 import Geolocation from '@react-native-community/geolocation';
@@ -24,6 +24,7 @@ function MapHouse(props) {
   const [selectItem, setSelectItem] = useState()
   const [markers, setMarker] = useState([])
   const [params, setParams] = useState({})
+  const [positioningIsOn, setPositioningIsOn] = useState(true)
   const [center, setCenter] = useState({
     latitude: 39.904989,
     longitude: 116.40
@@ -43,11 +44,13 @@ function MapHouse(props) {
     Geolocation.getCurrentPosition(
       position => {
         console.log('position: ' + JSON.stringify(position))
+        setPositioningIsOn(true)
         if (position.coords) {
           setCenter(position.coords);
         }
       },
       error => {
+        setPositioningIsOn(false)
       }
     )
   }, [props.route])
@@ -102,6 +105,21 @@ function MapHouse(props) {
       return
     }
     if (sec === 0) {
+      if (!positioningIsOn && row) {
+        Alert.alert('需要开启定位才能看到附近的房源', '', [
+          { text: '取消', onPress: () => console.log('Ask me later pressed')},
+          { text: '确定', onPress: () => console.log('Ask me later pressed') },
+          {
+            // cancelable and onDismiss only work on Android.
+            cancelable: true,
+            onDismiss: () =>
+              console.log(
+                'This alert was dismissed by tapping outside of the alert dialog.'
+              )
+          }
+        ]);
+        return
+      }
       const arr = [center.longitude, center.latitude];
       const lip = Object.assign(params, { center: arr.join(',') })
       setParams(lip)

@@ -349,7 +349,7 @@ export default function PublishHouse(props) {
       {loading ? (
         <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
-      <ScrollView>
+      <ScrollView bounces={false}>
         <View style={styles.container}>
           {/* 发布房间 */}
           <Text style={[styles.publishTitle, styles.specialPadding]}>

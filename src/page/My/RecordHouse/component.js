@@ -287,7 +287,7 @@ function RecordHouse(props) {
                 title: houseId && '修改房源' || '添加房源'
               }}
             />
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView bounces={false} style={{ flex: 1 }}>
               <View style={styles.container}>
                 <Text style={[styles.publishTitle, styles.specialPadding]}>
                   房源资料
@@ -542,7 +542,7 @@ function RecordHouse(props) {
                     <Input
                       keyboardType="numeric"
                       value={
-                        houseLayout.roomCount
+                        houseLayout.roomCount || houseLayout.roomCount == 0
                           ? '' + houseLayout.roomCount
                           : houseLayout.roomCount
                       }
@@ -562,7 +562,7 @@ function RecordHouse(props) {
                     <Input
                       keyboardType="numeric"
                       value={
-                        houseLayout.hallCount
+                        houseLayout.hallCount || houseLayout.hallCount == 0
                           ? '' + houseLayout.hallCount
                           : houseLayout.hallCount
                       }
@@ -578,7 +578,7 @@ function RecordHouse(props) {
                     <Input
                       keyboardType="numeric"
                       value={
-                        houseLayout.toiletCount
+                        houseLayout.toiletCount || houseLayout.toiletCount == 0
                           ? '' + houseLayout.toiletCount
                           : houseLayout.toiletCount
                       }
@@ -670,7 +670,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   defaultSize: {
-    // fontSize: $screen.scaleSize(14),
+    fontSize: $screen.scaleSize(14),
   },
   marginLeft0: {
     marginLeft: 0,

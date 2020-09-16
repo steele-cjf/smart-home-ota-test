@@ -86,31 +86,24 @@ export default function RoomPage(props) {
   const addRoom = () => {
     setSelectItem({});
     setIsDialogVisible(true);
+    console.log('selectItem', selectItem.name)
   };
   const addRoomFunc = data => {
-    // setLoading(true);
     props.addRoom(data, res => {
-      console.log(res);
       if (!res.code) {
-        // setLoading(false);
         setIsDialogVisible(false);
         fetchRoomList();
       } else {
-        // setLoading(false);
         showToast(res.message);
       }
     });
   };
   const editRoomFunc = (id, name) => {
-    // setLoading(true);
     props.updateRoomName(id, name, res => {
-      console.log(res);
       if (!res.code) {
-        // setLoading(false);
         setIsDialogVisible(false);
         fetchRoomList();
       } else {
-        // setLoading(false);
         showToast(res.message);
       }
     });

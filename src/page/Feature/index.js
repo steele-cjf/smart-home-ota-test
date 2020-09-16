@@ -176,7 +176,7 @@ function FeaturePage(props) {
         </TouchableOpacity>
         <ActionSheet ref={(c) => { setActionSheet(c) }} />
       </View>
-      <ScrollView style={styles.myContent}>
+      <ScrollView style={styles.myContent} bounces={false}>
         <View style={{ marginHorizontal: 16, paddingTop: 15 }}>
           {getItem(MORE_MENU.HouseDetail)}
           <View style={styles.line} />

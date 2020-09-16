@@ -43,7 +43,7 @@ function PublicHouseDetail(props) {
           title: '房源信息',
         }}
       />
-      <ScrollView>
+      <ScrollView bounces={false}>
         <View style={{ height: 250, backgroundColor: '#E1E5EB' }} >
           {loading ? <Spinner></Spinner> : <Swiper items={img} showPage />}
         </View>

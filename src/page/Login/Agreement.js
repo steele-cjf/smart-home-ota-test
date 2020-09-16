@@ -50,7 +50,7 @@ export default AgreementPage = (props) => {
         title: '房屋租赁服务协议'
         }}
       />
-    <ScrollView style={styles.container}>
+    <ScrollView bounces={false} style={styles.container}>
       <Text style={styles.tipText}>
         {sp+a+b+c+d}
       </Text>

@@ -195,7 +195,7 @@ export default function VertifyDetailsPage(props) {
         }}
       />
       {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
-      <ScrollView contentContainerStyle={styles.containerStyle}> 
+      <ScrollView bounces={false} contentContainerStyle={styles.containerStyle}> 
         <View style={[styles.topViewFail, authStatus === 'audit_pending' && styles.topViewWait]}>
           <Text style={styles.topTextStyle1}>{authOptions.title}</Text>
           <Text style={styles.topTextStyle2}>{authOptions.reasonDesc}</Text>

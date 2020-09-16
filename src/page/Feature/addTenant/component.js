@@ -247,7 +247,7 @@ export default function AddTenant(props) {
         {
           options: BUTTONS,
           cancelButtonIndex: CANCEL_INDEX,
-          title: "请选择证件类型"
+          title: "请选择房屋类型"
         },
         buttonIndex => {
           if (buttonIndex !== CANCEL_INDEX) {

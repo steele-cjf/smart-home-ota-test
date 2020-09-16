@@ -378,7 +378,7 @@ function HouseDetail(props) {
       {loading ? (
         <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
-          <ScrollView>
+          <ScrollView bounces={false}>
             <HeaderCommon
               options={{
                 backTitle: '返回',

@@ -22,12 +22,13 @@ function DialogInput (props) {
   const [submitText] = useState('保存')
 
   useEffect(() => {
+    console.log('jjjj', props.initValueTextInput)
     if (props.initValueTextInput) {
       setValue(props.initValueTextInput)
     } else {
       setValue('')
     }
-  }, [props.initValueTextInput]);
+  }, [props.isDialogVisible]);
 
   handleOnCloseDialog = () => {
     props.closeDialog();

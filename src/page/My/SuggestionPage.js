@@ -145,7 +145,7 @@ const SuggestionPage = (props) => {
         }}
       />
       {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
-      <ScrollView contentContainerStyle={styles.containerStyle}>
+      <ScrollView bounces={false} contentContainerStyle={styles.containerStyle}>
         <Text style={styles.textTitle}>反馈详情</Text>
         <Text style={styles.textTitle2}>反馈描述</Text>
         <Form style={styles.textareaContainer}>

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import HouseListComponent from '../../Component/housingList/list';
 import SearchHeader from '../Component/searchHeader'
@@ -9,7 +9,7 @@ import DropdownMenu from '../../Component/housingList/filter';
 import BlankPage from '../../Component/BlankPage';
 
 function HouseList(props) {
-  const data = [{ type: 'text', value: '位置', key: 'location' }, { type: 'text', value: '方式/户型', key: 'houseType' }, { type: 'text', value: '租金', key: 'rent' }, { type: 'icon', value: '排序', key: 'filter' }];
+  const data = [{ type: 'text', value: '位置', key: 'location', selected: false }, { type: 'text', value: '方式/户型', key: 'houseType', selected: false }, { type: 'text', value: '租金', key: 'rent', selected: false }, { type: 'icon', value: '排序', key: 'filter', selected: false }];
   const filterParamsList = [
     [{ distance: null }, { distance: '1' }, { distance: '2' }, { distance: '3' }],
     [],
@@ -19,6 +19,7 @@ function HouseList(props) {
   const [houseList, setHouseList] = useState([])
   const [params, setParams] = useState({})
   const [center, setCenter] = useState('');
+  const [positioningIsOn, setPositioningIsOn] = useState(true)
   const [loading, setLoading] = useState(false)
 
   useFocusEffect(useCallback(() => {
@@ -35,12 +36,14 @@ function HouseList(props) {
     Geolocation.getCurrentPosition(
       position => {
         console.log('position: ' + JSON.stringify(position))
+        setPositioningIsOn(true)
         if (position.coords) {
           const arr = [position.coords.longitude, position.coords.latitude];
           setCenter(arr.join(','))
         }
       },
       error => {
+        setPositioningIsOn(false)
       }
     )
   }
@@ -68,6 +71,21 @@ function HouseList(props) {
       return
     }
     if (sec === 0) {
+      if (!positioningIsOn && row) {
+        Alert.alert('需要开启定位才能看到附近的房源', '', [
+          { text: '取消', onPress: () => console.log('Ask me later pressed')},
+          { text: '确定', onPress: () => console.log('Ask me later pressed') },
+          {
+            // cancelable and onDismiss only work on Android.
+            cancelable: true,
+            onDismiss: () =>
+              console.log(
+                'This alert was dismissed by tapping outside of the alert dialog.'
+              )
+          }
+        ]);
+        return
+      }
       const lip = Object.assign(params, { center: center })
       setParams(lip)
     }

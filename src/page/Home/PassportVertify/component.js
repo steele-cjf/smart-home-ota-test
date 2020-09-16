@@ -166,7 +166,7 @@ export default function PassportVertifyPage(props) {
                 }}
             />
             <Content>
-                <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <ScrollView bounces={false} contentContainerStyle={styles.scrollContainer}>
                     <Text style={styles.textTitle}>基本资料</Text>
                     <Form 
                         config={vertifyCn} 
