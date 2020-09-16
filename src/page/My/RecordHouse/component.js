@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, Platform } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckBox } from 'react-native-elements';
 import { Form, Item, Input, Label, Text, Button, Root, Body, Spinner } from 'native-base';
@@ -24,7 +24,7 @@ function RecordHouse(props) {
   const [hasElevator, setHasElevator] = useState(false);
   const ActionSheetRef = useRef(null);
   const [ActionSheetConfig, setActionSheetConfig] = useState({
-    options: [],
+    options: ['cancel'],
     TYPE: '',
     CANCEL_INDEX: 0
   })
@@ -233,9 +233,7 @@ function RecordHouse(props) {
   const openSettings = (BUTTONS, cancelIndex, TYPE) => {
 
     const options = BUTTONS.map((item) => {
-      return (
-        <Text>{item.text}</Text>
-      )
+      return item.text
     })
     setActionSheetConfig({
       CANCEL_INDEX:cancelIndex,
