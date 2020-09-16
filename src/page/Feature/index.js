@@ -58,12 +58,28 @@ function FeaturePage(props) {
   }, [props.myHouseList])
   const renderSpinner = () => {
     if (!user) {
-      // let { status } = props.userInfo.data
-      return (
+      let userStatus = props.userInfo.data.status;
+      console.log('mmmmmmmmmmm', userStatus);
+      let tipTitle, btnDesc, route;
+      if (userStatus === 'not_audit') {
+        tipTitle = '您还未进行实名认证, 请尽快验证!';
+        btnDesc = '实名认证';
+        route = 'AUTHENTICATION'
+      } else if (userStatus === 'audit_pending'){
+        tipTitle = '您的实名信息审核中, 请耐心等待!';
+        btnDesc = '查看进度';
+        route = 'VERDETAILS'
+      } else if (userStatus === 'audit_reject') {
+        tipTitle = '您的实名信息未通过, 请重新提交!';
+        btnDesc = '重新提交';
+        route = 'VERDETAILS'
+      } 
+ 
+      return ( 
         <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          <Text>您还未进行实名认证，请先</Text>
-          <TouchableOpacity transparent onPress={() => NavigatorService.navigate(AppRoute.AUTHENTICATION)}>
-            <Text style={{ color: Theme.primary, marginTop: 10 }}>实名认证</Text>
+          <Text>{tipTitle}</Text>
+          <TouchableOpacity onPress={() => NavigatorService.navigate(AppRoute[route])}>
+            <Text style={{ color: Theme.primary, marginTop: 10 }}>{btnDesc}</Text>
           </TouchableOpacity>
         </View>
       )
