@@ -3,8 +3,8 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, TouchableWithoutFeedback } from 'react-native';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Thumbnail, Button } from 'native-base';
 import { useFocusEffect } from '@react-navigation/native';
 import ViewUtil from '../../util/ViewUtil';
@@ -125,23 +125,19 @@ function MyPage(props) {
                 <Text style={{ fontSize: 20, color: '#fff' }}>
                   {userInfo && (userInfo.name || userInfo.mobile)}
                 </Text>
-                <TouchableWithoutFeedback style={[styles.statusBox, { backgroundColor: statusColor[userInfo && userInfo.status], },]}
-                  onPress={goVertifyDetailPage}>
-                  <Text style={styles.statusText}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text>
+                <TouchableWithoutFeedback onPress={goVertifyDetailPage}>
+                  <View style={[styles.statusBox, { backgroundColor: statusColor[userInfo && userInfo.status], }]}> 
+                    <Text style={styles.statusText}>{props.dictionaryMappings.user_status[userInfo && userInfo.status]}</Text>
+                  </View>
                 </TouchableWithoutFeedback>
               </View>
-              <View style={{
-                position: 'absolute', right: 24,
-                //display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex' 
+              <TouchableWithoutFeedback onPress={(e) => {
+                console.log(888, e)
+                NavigatorService.navigate(AppRoute.MYQRCODE)
               }}>
-                <TouchableWithoutFeedback onPress={(e) => {
-                  console.log(888, e)
-                  NavigatorService.navigate(AppRoute.MYQRCODE)
-                }}>
-                  <Image style={{ width: 34, height: 34, display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'}} 
-                  source={scan} />
-                </TouchableWithoutFeedback>
-              </View>
+                {/* <View style={{position: 'absolute', right: 24, }}> */}
+                <Image style={{position: 'absolute', right: 24, width: 34, height: 34, display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'}} source={scan} />
+              </TouchableWithoutFeedback>
             </View>
             <View>
               <AntDesign

@@ -468,12 +468,14 @@ export default function PublishHouse(props) {
                   setData('rentPrice', e.nativeEvent.text, 'houseRatePlan');
                 }}
                 style={[styles.defaultSize, styles.textAlignR]}
+                placeholder={'请输入'}
+                placeholderTextColor={Theme.textMuted}
               />
               <Text style={[styles.labelTitle, styles.defaultSize]}>元 / 月</Text>
             </Item>
             <Item style={styles.marginLeft0} inlineLabel>
               <Label style={[styles.labelTitle, styles.defaultSize, {flex: 3}]}>押金</Label>
-              <View style={{flexDirection: 'row', alignItems: 'center', flex: 2}}>
+              <View style={{flexDirection: 'row', alignItems: 'center', flex: 4}}>
                 <Text style={[styles.labelTitle, styles.defaultSize]}>押</Text>
                 <Input
                   keyboardType="numeric"
@@ -482,6 +484,8 @@ export default function PublishHouse(props) {
                     setData('deposit', e.nativeEvent.text, 'houseRatePlan');
                   }}
                   style={[styles.defaultSize, styles.textAlignC]}
+                  placeholder={'请输入'}
+                  placeholderTextColor={Theme.textMuted}
                 />
                 <Text style={[styles.labelTitle, styles.defaultSize]}>月</Text>
                 <Text style={{color: '#E9E9E9'}}> | </Text>
@@ -493,6 +497,8 @@ export default function PublishHouse(props) {
                     setData('payment', e.nativeEvent.text, 'houseRatePlan');
                   }}
                   style={[styles.defaultSize, styles.textAlignC]}
+                  placeholder={'请输入'}
+                  placeholderTextColor={Theme.textMuted}
                 />
                 <Text style={[styles.labelTitle, styles.defaultSize]}>月</Text>
               </View>
@@ -509,6 +515,8 @@ export default function PublishHouse(props) {
                       setData(item.key, e.nativeEvent.text, 'houseRatePlan');
                     }}
                     style={[styles.defaultSize, styles.textAlignR]}
+                    placeholder={'非必填'}
+                    placeholderTextColor={Theme.textMuted}
                   />
                   <Text style={[styles.labelTitle, styles.defaultSize]}>
                     {item.desc}
