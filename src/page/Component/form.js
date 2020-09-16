@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, TextInput} from 'react-native';
+import {StyleSheet, View, Text, TextInput, TouchableWithoutFeedback} from 'react-native';
 //import {Input, Text} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -113,50 +113,59 @@ export default function Form(props) {
               );
             case 'DATE':
               return (
-                <View style={styles.inputContainer} key={index}>
-                  <Text style={styles.label}>{name}</Text>
-                  <AntDesign name="right" style={styles.rightArrow} />
-                  <TextInput style={styles.input}
-                    //disabled
-                    editable={false}
-                    value={obj[key]}
-                    onTouchStart={() => {
-                      showDatePicker(key);
-                    }}
-                    placeholder={placeholder}
-                    placeholderTextColor={Theme.textMuted} 
-                  />
-                  <DateTimePickerModal
-                    isVisible={isDatePickerVisible[key] || false}
-                    mode="date"
-                    headerTextIOS={'选择日期'}
-                    cancelTextIOS={'取消'}
-                    confirmTextIOS={'确定'}
-                    locale="zh-Hans"   //en_GB
-                    onConfirm={date => {
-                      handleConfirm(date, key);
-                    }}
-                    onCancel={() => {
-                      hideDatePicker(key);
-                    }}
-                  />
-                </View>
+                <TouchableWithoutFeedback onPress={() => { showDatePicker(key); } }>
+                  <View style={styles.inputContainer} key={index}>
+                    <Text style={styles.label}>{name}</Text>
+                    {/* <TextInput style={styles.input}
+                      editable={false}
+                      value={obj[key]}
+                      onTouchStart={() => {
+                        showDatePicker(key);
+                      }}
+                      placeholder={placeholder}
+                      placeholderTextColor={Theme.textMuted} 
+                    /> */}
+                    <Text style={[styles.input, !obj[key] && {color: Theme.textMuted}]}>
+                      {obj[key] ? obj[key] : placeholder}
+                    </Text>
+                    <AntDesign name="right" style={styles.rightArrow} />
+                    <DateTimePickerModal
+                      isVisible={isDatePickerVisible[key] || false}
+                      mode="date"
+                      headerTextIOS={'选择日期'}
+                      cancelTextIOS={'取消'}
+                      confirmTextIOS={'确定'}
+                      locale="zh-Hans"   //en_GB
+                      onConfirm={date => {
+                        handleConfirm(date, key);
+                      }}
+                      onCancel={() => {
+                        hideDatePicker(key);
+                      }}
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
               );
             case 'PICKER':
               return (
-                <View style={styles.inputContainer} key={index}>
-                  <Text style={styles.label}>{name}</Text>
-                  <AntDesign name="right" style={styles.rightArrow} />
-                  <TextInput style={styles.input}
-                    editable={false}
-                    value={obj[key]}
-                    onTouchStart={() => {
-                      pickerAction(data, obj[key]);
-                    }}
-                    placeholder={placeholder}
-                    placeholderTextColor={Theme.textMuted} 
-                  />
-                </View>
+                <TouchableWithoutFeedback onPress={() => { pickerAction(data, obj[key]); } }>
+                  <View style={styles.inputContainer} key={index}>
+                    <Text style={styles.label}>{name}</Text>
+                    {/* <TextInput style={styles.input}
+                      editable={false}
+                      value={obj[key]}
+                      onTouchStart={() => {
+                        pickerAction(data, obj[key]);
+                      }}
+                      placeholder={placeholder}
+                      placeholderTextColor={Theme.textMuted} 
+                    /> */}
+                    <Text style={[styles.input, !obj[key] && {color: Theme.textMuted}]}>
+                      {obj[key] ? obj[key] : placeholder}
+                    </Text>
+                    <AntDesign name="right" style={styles.rightArrow} />
+                  </View>
+                </TouchableWithoutFeedback>
               );
             case 'RADIO':
               obj[key] = obj[key] || initial;
@@ -234,6 +243,7 @@ const styles = StyleSheet.create({
     right: 24,
     top: 0,
     bottom: 0,
+    paddingVertical: 19,
     fontSize: $screen.scaleSize(14),
     color: Theme.textDefault,
     textAlign: 'right',
