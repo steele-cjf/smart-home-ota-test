@@ -14,14 +14,12 @@ export default function HouseItem(props) {
     <TouchableOpacity
       onPress={() => props.onPress(houseInfo)}
       style={styles.container}>
-      <View style={{ flex: 20 }}>
-        <Image
-          source={{
-            uri: houseInfo.imgUrl || 'https://reactnativeexample.com/favicon.png',
-          }}
-          style={styles.linkImage}
-        />
-      </View>
+      <Image
+        source={{
+          uri: houseInfo.imgUrl || 'https://reactnativeexample.com/favicon.png',
+        }}
+        style={styles.linkImage}
+      />
       <View style={styles.rightContainer}>
         <Text style={styles.houseName} numberOfLines={1}>
           {houseInfo.title}
@@ -38,7 +36,7 @@ export default function HouseItem(props) {
           </Text>
           <Text style={styles.houseInfo}> - {dictionary && dictionary['house_type'] && dictionary['house_type'][houseInfo.houseType]}</Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'baseline'}}>
           <Text style={[styles.rentPrice, styles.highColor]}>
             {houseInfo.rentPrice || '--'}
           </Text>
@@ -51,7 +49,7 @@ export default function HouseItem(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
     borderBottomWidth: 0.5,
     // paddingLeft: 0,
     borderColor: '#E9E9E9',
@@ -76,6 +74,8 @@ const styles = StyleSheet.create({
   rentPrice: {
     fontSize: $screen.scaleSize(20),
     marginRight: 4,
+    position: 'relative',
+    top: 1
   },
   miniSize: {
     fontSize: $screen.scaleSize(12),
@@ -84,9 +84,8 @@ const styles = StyleSheet.create({
     color: '#5C8BFF',
   },
   rightContainer: {
-    flex: 80,
-    // justifyContent: 'center',
-    // alignItems: 'flex-start',
-    paddingLeft: 26,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingLeft: 16,
   },
 });
