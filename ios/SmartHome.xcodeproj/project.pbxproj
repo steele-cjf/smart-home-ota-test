@@ -148,6 +148,7 @@
 		488E10FC24D2A7CA00B94446 /* WifiInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiInfo.m; sourceTree = "<group>"; };
 		488E110324D2CE1C00B94446 /* RealPersonAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealPersonAuth.h; sourceTree = "<group>"; };
 		488E110424D2CE1C00B94446 /* RealPersonAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealPersonAuth.m; sourceTree = "<group>"; };
+		48B8BACA2513659B00BAA4B3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		5B46644BDED04A55101DBEF3 /* Pods-SmartHome-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartHome-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-SmartHome-tvOSTests/Pods-SmartHome-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		63E0AF8B7B32ABD7C8E41F3A /* Pods-SmartHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartHome.debug.xcconfig"; path = "Target Support Files/Pods-SmartHome/Pods-SmartHome.debug.xcconfig"; sourceTree = "<group>"; };
 		653880007C4B0705D32D6235 /* libPods-SmartHome.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartHome.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -588,6 +589,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -978,6 +980,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				13B07FB21A68108700A75B9A /* Base */,
+				48B8BACA2513659B00BAA4B3 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			path = SmartHome;
