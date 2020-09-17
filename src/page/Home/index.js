@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text, StyleSheet, Animated, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Animated, Platform, TouchableOpacity, FlatList } from 'react-native';
 import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { getAllData, getDictionaryMapping } from '../../store/login/index';
 import { getRecommandList } from '../../store/map/index';
@@ -13,7 +13,8 @@ import { ActionSheet, Root, Spinner } from 'native-base'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
-import HouseListComponent from '../Component/housingList/list';
+// import HouseListComponent from '../Component/housingList/list';
+import HouseItem from '../Component/housingList/item';
 import BlankPage from '../Component/BlankPage';
 import Theme from '../../style/colors';
 import { useFocusEffect } from '@react-navigation/native';
@@ -109,14 +110,32 @@ function HomePage(props) {
     setLoadingStatus(false)
   }, [props.myHouseList])
 
+  const handleToDetailPage = item => {
+    NavigatorService.navigate(AppRoute.PUBLISHOUSEDETAIL, { id: item.id });
+  };
+
   const renderContent = () => {
-    // if (recommandList && recommandList.length) {
-    //   return (
-    //     <HouseListComponent list={recommandList} />
-    //   )
-    // } else {
-    //   return (<View style={{ top: 50 }}><BlankPage errorMsg='暂无房源' /></View>)
-    // }
+    if (recommandList && recommandList.length) {
+      return (
+        // <HouseListComponent list={recommandList} />
+        <FlatList
+          data={recommandList}
+          // 唯一 ID
+          keyExtractor={item => item.id}
+          renderItem={({ item, index }) => {
+            return (
+              <HouseItem
+                key={item.id}
+                houseInfo={item}
+                onPress={handleToDetailPage}
+              />
+            );
+          }}
+        />
+      )
+    } else {
+      return (<View style={{ top: 50 }}><BlankPage errorMsg='暂无房源' /></View>)
+    }
   }
   // 数据字典
   function storageDataDictionary() {
@@ -169,6 +188,7 @@ function HomePage(props) {
       {loading ? (<Spinner style={STYLES.spinner} color="#5C8BFF" />) :
         <View style={styles.container}>
           <Animated.ScrollView
+            bounces={false}
             style={{ flex: 1 }}
             onScroll={
               Animated.event(
