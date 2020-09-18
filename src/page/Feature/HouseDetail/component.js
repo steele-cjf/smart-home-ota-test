@@ -65,10 +65,10 @@ function HouseDetail(props) {
   };
   // 删除操作
   const alertDeleteModal = () => {
-    Alert.alert('确定删除？', '', [
+    let btnOptions = [
       {
         text: '取消'
-      }, {},
+      },
       {
         text: '确定',
         onPress: () => handlerDelete()
@@ -80,7 +80,11 @@ function HouseDetail(props) {
             'This alert was dismissed by tapping outside of the alert dialog.',
           ),
       },
-    ]);
+    ]
+    if (Platform.OS === 'android') {
+      btnOptions.splice(1, 0, {})
+    }
+    Alert.alert('确定删除？', '', btnOptions);
   };
   const handlerDelete = () => {
     props.deleteHouse({ id: props.route.params.id }, res => {

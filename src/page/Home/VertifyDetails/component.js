@@ -123,8 +123,8 @@ export default function VertifyDetailsPage(props) {
   }
 
   function alertDelete() {
-    Alert.alert('确定删除', '', [
-      { text: '取消', onPress: () => console.log('Ask me later pressed')}, {},
+    let options = [
+      { text: '取消', onPress: () => console.log('Ask me later pressed')},
       { text: '确定', onPress: () => deleteTenant() },
       {
         // cancelable and onDismiss only work on Android.
@@ -134,7 +134,11 @@ export default function VertifyDetailsPage(props) {
             'This alert was dismissed by tapping outside of the alert dialog.'
           )
       }
-    ]);
+    ]
+    if (Platform.OS === 'android') {
+      options.splice(1, 0, {})
+    }
+    Alert.alert('确定删除', '', options);
   }
 
   function deleteTenant() {

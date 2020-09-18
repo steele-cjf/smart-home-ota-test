@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, FlatList, Text, Image, Dimensions, TouchableOpacity, Alert} from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, FlatList, Text, Image, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import {
   Spinner,
 } from 'native-base';
@@ -17,7 +17,7 @@ function HouseCollectionList(props) {
   }, [init]);
 
   const init = useCallback(() => {
-    props.getHouseCollectionList({pageNum: 1, pageSize: 100}, res => {
+    props.getHouseCollectionList({ pageNum: 1, pageSize: 100 }, res => {
       console.log('collection', res.data.list);
       if (!res.code) {
         if (res.data) {
@@ -27,12 +27,12 @@ function HouseCollectionList(props) {
       }
     });
   });
-  
+
   const renderContent = () => {
     if (houseList.length) {
       return (
         <FlatList
-          style={{paddingTop: 16}}
+          style={{ paddingTop: 16 }}
           data={houseList}
           // 唯一 ID
           keyExtractor={item => item.id}
@@ -45,24 +45,24 @@ function HouseCollectionList(props) {
   }
   const changeCollection = (item) => {
     props.publishSetCollection({
-        publishInfoId: item.publishInfoId,
-        add: false
+      publishInfoId: item.publishInfoId,
+      add: false
     }, (res) => {
       if (!res.code) {
-          showToast('操作成功')
-          init()
+        showToast('操作成功')
+        init()
       } else {
-          showToast(res.message || '操作失败')
+        showToast(res.message || '操作失败')
       }
     })
   }
   const cancelCollection = (title, item) => {
     const text = `是否${title}此收藏？`
-    Alert.alert(text, '', [
+    let options = [
       {
         text: '取消',
         onPress: () => console.log('Cancel Pressed'),
-      }, {},
+      },
       { text: '确定', onPress: () => changeCollection(item) },
       {
         cancelable: true,
@@ -71,7 +71,11 @@ function HouseCollectionList(props) {
             'This alert was dismissed by tapping outside of the alert dialog.',
           ),
       },
-    ]);
+    ]
+    if (Platform.OS === 'android') {
+      options.splice(1, 0, {})
+    }
+    Alert.alert(text, '', options);
   }
 
   const handleToDetailPage = item => {
@@ -82,7 +86,7 @@ function HouseCollectionList(props) {
     }
   };
 
-  const _houseItem = ({item, index}) => {
+  const _houseItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         key={index}
@@ -90,7 +94,7 @@ function HouseCollectionList(props) {
         onPress={() => handleToDetailPage(item)}>
         <View>
           <View style={styles.img_box}>
-            <Image source={{uri: item.imgUrl || ''}} style={{width: screenWidth - 32, height: 214}}></Image>
+            <Image source={{ uri: item.imgUrl || '' }} style={{ width: screenWidth - 32, height: 214 }}></Image>
             {
               item.houseDeleted ? (
                 <Text style={styles.mask}>房源已失效</Text>
@@ -125,7 +129,7 @@ function HouseCollectionList(props) {
     );
   };
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <HeaderCommon
         options={{
           backTitle: '返回',
@@ -133,15 +137,15 @@ function HouseCollectionList(props) {
         }}
       />
       {loading ? (
-        <Spinner  style={STYLES.spinner} color="#5C8BFF" />
+        <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
-        renderContent()
-      )}
+          renderContent()
+        )}
     </View>
   );
 }
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const screenWidth = width < height ? width : height;
 
 const styles = StyleSheet.create({
