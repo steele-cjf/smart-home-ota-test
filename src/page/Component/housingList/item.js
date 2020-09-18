@@ -36,7 +36,7 @@ export default function HouseItem(props) {
           </Text>
           <Text style={styles.houseInfo}> - {dictionary && dictionary['house_type'] && dictionary['house_type'][houseInfo.houseType]}</Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'baseline'}}>
           <Text style={[styles.rentPrice, styles.highColor]}>
             {houseInfo.rentPrice || '--'}
           </Text>
@@ -74,6 +74,8 @@ const styles = StyleSheet.create({
   rentPrice: {
     fontSize: $screen.scaleSize(20),
     marginRight: 4,
+    position: 'relative',
+    top: 1
   },
   miniSize: {
     fontSize: $screen.scaleSize(12),
