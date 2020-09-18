@@ -56,7 +56,7 @@ export default (props) => {
     return (
         <Swiper
             style={styles.wrapper}
-            autoplay={false}
+            autoplay={true}
             autoplayTimeout={3}
             index={0}
             // loop={true}
