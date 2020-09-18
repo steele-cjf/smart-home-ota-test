@@ -282,7 +282,7 @@ class DropdownMenu extends Component {
   }
   
   split(data){
-    return data.length > 5 ? data.substring(0,5) + '...' : data
+    return data.length > 4 ? data.substring(0,4) + '...' : data
   }
 
   render() {
