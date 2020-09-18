@@ -106,8 +106,8 @@ function MapHouse(props) {
     }
     if (sec === 0) {
       if (!positioningIsOn && row) {
-        Alert.alert('需要开启定位才能看到附近的房源', '', [
-          { text: '取消', onPress: () => console.log('Ask me later pressed')},
+        let options = [
+          { text: '取消', onPress: () => console.log('Ask me later pressed') },
           { text: '确定', onPress: () => console.log('Ask me later pressed') },
           {
             // cancelable and onDismiss only work on Android.
@@ -117,7 +117,11 @@ function MapHouse(props) {
                 'This alert was dismissed by tapping outside of the alert dialog.'
               )
           }
-        ]);
+        ]
+        if (Platform.OS === 'android') {
+          options.splice(1, 0, {})
+        }
+        Alert.alert('需要开启定位才能看到附近的房源', '', options);
         return
       }
       const arr = [center.longitude, center.latitude];

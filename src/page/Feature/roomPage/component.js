@@ -40,11 +40,11 @@ export default function RoomPage(props) {
     if (RoomList.length) {
       return (
         <FlatList
-            showsVerticalScrollIndicator={false}
-            data={RoomList}
-            renderItem={_renderItem}
-            keyExtractor={(_, index) => index.toString()}
-          />
+          showsVerticalScrollIndicator={false}
+          data={RoomList}
+          renderItem={_renderItem}
+          keyExtractor={(_, index) => index.toString()}
+        />
       )
     } else {
       return (<BlankPage errorMsg='没有合租的房间，请先新增房间' />)
@@ -63,12 +63,12 @@ export default function RoomPage(props) {
       }
     });
   };
-  const createTwoButtonAlert = (item, index) =>
-    Alert.alert('确定删除？', '', [
+  const createTwoButtonAlert = (item, index) => {
+    var options = [
       {
         text: '取消',
         onPress: () => console.log('Cancel Pressed'),
-      }, {},
+      },
       { text: '确定', onPress: () => handlerDelete(item) },
       {
         // cancelable and onDismiss only work on Android.
@@ -78,7 +78,12 @@ export default function RoomPage(props) {
             'This alert was dismissed by tapping outside of the alert dialog.',
           ),
       },
-    ]);
+    ]
+    if (Platform.OS === 'android') {
+      options.splice(1, 0, {})
+    }
+    Alert.alert('确定删除？', '', options);
+  }
   const editRoom = item => {
     setSelectItem(item);
     setIsDialogVisible(true);
@@ -131,9 +136,9 @@ export default function RoomPage(props) {
     return (
       <View style={styles.room_item_style}>
         <View style={styles.left_content}>
-          <Text style={[styles.main_color, {fontSize: 14}]}>{item.name}</Text>
+          <Text style={[styles.main_color, { fontSize: 14 }]}>{item.name}</Text>
           {/* <Input value={item.name} /> */}
-          <Text style={[styles.status_color, { fontSize: 14}]}>
+          <Text style={[styles.status_color, { fontSize: 14 }]}>
             {item.tenantCount > 0 ? '已入住' : '未入住'}
           </Text>
         </View>
@@ -170,7 +175,7 @@ export default function RoomPage(props) {
           rightPress: () => addRoom()
         }} />
       {loading ? (
-        <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
+        <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
           <View style={styles.room_wrapper}>
             <View style={styles.house_address}>
@@ -178,10 +183,10 @@ export default function RoomPage(props) {
                 <Text style={{ color: '#7C7C7C', fontSize: 14 }}>房屋地址</Text>
               </View>
               <View style={{ alignItems: 'flex-end' }}>
-                <Text style={[styles.main_color, styles.MT_5, {fontSize: 14}]}>
+                <Text style={[styles.main_color, styles.MT_5, { fontSize: 14 }]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={[styles.main_color, {fontSize: 14, width: 240, textAlign: 'right'}]} numberOfLines={1}>
+                <Text style={[styles.main_color, { fontSize: 14, width: 240, textAlign: 'right' }]} numberOfLines={1}>
                   {houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}
                 </Text>
               </View>
@@ -192,7 +197,7 @@ export default function RoomPage(props) {
       <DialogInput
         isDialogVisible={isDialogVisible}
         title={'房间名'}
-        textInputProps={{maxLength: 20}}
+        textInputProps={{ maxLength: 20 }}
         initValueTextInput={selectItem.name}
         hintInput={'请输入房间名'}
         submitInput={inputText => {
