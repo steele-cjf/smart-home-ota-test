@@ -182,11 +182,11 @@ export default function RoomPage(props) {
               <View style={{ width: 70 }}>
                 <Text style={{ color: '#7C7C7C', fontSize: 14 }}>房屋地址</Text>
               </View>
-              <View style={{ alignItems: 'flex-end' }}>
+              <View style={{flex:1, alignItems: 'flex-end' }}>
                 <Text style={[styles.main_color, styles.MT_5, { fontSize: 14 }]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={[styles.main_color, { fontSize: 14, width: 240, textAlign: 'right' }]} numberOfLines={1}>
+                <Text style={[styles.main_color, { fontSize: 14 }]} numberOfLines={1}>
                   {houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}
                 </Text>
               </View>

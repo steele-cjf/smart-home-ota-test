@@ -211,11 +211,11 @@ function MyPublishList(props) {
               <View style={{ width: 70 }}>
                 <Text style={{ color: '#7C7C7C' }}>房屋地址</Text>
               </View>
-              <View style={{ alignItems: 'flex-end' }}>
+              <View style={{flex:1, alignItems: 'flex-end' }}>
                 <Text style={[styles.main_color, styles.MT_5]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={[styles.main_color, {width: 240, textAlign: 'right'}]} numberOfLines={1}>
+                <Text style={[styles.main_color]} numberOfLines={1}>
                   {houseInfo.address.split(houseInfo.regionFullName)[1]}
                 </Text>
               </View>

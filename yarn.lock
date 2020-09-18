@@ -5335,6 +5335,11 @@ react-native-camera@^3.33.0:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-cjk-textinput-patch@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-cjk-textinput-patch/-/react-native-cjk-textinput-patch-1.0.0.tgz#b9ff449f05bb1b6dc52cee741de91a15208747b0"
+  integrity sha512-4IrZxlgMMfXLiSOU5x7g51f4yLfcgL2qw7fXI/J5ICYexVBr5mcz7PgVekURIbTvYnj0uZrrjmnn6av3g6tKNg==
+
 react-native-custom-actionsheet@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npm.taobao.org/react-native-custom-actionsheet/download/react-native-custom-actionsheet-0.1.1.tgz#a89b01582c931b48e77a8008a64f971c582355d2"

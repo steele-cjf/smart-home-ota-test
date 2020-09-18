@@ -420,14 +420,13 @@ function HouseDetail(props) {
                   </Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text
-                    numberOfLines={2}
-                    style={[
-                      styles.textAlignR,
-                      styles.mainColor,
-                      styles.fontSize14,
-                    ]}>
-                    {houseInfo.address}
+                  <Text numberOfLines={1}
+                    style={[styles.textAlignR, styles.mainColor, styles.fontSize14]}>
+                    {houseInfo.regionFullName}
+                  </Text>
+                  <Text numberOfLines={1}
+                    style={[styles.textAlignR, styles.mainColor, styles.fontSize14]}>
+                    {houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}
                   </Text>
                 </View>
               </View>
