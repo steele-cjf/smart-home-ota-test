@@ -108,6 +108,11 @@ export default function Form(props) {
                     }}
                     placeholder={placeholder}
                     placeholderTextColor={Theme.textMuted} 
+                    onFocus={() => {
+                      if (Picker) {
+                        Picker.hide();
+                      }
+                    }}
                   />
                 </View>
               );

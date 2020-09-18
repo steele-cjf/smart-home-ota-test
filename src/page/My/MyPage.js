@@ -3,7 +3,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ImageBackground, StyleSheet, Dimensions, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Thumbnail, Button } from 'native-base';
 import { useFocusEffect } from '@react-navigation/native';
@@ -131,14 +131,13 @@ function MyPage(props) {
                   </View>
                 </TouchableWithoutFeedback>
               </View>
-              <TouchableWithoutFeedback onPress={(e) => {
-                console.log(888, e)
-                NavigatorService.navigate(AppRoute.MYQRCODE)
-              }}>
-                {/* <View style={{position: 'absolute', right: 24, }}> */}
-                <Image style={{position: 'absolute', right: 24, width: 34, height: 34, display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'}} source={scan} />
-              </TouchableWithoutFeedback>
             </View>
+            <TouchableWithoutFeedback onPress={(e) => {NavigatorService.navigate(AppRoute.MYQRCODE)}}>
+              <ImageBackground style={[{marginRight: 24, width: 34, height: 34}, 
+                {display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'}]} 
+                source={scan} 
+              />
+            </TouchableWithoutFeedback>
             <View>
               <AntDesign
                 name="right"
