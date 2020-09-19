@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity, Dimensions} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
@@ -10,7 +10,6 @@ import {
   Text,
   Button,
   Textarea,
-  ActionSheet,
   Spinner
 } from 'native-base';
 import ImageUpload from '../../Component/imageUpload';
@@ -19,6 +18,7 @@ import Theme from '../../../style/colors';
 import houseFeeList from '../config/houseFee';
 import showToast from '../../../util/toast';
 import HeaderCommon from '../../Component/HeaderCommon';
+import ActionSheet from 'react-native-custom-actionsheet'
 
 export default function PublishHouse(props) {
   const [loading, setLoading] = useState();
@@ -31,6 +31,12 @@ export default function PublishHouse(props) {
   const [rooms, setRooms] = useState([]);
   const [selectedTypeValue, setSelectedTypeValue] = useState('合租');
   const [selectedDecoratorValue, setSelectedDecoratorValue] = useState('简单装修');
+  const ActionSheetRef = useRef(null);
+  const [ActionSheetConfig, setActionSheetConfig] = useState({
+    options: ['cancel'],
+    TYPE: '',
+    CANCEL_INDEX: 0
+  })
   // 后台请求参数
   const [publishId, setPublishId] = useState('');
   const [houseId, setHouseId] = useState('');
@@ -149,21 +155,32 @@ export default function PublishHouse(props) {
     return list;
   };
   const openSettings = (BUTTONS, CANCEL_INDEX, TYPE) => {
-    ActionSheet.show(
-      {
-        options: BUTTONS,
-        cancelButtonIndex: CANCEL_INDEX,
-        // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
-        // title: i18n.t("settings")
-      },
-      buttonIndex => {
-        if (buttonIndex === CANCEL_INDEX) {
-          return;
-        }
-        handleSetValue(buttonIndex, TYPE);
-        console.log('Logout was clicked ' + BUTTONS[buttonIndex]);
-      },
-    );
+    const options = BUTTONS.map((item) => {
+      return item.text
+    })
+    setActionSheetConfig({
+      CANCEL_INDEX: CANCEL_INDEX,
+      TYPE,
+      options
+    })
+    setTimeout(() => {
+      ActionSheetRef.current.show()
+    })
+    // ActionSheet.show(
+    //   {
+    //     options: BUTTONS,
+    //     cancelButtonIndex: CANCEL_INDEX,
+    //     // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
+    //     // title: i18n.t("settings")
+    //   },
+    //   buttonIndex => {
+    //     if (buttonIndex === CANCEL_INDEX) {
+    //       return;
+    //     }
+    //     handleSetValue(buttonIndex, TYPE);
+    //     console.log('Logout was clicked ' + BUTTONS[buttonIndex]);
+    //   },
+    // );
   };
   const handleSetValue = (index, type) => {
     switch (type) {
@@ -565,6 +582,15 @@ export default function PublishHouse(props) {
         </View>
       </ScrollView>
       )}
+      <ActionSheet
+        ref={ActionSheetRef}
+        options={ActionSheetConfig.options}
+        cancelButtonIndex={ActionSheetConfig.CANCEL_INDEX}
+        onPress={(index) => {
+          console.log(index, ActionSheetConfig.options[index])
+          if (index < ActionSheetConfig.CANCEL_INDEX) { handleSetValue(index, ActionSheetConfig.TYPE) }
+        }}
+      />
     </View>
   );
 }

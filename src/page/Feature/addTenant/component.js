@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { ListItem, Image, Card } from 'react-native-elements';
-import { Button, Item, Label, Input, ActionSheet } from 'native-base';
+import { Button, Item, Label, Input } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import ActionSheet from 'react-native-custom-actionsheet'
 import HeaderCommon from '../../Component/HeaderCommon';
 
 const ID_CARD = 'id_card'
@@ -26,7 +27,12 @@ export default function AddTenant(props) {
   const [house, setHouse] = useState({})
   const [houseTypeList, setHouseTypeList] = useState([])
   const [form, setForm] = useState(data)
-  const [actionSheet, setActionSheet] = useState(null);
+  const ActionSheetRef = useRef(null);
+  const [ActionSheetConfig, setActionSheetConfig] = useState({
+    options: ['cancel'],
+    TYPE: '',
+    CANCEL_INDEX: 0
+  })
   const [type, setType] = useState('');
   const [titleName, setTitleName] = useState('住户')
 
@@ -242,22 +248,33 @@ export default function AddTenant(props) {
   // 证件类型选择
   const showActionSheet = (BUTTONS, TYPE) => {
     let CANCEL_INDEX = BUTTONS.length - 1
-    if (actionSheet !== null) {
-      actionSheet._root.showActionSheet(
-        {
-          options: BUTTONS,
-          cancelButtonIndex: CANCEL_INDEX,
-          title: "请选择房屋类型"
-        },
-        buttonIndex => {
-          if (buttonIndex !== CANCEL_INDEX) {
-            let val = BUTTONS[buttonIndex].value
-            handleSetValue(TYPE, val);
-          }
+    const options = BUTTONS.map((item) => {
+      return item.text
+    })
+    setActionSheetConfig({
+      CANCEL_INDEX: CANCEL_INDEX,
+      TYPE,
+      options
+    })
+    setTimeout(() => {
+      ActionSheetRef.current.show()
+    })
+    // if (actionSheet !== null) {
+    //   actionSheet._root.showActionSheet(
+    //     {
+    //       options: BUTTONS,
+    //       cancelButtonIndex: CANCEL_INDEX,
+    //       title: "请选择房屋类型"
+    //     },
+    //     buttonIndex => {
+    //       if (buttonIndex !== CANCEL_INDEX) {
+    //         let val = BUTTONS[buttonIndex].value
+    //         handleSetValue(TYPE, val);
+    //       }
 
-        }
-      )
-    }
+    //     }
+    //   )
+    // }
   }
   // 修改form表单
   const handleSetValue = (key, val) => {
@@ -275,7 +292,18 @@ export default function AddTenant(props) {
         }}
       />
       <View style={styles.container}>
-        <ActionSheet ref={(c) => { setActionSheet(c) }} />
+        {/* <ActionSheet ref={(c) => { setActionSheet(c) }} /> */}
+        <ActionSheet
+          ref={ActionSheetRef}
+          options={ActionSheetConfig.options}
+          cancelButtonIndex={ActionSheetConfig.CANCEL_INDEX}
+          onPress={(buttonIndex) => {
+            if (buttonIndex !== CANCEL_INDEX) {
+              let val = BUTTONS[buttonIndex].value
+              handleSetValue(TYPE, val);
+            }
+          }}
+        />
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>房屋信息</Text>
           <Item style={styles.marginLeft0} inlineLabel>

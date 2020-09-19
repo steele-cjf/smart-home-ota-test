@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {View, StyleSheet, FlatList, Text, TouchableOpacity} from 'react-native';
-import {Root, Spinner, ActionSheet} from 'native-base';
+import {Root, Spinner} from 'native-base';
+import ActionSheet from 'react-native-custom-actionsheet'
 import {AppRoute} from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
 import Feather from 'react-native-vector-icons/Feather';
@@ -11,6 +12,13 @@ import BlankPage from '../../Component/BlankPage';
 function TenantHouseList(props) {
   const [loading, setLoading] = useState(true);
   const [houseList, setHouseList] = useState([]);
+  const ActionSheetRef = useRef(null);
+  const [ActionSheetConfig, setActionSheetConfig] = useState({
+    options: ['取消'],
+    item: {},
+    CANCEL_INDEX: 0
+  })
+
   useEffect(() => {
     init();
   }, [init]);
@@ -45,27 +53,36 @@ function TenantHouseList(props) {
   }
   const openSettings = item => {
     const CANCEL_INDEX = 2;
-    const BUTTONS = ['家庭成员', '临时钥匙', '取消'];
-    ActionSheet.show(
-      {
-        options: BUTTONS,
-        cancelButtonIndex: CANCEL_INDEX,
-        // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
-        // title: i18n.t("settings")
-      },
-      buttonIndex => {
-        if (buttonIndex === CANCEL_INDEX) {
-          return;
-        }
-        if (buttonIndex === 0) {
-          props.navigation.navigate(AppRoute.TENANTLIST, {
-            houseId: item.houseId,
-            tenantId: item.tenantUserId,
-            roomNames: item.roomNames
-          });
-        }
-      },
-    );
+    const options = ['家庭成员', '临时钥匙', '取消'];
+    setActionSheetConfig({
+      CANCEL_INDEX: CANCEL_INDEX,
+      options,
+      item
+    })
+    setTimeout(() => {
+      ActionSheetRef.current.show()
+    })
+
+    // ActionSheet.show(
+    //   {
+    //     options: BUTTONS,
+    //     cancelButtonIndex: CANCEL_INDEX,
+    //     // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
+    //     // title: i18n.t("settings")
+    //   },
+    //   buttonIndex => {
+    //     if (buttonIndex === CANCEL_INDEX) {
+    //       return;
+    //     }
+    //     if (buttonIndex === 0) {
+    //       props.navigation.navigate(AppRoute.TENANTLIST, {
+    //         houseId: item.houseId,
+    //         tenantId: item.tenantUserId,
+    //         roomNames: item.roomNames
+    //       });
+    //     }
+    //   },
+    // );
   };
   const handleToDetailPage = item => {
     NavigatorService.navigate(AppRoute.HOUSEDETAIL, { id: item.houseId, role: 'tenant' });
@@ -127,6 +144,23 @@ function TenantHouseList(props) {
       ) : (
         renderContent()
       )}
+      <ActionSheet
+        ref={ActionSheetRef}
+        options={ActionSheetConfig.options}
+        cancelButtonIndex={ActionSheetConfig.CANCEL_INDEX}
+        onPress={(buttonIndex) => {
+          if (buttonIndex === ActionSheetConfig.CANCEL_INDEX) {
+            return;
+          }
+          if (buttonIndex === 0) {
+            props.navigation.navigate(AppRoute.TENANTLIST, {
+              houseId: ActionSheetConfig.item.houseId,
+              tenantId: ActionSheetConfig.item.tenantUserId,
+              roomNames: ActionSheetConfig.item.roomNames
+            });
+          }
+        }}
+      />
     </Root>
   );
 }

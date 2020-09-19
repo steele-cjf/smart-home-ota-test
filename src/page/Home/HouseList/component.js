@@ -9,7 +9,7 @@ import DropdownMenu from '../../Component/housingList/filter';
 import BlankPage from '../../Component/BlankPage';
 
 function HouseList(props) {
-  const data = [{ type: 'text', value: '位置', key: 'location', selected: false }, { type: 'text', value: '方式/户型', key: 'houseType', selected: false }, { type: 'text', value: '租金', key: 'rent', selected: false }, { type: 'icon', value: '排序', key: 'filter', selected: false }];
+  const data = [{ type: 'text', value: '位置', key: 'location', selected: false }, { type: 'text', value: '户型', key: 'houseType', selected: false }, { type: 'text', value: '租金', key: 'rent', selected: false }, { type: 'icon', value: '排序', key: 'filter', selected: false }];
   const filterParamsList = [
     [{ distance: null }, { distance: '1' }, { distance: '2' }, { distance: '3' }],
     [],

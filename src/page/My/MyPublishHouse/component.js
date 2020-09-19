@@ -1,12 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { View, StyleSheet, FlatList, Text, Image } from 'react-native';
 import {
   Root,
   Spinner,
-  ActionSheet,
 } from 'native-base';
 import { useFocusEffect } from '@react-navigation/native';
+import ActionSheet from 'react-native-custom-actionsheet'
 import { AppRoute } from '../../../navigator/AppRoutes';
 import Theme from '../../../style/colors';
 import { Divider } from 'react-native-elements';
@@ -21,6 +21,12 @@ function MyPublishList(props) {
   const [houseInfo, setHouseInfo] = useState({});
   const [houseList, setHouseList] = useState([]);
   const [mappings, setMappings] = useState({});
+  const ActionSheetRef = useRef(null);
+  const [ActionSheetConfig, setActionSheetConfig] = useState({
+    options: ['取消'],
+    item: {},
+    CANCEL_INDEX: 0
+  })
 
   useFocusEffect(
     useCallback(() => {
@@ -103,37 +109,47 @@ function MyPublishList(props) {
   };
   const openSettings = item => {
     console.log('map', mappings.publish_status);
-    let BUTTONS = [];
+    let options = [];
     const CANCEL_INDEX = 2;
     if (item.status === 'published') {
-      BUTTONS = ['下架', '编辑', '取消'];
+      options = ['下架', '编辑', '取消'];
     } else {
-      BUTTONS = ['发布', '编辑', '取消'];
+      options = ['发布', '编辑', '取消'];
     }
-    ActionSheet.show(
-      {
-        options: BUTTONS,
-        cancelButtonIndex: CANCEL_INDEX,
-        // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
-        // title: i18n.t("settings")
-      },
-      buttonIndex => {
-        if (buttonIndex === CANCEL_INDEX) {
-          return;
-        }
-        if (!buttonIndex) {
-          if (item.status === 'published') {
-            handlerOffShelf(item.id);
-          } else {
-            handlerRepublish(item.id);
-          }
-        } else {
-          NavigatorService.navigate(AppRoute.PUBLISH, {
-            publishId: item.id,
-          });
-        }
-      },
-    );
+    
+    setActionSheetConfig({
+      CANCEL_INDEX: CANCEL_INDEX,
+      options,
+      item
+    })
+    setTimeout(() => {
+      ActionSheetRef.current.show()
+    })
+
+    // ActionSheet.show(
+    //   {
+    //     options: BUTTONS,
+    //     cancelButtonIndex: CANCEL_INDEX,
+    //     // destructiveButtonIndex: this.DESTRUCTIVE_INDEX,
+    //     // title: i18n.t("settings")
+    //   },
+    //   buttonIndex => {
+    //     if (buttonIndex === CANCEL_INDEX) {
+    //       return;
+    //     }
+    //     if (!buttonIndex) {
+    //       if (item.status === 'published') {
+    //         handlerOffShelf(item.id);
+    //       } else {
+    //         handlerRepublish(item.id);
+    //       }
+    //     } else {
+    //       NavigatorService.navigate(AppRoute.PUBLISH, {
+    //         publishId: item.id,
+    //       });
+    //     }
+    //   },
+    // );
   };
   const renderRooms = (list) => {
     return (
@@ -224,6 +240,27 @@ function MyPublishList(props) {
             {renderContent()}
           </View>
         )}
+      <ActionSheet
+        ref={ActionSheetRef}
+        options={ActionSheetConfig.options}
+        cancelButtonIndex={ActionSheetConfig.CANCEL_INDEX}
+        onPress={(buttonIndex) => {
+          if (buttonIndex === ActionSheetConfig.CANCEL_INDEX) {
+            return;
+          }
+          if (!buttonIndex) {
+            if (ActionSheetConfig.item.status === 'published') {
+              handlerOffShelf(ActionSheetConfig.item.id);
+            } else {
+              handlerRepublish(ActionSheetConfig.item.id);
+            }
+          } else {
+            NavigatorService.navigate(AppRoute.PUBLISH, {
+              publishId: ActionSheetConfig.item.id,
+            });
+          }
+        }}
+      />
     </Root>
   );
 }

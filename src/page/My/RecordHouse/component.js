@@ -24,7 +24,7 @@ function RecordHouse(props) {
   const [hasElevator, setHasElevator] = useState(false);
   const ActionSheetRef = useRef(null);
   const [ActionSheetConfig, setActionSheetConfig] = useState({
-    options: ['cancel'],
+    options: ['取消'],
     TYPE: '',
     CANCEL_INDEX: 0
   })

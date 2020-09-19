@@ -2,13 +2,14 @@
  * @page feature
  */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spinner, Root, ActionSheet, Button } from 'native-base';
+import { Spinner, Root, Button } from 'native-base';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useFocusEffect } from '@react-navigation/native';
+import ActionSheet from 'react-native-custom-actionsheet'
 import { getMyHouseList } from '../../store/home/index';
 import { setFeatureHouse } from '../../store/common/index'
 import ViewUtil from '../../util/ViewUtil';
@@ -22,7 +23,12 @@ function FeaturePage(props) {
   const [selectHouse, setSelectHouse] = useState({});
   const [user, setUser] = useState(false);
   const [hasHouse, setHasHouse] = useState(false);
-  const [actionSheet, setActionSheet] = useState(null);
+  const ActionSheetRef = useRef(null);
+  const [ActionSheetConfig, setActionSheetConfig] = useState({
+    options: ['取消'],
+    TYPE: '',
+    CANCEL_INDEX: 0
+  })
 
   // useEffect(() => {
   //   props.getMyHouseList() // 获取本人的房源
@@ -136,21 +142,32 @@ function FeaturePage(props) {
       });
     }
     array.push({ text: '取消' });
-    if (actionSheet !== null) {
-      actionSheet._root.showActionSheet(
-        {
-          options: array,
-          cancelButtonIndex: array.length - 1,
-          title: '请选择房源',
-        },
-        buttonIndex => {
-          if (houseList[buttonIndex]) {
-            props.setFeatureHouse(houseList[buttonIndex].houseId)
-            setSelectHouse(houseList[buttonIndex]);
-          }
-        },
-      );
-    }
+
+    const options = array.map((item) => {
+      return item.text
+    })
+    setActionSheetConfig({
+      CANCEL_INDEX: array.length - 1,
+      options
+    })
+    setTimeout(() => {
+      ActionSheetRef.current.show()
+    })
+    // if (actionSheet !== null) {
+    //   actionSheet._root.showActionSheet(
+    //     {
+    //       options: array,
+    //       cancelButtonIndex: array.length - 1,
+    //       title: '请选择房源',
+    //     },
+    //     buttonIndex => {
+    //       if (houseList[buttonIndex]) {
+    //         props.setFeatureHouse(houseList[buttonIndex].houseId)
+    //         setSelectHouse(houseList[buttonIndex]);
+    //       }
+    //     },
+    //   );
+    // }
   }
   const renderContent = () => {
     return (<View style={styles.container}>
@@ -174,7 +191,18 @@ function FeaturePage(props) {
             <AntDesign style={styles.infoRightImg} name="caretdown" color={'#f9f9f9'} size={14} />
           </View>
         </TouchableOpacity>
-        <ActionSheet ref={(c) => { setActionSheet(c) }} />
+        {/* <ActionSheet ref={(c) => { setActionSheet(c) }} /> */}
+        <ActionSheet
+          ref={ActionSheetRef}
+          options={ActionSheetConfig.options}
+          cancelButtonIndex={ActionSheetConfig.CANCEL_INDEX}
+          onPress={(buttonIndex) => {
+            if (houseList[buttonIndex]) {
+              props.setFeatureHouse(houseList[buttonIndex].houseId)
+              setSelectHouse(houseList[buttonIndex]);
+            }
+          }}
+        />
       </View>
       <ScrollView style={styles.myContent} bounces={false}>
         <View style={{ marginHorizontal: 16, paddingTop: 15 }}>

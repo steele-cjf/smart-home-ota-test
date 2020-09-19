@@ -9,7 +9,8 @@ import { getUserInfo, getMyHouseList } from '../../store/home/index';
 import { getAllData, getDictionaryMapping } from '../../store/login/index';
 import { getRecommandList } from '../../store/map/index';
 import { setHomeHouse, setCodeInfo, setDictionaryMappings } from '../../store/common/index'
-import { ActionSheet, Root, Spinner } from 'native-base'
+import { Root, Spinner } from 'native-base'
+import ActionSheet from 'react-native-custom-actionsheet'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
@@ -35,7 +36,12 @@ function HomePage(props) {
   const [selectHouse, setSelectHouse] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true)
   const [loading, setLoading] = useState(true)
-  const [actionSheet, setActionSheet] = useState(null);
+  const ActionSheetRef = useRef(null);
+  const [ActionSheetConfig, setActionSheetConfig] = useState({
+    options: ['取消'],
+    TYPE: '',
+    CANCEL_INDEX: 0
+  })
   const [recommandList, setRecommandList] = useState(null);
   const handleAppStateChange = () => {
     props.getUserInfo((res) => {
@@ -165,23 +171,32 @@ function HomePage(props) {
         return item
       })
     }
-    // console.log(99999, houseList)
     array.push({ text: "取消" })
-    if (actionSheet !== null) {
-      actionSheet._root.showActionSheet(
-        {
-          options: array,
-          cancelButtonIndex: array.length - 1,
-          title: "请选择房源"
-        },
-        buttonIndex => {
-          if (houseList[buttonIndex]) {
-            props.setHomeHouse(houseList[buttonIndex].houseId)
-            setSelectHouse(houseList[buttonIndex])
-          }
-        }
-      )
-    }
+    const options = array.map((item) => {
+      return item.text
+    })
+    setActionSheetConfig({
+      CANCEL_INDEX: array.length - 1,
+      options
+    })
+    setTimeout(() => {
+      ActionSheetRef.current.show()
+    })
+    // if (actionSheet !== null) {
+    //   actionSheet._root.showActionSheet(
+    //     {
+    //       options: array,
+    //       cancelButtonIndex: array.length - 1,
+    //       title: "请选择房源"
+    //     },
+    //     buttonIndex => {
+    //       if (houseList[buttonIndex]) {
+    //         props.setHomeHouse(houseList[buttonIndex].houseId)
+    //         setSelectHouse(houseList[buttonIndex])
+    //       }
+    //     }
+    //   )
+    // }
   }
   return (
     <Root>
@@ -210,7 +225,18 @@ function HomePage(props) {
                   <StatusCard item={selectHouse} status={userInfo && userInfo.status} showList={() => showList()} />
               }
             </View>
-            <ActionSheet ref={(c) => { setActionSheet(c) }} />
+            {/* <ActionSheet ref={(c) => { setActionSheet(c) }} /> */}
+            <ActionSheet
+              ref={ActionSheetRef}
+              options={ActionSheetConfig.options}
+              cancelButtonIndex={ActionSheetConfig.CANCEL_INDEX}
+              onPress={(buttonIndex) => {
+                if (houseList[buttonIndex]) {
+                  props.setHomeHouse(houseList[buttonIndex].houseId)
+                  setSelectHouse(houseList[buttonIndex])
+                }
+              }}
+            />
             <StickyHeader
               style={{ backgroundColor: '#527BDF', padding: 0, }}
               stickyHeaderY={headHeight} // 把头部高度传入
