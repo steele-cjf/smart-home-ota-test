@@ -3,15 +3,26 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   PixelRatio,
   Platform,
   Text
 } from 'react-native';
 import { ActionSheet } from 'native-base'
 import { Avatar, Badge } from 'react-native-elements';
-import ImagePicker from 'react-native-image-picker';
-// import ImagePicker from 'react-native-image-crop-picker';
-const initOptions = { width: 300, height: 400, useFrontCamera: true, mediaType: 'photo', multiple: false }
+//import ImagePicker from 'react-native-image-picker';
+ import ImagePicker from 'react-native-image-crop-picker';
+
+//const initOptions = { width: 300, height: 400, useFrontCamera: true, mediaType: 'photo', multiple: false }
+const initOptions = { 
+  mediaType: 'photo', 
+  multiple: false,
+  compressImageQuality: 0.5,
+  compressImageMaxWidth: 1000,
+  compressImageMaxHeight: 1000,
+  loadingLabelText : '加载中...',
+  showCropGuidelines: false, 
+}
 
 export default function ImageUpload(props) {
   const [avatarSource, setAvatarSource] = useState(null);
@@ -37,8 +48,6 @@ export default function ImageUpload(props) {
       cancelButtonTitle: '取消',
       takePhotoButtonTitle: '拍照',
       chooseFromLibraryButtonTitle: '选择相册',
-      // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-      //durationLimit: 10,
       quality: 0.5,
       maxWidth: 1000,
       maxHeight: 1000,
@@ -55,28 +64,33 @@ export default function ImageUpload(props) {
         path: 'images'
       }
     };
-    ImagePicker.showImagePicker(optionsOld, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        showToast('系统设置拒绝访问相册权限')
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        console.log('4444444444fileSize:', response.fileSize/(1024*1024));
-        showToast('图片大小'+response.fileSize/(1024*1024)+'M'); //test
+    // ImagePicker.showImagePicker(optionsOld, (response) => {
+    //   if (response.didCancel) {
+    //     console.log('User cancelled image picker');
+    //   } else if (response.error) {
+    //     showToast('系统设置拒绝访问相册权限')
+    //     console.log('ImagePicker Error: ', response.error);
+    //   } else if (response.customButton) {
+    //     console.log('User tapped custom button: ', response.customButton);
+    //   } else {
+    //     console.log('4444444444fileSize:', response.fileSize/(1024*1024));
+    //     showToast('图片大小'+response.fileSize/(1024*1024)+'M'); //test
 
-        setAvatarSource({ uri: response.uri });
-        let imageObj = {
-          uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
-          name: response.fileName || 'upload.jpg',
-          type: response.type,
-        };
-        props.setImageForm(imageObj);
-      }
-    });
-    return
+    //     setAvatarSource({ uri: response.uri });
+    //     let imageObj = {
+    //       uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,
+    //       name: response.fileName || 'upload.jpg',
+    //       type: response.type,
+    //     };
+    //     props.setImageForm(imageObj);
+    //   }
+    // });
+    //return
+
+    if (options.multiple && props.imgUrl) {
+      return; //图片多选时，只最后的空图片可点击弹出选项框; 单选可原图替换
+    }
+
     if (actionSheet !== null) {
       actionSheet._root.showActionSheet(
         {
@@ -89,6 +103,9 @@ export default function ImageUpload(props) {
             let arr = ['openCamera', 'openPicker']
             ImagePicker[arr[buttonIndex]](options).then(image => {
               if (!options.multiple) {
+                console.log('4444444444fileSize:', image.size/(1024*1024));
+                showToast('图片大小'+image.size/(1024*1024)+'M');
+
                 let source = { uri: image.path };
                 setAvatarSource(source);
                 //注意，iOS 获取的图片地址要替换掉"file://",这是后面上传遇到的坑
@@ -101,7 +118,6 @@ export default function ImageUpload(props) {
                 };
                 props.setImageForm(imageObj);
               } else {
-                console.log("111111111111", image);
                 let imgObjs = [];
                 image.map((itemImage, index) => {
                   let imageObj = {
@@ -123,7 +139,7 @@ export default function ImageUpload(props) {
 
 
   return (
-    <TouchableOpacity
+    <TouchableWithoutFeedback
       onPress={() => {
         selectPhotoTapped();
       }}>
@@ -147,7 +163,7 @@ export default function ImageUpload(props) {
           )}
       </View>
       {props.title && <Text style={{ textAlign: 'center' }}>{props.title}</Text>}
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({

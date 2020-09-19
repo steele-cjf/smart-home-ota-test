@@ -2,8 +2,8 @@ import React, {useState, useEffect, useCallback} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {View, ScrollView, KeyboardAvoidingView, Text, TextInput, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { Spinner, Content } from 'native-base'
-import ImagePicker from 'react-native-image-picker';
-//import ImagePicker from 'react-native-image-crop-picker';
+//import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import { ActionSheet } from 'native-base'
 import Picker from 'react-native-picker';
 import Theme from '../../style/colors';
@@ -20,7 +20,7 @@ import {modifyPersonalInfo} from '../../store/user/index';
 
 const PersonalInfoPage = (props) => {     
   
-  function imagePickerAction1() {
+  function imagePickerAction() {
 
     ActionSheet.show(
       {
@@ -40,11 +40,24 @@ const PersonalInfoPage = (props) => {
           
         } else if (buttonIndex === 1) {
           ImagePicker.openPicker({  
-            width: 400,  
-            height: 400,  
+            // width: 400,  
+            // height: 400,  
             cropping: true,
-            multiple: false  
+            cropperCircleOverlay: true,
+            multiple: false,
+            compressImageQuality: 0.5,
+            compressImageMaxWidth: 1000,
+            compressImageMaxHeight: 1000,
+            loadingLabelText : '加载中...',
+            showCropGuidelines: false, 
           }).then(image => {   
+            // console.log('3333333333length:', image.data.length/(1024*1024));
+            console.log('4444444444fileSize:', image.size/(1024*1024));
+            console.log('555555555555width:', image.width);
+            console.log('66666666666666height:', image.height);
+            console.log('77777777777uri:', image.path);
+            showToast('图片大小'+image.size/(1024*1024)+'M');
+
             setHeadImage({uri: image.path});
 
             let imageObj = {
@@ -61,7 +74,7 @@ const PersonalInfoPage = (props) => {
 
    }
 
-  function imagePickerAction() {
+  function imagePickerAction1() {
     var options = {
       title:'请选择',
       cancelButtonTitle:'取消',
@@ -72,7 +85,7 @@ const PersonalInfoPage = (props) => {
       quality: 0.5,
       maxWidth: 1000,
       maxHeight: 1000,
-      allowsEditing:true,
+      //allowsEditing:true,
       noData:false,
       storageOptions: {
           skipBackup: true,
