@@ -13,6 +13,13 @@ export default function HeaderCommon(props) {
     useEffect(() => {
         setOptions(props.options)
     }, [props.options])
+    const PropsLeftPress = () => {
+        if (props.options.leftPress) {
+            props.options.leftPress()
+        } else {
+            NavigatorService.goBack()
+        }
+    }
     const PropsRightPress = () => {
         props.options.rightPress && props.options.rightPress()
     }
@@ -33,7 +40,7 @@ export default function HeaderCommon(props) {
     return (
         <Header style={styles.container}>
             <Left style={Platform.OS == 'android' && { flex: 1 }}>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', height: '100%'}} onPress={() => NavigatorService.goBack()}>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', height: '100%'}} onPress={PropsLeftPress}>
                     {/* <Icon style={styles.actionColor} name="left" /> */}
                     {/* <AntDesign name="left" style={[styles.actionColor, Platform.OS == 'android' && styles.androidIcon]} /> */}
                     <AntDesign name="left" style={[styles.actionColor]} />

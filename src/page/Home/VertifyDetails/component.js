@@ -195,6 +195,7 @@ export default function VertifyDetailsPage(props) {
           title: '实名详情',
           rightShow: 'flex',
           rightTitle: authOptions.btnTitle,
+          leftPress: goBackOrTop,
           rightPress: handleModify
         }}
       />
