@@ -38,8 +38,10 @@ export default function ImageUpload(props) {
       takePhotoButtonTitle: '拍照',
       chooseFromLibraryButtonTitle: '选择相册',
       // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-      durationLimit: 10,
-      quality: 0.75,
+      //durationLimit: 10,
+      quality: 0.5,
+      maxWidth: 1000,
+      maxHeight: 1000,
       allowsEditing: false,
       noData: false,
       permissionDenied: {
@@ -62,6 +64,9 @@ export default function ImageUpload(props) {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
+        console.log('4444444444fileSize:', response.fileSize/(1024*1024));
+        showToast('图片大小'+response.fileSize/(1024*1024)+'M'); //test
+
         setAvatarSource({ uri: response.uri });
         let imageObj = {
           uri: Platform.OS === 'ios' ? response.uri.replace('file://', '') : response.uri,

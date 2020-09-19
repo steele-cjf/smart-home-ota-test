@@ -16,6 +16,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getUserInfo} from '../../store/home/index';
 import {modifyPersonalInfo} from '../../store/user/index';
+//import showToast from '../../util/toast';
 
 const PersonalInfoPage = (props) => {     
   
@@ -67,8 +68,10 @@ const PersonalInfoPage = (props) => {
       takePhotoButtonTitle:'拍照',
       chooseFromLibraryButtonTitle:'选择相册',
       // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-      durationLimit: 10,
-      quality:0.75,
+      //durationLimit: 10,
+      quality: 0.5,
+      maxWidth: 1000,
+      maxHeight: 1000,
       allowsEditing:true,
       noData:false,
       storageOptions: {
@@ -85,6 +88,13 @@ const PersonalInfoPage = (props) => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
+        console.log('3333333333length:', response.data.length/(1024*1024));
+        console.log('4444444444fileSize:', response.fileSize/(1024*1024));
+        console.log('55555555555555height:', response.height);
+        console.log('6666666666666width:', response.width);
+        console.log('77777777777uri:', response.uri);
+        showToast('图片大小'+response.fileSize/(1024*1024)+'M');
+        
         setHeadImage({uri: response.uri});
 
         let imageObj = {
