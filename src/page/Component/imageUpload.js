@@ -139,30 +139,29 @@ export default function ImageUpload(props) {
 
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        selectPhotoTapped();
-      }}>
-      <ActionSheet ref={(c) => { setActionSheet(c) }} />
-      <View style={[styles.avatar, styles.avatarContainer, { marginBottom: 10 }]}>
-        {avatarSource === null ?
-          (<Text style={styles.addBtn}>+</Text>) : (
-            <View>
-              <Avatar style={styles.avatar} source={avatarSource} />
-              <Badge
-                value="X"
-                status="error"
-                onPress={() => {
-                  setAvatarSource(null);
-                  props.setImageForm(null);
-                  props.handlerDelete && props.handlerDelete();
-                }}
-                containerStyle={{ position: 'absolute', top: -4, right: -4 }}
-              />
-            </View>
-          )}
+    <TouchableWithoutFeedback onPress={() => {selectPhotoTapped();}}>
+      <View>
+        <ActionSheet ref={(c) => { setActionSheet(c) }} />
+        <View style={[styles.avatar, styles.avatarContainer, { marginBottom: 10 }]}>
+          {avatarSource === null ?
+            (<Text style={styles.addBtn}>+</Text>) : (
+              <View>
+                <Avatar style={styles.avatar} source={avatarSource} />
+                <Badge
+                  value="X"
+                  status="error"
+                  onPress={() => {
+                    setAvatarSource(null);
+                    props.setImageForm(null);
+                    props.handlerDelete && props.handlerDelete();
+                  }}
+                  containerStyle={{ position: 'absolute', top: -4, right: -4 }}
+                />
+              </View>
+            )}
+        </View>
+        {props.title && <Text style={{ textAlign: 'center' }}>{props.title}</Text>}
       </View>
-      {props.title && <Text style={{ textAlign: 'center' }}>{props.title}</Text>}
     </TouchableWithoutFeedback>
   );
 }
