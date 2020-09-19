@@ -28,14 +28,12 @@ const SuggestionPage = (props) => {
 
   const setImageForm = (objs) => {
     let dataArr = Object.assign([], formImages);
-
     if (objs && dataArr.length && dataArr[dataArr.length-1] === '') {
       dataArr.splice(dataArr.length-1, 1);
     }
 
     let arr = dataArr.concat(objs);
     setMaxImageFiles(6 - arr.length);
-
     if(arr.length < 6) {
       arr.push('');
     }
@@ -44,13 +42,11 @@ const SuggestionPage = (props) => {
 
   const deleteImage = (index) => {
     let dataArr = Object.assign([], formImages);
-
     if (dataArr.length === 6 && dataArr[5] !== '') {
       dataArr.push('');
     }  
     dataArr.splice(index, 1);
     setMaxImageFiles(maxImageFiles + 1);
-
     setFormImages(dataArr);
   }
 
@@ -60,7 +56,6 @@ const SuggestionPage = (props) => {
       showToast('请输入具体内容')
       return;
     } else if (contactInfo.length === 0) {
-      console.log(551, contactInfo)
       showToast('请输入联系方式')
       return;
     } else if (formImages.length < 2) {

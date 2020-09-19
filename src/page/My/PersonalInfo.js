@@ -31,11 +31,25 @@ const PersonalInfoPage = (props) => {
       buttonIndex => {
         if(buttonIndex === 0) {
           ImagePicker.openCamera({  
-            width: 400,  
-            height: 400,  
-            cropping: true  
-          }).then(image => {  
-            console.log(image);  
+            cropping: true,
+            cropperCircleOverlay: true,
+            multiple: false,
+            compressImageQuality: 0.5,
+            compressImageMaxWidth: 1000,
+            compressImageMaxHeight: 1000,
+            loadingLabelText : '加载中...',
+            showCropGuidelines: false,  
+          }).then(image => {   
+            showToast('图片大小'+image.size/(1024*1024)+'M');
+
+            setHeadImage({uri: image.path});
+
+            let imageObj = {
+              uri: Platform.OS === 'ios' ? image.path.replace('file://', '') : image.path,
+              name: image.fileName || 'upload.jpg',
+              type: image.mime,
+            };
+            setImageObj(imageObj);
           }); 
           
         } else if (buttonIndex === 1) {
@@ -51,11 +65,6 @@ const PersonalInfoPage = (props) => {
             loadingLabelText : '加载中...',
             showCropGuidelines: false, 
           }).then(image => {   
-            // console.log('3333333333length:', image.data.length/(1024*1024));
-            console.log('4444444444fileSize:', image.size/(1024*1024));
-            console.log('555555555555width:', image.width);
-            console.log('66666666666666height:', image.height);
-            console.log('77777777777uri:', image.path);
             showToast('图片大小'+image.size/(1024*1024)+'M');
 
             setHeadImage({uri: image.path});
