@@ -254,7 +254,8 @@ export default function AddTenant(props) {
     setActionSheetConfig({
       CANCEL_INDEX: CANCEL_INDEX,
       TYPE,
-      options
+      options,
+      BUTTONS
     })
     setTimeout(() => {
       ActionSheetRef.current.show()
@@ -298,9 +299,9 @@ export default function AddTenant(props) {
           options={ActionSheetConfig.options}
           cancelButtonIndex={ActionSheetConfig.CANCEL_INDEX}
           onPress={(buttonIndex) => {
-            if (buttonIndex !== CANCEL_INDEX) {
-              let val = BUTTONS[buttonIndex].value
-              handleSetValue(TYPE, val);
+            if (buttonIndex !== ActionSheetConfig.CANCEL_INDEX) {
+              let val = ActionSheetConfig.BUTTONS[buttonIndex].value
+              handleSetValue(ActionSheetConfig.TYPE, val);
             }
           }}
         />
