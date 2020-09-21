@@ -200,6 +200,8 @@ function MapHouse(props) {
           locationEnabled
           rotateEnabled={false}
           onClick={() => mapClick()}
+          // 是否显示指南针
+          showsCompass={false}
           // showsLocationButton
           onStatusChangeComplete={(region) => {
             setLoc(region)

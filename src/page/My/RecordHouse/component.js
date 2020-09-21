@@ -21,6 +21,7 @@ function RecordHouse(props) {
   const [selectedSelfValue, setSelectedSelfValue] = useState('本人');
   const [houseDirectionList, setHouseDirection] = useState([]);
   const [selectedDirectionValue, setSelectedDirectionValue] = useState('');
+  const refMobile = useRef(null);
   const [hasElevator, setHasElevator] = useState(false);
   const ActionSheetRef = useRef(null);
   const [ActionSheetConfig, setActionSheetConfig] = useState({
@@ -558,8 +559,9 @@ function RecordHouse(props) {
                     />
                     <Text style={[styles.labelTitle, styles.defaultSize]}>
                       室
-                  </Text>
+                    </Text>
                     <Input
+                      ref={refMobile}
                       keyboardType="numeric"
                       value={
                         houseLayout.hallCount || houseLayout.hallCount == 0
@@ -570,11 +572,12 @@ function RecordHouse(props) {
                         const newText = e.nativeEvent.text.replace(/[^\d]+/, '');
                         setData('hallCount', newText, 'houseLayout');
                       }}
+                      onSubmitEditing={() => refMobile.current.focus()}
                       style={[styles.defaultSize, styles.textAlignR]}
                     />
                     <Text style={[styles.labelTitle, styles.defaultSize]}>
                       厅
-                  </Text>
+                    </Text>
                     <Input
                       keyboardType="numeric"
                       value={

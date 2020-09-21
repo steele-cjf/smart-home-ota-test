@@ -50,7 +50,7 @@ export default function PublishHouse(props) {
     networkFeeUnitPrice: 0,
     waterFeeUnitPrice: 0,
     rentPrice: 0,
-    deposit: 0,
+    deposit: null,
     payment: 0,
   });
   const [houseAddition, setHouseAddition] = useState({});
@@ -237,6 +237,14 @@ export default function PublishHouse(props) {
 
     if (!houseRatePlan.rentPrice) {
       showToast('请填写房租')
+      return
+    }
+    if (!houseRatePlan.deposit && houseRatePlan.deposit !== 0) {
+      showToast('请填写押金月数')
+      return
+    }
+    if (!houseRatePlan.payment) {
+      showToast('请填写付款月数')
       return
     }
     if (!houseImages[0].uri) {
