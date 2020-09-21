@@ -136,7 +136,7 @@ export default function RoomPage(props) {
     return (
       <View style={styles.room_item_style}>
         <View style={styles.left_content}>
-          <Text style={[styles.main_color, { fontSize: 14 }]}>{item.name}</Text>
+          <Text style={[styles.main_color, { flex: 1, fontSize: 14 }]}>{item.name}</Text>
           {/* <Input value={item.name} /> */}
           <Text style={[styles.status_color, { fontSize: 14 }]}>
             {item.tenantCount > 0 ? '已入住' : '未入住'}

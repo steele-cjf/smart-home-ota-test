@@ -54,7 +54,7 @@ export default function TenantList(props) {
     if (nameList && nameList.length) {
       return nameList.map(item => {
                 return (
-                  <Text style={[styles.main_color, styles.MT_5]}>{item}</Text>
+                  <Text style={[styles.main_color, styles.MT_5, {fontSize: $screen.scaleSize(14)}]}>{item}</Text>
                 )
               })
     } else {
@@ -74,7 +74,7 @@ export default function TenantList(props) {
     return (
       <TouchableOpacity style={styles.room_item_style} onPress={() => goDetailPage(item)}>
         <View style={styles.left_content}>
-          <Text style={styles.main_color}>{item.userName} - {props.dictionaryMappings.gender[item.gender]}</Text>
+          <Text style={[styles.main_color, {fontSize: $screen.scaleSize(14)}]}>{item.userName} - {props.dictionaryMappings.gender[item.gender]}</Text>
         </View>
         <View style={styles.icon_content}>
           <Text style={[styles.status_style, item.status === 'audit_reject' && styles.status_style_reject]}>{props.dictionaryMappings.tenant_status[item.status]}</Text>
@@ -107,18 +107,18 @@ export default function TenantList(props) {
           <View style={styles.room_wrapper}>
             <View style={[styles.house_address, styles.line]}>
               <View style={{ width: 70 }}>
-                <Text style={{ color: '#7C7C7C' }}>房屋地址</Text>
+                <Text style={{ color: '#7C7C7C', fontSize: $screen.scaleSize(14), }}>房屋地址</Text>
               </View>
               <View style={{ alignItems: 'flex-end' }}>
-                <Text style={[styles.main_color, styles.MT_5]}>
+                <Text style={[styles.main_color, styles.MT_5, {fontSize: $screen.scaleSize(14)}]}>
                   {houseInfo.regionFullName}
                 </Text>
-                <Text style={styles.main_color}>{houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
+                <Text style={[styles.main_color, {fontSize: $screen.scaleSize(14)}]}>{houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}</Text>
               </View>
             </View>
             <View style={styles.house_address}>
               <View style={{ width: 70 }}>
-                <Text style={{ color: '#7C7C7C' }}>所属房间</Text>
+                <Text style={{ color: '#7C7C7C', fontSize: $screen.scaleSize(14) }}>所属房间</Text>
               </View>
               <View style={{ alignItems: 'flex-end' }}>
                 {renderRoomName()}

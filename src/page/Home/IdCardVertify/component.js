@@ -126,6 +126,11 @@ export default function IdCardVertifyPage(props) {
     setLoading(true);
     console.log('99userId: ', userId);
 
+    const controller = new AbortController(); //test
+    const { signal } = controller;
+    console.log('^^^^^^^^^', controller);
+   // console.log('!!!!!!!!!!!!', {signal});
+
     props.verifyIdCard(result, res => {
       console.log('^^^^^^res1',res)
       setLoading(false)
@@ -140,8 +145,8 @@ export default function IdCardVertifyPage(props) {
 
       } else {
         console.log('^^^^^^res2',res)
-        if (res.message === "Network request failed") {
-          showToast('网络请求失败')
+        if (res === "timeout" || res.message === "Network request failed") {
+          //showToast('网络请求失败')
         } else {
           showToast(res.message)
         }

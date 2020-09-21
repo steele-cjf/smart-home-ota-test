@@ -307,7 +307,7 @@ export default function AddTenant(props) {
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>房屋信息</Text>
           <Item style={styles.marginLeft0} inlineLabel>
-            <Label style={[styles.labelTitle, styles.defaultSize, {marginBottom: 20}]}>
+            <Label style={[styles.labelTitle, styles.defaultSize, {marginBottom: 25}]}>
               房屋地址
             </Label>
             {/* <Input
@@ -315,9 +315,16 @@ export default function AddTenant(props) {
               disabled={true}
               style={[styles.defaultSize, styles.textAlignR, {flex: 4,}]}
             /> */}
-            <Text style={[styles.defaultSize, styles.textAlignR, {flex: 4, marginBottom: 20, color: '#7C7C7C',}]} numberOfLines={2}>
-              {house.address || '--'}
-            </Text>
+            <View style={{ flex: 4 }}>
+              <Text numberOfLines={1}
+                style={[styles.defaultSize, styles.textAlignR, {color: '#7C7C7C'}]}>
+                {house.regionFullName}
+              </Text>
+              <Text numberOfLines={1}
+                style={[styles.defaultSize, styles.textAlignR, {color: '#7C7C7C'}]}>
+                {house.address && house.address.split(house.regionFullName)[1]}
+              </Text>
+            </View>
           </Item>
           <Item style={[styles.marginLeft0, { paddingVertical: 16, display: props.route.params.type === 'member' ? 'none' : 'flex' }]} inlineLabel picker>
             <Label style={[styles.labelTitle, styles.defaultSize]}>

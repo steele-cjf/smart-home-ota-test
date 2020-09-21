@@ -32,6 +32,19 @@ export const formatURL = (url, params) => {
   return `${url}${query}`;
 };
 
+let timeoutPromise = (timeout) => {
+  return new Promise((resolve, reject) => { 
+    setTimeout(() => {
+      resolve("timeout");
+      reject("err");
+      //resolve(new Response("timeout", { status: 504, statusText: "timeout" }));
+      // reject(new Error("fetch timeout"))
+
+      //controller.abort(); 
+    }, timeout);
+  });
+}
+
 // 请求参数
 export const httpService = (url, config) => {
   return dispatch => {
@@ -46,32 +59,52 @@ export const httpService = (url, config) => {
           config.body = JSON.stringify(cleanNullData(config.body))
         }
       }
-      return fetch(appApi + url, config)
-        .then(response => response.json())
-        .then(response => {
-          if (response.code == 401 || (response.error && response.error == "invalid_token")) {
-            NavigatorService.reset(AppRoute.LOGIN)
-          }
-          if (config && config.actionType) {
-            dispatch({
-              type: config.actionType,
-              [config.actionDataKey]: response,
-            });
-          }
-          if (config && config.successConfig && config.successConfig.callback) {
-            config.successConfig.callback(response);
-          }
-        })
-        .catch(error => {
-          console.log('error', error)
-          if (error.message !== "Network request failed") {
-            showToast('请求出错，请联系管理员')
-          }
-         
-          if (config.failConfig && config.failConfig.callback) {
-            config.failConfig.callback(error);
-          }
-        });
+
+      let fetchService = function (appApi, url, config) {
+        return fetch(appApi + url, config)
+          .then(response => response.json())
+          .then(response => {
+            if (response.code == 401 || (response.error && response.error == "invalid_token")) {
+              NavigatorService.reset(AppRoute.LOGIN)
+            }
+            if (config && config.actionType) {
+              dispatch({
+                type: config.actionType,
+                [config.actionDataKey]: response,
+              });
+            }
+            if (config && config.successConfig && config.successConfig.callback) {
+              config.successConfig.callback(response);
+            }
+          })
+          .catch(error => {
+            console.log('error', error)
+            if (error.message === "Network request failed") {
+              showToast('网络出错')  
+            } else {
+              showToast('请求出错，请联系管理员')
+            }
+
+            if (config.failConfig && config.failConfig.callback) {
+              config.failConfig.callback(error);
+            } 
+          });
+        } 
+
+        //fetchService(appApi, url, config);
+        Promise.race([timeoutPromise(30*1000), fetchService(appApi, url, config)])
+          .then(resp => {
+            console.log(11111, resp);
+            if (resp === 'timeout') {
+              showToast('网络请求超时');
+              if (config.failConfig && config.failConfig.callback) {
+                config.failConfig.callback(resp);
+              }
+            }
+          })
+          .catch(error => {
+            console.log(2222, error);
+          })
     })();
   };
 }

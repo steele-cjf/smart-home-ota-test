@@ -126,8 +126,8 @@ export default function PassportVertifyPage(props) {
                 }
                 
             } else {
-                if (res.message === "Network request failed") {
-                    showToast('网络请求失败')
+                if (res === "timeout" || res.message === "Network request failed") {
+                    //showToast('网络请求失败')
                   } else {
                     showToast(res.message)
                   }
