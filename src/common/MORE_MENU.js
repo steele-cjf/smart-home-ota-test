@@ -10,7 +10,6 @@ export const MORE_MENU = {
     name: '我是业主',
     Icons: Icomoon, //Ionicons,
     icon: 'woshifangdong', //'md-checkbox-outline',
-    color: 'red',
   },
   Tenement: {
     name: '我是租户',

@@ -59,6 +59,10 @@ export default function Form(props) {
     let cache = Object.assign({}, isDatePickerVisible);
     cache[key] = true;
     setDatePickerVisibility(cache);
+
+    if (Picker) {
+      Picker.hide();
+    }
   };
   // date点击触发
   const hideDatePicker = key => {

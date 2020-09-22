@@ -130,7 +130,7 @@ function FeaturePage(props) {
     }
   }
   function getItem(menu) {
-    return ViewUtil.getMenuItem(() => onClick(menu), menu);
+    return ViewUtil.getMenuItem(() => onClick(menu), menu, '#527BDF');
   }
   // 展示房源选择
   function showList() {

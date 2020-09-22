@@ -79,7 +79,7 @@ function MyPage(props) {
     }
   }
   function getItem(menu) {
-    return ViewUtil.getMenuItem(() => onClick(menu), menu);
+    return ViewUtil.getMenuItem(() => onClick(menu), menu, '#527BDF');
   }
   function logoutSubmit() {
     props.handleLogout(res => {
