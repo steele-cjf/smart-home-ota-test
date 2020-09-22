@@ -95,6 +95,7 @@
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>icomoon.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>AntDesign.ttf</string>
 		<string>Zocial.ttf</string>

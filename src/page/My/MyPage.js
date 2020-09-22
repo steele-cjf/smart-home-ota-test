@@ -13,6 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AppRoute } from '../../navigator/AppRoutes';
 import { handleLogout } from '../../store/login/index';
 import { getUserInfo } from '../../store/home/index';
+import Icomoon from '../../common/Icomoon';
 
 function MyPage(props) {
   const statusColor = {
@@ -116,6 +117,7 @@ function MyPage(props) {
               color: '#fff'
             }}
           />
+          <Icomoon name="aixin_shixin" color="red"></Icomoon>
         </View>
         <TouchableWithoutFeedback onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
           <View style={[styles.flex, styles.InfoBox]}>
