@@ -94,7 +94,7 @@ export const httpService = (url, config) => {
         //fetchService(appApi, url, config);
         Promise.race([timeoutPromise(30*1000), fetchService(appApi, url, config)])
           .then(resp => {
-            console.log(11111, resp);
+            //console.log(11111, resp);
             if (resp === 'timeout') {
               showToast('网络请求超时');
               if (config.failConfig && config.failConfig.callback) {

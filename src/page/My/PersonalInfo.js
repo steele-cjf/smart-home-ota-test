@@ -40,8 +40,6 @@ const PersonalInfoPage = (props) => {
             loadingLabelText : '加载中...',
             showCropGuidelines: false,  
           }).then(image => {   
-            showToast('图片大小'+image.size/(1024*1024)+'M');
-
             setHeadImage({uri: image.path});
 
             let imageObj = {
@@ -65,8 +63,6 @@ const PersonalInfoPage = (props) => {
             loadingLabelText : '加载中...',
             showCropGuidelines: false, 
           }).then(image => {   
-            showToast('图片大小'+image.size/(1024*1024)+'M');
-
             setHeadImage({uri: image.path});
 
             let imageObj = {

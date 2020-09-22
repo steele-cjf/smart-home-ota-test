@@ -104,7 +104,7 @@ export default function ImageUpload(props) {
             ImagePicker[arr[buttonIndex]](options).then(image => {
               if (!options.multiple || buttonIndex === 0) { //拍照也是单张
                 console.log('4444444444fileSize:', image.size/(1024*1024));
-                showToast('图片大小'+image.size/(1024*1024)+'M');
+                //showToast('图片大小'+image.size/(1024*1024)+'M');
 
                 let source = { uri: image.path };
                 setAvatarSource(source);

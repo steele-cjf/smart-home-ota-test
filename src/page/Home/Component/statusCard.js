@@ -53,7 +53,7 @@ const houseStatus = {
         iconName: 'renzheng',
         btnDesc: '重新提交',
         showLocation: true,
-        route: 'FEATURE'
+        route: 'HOUSEDETAIL'
     },
     'audit_pass': {
         title: '您的房源还未绑定设备, 请尽快绑定!',
