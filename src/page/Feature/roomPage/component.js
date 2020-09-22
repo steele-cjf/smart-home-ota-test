@@ -2,7 +2,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+//import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icomoon from '../../../common/Icomoon';
 import {
   Text,
   Spinner,
@@ -144,21 +145,21 @@ export default function RoomPage(props) {
         </View>
         <View style={styles.divider_style} />
         <View style={styles.icon_content}>
-          <AntDesign
-            name="edit"
+          <Icomoon
+            name="bianji"
             size={14}
             color="#666666"
             onPress={() => editRoom(item)}
           />
           {item.tenantCount === 0 ? (
-            <AntDesign
-              name="delete"
+            <Icomoon
+              name="shanchu"
               size={14}
               color="#E7263E"
               onPress={() => createTwoButtonAlert(item, index)}
             />
           ) : (
-              <AntDesign name="delete" size={14} color="#c7c7c7" />
+              <Icomoon name="shanchu" size={14} color="#c7c7c7" />
             )}
         </View>
       </View>

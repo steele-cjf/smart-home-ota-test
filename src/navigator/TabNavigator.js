@@ -5,7 +5,8 @@ import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+//import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icomoon from '../common/Icomoon';
 import { HomeStackComponent } from './HomeNavigator';
 import { FeatureStackComponent } from './FeatureNavigator';
 import { MyPageStackComponent } from './MyPageNavigator';
@@ -37,7 +38,7 @@ const BottomTabScreen = (props) => {
             // 非根 Home 屏都要隐藏 Tabbar
             tabBarVisible: isHomeRoute && isHomeRoot,
             tabBarIcon: ({ focused, color }) => (
-              <AntDesign name={'home'} color={color} size={24} />
+              <Icomoon name={'shouye'} color={color} size={24} />
             )
           };
         }}
@@ -53,7 +54,7 @@ const BottomTabScreen = (props) => {
             title: '功能',
             tabBarVisible: isFeatureRoot && isFeatureRoute,
             tabBarIcon: ({ focused, color }) => (
-              <Ionicons name={'bonfire'} color={color} size={24} />
+              <Icomoon name={'gongneng'} color={color} size={24} />
             )
           };
         }}
@@ -72,7 +73,7 @@ const BottomTabScreen = (props) => {
             tabBarOptions: {
             },
             tabBarIcon: ({ focused, color }) => (
-              <FontAwesome name={'user'} color={color} size={24} />
+              <Icomoon name={'wode'} color={color} size={24} />
             )
           }
         }}

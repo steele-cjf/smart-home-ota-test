@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Theme from '../../../style/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icomoon from '../../../common/Icomoon';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,28 +12,28 @@ const status_cf = {
     'not_audit': {
         title: '您还未进行实名认证, 请尽快验证!',
         desc: '更多操作需要实名认证才可以进行',
-        iconName: 'idcard',
+        iconName: 'renzheng',
         btnDesc: '实名认证',
         route: 'AUTHENTICATION'
     },
     'audit_pending': {
         title: '您的实名信息审核中, 请耐心等待!',
         desc: '更多操作需要认证完成才可以进行',
-        iconName: 'idcard',
+        iconName: 'renzheng',
         btnDesc: '查看进度',
         route: 'VERDETAILS'
     },
     'audit_reject': {
         title: '您的实名信息未通过, 请重新提交!',
         desc: '更多操作需要认证完成才可以进行',
-        iconName: 'idcard',
+        iconName: 'renzheng',
         btnDesc: '重新提交',
         route: 'VERDETAILS'
     },
     'audit_pass': {
         title: '您还没添加登记房源, 请尽快登记!',
         desc: '添加后才能执行开锁操作',
-        iconName: 'home',
+        iconName: 'dengjifangyuan',
         btnDesc: '登记房源',
         route: 'RECORD'
     }
@@ -41,7 +42,7 @@ const houseStatus = {
     'audit_pending': {
         title: '您的房源正在审核中, 请耐心等待!',
         desc: '审核完成后才可以添加住户和发布房源',
-        iconName: 'idcard',
+        iconName: 'renzheng',
         btnDesc: '查看进度',
         showLocation: true,
         route: 'HOUSEDETAIL'
@@ -49,7 +50,7 @@ const houseStatus = {
     'audit_reject': {
         title: '您的房源审核失败了, 请重新提交!',
         desc: '审核完成后才可以添加住户和发布房源',
-        iconName: 'idcard',
+        iconName: 'renzheng',
         btnDesc: '重新提交',
         showLocation: true,
         route: 'FEATURE'
@@ -57,7 +58,7 @@ const houseStatus = {
     'audit_pass': {
         title: '您的房源还未绑定设备, 请尽快绑定!',
         desc: '审核完成后才可以添加住户和发布房源',
-        iconName: 'tool',
+        iconName: 'shebei',
         btnDesc: '绑定设备',
         showLocation: true,
         route: 'FEATURE'
@@ -118,7 +119,7 @@ export default function StatusCard(props) {
                 <TouchableOpacity style={styles.topBox} onPress={() => props.showList()}>
                     <Entypo style={styles.LeftIcon} name='location-pin' />
                     <Text style={styles.location} numberOfLines={1}>{options.name || '--'}</Text>
-                    <AntDesign name='caretdown' style={styles.RightIcon} />
+                    <Icomoon name='xiajiantou_shixin' style={styles.RightIcon} />
                 </TouchableOpacity>
             }
             {/* 判断是房东还是租客 */}
@@ -131,7 +132,8 @@ export default function StatusCard(props) {
                     id: options.id || undefined,
                     role: options.houseRole || undefined,
                 })}>
-                    <AntDesign name={options.iconName} style={styles.iconBox} />
+                    {/* <AntDesign name={options.iconName} style={styles.iconBox} /> */}
+                    <Icomoon name={options.iconName} style={styles.iconBox} />
                     <Text style={{ color: Theme.primary, fontSize: $screen.scaleSize(14)}}>{options.btnDesc || '--'}</Text>
                 </TouchableOpacity>
             </View>}
@@ -162,9 +164,10 @@ const styles = StyleSheet.create({
     RightIcon: {
         position: 'absolute',
         right: 20,
+        top: 4,
         color: '#7C7C7C',
         height: '100%',
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
     LeftIcon: {
         color: '#7C7C7C',

@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, StyleSheet, Linking } from 'react-native';
 import { Icon, Button, Left, Header, Text, Spinner } from 'native-base'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import Icomoon from '../../../common/Icomoon';
 import Theme from '../../../style/colors';
 import LocationsMap from '../../../page/Component/map/locations';
 import { houseLayoutCn, houseItemCn, houseRatePlanCn } from '../config/houseDetailCn'
@@ -132,9 +133,10 @@ function HouseDetail(props) {
                         <Text style={styles.title}>{options.houseRatePlan.rentPrice}</Text>
                         <Text style={styles.desc}>元/月</Text>
                         <Text style={styles.depPay}>押{options.houseRatePlan.deposit}付{options.houseRatePlan.payment}</Text>
-                        <AntDesign style={[styles.rightBtn, options.collectedByMe && styles.activeBtn]}
+                        <Icomoon style={[styles.rightBtn, options.collectedByMe && styles.activeBtn]}
                             onPress={() => { changeCollection('collectedByMe', !options.collectedByMe) }}
-                            name={options.collectedByMe ? 'heart' : 'hearto'}></AntDesign>
+                            name={options.collectedByMe ? 'aixin_shixin' : 'aixin'}>
+                        </Icomoon>
                     </View>
                     <Text style={styles.secondDes}>{options.title || '--'}</Text>
                     {renderHouseLayout()}

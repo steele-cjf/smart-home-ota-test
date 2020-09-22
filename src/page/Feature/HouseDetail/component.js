@@ -17,6 +17,7 @@ import {
 } from 'native-base';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icomoon from '../../../common/Icomoon';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import { Divider } from 'react-native-elements';
 import Theme from '../../../style/colors';
@@ -257,8 +258,8 @@ function HouseDetail(props) {
               }>
               <View style={styles.listBox}>
                 <View style={[styles.leftContent, styles.flex]}>
-                  <AntDesign
-                    name="tag"
+                  <Icomoon
+                    name="fabu"
                     style={{
                       fontSize: $screen.scaleSize(14),
                       color: Theme.textLink,
@@ -293,8 +294,8 @@ function HouseDetail(props) {
             <TouchableOpacity onPress={() => handleToRoomPage()}>
               <View style={styles.listBox}>
                 <View style={[styles.leftContent, styles.flex]}>
-                  <AntDesign
-                    name="home"
+                  <Icomoon
+                    name="fangwu"
                     style={{
                       fontSize: $screen.scaleSize(14),
                       color: Theme.textLink,

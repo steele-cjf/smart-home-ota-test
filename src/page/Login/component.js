@@ -5,7 +5,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Keyboard, ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Text, Input, Button, CheckBox } from 'react-native-elements';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icomoon from '../../common/Icomoon';
 import { Content } from 'native-base';
 import { AppRoute } from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
@@ -155,16 +155,10 @@ function LoginPage(props) {
         keyboardType="numeric"
         placeholder="请输入中国大陆手机号"
         placeholderTextColor={Theme.textMuted}
-        //leftIcon={{type: 'font-awesome', name: 'chevron-left'}}
         leftIcon={
-          <AntDesign
-            name="calendar"
-            style={{ fontSize: $screen.scaleSize(14), color: Theme.primary, marginRight: 8 }}
-          />
+          <Icomoon name="shouji" color='#527BDF' style={{marginRight: 8}} /> 
         }
-        value={mobile}
-        //errorMessage={mobileError}
-        // onSubmitEditing={() => refMobile.current.focus()}
+        value={mobile} 
         onChangeText={setMobile}
         onBlur={() => validateField('mobile')}
       />
@@ -176,10 +170,7 @@ function LoginPage(props) {
           placeholder="请输入验证码"
           placeholderTextColor={Theme.textMuted}
           leftIcon={
-            <AntDesign
-              name="lock1"
-              style={{ fontSize: $screen.scaleSize(14), color: Theme.primary, marginRight: 8 }}
-            />
+            <Icomoon name="mima" color='#527BDF' style={{marginRight: 8}} /> 
           }
           value={verifyCode}
           //errorMessage={verifyCodeError}
@@ -201,7 +192,7 @@ function LoginPage(props) {
           containerStyle={styles.checkBoxContainer}
           titleStyle={styles.checkBoxTitle}
           title="同意"
-          //checkedIcon="dot-circle-o"
+          // checkedIcon="dot-circle-o"
           // uncheckedIcon="circle-o"
           checkedColor={Theme.primary}
           uncheckedColor={Theme.primary}

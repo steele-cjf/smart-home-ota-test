@@ -10,10 +10,10 @@ import { useFocusEffect } from '@react-navigation/native';
 import ViewUtil from '../../util/ViewUtil';
 import { MORE_MENU } from '../../common/MORE_MENU';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icomoon from '../../common/Icomoon';
 import { AppRoute } from '../../navigator/AppRoutes';
 import { handleLogout } from '../../store/login/index';
 import { getUserInfo } from '../../store/home/index';
-import Icomoon from '../../common/Icomoon';
 
 function MyPage(props) {
   const statusColor = {
@@ -103,7 +103,6 @@ function MyPage(props) {
     }
   }
   const uri = require('../../assets/images/head.png');
-  const scan = require('../../assets/images/scan.png');
 
   return (
     <View style={styles.container}>
@@ -117,7 +116,6 @@ function MyPage(props) {
               color: '#fff'
             }}
           />
-          <Icomoon name="aixin_shixin" color="red"></Icomoon>
         </View>
         <TouchableWithoutFeedback onPress={() => NavigatorService.navigate(AppRoute.PERSONALINFO)} >
           <View style={[styles.flex, styles.InfoBox]}>
@@ -135,9 +133,11 @@ function MyPage(props) {
               </View>
             </View>
             <TouchableWithoutFeedback onPress={(e) => {NavigatorService.navigate(AppRoute.MYQRCODE)}}>
-              <ImageBackground style={[{marginRight: 24, width: 34, height: 34}, 
+              <Icomoon style={[{marginRight: 24}, 
                 {display: userInfo && userInfo.status !== 'audit_pass' ? 'none' : 'flex'}]} 
-                source={scan} 
+                name='erweima'
+                color='white'
+                size={34}
               />
             </TouchableWithoutFeedback>
             <View>
