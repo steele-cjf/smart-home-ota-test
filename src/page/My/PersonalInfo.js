@@ -110,8 +110,6 @@ const PersonalInfoPage = (props) => {
         console.log('4444444444fileSize:', response.fileSize/(1024*1024));
         console.log('55555555555555height:', response.height);
         console.log('6666666666666width:', response.width);
-        console.log('77777777777uri:', response.uri);
-        showToast('图片大小'+response.fileSize/(1024*1024)+'M');
         
         setHeadImage({uri: response.uri});
 
