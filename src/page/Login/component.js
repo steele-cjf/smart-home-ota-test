@@ -145,6 +145,8 @@ function LoginPage(props) {
 
   return ( 
     // <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
+    // <ScrollView style={styles.container}>
+    // <KeyboardAvoidingView behavior="position" keyboardVerticalOffset = {120} >
     // <Content style={styles.container}> //ScrollView
     <Content bounces={true} contentContainerStyle={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
