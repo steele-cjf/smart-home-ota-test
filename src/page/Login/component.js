@@ -148,7 +148,7 @@ function LoginPage(props) {
     // <ScrollView style={styles.container}>
     // <KeyboardAvoidingView behavior="position" keyboardVerticalOffset = {120} >
     // <Content style={styles.container}> //ScrollView
-    <Content bounces={false} contentContainerStyle={styles.container}>
+    <Content bounces={true} contentContainerStyle={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
       <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
       <Input
