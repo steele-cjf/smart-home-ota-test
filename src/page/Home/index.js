@@ -174,7 +174,7 @@ function HomePage(props) {
     }
     array.push({ text: "取消" })
     const options = array.map((item) => {
-    return {component: <Text style={{fontSize: 16, paddingHorizontal: 10, paddingVertical: 19, color: '#5C8BFF'}}>{item.text}</Text>}
+    return {component: <Text style={{fontSize: 16, paddingHorizontal: 10, color: '#5C8BFF'}}>{item.text}</Text>, height: 60}
     })
     setActionSheetConfig({
       CANCEL_INDEX: array.length - 1,
