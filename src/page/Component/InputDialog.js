@@ -52,7 +52,7 @@ function DialogInput (props) {
             style={styles.container}
             activeOpacity={1}
             onPress={handleOnCloseDialog}>
-            {/* 阻止时间冒泡 */}
+            {/* 阻止事件冒泡 */}
             <View style={[styles.modal_container, {...dialogStyleProps}]}>
               <View style={styles.modal_body} onStartShouldSetResponder={() => true} onMoveShouldSetResponder={() => true}>
                 <Text style={styles.title_modal}>{title}</Text>

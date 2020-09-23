@@ -10,7 +10,8 @@ import { getAllData, getDictionaryMapping } from '../../store/login/index';
 import { getRecommandList } from '../../store/map/index';
 import { setHomeHouse, setCodeInfo, setDictionaryMappings } from '../../store/common/index'
 import { Root, Spinner } from 'native-base'
-import ActionSheet from 'react-native-custom-actionsheet'
+// import ActionSheet from 'react-native-custom-actionsheet'
+import { ActionSheetCustom as ActionSheet } from 'react-native-custom-actionsheet'
 import { AppRoute } from '../../navigator/AppRoutes';
 import Swiper from '../Component/Swiper'
 import StatusCard from './Component/statusCard'
@@ -173,7 +174,7 @@ function HomePage(props) {
     }
     array.push({ text: "取消" })
     const options = array.map((item) => {
-      return item.text
+    return {component: <Text style={{fontSize: 16, paddingHorizontal: 10, paddingVertical: 19, color: '#5C8BFF'}}>{item.text}</Text>}
     })
     setActionSheetConfig({
       CANCEL_INDEX: array.length - 1,

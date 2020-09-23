@@ -9,7 +9,8 @@ import { bindActionCreators } from 'redux';
 import { Spinner, Root, Button } from 'native-base';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useFocusEffect } from '@react-navigation/native';
-import ActionSheet from 'react-native-custom-actionsheet'
+// import ActionSheet from 'react-native-custom-actionsheet'
+import { ActionSheetCustom as ActionSheet } from 'react-native-custom-actionsheet';
 import { getMyHouseList } from '../../store/home/index';
 import { setFeatureHouse } from '../../store/common/index'
 import ViewUtil from '../../util/ViewUtil';
@@ -144,7 +145,7 @@ function FeaturePage(props) {
     array.push({ text: '取消' });
 
     const options = array.map((item) => {
-      return item.text
+      return {component: <Text style={{fontSize: 16, paddingHorizontal: 10, paddingVertical: 19, color: '#5C8BFF'}}>{item.text}</Text>}
     })
     setActionSheetConfig({
       CANCEL_INDEX: array.length - 1,
