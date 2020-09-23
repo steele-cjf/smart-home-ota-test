@@ -78,7 +78,8 @@ export const MyPageStackComponent = () => {
         name={AppRoute.MYQRCODE}
         component={MyQRCode}
         options={{
-          headerShown: false
+          headerShown: false,
+          gestureEnabled: true,
         }}
       />
       <MyPageNavigator.Screen

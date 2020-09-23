@@ -10,7 +10,7 @@ const ID_CARD = 'id_card'
 const FULL_RENT = 'full_rent'
 
 const identificationTypeList = [{ text: '身份证', value: ID_CARD }, { text: '护照', value: 'passport' }, { text: '取消', value: 'cancel' }]
-const image = require('../../../assets/images/scan.png')
+//const image = require('../../../assets/images/scan.png')
 
 const data = {
   houseType: FULL_RENT,
@@ -135,10 +135,10 @@ export default function AddTenant(props) {
   const renderScanContent = () => {
     return (
       <View style={{ alignItems: 'center', paddingBottom: 60 }}>
-        <Image
+        {/* <Image
           source={image}
           style={{ width: 115, height: 115 }}
-        />
+        /> */}
         <Button rounded full style={styles.scanBtn} onPress={() => { props.openCamera({ open: true, result: null }) }}>
           <Text style={{ color: '#fff' }}>扫码添加{titleName}</Text>
         </Button>

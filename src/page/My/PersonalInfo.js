@@ -346,8 +346,7 @@ const PersonalInfoPage = (props) => {
         }}
       />
       {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> : 
-      <Content>
-      {/* <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>  */} 
+      <View>
         <ScrollView bounces={false} style={styles.containerStyle}>
           <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
             <Text style={[styles.textTitle, {paddingVertical: 16}]}>头像</Text>
@@ -399,16 +398,13 @@ const PersonalInfoPage = (props) => {
             <Text style={styles.btnTextStyle}>保存</Text>
           </TouchableOpacity>
         </ScrollView>
-
         <RegionPicker
           visible={modalVisible} 
           tabs={tabs}
           setTabs={data => setTabs(data)}
           close={(flag, data) => handleFunc(flag, data)}
         />
-      </Content>
-      // </KeyboardAvoidingView>
-
+      </View>
       }
     </View>
   ); 
