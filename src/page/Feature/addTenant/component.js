@@ -134,7 +134,7 @@ export default function AddTenant(props) {
   // 未扫码展示
   const renderScanContent = () => {
     return (
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ alignItems: 'center', paddingBottom: 60 }}>
         <Image
           source={image}
           style={{ width: 115, height: 115 }}
@@ -285,14 +285,14 @@ export default function AddTenant(props) {
   }
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <HeaderCommon
         options={{
           backTitle: '返回',
           title: `新增${titleName}`,
         }}
       />
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         {/* <ActionSheet ref={(c) => { setActionSheet(c) }} /> */}
         <ActionSheet
           ref={ActionSheetRef}
@@ -423,7 +423,7 @@ export default function AddTenant(props) {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    height: '100%',
+    //height: '100%',
     flexDirection: 'column'
   },
   title: {
@@ -457,7 +457,6 @@ const styles = StyleSheet.create({
     color: '#527BDF',  // '#7C7C7C',
     fontSize: $screen.scaleSize(12),
     textDecorationLine: 'underline',
-    marginBottom: 50
   },
   scanBtn: {
     borderRadius: 30,
