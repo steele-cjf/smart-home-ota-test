@@ -22,6 +22,17 @@ const PersonalInfoPage = (props) => {
   
   function imagePickerAction() {
 
+    const initOptions = { 
+      cropping: true,
+      cropperCircleOverlay: true,
+      multiple: false,
+      compressImageQuality: 0.5,
+      compressImageMaxWidth: 1000,
+      compressImageMaxHeight: 1000,
+      loadingLabelText : '加载中...',
+      showCropGuidelines: false, 
+    }
+
     ActionSheet.show(
       {
         title: '请选择',
@@ -30,16 +41,8 @@ const PersonalInfoPage = (props) => {
       },
       buttonIndex => {
         if(buttonIndex === 0) {
-          ImagePicker.openCamera({  
-            cropping: true,
-            cropperCircleOverlay: true,
-            multiple: false,
-            compressImageQuality: 0.5,
-            compressImageMaxWidth: 1000,
-            compressImageMaxHeight: 1000,
-            loadingLabelText : '加载中...',
-            showCropGuidelines: false,  
-          }).then(image => {   
+          ImagePicker.openCamera(initOptions)
+          .then(image => {   
             setHeadImage({uri: image.path});
 
             let imageObj = {
@@ -48,21 +51,15 @@ const PersonalInfoPage = (props) => {
               type: image.mime,
             };
             setImageObj(imageObj);
+          })
+          .catch(err => {
+            console.log('88888888888', err)
+            showToast('系统设置了拒绝访问相机')
           }); 
           
         } else if (buttonIndex === 1) {
-          ImagePicker.openPicker({  
-            // width: 400,  
-            // height: 400,  
-            cropping: true,
-            cropperCircleOverlay: true,
-            multiple: false,
-            compressImageQuality: 0.5,
-            compressImageMaxWidth: 1000,
-            compressImageMaxHeight: 1000,
-            loadingLabelText : '加载中...',
-            showCropGuidelines: false, 
-          }).then(image => {   
+          ImagePicker.openPicker(initOptions)
+          .then(image => {   
             setHeadImage({uri: image.path});
 
             let imageObj = {
@@ -71,6 +68,10 @@ const PersonalInfoPage = (props) => {
               type: image.mime,
             };
             setImageObj(imageObj);
+          })
+          .catch(err => {
+            console.log('99999999', err)
+            showToast('系统设置了拒绝访问相册')
           });
           
         }

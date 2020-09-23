@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 function DialogInput (props) {
@@ -47,80 +48,82 @@ function DialogInput (props) {
         animationType={animationType}
         transparent={true}
         visible={props.isDialogVisible}>
-        <View style={[styles.container, {...modalStyleProps}]}>
-          <TouchableOpacity
-            style={styles.container}
-            activeOpacity={1}
-            onPress={handleOnCloseDialog}>
-            {/* 阻止事件冒泡 */}
-            <View style={[styles.modal_container, {...dialogStyleProps}]}>
-              <View style={styles.modal_body} onStartShouldSetResponder={() => true} onMoveShouldSetResponder={() => true}>
-                <Text style={styles.title_modal}>{title}</Text>
-                <Text
-                  style={[
-                    props.message ? styles.message_modal : {height: 0},
-                  ]}>
-                  {props.message}
-                </Text>
-                <TextInput
-                  style={styles.input_container}
-                  autoCorrect={
-                    textProps && textProps.autoCorrect == false ? false : true
-                  }
-                  autoCapitalize={
-                    textProps && textProps.autoCapitalize
-                      ? textProps.autoCapitalize
-                      : 'none'
-                  }
-                  clearButtonMode={
-                    textProps && textProps.clearButtonMode
-                      ? textProps.clearButtonMode
-                      : 'never'
-                  }
-                  clearTextOnFocus={
-                    textProps && textProps.clearTextOnFocus == true
-                      ? textProps.clearTextOnFocus
-                      : false
-                  }
-                  keyboardType={
-                    textProps && textProps.keyboardType
-                      ? textProps.keyboardType
-                      : 'default'
-                  }
-                  secureTextEntry={
-                    textProps && textProps.secureTextEntry
-                      ? textProps.secureTextEntry
-                      : false
-                  }
-                  maxLength={
-                    textProps && textProps.maxLength > 0
-                      ? textProps.maxLength
-                      : null
-                  }
-                  autoFocus={true}
-                  underlineColorAndroid="transparent"
-                  placeholder={hintInput}
-                  placeholderTextColor={placeholderTextColor}
-                  onChangeText={handleOnChangeText}
-                  value={value}
-                ></TextInput>
+        <KeyboardAvoidingView style={{flex: 1,}} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          <View style={[styles.container, {...modalStyleProps}]}>
+            <TouchableOpacity
+              style={styles.container}
+              activeOpacity={1}
+              onPress={handleOnCloseDialog}>
+              {/* 阻止事件冒泡 */}
+              <View style={[styles.modal_container, {...dialogStyleProps}]}>
+                <View style={styles.modal_body} onStartShouldSetResponder={() => true} onMoveShouldSetResponder={() => true}>
+                  <Text style={styles.title_modal}>{title}</Text>
+                  <Text
+                    style={[
+                      props.message ? styles.message_modal : {height: 0},
+                    ]}>
+                    {props.message}
+                  </Text>
+                  <TextInput
+                    style={styles.input_container}
+                    autoCorrect={
+                      textProps && textProps.autoCorrect == false ? false : true
+                    }
+                    autoCapitalize={
+                      textProps && textProps.autoCapitalize
+                        ? textProps.autoCapitalize
+                        : 'none'
+                    }
+                    clearButtonMode={
+                      textProps && textProps.clearButtonMode
+                        ? textProps.clearButtonMode
+                        : 'never'
+                    }
+                    clearTextOnFocus={
+                      textProps && textProps.clearTextOnFocus == true
+                        ? textProps.clearTextOnFocus
+                        : false
+                    }
+                    keyboardType={
+                      textProps && textProps.keyboardType
+                        ? textProps.keyboardType
+                        : 'default'
+                    }
+                    secureTextEntry={
+                      textProps && textProps.secureTextEntry
+                        ? textProps.secureTextEntry
+                        : false
+                    }
+                    maxLength={
+                      textProps && textProps.maxLength > 0
+                        ? textProps.maxLength
+                        : null
+                    }
+                    autoFocus={true}
+                    underlineColorAndroid="transparent"
+                    placeholder={hintInput}
+                    placeholderTextColor={placeholderTextColor}
+                    onChangeText={handleOnChangeText}
+                    value={value}
+                  ></TextInput>
+                </View>
+                <View style={styles.btn_container}>
+                  <TouchableOpacity
+                    style={styles.touch_modal}
+                    onPress={handleOnCloseDialog}>
+                    <Text style={styles.btn_modal_left}>{cancelText}</Text>
+                  </TouchableOpacity>
+                  <View style={styles.divider_btn} />
+                  <TouchableOpacity
+                    style={styles.touch_modal}
+                    onPress={this.handleSubmit}>
+                    <Text style={styles.btn_modal_right}>{submitText}</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={styles.btn_container}>
-                <TouchableOpacity
-                  style={styles.touch_modal}
-                  onPress={handleOnCloseDialog}>
-                  <Text style={styles.btn_modal_left}>{cancelText}</Text>
-                </TouchableOpacity>
-                <View style={styles.divider_btn} />
-                <TouchableOpacity
-                  style={styles.touch_modal}
-                  onPress={this.handleSubmit}>
-                  <Text style={styles.btn_modal_right}>{submitText}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </Modal>
     );
 }

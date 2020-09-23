@@ -148,72 +148,70 @@ function LoginPage(props) {
     // <ScrollView style={styles.container}>
     // <KeyboardAvoidingView behavior="position" keyboardVerticalOffset = {120} >
     // <Content style={styles.container}> //ScrollView
-    <ScrollView bounces={false} contentContainerStyle={styles.container}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? "padding" : "height"}  >
-        <Text style={styles.loginTitle}>登录</Text>
-        <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
+    <Content bounces={false} contentContainerStyle={styles.container}>
+      <Text style={styles.loginTitle}>登录</Text>
+      <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
+      <Input
+        inputStyle={styles.inputPhone}
+        ref={refMobile}
+        keyboardType="numeric"
+        placeholder="请输入中国大陆手机号"
+        placeholderTextColor={Theme.textMuted}
+        leftIcon={
+          <Icomoon name="shouji" color='#527BDF' style={{marginRight: 8}} /> 
+        }
+        value={mobile} 
+        onChangeText={setMobile}
+        onBlur={() => validateField('mobile')}
+      />
+      <View>
         <Input
-          inputStyle={styles.inputPhone}
-          ref={refMobile}
+          inputStyle={styles.verCodeInput}
+          ref={refVerifyCode}
           keyboardType="numeric"
-          placeholder="请输入中国大陆手机号"
+          placeholder="请输入验证码"
           placeholderTextColor={Theme.textMuted}
           leftIcon={
-            <Icomoon name="shouji" color='#527BDF' style={{marginRight: 8}} /> 
+            <Icomoon name="mima" color='#527BDF' style={{marginRight: 8}} /> 
           }
-          value={mobile} 
-          onChangeText={setMobile}
-          onBlur={() => validateField('mobile')}
+          value={verifyCode}
+          //errorMessage={verifyCodeError}
+          // onSubmitEditing={() => refVerifyCode.current.focus()}
+          onChangeText={setVerifyCode}
         />
-        <View>
-          <Input
-            inputStyle={styles.verCodeInput}
-            ref={refVerifyCode}
-            keyboardType="numeric"
-            placeholder="请输入验证码"
-            placeholderTextColor={Theme.textMuted}
-            leftIcon={
-              <Icomoon name="mima" color='#527BDF' style={{marginRight: 8}} /> 
-            }
-            value={verifyCode}
-            //errorMessage={verifyCodeError}
-            // onSubmitEditing={() => refVerifyCode.current.focus()}
-            onChangeText={setVerifyCode}
-          />
-          <Button
-            containerStyle={styles.codeBtnPosition}
-            buttonStyle={styles.verCodeBtn}
-            titleStyle={styles.verCodeTitle}
-            title={isSend ? "剩余" + count + "秒" : "发送短信验证码"}
-            disabled={isSend}
-            type="solid"
-            onPress={handleGetCode}
-          />
-        </View>
-        <View>
-          <CheckBox
-            containerStyle={styles.checkBoxContainer}
-            titleStyle={styles.checkBoxTitle}
-            title="同意"
-            // checkedIcon="dot-circle-o"
-            // uncheckedIcon="circle-o"
-            checkedColor={Theme.primary}
-            uncheckedColor={Theme.primary}
-            checked={checked}
-            onPress={() => setChecked(!checked)}
-          />
-          <Button
-            containerStyle={styles.protocolContainer}
-            titleStyle={styles.protocolTitle}
-            type="clear"
-            title="《用户服务协议》"
-            onPress={() => { props.navigation.navigate(AppRoute.AGREEMENT); }}
-          />
-        </View>
-        <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
-        <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户T2</Text>
-      </KeyboardAvoidingView>
-    </ScrollView>
+        <Button
+          containerStyle={styles.codeBtnPosition}
+          buttonStyle={styles.verCodeBtn}
+          titleStyle={styles.verCodeTitle}
+          title={isSend ? "剩余" + count + "秒" : "发送短信验证码"}
+          disabled={isSend}
+          type="solid"
+          onPress={handleGetCode}
+        />
+      </View>
+      <View>
+        <CheckBox
+          containerStyle={styles.checkBoxContainer}
+          titleStyle={styles.checkBoxTitle}
+          title="同意"
+          // checkedIcon="dot-circle-o"
+          // uncheckedIcon="circle-o"
+          checkedColor={Theme.primary}
+          uncheckedColor={Theme.primary}
+          checked={checked}
+          onPress={() => setChecked(!checked)}
+        />
+        <Button
+          containerStyle={styles.protocolContainer}
+          titleStyle={styles.protocolTitle}
+          type="clear"
+          title="《用户服务协议》"
+          onPress={() => { props.navigation.navigate(AppRoute.AGREEMENT); }}
+        />
+      </View>
+      <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
+      <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户T3</Text>
+    </Content>
   );
 }
 

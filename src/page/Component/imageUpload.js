@@ -101,13 +101,13 @@ export default function ImageUpload(props) {
         buttonIndex => {
           if (buttonIndex < 2) {
             let arr = ['openCamera', 'openPicker']
-            ImagePicker[arr[buttonIndex]](options).then(image => {
+            ImagePicker[arr[buttonIndex]](options)
+            .then(image => {
               if (!options.multiple || buttonIndex === 0) { //拍照也是单张
                 console.log('4444444444fileSize:', image.size/(1024*1024));
-                //showToast('图片大小'+image.size/(1024*1024)+'M');
-
                 let source = { uri: image.path };
                 setAvatarSource(source);
+                
                 //注意，iOS 获取的图片地址要替换掉"file://",这是后面上传遇到的坑
                 let imageObj = {
                   //uri: Platform.OS === 'ios' ? image.sourceURL : image.path,
@@ -129,6 +129,14 @@ export default function ImageUpload(props) {
                   imgObjs.push(imageObj);
                 })
                 props.setImageForm(imgObjs);
+              }
+            })
+            .catch(err => {
+              console.log('7777777', err)
+              if (buttonIndex === 0) {
+                showToast('系统设置了拒绝访问相机')
+              } else {
+                showToast('系统设置了拒绝访问相册')
               }
             });
           }
