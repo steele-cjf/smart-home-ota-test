@@ -292,7 +292,7 @@ export default function AddTenant(props) {
           title: `新增${titleName}`,
         }}
       />
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {/* <ActionSheet ref={(c) => { setActionSheet(c) }} /> */}
         <ActionSheet
           ref={ActionSheetRef}
@@ -415,7 +415,7 @@ export default function AddTenant(props) {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -456,7 +456,8 @@ const styles = StyleSheet.create({
   scanText: {
     color: '#527BDF',  // '#7C7C7C',
     fontSize: $screen.scaleSize(12),
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    marginBottom: 50
   },
   scanBtn: {
     borderRadius: 30,
