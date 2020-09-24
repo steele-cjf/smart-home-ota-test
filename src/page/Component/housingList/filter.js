@@ -171,21 +171,17 @@ class DropdownMenu extends Component {
   // 面板
   renderActivityPanel() {
     if (this.state.activityIndex >= 0) {
-
       var currentTitles = this.props.data[this.state.activityIndex];
-      console.log('currentTitles', currentTitles);
-
       var heightStyle = {};
       if (this.props.maxHeight && this.props.maxHeight < currentTitles.length * 44) {
         heightStyle.height = this.props.maxHeight;
       }
-
       return (
         <View style={{ position: 'absolute', left: 0, right: 0, top: 40, bottom: 0 }}>
           <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
             <View style={{ opacity: 0.4, backgroundColor: 'black', flex: 1 }} />
           </TouchableOpacity>
-          <View style={[{ position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white' }, heightStyle]}>
+          <View style={[{ position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white', zIndex: 10000 }, heightStyle]}>
             <Divider />
             {
               currentTitles.key !== 'houseType' ? this.renderItemList(listFilter[currentTitles.key]) : this.renderActionLabel()
@@ -269,7 +265,7 @@ class DropdownMenu extends Component {
           width: 6,
           height: 4,
           marginLeft: 8,
-          tintColor: (index === this.state.activityIndex  || rows.selected === true) ? (this.props.activityTintColor ? this.props.activityTintColor : this.defaultConfig.activityTintColor) : (this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor),
+          tintColor: (index === this.state.activityIndex || rows.selected === true) ? (this.props.activityTintColor ? this.props.activityTintColor : this.defaultConfig.activityTintColor) : (this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor),
           transform: [{
             rotateZ: this.state.rotationAnims[index].interpolate({
               inputRange: [0, 1],
@@ -289,6 +285,7 @@ class DropdownMenu extends Component {
           flexDirection: 'row',
           backgroundColor: this.props.bgColor ? this.props.bgColor : this.defaultConfig.bgColor,
           borderTopWidth: 1,
+          // position: 'absolute',
           borderBottomWidth: 1,
           borderColor: '#E9E9E9'
         }} >
@@ -321,7 +318,6 @@ class DropdownMenu extends Component {
         <View style={{ flex: 1 }}>
           {this.props.children}
         </View>
-
         {this.renderActivityPanel()}
       </View>
     );

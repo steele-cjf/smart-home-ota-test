@@ -37,7 +37,7 @@ function HouseListComponent(props) {
   };
   const updateResultData = resultData => {
     updateLoadingState(false)
-    console.log('props', resultData);
+    // console.log('props', resultData);
     if (resultData && resultData.list) {
       const data = resultData.list;
       const page = {
@@ -49,7 +49,7 @@ function HouseListComponent(props) {
       setPagination(page);
       if (resultData.pageNum > 1) {
         let list = houseListData();
-        console.log('list', list, data);
+        // console.log('list', list, data);
         list.push(...data);
         setHouses(list);
       } else {
@@ -63,9 +63,9 @@ function HouseListComponent(props) {
   };
 
   const fetchHouseList = (pageNum = 1) => {
-    console.log('refresh');
+    // console.log('refresh');
     // updateLoadingState(true);
-    props.handlerHouseList(pageNum);
+    props.handlerHouseList && props.handlerHouseList(pageNum);
     // setTimeout(() => {
     //   updateLoadingState(false);
     // }, 3000);
@@ -88,7 +88,6 @@ function HouseListComponent(props) {
     };
   };
   const handleLoadMoreArticle = () => {
-    console.log('more');
     if (!isNoMoreData() && !isLoading && pagination) {
       fetchHouseList(pagination.pageNum + 1);
     }
@@ -157,13 +156,16 @@ function HouseListComponent(props) {
           <RefreshControl
             progressViewOffset={30}
             title={'加载中...'}
-            colors={['red']}//此颜色无效
-            tintColor={'orange'}
-            titleColor={'red'}//只有ios有效
+            colors={[Theme.primary]}//此颜色无效
+            tintColor={Theme.primary}
+            titleColor={Theme.primary}//只有ios有效
             refreshing={upLoading}
             onRefresh={() => {
               setUpLoadding(true)
-              fetchHouseList()
+              fetchHouseList && fetchHouseList()
+              setTimeout(() => {
+                setUpLoadding(false)
+              }, 1000)
               // this.loadData(true);
             }}
 

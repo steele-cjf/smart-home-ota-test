@@ -43,7 +43,7 @@ function MapHouse(props) {
     }
     Geolocation.getCurrentPosition(
       position => {
-        console.log('position: ' + JSON.stringify(position))
+        // console.log('position: ' + JSON.stringify(position))
         setPositioningIsOn(true)
         if (position.coords) {
           setCenter(position.coords);
@@ -53,22 +53,29 @@ function MapHouse(props) {
         setPositioningIsOn(false)
       }
     )
-  }, [props.route])
-  )
+  }, [props.route]))
+
+  const getHouseList = ({ page = 1, item = selectItem }) => {
+    console.log(999999, item, page, params)
+    props.getHousingList({
+      formattedAddress: item.formattedAddress,
+      ...params,
+      pageNum: page
+    }, res => {
+      setHouseList(res.data)
+    })
+  }
+
   const selectMarker = (item) => {
     setSelectItem(item)
     if (item) {
-      props.getHousingList({
-        formattedAddress: item.formattedAddress
-      }, res => {
-        console.log('maplist', res.data.list)
-        setHouseList(res.data.list)
-      })
+      getHouseList({ item })
       bottomSheetRef.current.snapTo(3)
     } else {
       bottomSheetRef.current.snapTo(snapIndex)
     }
   }
+
   const searchMarker = (reg) => {
     selectMarker(null)
     let data = {}
@@ -88,7 +95,6 @@ function MapHouse(props) {
       }
     }
     let result = Object.assign({}, data, params)
-    console.log('params', result)
     props.getSearchSummaries(result, res => {
       if (!res.code && res.data) {
         console.log('result', res.data)
@@ -170,18 +176,18 @@ function MapHouse(props) {
   const renderHeader = () => {
     if (!selectItem) return null
     return (<View>
-              <Text style={styles.header}>——</Text>
-              <View style={styles.contentBox}>
-                <Text style={styles.contentTitle}>{selectItem.formattedAddress}</Text>
-                <Text style={styles.contentDes}>{'在租' + selectItem.houseCount + '套'}</Text>
-              </View>
-            </View>)
+      <Text style={styles.header}>——</Text>
+      <View style={styles.contentBox}>
+        <Text style={styles.contentTitle}>{selectItem.formattedAddress}</Text>
+        <Text style={styles.contentDes}>{'在租' + selectItem.houseCount + '套'}</Text>
+      </View>
+    </View>)
   }
   const renderContent = () => {
     if (!selectItem) return (<View style={styles.content} />)
     return (
       <View style={styles.content}>
-        <HouseListComponent list={houseList} handlerHouseList={(page) => fetchHouseList(page)} />
+        <HouseListComponent list={houseList} handlerHouseList={(page) => getHouseList({ page })} />
       </View>)
   }
   return (
@@ -196,6 +202,7 @@ function MapHouse(props) {
         bgColor={'white'}
         tintColor={'#282828'}
         activityTintColor={'#5C8BFF'}
+        
         handler={(selection, row) => getFilter(selection, row)}
         multipleSection={(arr1, arr2) => getSection(arr1, arr2)}
         data={data}
@@ -236,9 +243,9 @@ function MapHouse(props) {
 const styles = StyleSheet.create({
   BottomSheet: {
     position: 'absolute',
-    zIndex: 10,
-    backgroundColor: 'red',
-    width: '100%'
+    zIndex: -10,
+    // backgroundColor: 'red',
+    // width: '100%'
   },
   content: {
     height: '100%',
