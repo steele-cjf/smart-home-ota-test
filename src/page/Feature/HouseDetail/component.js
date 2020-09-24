@@ -383,7 +383,7 @@ function HouseDetail(props) {
       {loading ? (
         <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
-          <ScrollView bounces={false}>
+          <View>
             <HeaderCommon
               options={{
                 backTitle: '返回',
@@ -394,6 +394,7 @@ function HouseDetail(props) {
               }}
             />
             <Divider />
+            <ScrollView bounces={false}>
             <View style={styles.padding}>
               {houseInfo.status === 'audit_pending' ? (
                 <View style={[styles.statusContent, styles.checkingColor]}>
@@ -558,6 +559,7 @@ function HouseDetail(props) {
               {renderRolePage()}
             </View>
           </ScrollView>
+        </View>
         )}
       <Modal style={{ flex: 1 }}
         onPress={() => { console.log('111111111') }}

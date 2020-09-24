@@ -133,6 +133,7 @@ function RecordHouse(props) {
   };
 
   const handlerAudit = () => {
+    
     setLoading(true);
     let result = new FormData();
     objToFormData('houseHolder', houseHolder, result);
