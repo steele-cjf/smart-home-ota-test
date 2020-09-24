@@ -61,7 +61,7 @@ const UserPassedPage = (props) => {
       {title: "民族", content: data.nation},
       {title: "出生日期", content: data.birthDate},
       {title: "证件号", content: strNum},
-      {title: "所在区域", content: data.regionId},
+      {title: "所在区域", content: data.regionFullName},
       {title: "详细地址", content: data.address},
       {title: "教育程度", content: data.educationLevel},
     ];

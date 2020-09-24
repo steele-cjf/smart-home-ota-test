@@ -247,6 +247,7 @@ const styles = StyleSheet.create({
     flex: 75,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   divider_style: {
     width: 1,

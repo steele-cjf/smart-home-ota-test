@@ -11,16 +11,10 @@ export default function SearchHeader(props) {
     return (
         <View>
             <Header hasSegment style={styles.container}>
-                {/* <Left style={[{ flex: 1 }, Platform.OS == 'android' && {top: -2, left: -2}]}>
+                <Left style={[{ flex: 1 }, Platform.OS == 'android' && {top: -2, left: -2}]}>
                     <Button transparent onPress={() => NavigatorService.goBack()} >
                         <AntDesign name="left" style={[styles.actionColor, Platform.OS == 'android' && {top: 2}]} />
                         <Text style={[styles.backBtn, Platform.OS == 'android' && styles.backBtnAndroid]}>返回</Text>
-                    </Button>
-                </Left> */}
-                <Left style={[{ flex: 1 },]}>
-                    <Button transparent onPress={() => NavigatorService.goBack()} >
-                        <AntDesign name="left" style={[styles.actionColor,]} />
-                        <Text style={[styles.backBtn,]}>返回</Text>
                     </Button>
                 </Left>
                 <Body style={{ flexDirection: 'row', flex: 4, alignItems: 'center', backgroundColor: '#E9E9E9', height: 30, borderRadius: 20, }}>
