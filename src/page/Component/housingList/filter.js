@@ -177,8 +177,8 @@ class DropdownMenu extends Component {
         heightStyle.height = this.props.maxHeight;
       }
       return (
-        <View style={{ position: 'absolute', left: 0, right: 0, top: 40, bottom: 0 }}>
-          <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
+        <View style={{ position: 'absolute', left: 0, right: 0, top: 40, bottom: 0, zIndex: 100 }}>
+          <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 100 }}>
             <View style={{ opacity: 0.4, backgroundColor: 'black', flex: 1 }} />
           </TouchableOpacity>
           <View style={[{ position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white', zIndex: 10000 }, heightStyle]}>

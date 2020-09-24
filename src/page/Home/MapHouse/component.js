@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection: 'row',
     paddingHorizontal: 15,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   contentTitle: {
     color: '#282828',
@@ -279,8 +279,6 @@ const styles = StyleSheet.create({
   contentDes: {
     color: '#7C7C7C',
     fontSize: $screen.scaleSize(12),
-    // position: 'absolute',
-    // right: 17,
     paddingHorizontal: 10,
     top: 8,
     alignItems: 'center'

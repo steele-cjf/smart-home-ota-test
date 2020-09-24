@@ -74,7 +74,7 @@ export default function TenantList(props) {
     return (
       <TouchableOpacity style={styles.room_item_style} onPress={() => goDetailPage(item)}>
         <View style={styles.left_content}>
-          <Text style={[styles.main_color, {fontSize: $screen.scaleSize(14)}]}>{item.userName} - {props.dictionaryMappings.gender[item.gender]}</Text>
+          <Text style={[styles.main_color, {fontSize: $screen.scaleSize(14)}]}>{item.userName}</Text>
         </View>
         <View style={styles.icon_content}>
           <Text style={[styles.status_style, item.status === 'audit_reject' && styles.status_style_reject]}>{props.dictionaryMappings.tenant_status[item.status]}</Text>
