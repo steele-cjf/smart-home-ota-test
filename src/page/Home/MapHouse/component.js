@@ -202,7 +202,7 @@ function MapHouse(props) {
         bgColor={'white'}
         tintColor={'#282828'}
         activityTintColor={'#5C8BFF'}
-        
+
         handler={(selection, row) => getFilter(selection, row)}
         multipleSection={(arr1, arr2) => getSection(arr1, arr2)}
         data={data}
@@ -243,9 +243,7 @@ function MapHouse(props) {
 const styles = StyleSheet.create({
   BottomSheet: {
     position: 'absolute',
-    zIndex: -10,
-    // backgroundColor: 'red',
-    // width: '100%'
+    zIndex: -10
   },
   content: {
     height: '100%',
