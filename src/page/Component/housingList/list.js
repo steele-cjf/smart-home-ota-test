@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 // import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, RefreshControl } from 'react-native';
 import HouseItem from './item';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import { FlatList } from 'react-native-gesture-handler';
@@ -15,6 +15,7 @@ function HouseListComponent(props) {
   // const [params, setParams] = useState({});
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [upLoading, setUpLoadding] = useState(false)
 
   const scrollToListTop = () => {
     const listElementCur = listElement.current;
@@ -22,7 +23,6 @@ function HouseListComponent(props) {
       listElementCur && listElementCur.scrollToIndex({ index: 0, viewOffset: 0 });
     }
   };
-
   const houseListData = () => {
     if (houses && Object.prototype.toString.call(houses) === "[object Array]") {
       return houses.slice()
@@ -73,6 +73,7 @@ function HouseListComponent(props) {
   useEffect(() => {
     updateLoadingState(true);
     updateResultData(props.list)
+    setUpLoadding(false)
   }, [props.list])
 
   const getHouseIdKey = (house, index) => {
@@ -152,6 +153,22 @@ function HouseListComponent(props) {
         // refreshing={isLoading}
         // 刷新
         // onRefresh={fetchHouseList}
+        refreshControl={
+          <RefreshControl
+            progressViewOffset={30}
+            title={'加载中...'}
+            colors={['red']}//此颜色无效
+            tintColor={'orange'}
+            titleColor={'red'}//只有ios有效
+            refreshing={upLoading}
+            onRefresh={() => {
+              setUpLoadding(true)
+              fetchHouseList()
+              // this.loadData(true);
+            }}
+
+          />
+        }
         // 加载更多安全距离（相对于屏幕高度的比例）
         onEndReachedThreshold={IS_IOS ? 0.05 : 0.2}
         // 加载更多
