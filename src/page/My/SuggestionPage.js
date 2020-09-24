@@ -27,6 +27,11 @@ const SuggestionPage = (props) => {
   // };
 
   const setImageForm = (objs) => {
+    if (objs && objs.length > maxImageFiles) { 
+      showToast('图片总数不能超过6张');
+      return;
+    }
+
     let dataArr = Object.assign([], formImages);
     if (objs && dataArr.length && dataArr[dataArr.length-1] === '') {
       dataArr.splice(dataArr.length-1, 1);
