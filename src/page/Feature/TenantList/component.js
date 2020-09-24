@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
@@ -104,6 +104,7 @@ export default function TenantList(props) {
       {loading ? (
         <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
+        <ScrollView bounces={false}>
           <View style={styles.room_wrapper}>
             <View style={[styles.house_address, styles.line]}>
               <View style={{ width: 70 }}>
@@ -132,6 +133,7 @@ export default function TenantList(props) {
               keyExtractor={(_, index) => index.toString()}
             />
           </View>
+        </ScrollView>
         )}
     </View>
   );

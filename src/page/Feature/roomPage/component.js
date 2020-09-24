@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, StyleSheet, FlatList, Alert, ScrollView } from 'react-native';
 //import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icomoon from '../../../common/Icomoon';
 import {
@@ -178,6 +178,7 @@ export default function RoomPage(props) {
       {loading ? (
         <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
+        <ScrollView bounces={false} style={{ flex: 1 }}>
           <View style={styles.room_wrapper}>
             <View style={styles.house_address}>
               <View style={{ width: 70 }}>
@@ -194,6 +195,7 @@ export default function RoomPage(props) {
             </View>
             {renderContent()}
           </View>
+          </ScrollView>
         )}
       <DialogInput
         isDialogVisible={isDialogVisible}

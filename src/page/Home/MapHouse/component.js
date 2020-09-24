@@ -12,7 +12,7 @@ import HeaderCommon from '../../Component/HeaderCommon';
 let h = Dimensions.get('window').height
 const snapPoints = [0.6 * h, 0.5 * h, 0.4 * h, 0.3 * h, 0.2 * h, 0.1 * h, 0]
 function MapHouse(props) {
-  const data = [{ type: 'text', value: '位置', key: 'location' }, { type: 'text', value: '方式/户型', key: 'houseType' }, { type: 'text', value: '租金', key: 'rent' }];
+  const data = [{ type: 'text', value: '位置', key: 'location' }, { type: 'text', value: '户型', key: 'houseType' }, { type: 'text', value: '租金', key: 'rent' }];
   const filterParamsList = [
     [{ distance: null }, { distance: '1' }, { distance: '2' }, { distance: '3' }],
     [],
@@ -61,6 +61,7 @@ function MapHouse(props) {
       props.getHousingList({
         formattedAddress: item.formattedAddress
       }, res => {
+        console.log('maplist', res.data.list)
         setHouseList(res.data.list)
       })
       bottomSheetRef.current.snapTo(3)
@@ -69,6 +70,7 @@ function MapHouse(props) {
     }
   }
   const searchMarker = (reg) => {
+    selectMarker(null)
     let data = {}
     let location = reg || loc
     if (location && location.region) {
@@ -166,17 +168,20 @@ function MapHouse(props) {
     return Dom
   }
   const renderHeader = () => {
-    return (<Text style={styles.header}>——</Text>)
+    if (!selectItem) return null
+    return (<View>
+              <Text style={styles.header}>——</Text>
+              <View style={styles.contentBox}>
+                <Text style={styles.contentTitle}>{selectItem.formattedAddress}</Text>
+                <Text style={styles.contentDes}>{'在租' + selectItem.houseCount + '套'}</Text>
+              </View>
+            </View>)
   }
   const renderContent = () => {
     if (!selectItem) return (<View style={styles.content} />)
     return (
       <View style={styles.content}>
-        <View style={styles.contentBox}>
-          <Text style={styles.contentTitle}>{selectItem.formattedAddress}</Text>
-          <Text style={styles.contentDes}>{'在租' + selectItem.houseCount + '套'}</Text>
-        </View>
-        <HouseListComponent list={houseList} getList={(obj) => { getList(obj) }} />
+        <HouseListComponent list={houseList} handlerHouseList={(page) => fetchHouseList(page)} />
       </View>)
   }
   return (
@@ -255,6 +260,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FD8D22'
   },
   contentBox: {
+    backgroundColor: '#fff',
     flexDirection: 'row',
     paddingHorizontal: 15,
     paddingBottom: 10

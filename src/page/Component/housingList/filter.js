@@ -249,7 +249,7 @@ class DropdownMenu extends Component {
         selectIndex: selectIndex
       });
       this.setState((state) => {
-        state.prevData[this.state.activityIndex].value = title.label
+        // state.prevData[this.state.activityIndex].value = title.label
         state.prevData[this.state.activityIndex].selected = true
         return state.prevData
       })
@@ -279,10 +279,6 @@ class DropdownMenu extends Component {
         }}
       />
     );
-  }
-  
-  split(data){
-    return data.length > 4 ? data.substring(0,4) + '...' : data
   }
 
   render() {
@@ -315,7 +311,7 @@ class DropdownMenu extends Component {
                           (this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor)
                       }
                     ]} >
-                    {this.split(rows.value)}
+                    {rows.value}
                   </Text>
                   {this.renderDropDownArrow(index, rows)}
                 </View>
