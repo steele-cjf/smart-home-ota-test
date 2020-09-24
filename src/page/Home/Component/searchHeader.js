@@ -12,13 +12,13 @@ export default function SearchHeader(props) {
     return (
         <View>
             <Header hasSegment style={styles.container}>
-                <Left style={[{ flex: 1 }, Platform.OS == 'android' && {top: -2, left: -2}]}>
-                    <Button transparent onPress={() => NavigatorService.goBack()} >
-                        <AntDesign name="left" style={[styles.actionColor, Platform.OS == 'android' && {top: 2}]} />
-                        <Text style={[styles.backBtn, Platform.OS == 'android' && styles.backBtnAndroid]}>返回</Text>
+                <View>
+                    <Button transparent onPress={() => NavigatorService.goBack()} style={{flex: 1, alignItems: 'center'}} >
+                        <AntDesign name="left" style={[styles.actionColor]} />
+                        <Text style={[styles.backBtn]}>返回</Text>
                     </Button>
-                </Left>
-                <Body style={{ flexDirection: 'row', flex: 4, alignItems: 'center', backgroundColor: '#E9E9E9', height: 30, borderRadius: 20, }}>
+                </View>
+                <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', backgroundColor: '#E9E9E9', height: 30, borderRadius: 20, marginHorizontal: 10 }}>
                     <EvilIcons name='search' style={styles.searchIcon} />
                     <Input
                         style={styles.Input}
@@ -26,10 +26,10 @@ export default function SearchHeader(props) {
                         onChangeText={setSearchItem}
                         onBlur={() => props.getSearchParams(searchItem)}
                         placeholder='搜索房源' />
-                </Body>
-                <Right style={{ flex: 0.5 }}>
-                    <Icomoon style={styles.RightIcon} name='dingwei' onPress={() => NavigatorService.navigate(AppRoute.MAPHOUSE)} />
-                </Right>
+                </View>
+                <View>
+                    <Entypo style={styles.RightIcon} name='location' onPress={() => NavigatorService.navigate(AppRoute.MAPHOUSE)} />
+                </View>
             </Header>
         </View>
     );
@@ -37,10 +37,11 @@ export default function SearchHeader(props) {
 
 const styles = StyleSheet.create({
     container: {
-        // height: 50,
-        height: 44,
+        height: 50,
+        // height: 44,
         padding: 10,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        alignItems: 'center'
     },
     selectBox: {
         borderTopWidth: 1,
@@ -55,18 +56,11 @@ const styles = StyleSheet.create({
     actionColor: {
         color: Theme.textLink,
         fontSize: $screen.scaleSize(14),
-        marginRight: 10,
-        //marginTop: 3,
-        left: 3
     },
     searchIcon: {
-        // position: 'absolute',
-        // left: 5,
-        // top: 8,
         color: '#7C7C7C',
         fontSize: $screen.scaleSize(18),
         paddingLeft: 10,
-        // zIndex: 10
     },
     Input: {
         paddingLeft: 10,
@@ -93,7 +87,8 @@ const styles = StyleSheet.create({
         color: Theme.backLink,
         fontSize: 14,
         fontWeight: 'normal',
-        top: 0,
+        paddingLeft: 5,
+        paddingRight: 0
     },
     backBtnAndroid: {
         left: -10,

@@ -59,10 +59,10 @@ function MapHouse(props) {
     setSelectItem(item)
     if (item) {
       props.getHousingList({
-        formattedAddress: item.formattedAddress
+        formattedAddress: item.formattedAddress,
+        pageNum: 1
       }, res => {
-        console.log('maplist', res.data.list)
-        setHouseList(res.data.list)
+        setHouseList(res.data)
       })
       bottomSheetRef.current.snapTo(3)
     } else {
@@ -181,7 +181,7 @@ function MapHouse(props) {
     if (!selectItem) return (<View style={styles.content} />)
     return (
       <View style={styles.content}>
-        <HouseListComponent list={houseList} handlerHouseList={(page) => fetchHouseList(page)} />
+        <HouseListComponent list={houseList} />
       </View>)
   }
   return (
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection: 'row',
     paddingHorizontal: 15,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   contentTitle: {
     color: '#282828',
@@ -274,8 +274,6 @@ const styles = StyleSheet.create({
   contentDes: {
     color: '#7C7C7C',
     fontSize: $screen.scaleSize(12),
-    // position: 'absolute',
-    // right: 17,
     paddingHorizontal: 10,
     top: 8,
     alignItems: 'center'
