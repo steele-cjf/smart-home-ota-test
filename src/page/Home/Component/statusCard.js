@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Theme from '../../../style/colors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+//import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icomoon from '../../../common/Icomoon';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { AppRoute } from '../../../navigator/AppRoutes';
@@ -117,7 +117,8 @@ export default function StatusCard(props) {
         <View style={styles.container}>
             {options && options.showLocation &&
                 <TouchableOpacity style={styles.topBox} onPress={() => props.showList()}>
-                    <Entypo style={styles.LeftIcon} name='location-pin' />
+                    {/* <Entypo style={styles.LeftIcon} name='location-pin' /> */}
+                    <Icomoon style={styles.LeftIcon} name='dizhi' />
                     <Text style={styles.location} numberOfLines={1}>{options.name || '--'}</Text>
                     <Icomoon name='xiajiantou_shixin' style={styles.RightIcon} />
                 </TouchableOpacity>

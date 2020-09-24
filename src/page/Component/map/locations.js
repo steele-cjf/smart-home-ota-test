@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, PanResponder } from 'react-native';
 import { Button } from 'native-base'
 import { MapView } from "react-native-amap3d";
 import Entypo from 'react-native-vector-icons/Entypo'
+import Icomoon from '../../../common/Icomoon';
 
 function LoactionMap(props) {
     const [center, setCenter] = useState({})
@@ -21,7 +22,8 @@ function LoactionMap(props) {
     const renderMarker = () => {
         let result = (<MapView.Marker
             icon={() => {
-                return (<Entypo name='location-pin' style={{ color: 'blue', fontSize: $screen.scaleSize(30) }}></Entypo>)
+                // return (<Entypo name='location-pin' style={{ color: 'blue', fontSize: $screen.scaleSize(30) }}></Entypo>)
+                return (<Icomoon name='dizhi' style={{ color: 'blue', fontSize: $screen.scaleSize(30) }} />)
             }}
             clickDisabled={true}
             coordinate={{

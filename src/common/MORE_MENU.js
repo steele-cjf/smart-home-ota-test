@@ -1,7 +1,7 @@
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 //import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+//import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icomoon from './Icomoon';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -13,13 +13,13 @@ export const MORE_MENU = {
   },
   Tenement: {
     name: '我是租户',
-    Icons: Icomoon, //AntDesign,
-    icon: 'woshizufang', //'home'
+    Icons: Icomoon, 
+    icon: 'woshizufang', 
   },
   House_Collect: {
     name: '房源收藏',
-    Icons: Ionicons,
-    icon: 'color-palette',
+    Icons: Icomoon,
+    icon: 'shoucang',
   },
   Setting: {name: '我的设置', Icons: Icomoon, icon: 'shezhi'},
 

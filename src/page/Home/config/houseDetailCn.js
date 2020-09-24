@@ -20,21 +20,21 @@ const houseLayoutCn = [
     }
 ]
 const houseItemCn = {
-    "air_conditioner": "database",
-    "balcony": "dingding",
-    "gas": "twitter",
-    "gas_stove": "aliyun",
-    "heater": "rocket1",
-    "induction_cooker": "sound",
-    "microwave_oven": "shake",
-    "refrigerator": "API",
-    "smoking_machine": "android1",
-    "sofa": "indent-right",
-    "table_chair": "disconnect",
-    "tv": "tablet1",
-    "wardrobe": "printer",
-    "washing_machine": "Safety",
-    "water_heater": "woman"
+    "air_conditioner": "kongtiao",
+    "balcony": "yangtai",
+    "gas": "tianranqi",
+    "gas_stove": "ranqizao",
+    "heater": "nuanqi",
+    "induction_cooker": "diancilu",
+    "microwave_oven": "weibolu",
+    "refrigerator": "bingxiang",
+    "smoking_machine": "youyanji",
+    "sofa": "shafa",
+    "table_chair": "yizi",
+    "tv": "dianshi",
+    "wardrobe": "yigui",
+    "washing_machine": "xiyiji",
+    "water_heater": "reshuiqi"
 }
 const houseRatePlanCn = [{
     name: '水费',

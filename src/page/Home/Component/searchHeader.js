@@ -3,6 +3,7 @@ import { View, StyleSheet, Platform } from 'react-native'
 import { Button, Icon, Text, Left, Right, Header, Body, Input } from 'native-base';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icomoon from '../../../common/Icomoon';
 import { AppRoute } from '../../../navigator/AppRoutes';
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
@@ -27,7 +28,7 @@ export default function SearchHeader(props) {
                         placeholder='搜索房源' />
                 </Body>
                 <Right style={{ flex: 0.5 }}>
-                    <Entypo style={styles.RightIcon} name='location' onPress={() => NavigatorService.navigate(AppRoute.MAPHOUSE)} />
+                    <Icomoon style={styles.RightIcon} name='dingwei' onPress={() => NavigatorService.navigate(AppRoute.MAPHOUSE)} />
                 </Right>
             </Header>
         </View>
@@ -79,10 +80,10 @@ const styles = StyleSheet.create({
     },
     RightIcon: {
         color: '#333333',
-        fontSize: $screen.scaleSize(19),
+        fontSize: $screen.scaleSize(23),
         width: '100%',
         textAlign: 'center',
-        paddingVertical: 5
+        //paddingVertical: 5,
     },
     text: {
         color: '#282828',

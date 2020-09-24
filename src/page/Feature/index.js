@@ -18,6 +18,8 @@ import { MORE_MENU } from '../../common/MORE_MENU';
 import { AppRoute } from '../../navigator/AppRoutes';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
+import Icomoon from '../../common/Icomoon';
+
 function FeaturePage(props) {
   const [loading, setLoading] = useState(true);
   const [houseList, setHouseList] = useState({});
@@ -185,11 +187,13 @@ function FeaturePage(props) {
         </View>
         <TouchableOpacity onPress={() => showList()}>
           <View style={[styles.InfoBox]}>
-            <Entypo size={20} color={'#f9f9f9'} name="location-pin" />
+            {/* <Entypo size={20} color={'#f9f9f9'} name="location-pin" /> */}
+            <Icomoon size={20} color={'#f9f9f9'} name="dizhi" />
             <Text style={[styles.infoText, { fontSize: $screen.scaleSize(18), color: '#f9f9f9' }]}>
               {selectHouse.address || '暂无房源'}
             </Text>
-            <AntDesign style={styles.infoRightImg} name="caretdown" color={'#f9f9f9'} size={14} />
+            {/* <AntDesign style={styles.infoRightImg} name="caretdown" color={'#f9f9f9'} size={14} /> */}
+            <Icomoon style={styles.infoRightImg} name="xiajiantou_shixin" color={'#f9f9f9'} size={14} />
           </View>
         </TouchableOpacity>
         {/* <ActionSheet ref={(c) => { setActionSheet(c) }} /> */}

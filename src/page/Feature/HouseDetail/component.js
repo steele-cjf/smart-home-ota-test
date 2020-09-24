@@ -349,12 +349,21 @@ function HouseDetail(props) {
               </View>
               <View
                 style={(styles.rightContent, styles.flex)}>
-                <Ionicons
+                {/* <Ionicons
                   name="add"
                   style={{
                     top: Platform.OS === 'android' && 2 || 0,
                     right: Platform.OS === 'android' && 4 || 0,
                     fontSize: $screen.scaleSize(14),
+                    color: Theme.textLink,
+                  }}
+                /> */}
+                <Icomoon
+                  name="tianjia"
+                  style={{
+                    top: 2,
+                    right: 4,
+                    fontSize: $screen.scaleSize(10),
                     color: Theme.textLink,
                   }}
                 />

@@ -96,7 +96,8 @@ function HouseDetail(props) {
     const renderHouseItem = () => {
         let result = options.houseAmenity.items.map((val) => {
             return (<View style={styles.houseItemModule} key={val}>
-                <AntDesign name={houseItemCn[val]} style={styles.houseLayoutIcon} />
+                {/* <AntDesign name={houseItemCn[val]} style={styles.houseLayoutIcon} /> */}
+                <Icomoon name={houseItemCn[val]} style={styles.houseLayoutIcon} />
                 <Text style={styles.houseLayoutDesc}>{code['house_item'][val] || '--'}</Text>
             </View>)
         })
@@ -148,7 +149,8 @@ function HouseDetail(props) {
                     {renderHouseRatePlan()}
                     <Text style={styles.moduleTitle}>地理位置</Text>
                     <View style={styles.locBox}>
-                        <Entypo style={styles.locIcon} name='location-pin' />
+                        {/* <Entypo style={styles.locIcon} name='location-pin' /> */}
+                        <Icomoon style={styles.locIcon} name='dizhi' />
                         <Text style={styles.locText}>{options.address || loc.name}</Text>
                     </View>
                     <View style={styles.mapBox}>

@@ -383,7 +383,7 @@ const PersonalInfoPage = (props) => {
                       onChangeText={(text) => {setSaveData(item, text);}}
                       value={otherData[item]}
                       editable={true}
-                      maxLength={30}
+                      maxLength={20}
                       onFocus={() => {
                         if (Picker) {
                           Picker.hide();
