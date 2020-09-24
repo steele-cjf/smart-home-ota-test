@@ -13,6 +13,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ActionSheetCustom as ActionSheet } from 'react-native-custom-actionsheet';
 import { getMyHouseList } from '../../store/home/index';
 import { setFeatureHouse } from '../../store/common/index'
+import { getUserInfo } from '../../store/home/index';
 import ViewUtil from '../../util/ViewUtil';
 import { MORE_MENU } from '../../common/MORE_MENU';
 import { AppRoute } from '../../navigator/AppRoutes';
@@ -39,6 +40,7 @@ function FeaturePage(props) {
   useFocusEffect(
     useCallback(() => {
       props.getMyHouseList()
+      props.getUserInfo();
     }, [props.route])
   )
 
@@ -240,7 +242,7 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ getMyHouseList, setFeatureHouse }, dispatch);
+  return bindActionCreators({ getMyHouseList, setFeatureHouse, getUserInfo }, dispatch);
 }
 export default connect(
   mapStateToProps,
