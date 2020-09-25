@@ -133,9 +133,9 @@ export default function ImageUpload(props) {
             })
             .catch(err => {
               console.log('7777777', err)
-              if (buttonIndex === 0) {
+              if (err.message.includes("User did not grant camera permission")) {
                 showToast('系统设置了拒绝访问相机')
-              } else {
+              } else if (err.message.includes("Cannot access images")) {
                 showToast('系统设置了拒绝访问相册')
               }
             });
