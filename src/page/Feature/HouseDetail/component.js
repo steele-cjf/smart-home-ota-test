@@ -349,15 +349,6 @@ function HouseDetail(props) {
               </View>
               <View
                 style={(styles.rightContent, styles.flex)}>
-                {/* <Ionicons
-                  name="add"
-                  style={{
-                    top: Platform.OS === 'android' && 2 || 0,
-                    right: Platform.OS === 'android' && 4 || 0,
-                    fontSize: $screen.scaleSize(14),
-                    color: Theme.textLink,
-                  }}
-                /> */}
                 <Icomoon
                   name="tianjia"
                   style={{
@@ -392,7 +383,7 @@ function HouseDetail(props) {
       {loading ? (
         <Spinner style={STYLES.spinner} color="#5C8BFF" />
       ) : (
-          <View>
+          <View style={{flex: 1}}>
             <HeaderCommon
               options={{
                 backTitle: '返回',
@@ -403,171 +394,171 @@ function HouseDetail(props) {
               }}
             />
             <Divider />
-            <ScrollView bounces={false}>
-            <View style={styles.padding}>
-              {houseInfo.status === 'audit_pending' ? (
-                <View style={[styles.statusContent, styles.checkingColor]}>
-                  <Text style={styles.statusTitle}>房源审核中</Text>
-                  <Text style={styles.statusDesc}>约两个工作日内完成审核</Text>
-                </View>
-              ) : houseInfo.status === 'audit_reject' ? (
-                <View style={[styles.statusContent, styles.failColor]}>
-                  <Text style={styles.statusTitle}>房源审核失败</Text>
-                  <Text style={styles.statusDesc}>
-                    {houseInfo.auditOpinions}
-                  </Text>
-                </View>
-              ) : null}
-              {/*  房源信息 */}
-              <View style={styles.listBox}>
-                <View style={styles.leftContent}>
-                  <Text
-                    style={[
-                      styles.labelTitle,
-                      styles.secColor,
-                      styles.fontSize14,
-                    ]}>
-                    房屋地址
-                  </Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text numberOfLines={1}
-                    style={[styles.textAlignR, styles.mainColor, styles.fontSize14]}>
-                    {houseInfo.regionFullName}
-                  </Text>
-                  <Text numberOfLines={1}
-                    style={[styles.textAlignR, styles.mainColor, styles.fontSize14]}>
-                    {houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.listBox}>
-                <View style={styles.leftContent}>
-                  <Text
-                    style={[
-                      styles.labelTitle,
-                      styles.secColor,
-                      styles.fontSize14,
-                    ]}>
-                    房屋所有人
-                </Text>
-                </View>
-                <View style={styles.rightContent}>
-                  <Text
-                    style={[
-                      styles.textAlignR,
-                      styles.mainColor,
-                      styles.fontSize14,
-                    ]}>
-                    {houseInfo.houseHolder.holderName}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.listBox}>
-                <View style={styles.leftContent}>
-                  <Text
-                    style={[
-                      styles.labelTitle,
-                      styles.secColor,
-                      styles.fontSize14,
-                    ]}>
-                    房产证及授权文件
-                  </Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }} onPress={() => checkImgLength()}>
-                    <Text
-                      style={{
-                        color: Theme.textLink,
-                        fontSize: $screen.scaleSize(14),
-                      }}>
-                      查看
+            <ScrollView bounces={false} style={{flex: 1}}>
+              <View style={styles.padding}>
+                {houseInfo.status === 'audit_pending' ? (
+                  <View style={[styles.statusContent, styles.checkingColor]}>
+                    <Text style={styles.statusTitle}>房源审核中</Text>
+                    <Text style={styles.statusDesc}>约两个工作日内完成审核</Text>
+                  </View>
+                ) : houseInfo.status === 'audit_reject' ? (
+                  <View style={[styles.statusContent, styles.failColor]}>
+                    <Text style={styles.statusTitle}>房源审核失败</Text>
+                    <Text style={styles.statusDesc}>
+                      {houseInfo.auditOpinions}
                     </Text>
-                    <AntDesign
-                      name="right"
-                      style={{
-                        fontSize: $screen.scaleSize(14),
-                        color: Theme.textLink,
-                      }}
-                    />
-                  </TouchableOpacity>
+                  </View>
+                ) : null}
+                {/*  房源信息 */}
+                <View style={styles.listBox}>
+                  <View style={styles.leftContent}>
+                    <Text
+                      style={[
+                        styles.labelTitle,
+                        styles.secColor,
+                        styles.fontSize14,
+                      ]}>
+                      房屋地址
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text numberOfLines={1}
+                      style={[styles.textAlignR, styles.mainColor, styles.fontSize14]}>
+                      {houseInfo.regionFullName}
+                    </Text>
+                    <Text numberOfLines={1}
+                      style={[styles.textAlignR, styles.mainColor, styles.fontSize14]}>
+                      {houseInfo.address && houseInfo.address.split(houseInfo.regionFullName)[1]}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-              <Divider style={{ marginTop: 16 }} />
-              <View style={styles.listBox}>
-                <View style={styles.leftContent}>
-                  <Text
-                    style={[
-                      styles.labelTitle,
-                      styles.secColor,
-                      styles.fontSize14,
-                    ]}>
-                    建筑面积
-                </Text>
-                </View>
-                <View style={styles.rightContent}>
-                  <Text
-                    style={[
-                      styles.textAlignR,
-                      styles.mainColor,
-                      styles.fontSize14,
-                    ]}>
-                    {houseInfo.houseLayout.area}㎡
-                </Text>
-                </View>
-              </View>
-              <View style={styles.listBox}>
-                <View style={styles.leftContent}>
-                  <Text
-                    style={[
-                      styles.labelTitle,
-                      styles.secColor,
-                      styles.fontSize14,
-                    ]}>
-                    楼层
-                </Text>
-                </View>
-                <View style={styles.rightContent}>
-                  <Text
-                    style={[
-                      styles.textAlignR,
-                      styles.mainColor,
-                      styles.fontSize14,
-                    ]}>
-                    第{houseInfo.houseLayout.floor}层&nbsp;共
-                  {houseInfo.houseLayout.floorCount}层&nbsp;
-                  {houseInfo.houseLayout.hasElevator ? '电梯房' : ''}
+                <View style={styles.listBox}>
+                  <View style={styles.leftContent}>
+                    <Text
+                      style={[
+                        styles.labelTitle,
+                        styles.secColor,
+                        styles.fontSize14,
+                      ]}>
+                      房屋所有人
                   </Text>
+                  </View>
+                  <View style={styles.rightContent}>
+                    <Text
+                      style={[
+                        styles.textAlignR,
+                        styles.mainColor,
+                        styles.fontSize14,
+                      ]}>
+                      {houseInfo.houseHolder.holderName}
+                    </Text>
+                  </View>
                 </View>
+                <View style={styles.listBox}>
+                  <View style={styles.leftContent}>
+                    <Text
+                      style={[
+                        styles.labelTitle,
+                        styles.secColor,
+                        styles.fontSize14,
+                      ]}>
+                      房产证及授权文件
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }} onPress={() => checkImgLength()}>
+                      <Text
+                        style={{
+                          color: Theme.textLink,
+                          fontSize: $screen.scaleSize(14),
+                        }}>
+                        查看
+                      </Text>
+                      <AntDesign
+                        name="right"
+                        style={{
+                          fontSize: $screen.scaleSize(14),
+                          color: Theme.textLink,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <Divider style={{ marginTop: 16 }} />
+                <View style={styles.listBox}>
+                  <View style={styles.leftContent}>
+                    <Text
+                      style={[
+                        styles.labelTitle,
+                        styles.secColor,
+                        styles.fontSize14,
+                      ]}>
+                      建筑面积
+                  </Text>
+                  </View>
+                  <View style={styles.rightContent}>
+                    <Text
+                      style={[
+                        styles.textAlignR,
+                        styles.mainColor,
+                        styles.fontSize14,
+                      ]}>
+                      {houseInfo.houseLayout.area}㎡
+                  </Text>
+                  </View>
+                </View>
+                <View style={styles.listBox}>
+                  <View style={styles.leftContent}>
+                    <Text
+                      style={[
+                        styles.labelTitle,
+                        styles.secColor,
+                        styles.fontSize14,
+                      ]}>
+                      楼层
+                  </Text>
+                  </View>
+                  <View style={styles.rightContent}>
+                    <Text
+                      style={[
+                        styles.textAlignR,
+                        styles.mainColor,
+                        styles.fontSize14,
+                      ]}>
+                      第{houseInfo.houseLayout.floor}层&nbsp;共
+                    {houseInfo.houseLayout.floorCount}层&nbsp;
+                    {houseInfo.houseLayout.hasElevator ? '电梯房' : ''}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.listBox}>
+                  <View style={styles.leftContent}>
+                    <Text
+                      style={[
+                        styles.labelTitle,
+                        styles.secColor,
+                        styles.fontSize14,
+                      ]}>
+                      户型
+                  </Text>
+                  </View>
+                  <View style={styles.rightContent}>
+                    <Text
+                      style={[
+                        styles.textAlignR,
+                        styles.mainColor,
+                        styles.fontSize14,
+                      ]}>
+                      {houseInfo.houseLayout.roomCount}室
+                    {houseInfo.houseLayout.hallCount}厅
+                    {houseInfo.houseLayout.toiletCount}卫
+                  </Text>
+                  </View>
+                </View>
+                {/* 状态管理 */}
+                {renderRolePage()}
               </View>
-              <View style={styles.listBox}>
-                <View style={styles.leftContent}>
-                  <Text
-                    style={[
-                      styles.labelTitle,
-                      styles.secColor,
-                      styles.fontSize14,
-                    ]}>
-                    户型
-                </Text>
-                </View>
-                <View style={styles.rightContent}>
-                  <Text
-                    style={[
-                      styles.textAlignR,
-                      styles.mainColor,
-                      styles.fontSize14,
-                    ]}>
-                    {houseInfo.houseLayout.roomCount}室
-                  {houseInfo.houseLayout.hallCount}厅
-                  {houseInfo.houseLayout.toiletCount}卫
-                </Text>
-                </View>
-              </View>
-              {/* 状态管理 */}
-              {renderRolePage()}
-            </View>
-          </ScrollView>
+            </ScrollView>
         </View>
         )}
       <Modal style={{ flex: 1 }}

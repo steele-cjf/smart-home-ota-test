@@ -91,7 +91,7 @@ export default function TenantList(props) {
     );
   };
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <HeaderCommon
         options={{
           backTitle: '返回',

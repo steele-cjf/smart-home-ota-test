@@ -85,8 +85,18 @@ function HouseDetail(props) {
         if (check) {
             key = 'house_spots'
         }
-        let result = options.houseAddition[type].map((item) => {
-            return (<View style={[styles.houseAdditionModule, !check && { backgroundColor: '#E9E9E9' }]}>
+        let result = options.houseAddition[type].map((item, index) => {
+            let stylesMargin = {}
+            if((index + 1 )%4==0){
+                stylesMargin = {
+                    marginRight: 0
+                }
+            } else {
+                stylesMargin = {
+                    marginRight: 14
+                }
+            }
+            return (<View style={[styles.houseAdditionModule, stylesMargin, !check && { backgroundColor: '#E9E9E9' }]}>
                 <Text style={styles.houseAdditionText}>{code[key][item] || '--'}</Text>
             </View>)
         })
@@ -238,14 +248,15 @@ const styles = StyleSheet.create({
     },
     houseAdditionModule: {
         backgroundColor: '#ECF2FF',
-        marginRight: 16,
+        // marginRight: 11,
         borderRadius: 5,
         marginBottom: 10
     },
     houseAdditionText: {
         fontSize: $screen.scaleSize(14),
         color: '#7C7C7C',
-        paddingHorizontal: 15,
+        // fontSize: 14,
+        paddingHorizontal: 13,
         paddingVertical: 6
     },
     houseItemBox: {
