@@ -56,7 +56,6 @@ function MapHouse(props) {
   }, [props.route]))
 
   const getHouseList = ({ page = 1, item = selectItem }) => {
-    console.log(999999, item, page, params)
     props.getHousingList({
       formattedAddress: item.formattedAddress,
       ...params,
@@ -202,7 +201,6 @@ function MapHouse(props) {
         bgColor={'white'}
         tintColor={'#282828'}
         activityTintColor={'#5C8BFF'}
-
         handler={(selection, row) => getFilter(selection, row)}
         multipleSection={(arr1, arr2) => getSection(arr1, arr2)}
         data={data}
@@ -223,27 +221,26 @@ function MapHouse(props) {
           ref={mapRef}>
           {renderMarker()}
         </MapView>
+        <BottomSheet
+          ref={bottomSheetRef}
+          snapPoints={snapPoints}
+          initialSnap={snapIndex}
+          enabledGestureInteraction={true}
+          enabledContentTapInteraction={false} // 巨坑：false，children组件的事件才会生效
+          enabledContentGestureInteraction={false}
+          enabledHeaderGestureInteraction={true}
+          style={styles.BottomSheet}
+          renderHeader={() => renderHeader()}
+          renderContent={() => renderContent()}
+        />
       </DropdownMenu>
-      <BottomSheet
-        ref={bottomSheetRef}
-        snapPoints={snapPoints}
-        initialSnap={snapIndex}
-        enabledGestureInteraction={true}
-        enabledContentTapInteraction={false} // 巨坑：false，children组件的事件才会生效
-        enabledContentGestureInteraction={false}
-        enabledHeaderGestureInteraction={true}
-        style={styles.BottomSheet}
-        renderHeader={() => renderHeader()}
-        renderContent={() => renderContent()}
-      />
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   BottomSheet: {
-    position: 'absolute',
-    zIndex: -10
   },
   content: {
     height: '100%',
@@ -251,8 +248,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   header: {
-    backgroundColor: '#fff',
-    textAlign: 'center'
+    textAlign: 'center',
+    backgroundColor: '#fff'
   },
   markerBox: {
     color: '#fff',
