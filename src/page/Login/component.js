@@ -144,11 +144,8 @@ function LoginPage(props) {
   const [count, setCount] = useState(times);
 
   return ( 
-    // <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
-    // <ScrollView style={styles.container}>
-    // <KeyboardAvoidingView behavior="position" keyboardVerticalOffset = {120} >
-    // <Content style={styles.container}> //ScrollView
-    <Content bounces={true} contentContainerStyle={styles.container}>
+    <ScrollView bounces={false} style={{backgroundColor: Theme.background}}>
+    <Content bounces={false} style={styles.container}>
       <Text style={styles.loginTitle}>登录</Text>
       <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
       <Input
@@ -212,6 +209,7 @@ function LoginPage(props) {
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
       <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户T3</Text>
     </Content>
+    </ScrollView>
   );
 }
 

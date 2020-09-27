@@ -351,65 +351,63 @@ const PersonalInfoPage = (props) => {
         }}
       />
       {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> : 
-      <View>
-        <ScrollView bounces={false} style={styles.containerStyle}>
-          <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
-            <Text style={[styles.textTitle, {paddingVertical: 16}]}>头像</Text>
-            <Image style={styles.headImageStyle} source={headImage} />
-            <AntDesign name="right" style={styles.rightArrow} />
-          </TouchableOpacity>
-          <View style={[styles.sigContainer,]}> 
-            <Text style={[styles.textTitle, styles.fontSize16, {marginBottom: 16}]}>基本资料</Text>
-            {
-              renderBasicView()
-            }
-          </View>
-          { 
-            Object.keys(otherData).map((item, index) => { 
-              if (index !== 2) {
-                return ( 
-                  <TouchableOpacity 
-                    style={styles.sigContainer} 
-                    onPress={() => 
-                      index === 0 ? pickerAction(otherData[item]) : regionPickerAction()
-                    }
-                  >
-                    <Text style={[styles.textTitle]}>{item}</Text>
-                    <Text style={[styles.textContent,styles.rightInput]}>{otherData[item]}</Text>
-                    <AntDesign name="right" style={styles.rightArrow} />
-                  </TouchableOpacity>
-                ); 
-              } else {
-                return (
-                  <View style={styles.sigContainer}>
-                    <Text style={[styles.textTitle]}>{item}</Text>
-                    <TextInput style={[styles.textContent,styles.rightInput, {top: 0, paddingVertical: 17}]} 
-                      onChangeText={(text) => {setSaveData(item, text);}}
-                      value={otherData[item]}
-                      editable={true}
-                      maxLength={20}
-                      onFocus={() => {
-                        if (Picker) {
-                          Picker.hide();
-                        }
-                      }}
-                    />
-                  </View>
-                ); 
-              }
-            })
+      <Content bounces={false} style={styles.containerStyle}>
+        <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
+          <Text style={[styles.textTitle, {paddingVertical: 16}]}>头像</Text>
+          <Image style={styles.headImageStyle} source={headImage} />
+          <AntDesign name="right" style={styles.rightArrow} />
+        </TouchableOpacity>
+        <View style={[styles.sigContainer,]}> 
+          <Text style={[styles.textTitle, styles.fontSize16, {marginBottom: 16}]}>基本资料</Text>
+          {
+            renderBasicView()
           }
-          <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
-            <Text style={styles.btnTextStyle}>保存</Text>
-          </TouchableOpacity>
-        </ScrollView>
+        </View>
+        { 
+          Object.keys(otherData).map((item, index) => { 
+            if (index !== 2) {
+              return ( 
+                <TouchableOpacity 
+                  style={styles.sigContainer} 
+                  onPress={() => 
+                    index === 0 ? pickerAction(otherData[item]) : regionPickerAction()
+                  }
+                >
+                  <Text style={[styles.textTitle]}>{item}</Text>
+                  <Text style={[styles.textContent,styles.rightInput]}>{otherData[item]}</Text>
+                  <AntDesign name="right" style={styles.rightArrow} />
+                </TouchableOpacity>
+              ); 
+            } else {
+              return (
+                <View style={styles.sigContainer}>
+                  <Text style={[styles.textTitle]}>{item}</Text>
+                  <TextInput style={[styles.textContent,styles.rightInput, {top: 0, paddingVertical: 17}]} 
+                    onChangeText={(text) => {setSaveData(item, text);}}
+                    value={otherData[item]}
+                    editable={true}
+                    maxLength={20}
+                    onFocus={() => {
+                      if (Picker) {
+                        Picker.hide();
+                      }
+                    }}
+                  />
+                </View>
+              ); 
+            }
+          })
+        }
+        <TouchableOpacity style={styles.btnStyle} onPress={saveOtherDataInfo}> 
+          <Text style={styles.btnTextStyle}>保存</Text>
+        </TouchableOpacity>
         <RegionPicker
           visible={modalVisible} 
           tabs={tabs}
           setTabs={data => setTabs(data)}
           close={(flag, data) => handleFunc(flag, data)}
         />
-      </View>
+      </Content>
       }
     </View>
   ); 
