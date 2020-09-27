@@ -12,7 +12,9 @@ import { ActionSheet } from 'native-base'
 import { Avatar, Badge } from 'react-native-elements';
 //import ImagePicker from 'react-native-image-picker';
  import ImagePicker from 'react-native-image-crop-picker';
-
+//  ImagePicker.openPicker({
+//    skipBackup
+//  })
 //const initOptions = { width: 300, height: 400, useFrontCamera: true, mediaType: 'photo', multiple: false }
 const initOptions = { 
   mediaType: 'photo', 
