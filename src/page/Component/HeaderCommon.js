@@ -77,9 +77,11 @@ const styles = StyleSheet.create({
     },
     backText: {
         color: Theme.textLink,
+        fontSize: $screen.scaleSize(14),
     },
     rightText: {
         color: Theme.textLink,
+        fontSize: $screen.scaleSize(14),
     },
     androidIcon: {
         top: 1,
