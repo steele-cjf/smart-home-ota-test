@@ -22,8 +22,12 @@ function AuthenticationPage(props) {
   }
 
   function personalVerify() {
+    setBtnVerfyDisabled(true);
+
     console.log('userId2:*****', userId)
     props.getVerifyToken({ userId }, res => { //userInfo.id
+      setBtnVerfyDisabled(false);
+
       console.log(888, res)
       if (res.code) {
         showToast(res.message);
@@ -43,7 +47,8 @@ function AuthenticationPage(props) {
             props.getVerifyResult({ bizId }, (res) => {
               setLoading(false);
               if(res.code === 0) {
-                NavigatorService.navigate(AppRoute.HOME);
+                //NavigatorService.navigate(AppRoute.HOME);
+                props.navigation.popToTop();
               } else {
                 showToast(res.message)
                 console.log('res.message*****: ',res.message)
@@ -65,7 +70,8 @@ function AuthenticationPage(props) {
           props.getVerifyResult({ bizId }, (res) => {
             setLoading(false);
             if(res.code === 0) {
-              NavigatorService.navigate(AppRoute.HOME);
+              //NavigatorService.navigate(AppRoute.HOME);
+              props.navigation.popToTop();
             } else {
               showToast(res.message)
               console.log('res.message*****: ',res.message)
@@ -150,6 +156,7 @@ function AuthenticationPage(props) {
   const [userStatus, setUserStatus] = useState('');
   const [loading, setLoading] = useState(false); 
   const AliyunVerify = useRef();
+  const [btnVerfyDisabled, setBtnVerfyDisabled] = useState(false); 
 
   return (
     loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> :
@@ -186,7 +193,7 @@ function AuthenticationPage(props) {
         <Text style={styles.tipText}>
           {"为提高识别成功率： \n1、请本人认证 \n2、拍照请保持环境光线适中 \n3、面部清晰可见无遮挡"}
         </Text>
-        <TouchableOpacity style={styles.verifyBtn} onPress={handlerVerify}>
+        <TouchableOpacity style={styles.verifyBtn} onPress={handlerVerify} disabled={btnVerfyDisabled}>
           <Text style={styles.btnText}>开始认证</Text>
         </TouchableOpacity>
       </View>
