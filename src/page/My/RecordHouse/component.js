@@ -134,12 +134,16 @@ function RecordHouse(props) {
   };
 
   const handlerAudit = () => {
+    let titleReg = /^.{1,50}$/;
     if (!regionId) {
       showToast('请输入所在地区');
       return
     }
     if (!address) {
       showToast('请输入详细地址');
+      return
+    } else if (!titleReg.test(address)) {
+      showToast('请输入50个字符以内的地址')
       return
     }
     let result = new FormData();
