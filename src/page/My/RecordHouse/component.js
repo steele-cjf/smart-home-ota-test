@@ -12,6 +12,7 @@ import RegionPicker from '../../Component/citySelect';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import showToast from '../../../util/toast';
 import HeaderCommon from '../../Component/HeaderCommon'
+import vertifyHouse from '../Config'
 import ActionSheet from 'react-native-custom-actionsheet'
 
 function RecordHouse(props) {
@@ -133,23 +134,42 @@ function RecordHouse(props) {
   };
 
   const handlerAudit = () => {
-    
-    setLoading(true);
+    if (!regionId) {
+      showToast('请输入所在地区');
+      return
+    }
+    if (!address) {
+      showToast('请输入详细地址');
+      return
+    }
     let result = new FormData();
-    objToFormData('houseHolder', houseHolder, result);
-    objToFormData('houseLayout', houseLayout, result);
     if (houseHolder.self === 'others') { // 如果非本人
+      if (!houseHolder.holderName) {
+        showToast('请输入所有者姓名');
+        return
+      }
+      if (!houseHolder.holderIdCardNumber) {
+        showToast('请输入证件号');
+        return
+      }
+
       if (certificateFilesImg && certificateFilesImg[0]) {
         result.append(
           'houseHolder.certificateFile',
           certificateFilesImg[0],
         );
+      } else {
+        showToast('请上传授权文件')
+        return
       }
       if (idCardFile && idCardFile[0]) {
         result.append(
           'houseHolder.idCardFile',
           idCardFile[0],
         );
+      } else {
+        showToast('请上传授权文件')
+        return
       }
     }
     if (housePropertyCertificateImage && housePropertyCertificateImage[0]) {
@@ -157,8 +177,26 @@ function RecordHouse(props) {
         'housePropertyCertificateImage',
         housePropertyCertificateImage[0],
       );
+    } else {
+      showToast('请上传房产证')
+      return
     }
-    // result.append('regions', tabs)
+    
+    let index = vertifyHouse.findIndex(item => {
+      return !houseLayout[item.key];
+    });
+
+    message = vertifyHouse[index] && vertifyHouse[index].errorMsg[0];
+    if (message) {
+      showToast(message)
+      return
+    }
+
+    setLoading(true);
+
+    objToFormData('houseHolder', houseHolder, result);
+    objToFormData('houseLayout', houseLayout, result);
+
     result.append('regionId', regionId);
     result.append('address', regionName + address);
 
@@ -259,6 +297,7 @@ function RecordHouse(props) {
         break;
     }
   };
+  
   // 表单变化触发
   const setData = (key, value, type) => {
     console.log('ddf', key);
