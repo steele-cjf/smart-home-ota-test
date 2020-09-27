@@ -92,7 +92,6 @@ function TenantHouseList(props) {
       <View key={index} style={styles.container}>
         <TouchableOpacity style={styles.rightContainer} onPress={() => handleToDetailPage(item)}>
           <Text style={styles.houseName} numberOfLines={1}>
-            {item.regionFullName}
             {item.address}
           </Text>
           <View

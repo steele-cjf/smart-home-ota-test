@@ -96,6 +96,30 @@ export default function AddTenant(props) {
         showToast('请先扫描二维码')
       }
     } else { // 手动
+      let phoneReg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+      identificationType === ID_CARD
+      if (!name) {
+        showToast('请输入姓名');
+        return
+      }
+      if (identificationType === ID_CARD) {
+        if (!identificationNo) {
+          showToast('请输入身份证号');
+          return
+        }
+      } else {
+        if (!identificationNo) {
+          showToast('请输入护照号');
+          return
+        }
+      }
+      if (!mobile) {
+        showToast('请输入手机号');
+        return
+      } else if (!phoneReg.test(mobile)) {
+        showToast('请输入正确的手机号');
+        return
+      }
       // 租客或家庭成员
       if (type === 'member') {
         result = {

@@ -117,7 +117,6 @@ export default function StatusCard(props) {
         <View style={styles.container}>
             {options && options.showLocation &&
                 <TouchableOpacity style={styles.topBox} onPress={() => props.showList()}>
-                    {/* <Entypo style={styles.LeftIcon} name='location-pin' /> */}
                     <Icomoon style={styles.LeftIcon} name='dizhi' />
                     <Text style={styles.location} numberOfLines={1}>{options.name || '--'}</Text>
                     <Icomoon name='xiajiantou_shixin' style={styles.RightIcon} />
@@ -154,7 +153,8 @@ const styles = StyleSheet.create({
         borderBottomColor: '#E9E9E9',
         fontSize: $screen.scaleSize(16),
         paddingBottom: 13,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     location: {
         color: '#7C7C7C',
@@ -163,19 +163,19 @@ const styles = StyleSheet.create({
         width: '80%'
     },
     RightIcon: {
-        position: 'absolute',
-        right: 20,
-        top: 4,
+        // position: 'absolute',
+        // right: 20,
+        // top: 4,
         color: '#7C7C7C',
-        height: '100%',
-        textAlignVertical: 'center',
+        // height: '100%',
+        // textAlignVertical: 'center',
     },
     LeftIcon: {
         color: '#7C7C7C',
         paddingRight: 5,
         fontSize: $screen.scaleSize(17),
         textAlign: 'center',
-        top: 3
+        // top: 3
     },
     bottomBox: {
         flexDirection: 'row',

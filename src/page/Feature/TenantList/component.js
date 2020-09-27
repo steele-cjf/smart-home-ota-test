@@ -91,7 +91,7 @@ export default function TenantList(props) {
     );
   };
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <HeaderCommon
         options={{
           backTitle: '返回',
@@ -104,7 +104,7 @@ export default function TenantList(props) {
       {loading ? (
         <Spinner  style={STYLES.spinner} color="#5C8BFF"/>
       ) : (
-        <ScrollView bounces={false}>
+        <ScrollView bounces={false} style={{ flex: 1 }}>
           <View style={styles.room_wrapper}>
             <View style={[styles.house_address, styles.line]}>
               <View style={{ width: 70 }}>

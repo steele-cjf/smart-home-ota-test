@@ -643,7 +643,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: Theme.background,
+    // backgroundColor: Theme.background,
     marginHorizontal: 15,
   },
   label_content: {

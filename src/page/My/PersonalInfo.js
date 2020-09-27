@@ -54,7 +54,9 @@ const PersonalInfoPage = (props) => {
           })
           .catch(err => {
             console.log('88888888888', err)
-            showToast('系统设置了拒绝访问相机')
+            if (err.message.includes("User did not grant camera permission")) {
+              showToast('系统设置了拒绝访问相机')
+            }
           }); 
           
         } else if (buttonIndex === 1) {
@@ -71,7 +73,9 @@ const PersonalInfoPage = (props) => {
           })
           .catch(err => {
             console.log('99999999', err)
-            showToast('系统设置了拒绝访问相册')
+            if (err.message.includes("Cannot access images")) {
+              showToast('系统设置了拒绝访问相册')
+            }
           });
           
         }
