@@ -136,59 +136,59 @@ function HouseListComponent(props) {
   };
 
   return (
-    <View>
-      <FlatList
-        data={houseListData()}
-        ref={listElement}
-        // 首屏渲染多少个数据
-        initialNumToRender={5}
-        // 手动维护每一行的高度以优化性能
-        getItemLayout={getHouseItemLayout}
-        // 列表为空时渲染
-        ListEmptyComponent={renderListEmptyView()}
-        // 加载更多时渲染
-        ListFooterComponent={renderListFooterView()}
-        // 当前列表 loading 状态
-        // refreshing={isLoading}
-        // 刷新
-        // onRefresh={fetchHouseList}
-        refreshControl={
-          <RefreshControl
-            progressViewOffset={30}
-            title={'加载中...'}
-            colors={[Theme.primary]}//此颜色无效
-            tintColor={Theme.primary}
-            titleColor={Theme.primary}//只有ios有效
-            refreshing={upLoading}
-            onRefresh={() => {
-              setUpLoadding(true)
-              fetchHouseList && fetchHouseList()
-              setTimeout(() => {
-                setUpLoadding(false)
-              }, 1000)
-              // this.loadData(true);
-            }}
+    // <View style={{flex: 1}}>
+    <FlatList
+      data={houseListData()}
+      ref={listElement}
+      // 首屏渲染多少个数据
+      initialNumToRender={5}
+      // 手动维护每一行的高度以优化性能
+      getItemLayout={getHouseItemLayout}
+      // 列表为空时渲染
+      ListEmptyComponent={renderListEmptyView()}
+      // 加载更多时渲染
+      ListFooterComponent={renderListFooterView()}
+      // 当前列表 loading 状态
+      // refreshing={isLoading}
+      // 刷新
+      // onRefresh={fetchHouseList}
+      refreshControl={
+        <RefreshControl
+          progressViewOffset={30}
+          title={'加载中...'}
+          colors={[Theme.primary]}//此颜色无效
+          tintColor={Theme.primary}
+          titleColor={Theme.primary}//只有ios有效
+          refreshing={upLoading}
+          onRefresh={() => {
+            setUpLoadding(true)
+            fetchHouseList && fetchHouseList()
+            setTimeout(() => {
+              setUpLoadding(false)
+            }, 1000)
+            // this.loadData(true);
+          }}
 
+        />
+      }
+      // 加载更多安全距离（相对于屏幕高度的比例）
+      onEndReachedThreshold={IS_IOS ? 0.05 : 0.2}
+      // 加载更多
+      onEndReached={handleLoadMoreArticle}
+      // 唯一 ID
+      keyExtractor={item => item.id}
+      renderItem={({ item, index }) => {
+        return (
+          <HouseItem
+            // key={item.id}
+            houseInfo={item}
+            onPress={handleToDetailPage}
+            key={getHouseIdKey(item, index)}
           />
-        }
-        // 加载更多安全距离（相对于屏幕高度的比例）
-        onEndReachedThreshold={IS_IOS ? 0.05 : 0.2}
-        // 加载更多
-        onEndReached={handleLoadMoreArticle}
-        // 唯一 ID
-        keyExtractor={item => item.id}
-        renderItem={({ item, index }) => {
-          return (
-            <HouseItem
-              // key={item.id}
-              houseInfo={item}
-              onPress={handleToDetailPage}
-              key={getHouseIdKey(item, index)}
-            />
-          );
-        }}
-      />
-    </View>
+        );
+      }}
+    />
+    // </View>
   );
 }
 const styles = StyleSheet.create({

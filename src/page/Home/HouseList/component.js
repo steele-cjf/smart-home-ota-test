@@ -31,11 +31,12 @@ function HouseList(props) {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: true
     });
-    // Geolocation.requestAuthorization();
-    console.log('get location start:')
+    if (Platform.OS == 'ios') {
+      Geolocation.requestAuthorization()
+    }
     Geolocation.getCurrentPosition(
       position => {
-        console.log('position: ' + JSON.stringify(position))
+        // console.log('position: ' + JSON.stringify(position))
         setPositioningIsOn(true)
         if (position.coords) {
           const arr = [position.coords.longitude, position.coords.latitude];
@@ -44,6 +45,7 @@ function HouseList(props) {
       },
       error => {
         setPositioningIsOn(false)
+        setCenter('')
       }
     )
   }

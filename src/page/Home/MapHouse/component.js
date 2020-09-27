@@ -19,16 +19,16 @@ function MapHouse(props) {
     [{ priceHigh: null, priceLow: null }, { priceHigh: 1000, priceLow: 0 }, { priceHigh: 2000, priceLow: 1000 }, { priceHigh: 3000, priceLow: 2000 }, { priceHigh: 4000, priceLow: 3000 }, { priceHigh: null, priceLow: 4000 }],
     [{ orderBy: 'newest' }, { orderBy: 'price_up' }, { orderBy: 'price_down' }]
   ]
-
+  const initLoc = {
+    latitude: 39.904989,
+    longitude: 116.40
+  }
   const [snapIndex] = useState(snapPoints.length - 1)
   const [selectItem, setSelectItem] = useState()
   const [markers, setMarker] = useState([])
   const [params, setParams] = useState({})
   const [positioningIsOn, setPositioningIsOn] = useState(true)
-  const [center, setCenter] = useState({
-    latitude: 39.904989,
-    longitude: 116.40
-  })
+  const [center, setCenter] = useState(initLoc)
   const [houseList, setHouseList] = useState({})
   const mapRef = useRef()
   var [loc, setLoc] = useState({})
@@ -43,7 +43,6 @@ function MapHouse(props) {
     }
     Geolocation.getCurrentPosition(
       position => {
-        // console.log('position: ' + JSON.stringify(position))
         setPositioningIsOn(true)
         if (position.coords) {
           setCenter(position.coords);
@@ -51,6 +50,7 @@ function MapHouse(props) {
       },
       error => {
         setPositioningIsOn(false)
+        setCenter(initLoc)
       }
     )
   }, [props.route]))
@@ -66,6 +66,7 @@ function MapHouse(props) {
   }
 
   const selectMarker = (item) => {
+
     setSelectItem(item)
     if (item) {
       getHouseList({ item })
@@ -76,7 +77,6 @@ function MapHouse(props) {
   }
 
   const searchMarker = (reg) => {
-    selectMarker(null)
     let data = {}
     let location = reg || loc
     if (location && location.region) {
@@ -96,7 +96,7 @@ function MapHouse(props) {
     let result = Object.assign({}, data, params)
     props.getSearchSummaries(result, res => {
       if (!res.code && res.data) {
-        console.log('result', res.data)
+        // console.log('result', res.data)
         setMarker(res.data)
       } else {
         setMarker([])
@@ -111,6 +111,7 @@ function MapHouse(props) {
     if (sec === 1) {
       return
     }
+    selectMarker(null)
     if (sec === 0) {
       if (!positioningIsOn && row) {
         let options = [
@@ -141,6 +142,7 @@ function MapHouse(props) {
     searchMarker()
   }
   const getSection = (arr1, arr2) => {
+    selectMarker(null)
     const houseParams = {
       houseType: arr1,
       roomCount: arr2
@@ -234,18 +236,19 @@ function MapHouse(props) {
           renderContent={() => renderContent()}
         />
       </DropdownMenu>
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   BottomSheet: {
+    flex: 1
   },
   content: {
     height: '100%',
     textAlign: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    // paddingBottom: '100%'
   },
   header: {
     textAlign: 'center',
