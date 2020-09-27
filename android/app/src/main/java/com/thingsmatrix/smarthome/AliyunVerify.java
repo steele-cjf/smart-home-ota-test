@@ -69,7 +69,7 @@ public class AliyunVerify extends ReactContextBaseJavaModule implements Lifecycl
                 } else if (alRealIdentityResult == ALRealIdentityResult.AUDIT_NOT) {
                     // 未认证，具体原因可通过code来区分（code取值参见下方表格），通常是用户主动退出或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程。
                     // do something
-                    jsCallback.invoke("fail");
+                    jsCallback.invoke("notAudit");
                 } else {
                     jsCallback.invoke("fail");
                 }

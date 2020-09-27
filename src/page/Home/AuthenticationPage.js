@@ -77,7 +77,10 @@ function AuthenticationPage(props) {
               console.log('res.message*****: ',res.message)
             }
           });
-        } else {
+        } else if (ret === 'notAudit') {
+          showToast("未完成认证");
+        }
+        else if (ret === 'fail') {
           showToast('认证失败');
         }
       });
