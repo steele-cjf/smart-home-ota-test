@@ -348,12 +348,11 @@ function HouseDetail(props) {
                 </Text>
               </View>
               <View
-                style={(styles.rightContent, styles.flex)}>
+                style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Icomoon
                   name="tianjia"
                   style={{
-                    top: 2,
-                    right: 4,
+                    paddingRight: 5,
                     fontSize: $screen.scaleSize(10),
                     color: Theme.textLink,
                   }}
