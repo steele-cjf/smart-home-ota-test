@@ -28,7 +28,7 @@ export function scaleSize(size) {
   var scaleWidth = SCREEN_WIDTH / X_WIDTH;
   var scaleHeight = SCREEN_HEIGHT / X_HEIGHT;
   var scale = Math.min(scaleWidth, scaleHeight);
-  size = Math.round((size * scale + 1));
+  size = Math.round((size * scale));
   return size;
 }
 

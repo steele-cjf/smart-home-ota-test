@@ -13,12 +13,12 @@ export default function SearchHeader(props) {
         <View>
             <Header hasSegment style={styles.container}>
                 <View>
-                    <Button transparent onPress={() => NavigatorService.goBack()} style={{flex: 1, alignItems: 'center'}} >
+                    <Button transparent onPress={() => NavigatorService.goBack()} style={{flex: 1, alignItems: 'center', paddingRight: 10}} >
                         <AntDesign name="left" style={[styles.actionColor]} />
                         <Text style={[styles.backBtn]}>返回</Text>
                     </Button>
                 </View>
-                <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', backgroundColor: '#E9E9E9', height: 30, borderRadius: 20, marginHorizontal: 10 }}>
+                <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', backgroundColor: '#E9E9E9', height: 30, borderRadius: 20}}>
                     <EvilIcons name='search' style={styles.searchIcon} />
                     <Input
                         style={styles.Input}
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     container: {
         height: 50,
         // height: 44,
-        padding: 10,
+        // padding: 10,
         backgroundColor: '#fff',
         alignItems: 'center'
     },
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         fontSize: $screen.scaleSize(23),
         width: '100%',
         textAlign: 'center',
-        //paddingVertical: 5,
+        paddingLeft: 10,
     },
     text: {
         color: '#282828',
