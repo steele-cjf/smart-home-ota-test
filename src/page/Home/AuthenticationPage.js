@@ -94,6 +94,7 @@ function AuthenticationPage(props) {
 
   function handlerVerify() {
     if (selectIndex === 0) {
+      setBtnVerfyDisabled(true);
       personalVerify();
     } else if (selectIndex === 1) {
 
@@ -137,7 +138,7 @@ function AuthenticationPage(props) {
     {
       name: '人脸识别',
       type: '自动验证',
-      description: '适合中国公民，5分钟内验证完毕T1',
+      description: '适合中国公民，5分钟内验证完毕T2',
       id: 1,
     },
     {
