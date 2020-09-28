@@ -47,8 +47,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   label_style: {
-    width: 75,
+    minWidth: 55,
     height: 32,
+    paddingHorizontal: 10,
     fontSize: $screen.scaleSize(14),
     textAlign: 'center',
     lineHeight: 32,
