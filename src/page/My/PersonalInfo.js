@@ -380,18 +380,21 @@ const PersonalInfoPage = (props) => {
               ); 
             } else {
               return (
-                <View style={styles.sigContainer}>
-                  <Text style={[styles.textTitle]}>{item}</Text>
-                  <TextInput style={[styles.textContent,styles.rightInput, {top: 0, paddingVertical: 17}]} 
+                <View style={[{flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#E9E9E9',}]}>
+                  <Text style={[styles.textTitle, {paddingVertical: 18}]}>{item}</Text>
+                  <TextInput style={[{ flex: 1, textAlign: 'right', fontSize: $screen.scaleSize(14), textAlignVertical: 'top', 
+                    marginLeft: 20, paddingRight: 24, paddingTop: 18, paddingBottom: 10,}]}  
                     onChangeText={(text) => {setSaveData(item, text);}}
                     value={otherData[item]}
                     editable={true}
-                    maxLength={20}
+                    maxLength={40}
                     onFocus={() => {
                       if (Picker) {
                         Picker.hide();
                       }
                     }}
+                    multiline={true}
+                    numberOfLines={2}
                   />
                 </View>
               ); 
