@@ -24,7 +24,7 @@ function AuthenticationPage(props) {
   function personalVerify() {
     setBtnVerfyDisabled(true);
 
-    console.log('userId2:*****', userId)
+    console.log('userId2:*****^^^^^', userId)
     props.getVerifyToken({ userId }, res => { //userInfo.id
       setBtnVerfyDisabled(false);
 
@@ -137,7 +137,7 @@ function AuthenticationPage(props) {
     {
       name: '人脸识别',
       type: '自动验证',
-      description: '适合中国公民，5分钟内验证完毕',
+      description: '适合中国公民，5分钟内验证完毕T1',
       id: 1,
     },
     {

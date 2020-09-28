@@ -207,7 +207,7 @@ function LoginPage(props) {
         />
       </View>
       <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
-      <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户T3</Text>
+      <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户</Text>
     </Content>
     </ScrollView>
   );

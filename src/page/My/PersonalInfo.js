@@ -351,7 +351,7 @@ const PersonalInfoPage = (props) => {
         }}
       />
       {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> : 
-      <Content bounces={false} style={styles.containerStyle}>
+      <ScrollView bounces={false} style={styles.containerStyle}>
         <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
           <Text style={[styles.textTitle, {paddingVertical: 16}]}>头像</Text>
           <Image style={styles.headImageStyle} source={headImage} />
@@ -407,7 +407,7 @@ const PersonalInfoPage = (props) => {
           setTabs={data => setTabs(data)}
           close={(flag, data) => handleFunc(flag, data)}
         />
-      </Content>
+      </ScrollView>
       }
     </View>
   ); 
