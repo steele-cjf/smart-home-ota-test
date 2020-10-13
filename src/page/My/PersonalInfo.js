@@ -17,6 +17,7 @@ import {bindActionCreators} from 'redux';
 import {getUserInfo} from '../../store/home/index';
 import {modifyPersonalInfo} from '../../store/user/index';
 //import showToast from '../../util/toast';
+import { Loading, EasyLoading } from 'react-native-easy-loading';
 
 const PersonalInfoPage = (props) => {     
   
@@ -182,10 +183,11 @@ const PersonalInfoPage = (props) => {
   }, []);
 
   function handleInfo() {
+    EasyLoading.show('加载中...');
     props.getUserInfo(res => {
       console.log('getUserInfo****kkkk:', res.data);
 
-      setLoading(false);
+      EasyLoading.dismis();
       if (!res.code) {
         dealDataRefresh(res.data);
       } else {
@@ -263,11 +265,11 @@ const PersonalInfoPage = (props) => {
 
     console.log('传入avatarImage: **:  ', imageObj);
     console.log('传入result: **:  ', result);
-    setLoading(true);
+    EasyLoading.show('请稍等...');
 
     const userId = props.userInfo.data.id;
     props.modifyPersonalInfo(userId, result, res => {
-      setLoading(false);
+      EasyLoading.dismis();
       console.log('modifyPersonalInfo****kkkk:', res);
 
       if (!res.code) {
@@ -324,7 +326,6 @@ const PersonalInfoPage = (props) => {
   const [otherData, setOtherData] = useState({});
   const [headImage, setHeadImage] = useState(img);
   const [imageObj, setImageObj] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   const renderBasicView = () => {
     let arr = [];
@@ -350,7 +351,7 @@ const PersonalInfoPage = (props) => {
         title: '个人信息' 
         }}
       />
-      {loading ? <Spinner style={STYLES.spinner} color="#5C8BFF"/> : 
+      <Loading />
       <ScrollView bounces={false} style={styles.containerStyle}>
         <TouchableOpacity style={styles.headContainer} onPress={imagePickerAction}>
           <Text style={[styles.textTitle, {paddingVertical: 16}]}>头像</Text>
@@ -411,7 +412,6 @@ const PersonalInfoPage = (props) => {
           close={(flag, data) => handleFunc(flag, data)}
         />
       </ScrollView>
-      }
     </View>
   ); 
 }

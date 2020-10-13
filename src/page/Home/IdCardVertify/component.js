@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Form from '../../Component/form';
 import ImageUpload from '../../Component/imageUpload';
 import { AppRoute } from '../../../navigator/AppRoutes';
@@ -7,6 +7,7 @@ import { Spinner, Content } from 'native-base'
 import vertifyCn from '../config/IdCardVertifyCn';
 import Theme from '../../../style/colors';
 import HeaderCommon from '../../Component/HeaderCommon'
+import { Loading, EasyLoading } from 'react-native-easy-loading';
 
 export default function IdCardVertifyPage(props) {
   const [formData, setFormData] = useState({});
@@ -123,17 +124,15 @@ export default function IdCardVertifyPage(props) {
     changeToForm(result);
     result.append('userId', userId);
     result.append('identificationType', 'id_card');
-    setLoading(true);
     console.log('99userId: ', userId);
 
-    const controller = new AbortController(); //test
-    const { signal } = controller;
-    console.log('^^^^^^^^^', controller);
-   // console.log('!!!!!!!!!!!!', {signal});
-
+    //setLoading(true);
+    EasyLoading.show('请稍等...');
     props.verifyIdCard(result, res => {
       console.log('^^^^^^res1',res)
-      setLoading(false)
+      //setLoading(false)
+      EasyLoading.dismis();
+      
       if (res.code === 0) {
         showToast('提交成功');
         NavigatorService.navigate(AppRoute.VERDETAILS);
@@ -183,6 +182,7 @@ export default function IdCardVertifyPage(props) {
           title: '身份证认证'
         }}
       />
+      <Loading />
       <Content>
         <ScrollView bounces={false} contentContainerStyle={styles.scrollContainer}>
           <Text style={styles.textTitle}>基本资料</Text>
@@ -213,9 +213,14 @@ export default function IdCardVertifyPage(props) {
               imgUrl={formImages[2] && formImages[2].uri}
             />
           </View>
-          <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
+          {/* <TouchableOpacity style={styles.Btn} onPress={() => { handleConfirm(); }}>
             <Text style={styles.btnText}>确认</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <TouchableWithoutFeedback  onPress={() => { handleConfirm(); }}>
+            <View style={styles.Btn}>
+              <Text style={styles.btnText}>确认</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </ScrollView>
       </Content>
     </View>

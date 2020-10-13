@@ -59,6 +59,8 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         height: 44,
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(0, 0, 0, 0.08)', 
     },
     actionColor: {
         color: Theme.textLink,

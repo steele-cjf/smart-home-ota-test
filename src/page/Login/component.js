@@ -3,7 +3,7 @@
  */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Keyboard, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Keyboard, ScrollView, StyleSheet, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 import { Text, Input, Button, CheckBox } from 'react-native-elements';
 import Icomoon from '../../common/Icomoon';
 import { Content } from 'native-base';
@@ -11,6 +11,7 @@ import { AppRoute } from '../../navigator/AppRoutes';
 import showToast from '../../util/toast';
 import storage from '../../util/storage';
 import Theme from '../../style/colors';
+import { Loading, EasyLoading } from 'react-native-easy-loading';
 
 function LoginPage(props) {
   useEffect(() => {
@@ -91,7 +92,9 @@ function LoginPage(props) {
       mobile: mobile,
       verifyCode: verifyCode,
     };
+    EasyLoading.show('登录中...');
     props.handleLogin(data, res => {
+      EasyLoading.dismis();
       if (!res.code) {
         (async () => {
           await storage.set('token', res.data.accessToken);
@@ -122,7 +125,9 @@ function LoginPage(props) {
     const data = {
       mobile: mobile,
     };
+    EasyLoading.show('发送中...');
     props.getVerifyCode(data, res => {
+      EasyLoading.dismis();
       console.log('code', res);
       if (!res.code) {
         showToast('验证码已发送，请注意查收！');
@@ -146,6 +151,7 @@ function LoginPage(props) {
   return ( 
     <ScrollView bounces={false} style={{backgroundColor: Theme.background}}>
     <Content bounces={false} style={styles.container}>
+      <Loading></Loading>
       <Text style={styles.loginTitle}>登录</Text>
       <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
       <Input
