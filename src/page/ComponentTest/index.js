@@ -7,12 +7,15 @@ import { View, PermissionsAndroid, Platform, StyleSheet, Linking, NativeModules,
 import { NetworkInfo } from 'react-native-network-info';
 import Geolocation from '@react-native-community/geolocation';
 // import NotifService from './NotifService';
+import SmartConfig from 'react-native-smartconfig-quan';
+
 import BleManager from 'react-native-ble-manager';
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 
 function ComponentTest(props) {
     const [wifi, setWifi] = useState('')
+    const [BSSID, setBSSID] = useState('')
     var [BLEList, setBLEList] = useState([])
     var [selectBle, setSelectBle] = useState(null)
     var config = []
@@ -28,9 +31,18 @@ function ComponentTest(props) {
                         console.log("Module initialized")
                     })
                     var listener = bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', showBLElist);
+                    var change = bleManagerEmitter.addListener(
+                        "BleManagerDidUpdateValueForCharacteristic",
+                        ({ value, peripheral, characteristic, service }) => {
+                            // Convert bytes array to string
+                            const data = bytesToString(value);
+                            console.log(`Recieved ${data} for characteristic ${characteristic}`);
+                        }
+                    );
                     return () => {
+                        change.remove()
                         listener.remove()
-                    };
+                    }
                 })
                 .catch((error) => {
                     // Failure code
@@ -44,7 +56,6 @@ function ComponentTest(props) {
             if (peripheral.connected) {
                 BleManager.disconnect(peripheral.id);
             } else {
-                console.log(1111111, peripheral.id)
                 BleManager.connect(peripheral.id).then(() => {
                     let p = config[peripheral.id]
                     if (p) {
@@ -59,11 +70,34 @@ function ComponentTest(props) {
             }
         }
     }
+    const startBoarst = () => {
+        async function connectAndPrepare(peripheral, service, characteristic) {
+            // Connect to device
+            await BleManager.connect(peripheral);
+            // Before startNotification you need to call retrieveServices
+            await BleManager.retrieveServices(peripheral);
+            // To enable BleManagerDidUpdateValueForCharacteristic listener
+            await BleManager.startNotification(peripheral, service, characteristic);
+            // Add event listener
+            bleManagerEmitter.addListener(
+                "BleManagerDidUpdateValueForCharacteristic",
+                ({ value, peripheral, characteristic, service }) => {
+                    // Convert bytes array to string
+                    const data = bytesToString(value);
+                    console.log(`Recieved ${data} for characteristic ${characteristic}`);
+                }
+            );
+            // Actions triggereng BleManagerDidUpdateValueForCharacteristic event
+        }
+        BLEList.forEach((peripheral) => {
+            connectAndPrepare(peripheral)
+        })
+
+    }
     const NotificationInfo = () => { }
     const showBLElist = (args) => {
         if (!args.name) return
         config[args.id] = args
-        console.log(8888888)
         var x = Array.from(Object.values(config))
         setBLEList(x)
     }
@@ -74,6 +108,9 @@ function ComponentTest(props) {
             await Geolocation.requestAuthorization()
         }
         let wf = await NetworkInfo.getSSID()
+        let wf2 = await NetworkInfo.getBSSID()
+        // console.log(wf, wf2, 22222222)
+        setBSSID(wf2)
         setWifi(wf)
     }
 
@@ -123,6 +160,25 @@ function ComponentTest(props) {
         );
     }
 
+    const smartConfigStart = () => {
+        const wifiPass = "tmx12345"
+        const TIME_OUT_SMART_CONFIG = 1000
+        if (!wifi || !BSSID) {
+            showToast("未连接wifi!!!!")
+            return
+        }
+        SmartConfig.start(wifi, BSSID, wifiPass, TIME_OUT_SMART_CONFIG, (event) => {
+            console.log("event", event);
+            let { eventName, data } = event;
+            console.log(data, event)
+            if (eventName === 'onFoundDevice') {
+
+            } else {
+                console.log("failed")
+            }
+        })
+    }
+
 
     return (
         <View style={{ margin: 20, flex: 1 }}>
@@ -133,7 +189,9 @@ function ComponentTest(props) {
             <Button style={styles.mrg} title='打开设置' onPress={() => { openApp('setting') }}></Button>
             <Button style={styles.mrg} title='打开通知' onPress={() => { NotificationInfo() }}></Button>
             <Button style={styles.mrg} title='扫描蓝牙' onPress={() => { getBleList() }}></Button>
+            <Button style={styles.mrg} title='开始广播' onPress={() => { startBoarst() }}></Button>
             <Button style={styles.mrg} title='检查连接' onPress={() => { checkConnect() }}></Button>
+            <Button style={styles.mrg} title='smartConfig' onPress={() => { smartConfigStart() }}></Button>
             <ScrollView style={styles.scroll}>
                 {(BLEList.length == 0) &&
                     <View style={{ flex: 1, margin: 20 }}>

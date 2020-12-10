@@ -20,6 +20,9 @@ export function getVerifyCode(data, callback) {
     successConfig: {
       callback,
     },
+    failConfig: {
+      callback
+    }
   });
 }
 // 获取全部的类型的数据字典

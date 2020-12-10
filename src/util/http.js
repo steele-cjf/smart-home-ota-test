@@ -33,14 +33,10 @@ export const formatURL = (url, params) => {
 };
 
 let timeoutPromise = (timeout) => {
-  return new Promise((resolve, reject) => { 
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve("timeout");
       reject("err");
-      //resolve(new Response("timeout", { status: 504, statusText: "timeout" }));
-      // reject(new Error("fetch timeout"))
-
-      //controller.abort(); 
     }, timeout);
   });
 }
@@ -59,8 +55,8 @@ export const httpService = (url, config) => {
           config.body = JSON.stringify(cleanNullData(config.body))
         }
       }
-
       let fetchService = function (appApi, url, config) {
+        console.log(appApi + url, config)
         return fetch(appApi + url, config)
           .then(response => response.json())
           .then(response => {
@@ -80,19 +76,17 @@ export const httpService = (url, config) => {
           .catch(error => {
             console.log('error', error)
             if (error.message === "Network request failed") {
-              showToast('网络出错')  
+              showToast('网络出错')
             } else {
               showToast('请求出错，请联系管理员')
             }
-
             if (config.failConfig && config.failConfig.callback) {
               config.failConfig.callback(error);
-            } 
+            }
           });
-        } 
-
-        //fetchService(appApi, url, config);
-        Promise.race([timeoutPromise(30*1000), fetchService(appApi, url, config)])
+      }
+      //fetchService(appApi, url, config);
+      Promise.race([timeoutPromise(30 * 1000), fetchService(appApi, url, config)])
         .then(resp => {
           //console.log(11111, resp);
           if (resp === 'timeout') {
@@ -105,7 +99,7 @@ export const httpService = (url, config) => {
         .catch(error => {
           console.log(2222, error);
         })
-        
+
     })();
   };
 }

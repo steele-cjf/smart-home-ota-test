@@ -321,44 +321,48 @@ PODS:
     - React-cxxreact (= 0.62.2)
     - React-jsi (= 0.62.2)
   - React-jsinspector (0.62.2)
-  - react-native-amap3d (2.0.2):
+  - react-native-amap3d (2.0.3):
     - AMap3DMap (~> 7.5.0)
     - React
-  - react-native-ble-manager (7.3.1):
+  - react-native-ble-manager (7.4.1):
     - React
-  - react-native-camera/BarcodeDetectorMLKit (3.36.0):
+  - react-native-camera/BarcodeDetectorMLKit (3.40.0):
     - Firebase/MLVision
     - Firebase/MLVisionBarcodeModel
-    - React
+    - React-Core
     - react-native-camera/RCT
     - react-native-camera/RN
-  - react-native-camera/RCT (3.36.0):
-    - React
-  - react-native-camera/RN (3.36.0):
+  - react-native-camera/RCT (3.40.0):
+    - React-Core
+  - react-native-camera/RN (3.40.0):
+    - React-Core
+  - react-native-esptouch (1.1.5):
     - React
   - react-native-geolocation (2.0.2):
     - React
-  - react-native-image-picker (2.3.3):
-    - React
-  - react-native-netinfo (5.9.6):
-    - React
+  - react-native-image-picker (2.3.4):
+    - React-Core
+  - react-native-netinfo (5.9.9):
+    - React-Core
   - react-native-network-info (5.2.1):
     - React
-  - react-native-safe-area-context (3.1.6):
+  - react-native-safe-area-context (3.1.9):
+    - React-Core
+  - react-native-smartconfig-quan (1.0.6):
     - React
-  - react-native-update (5.7.1):
+  - react-native-update (5.9.3):
     - React
-    - react-native-update/BSDiff (= 5.7.1)
-    - react-native-update/RCTPushy (= 5.7.1)
+    - react-native-update/BSDiff (= 5.9.3)
+    - react-native-update/RCTPushy (= 5.9.3)
     - SSZipArchive
-  - react-native-update/BSDiff (5.7.1):
+  - react-native-update/BSDiff (5.9.3):
     - React
     - SSZipArchive
-  - react-native-update/RCTPushy (5.7.1):
+  - react-native-update/RCTPushy (5.9.3):
     - React
     - SSZipArchive
-  - react-native-viewpager (4.1.6):
-    - React
+  - react-native-viewpager (4.2.1):
+    - React-Core
   - React-RCTActionSheet (0.62.2):
     - React-Core/RCTActionSheetHeaders (= 0.62.2)
   - React-RCTAnimation (0.62.2):
@@ -420,16 +424,16 @@ PODS:
     - ReactCommon/callinvoker (= 0.62.2)
   - rn-fetch-blob (0.12.0):
     - React-Core
-  - RNCAsyncStorage (1.12.0):
-    - React
+  - RNCAsyncStorage (1.12.1):
+    - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNCPushNotificationIOS (1.4.1):
-    - React
-  - RNDateTimePicker (3.0.3):
+  - RNCPushNotificationIOS (1.8.0):
     - React-Core
-  - RNGestureHandler (1.7.0):
-    - React
+  - RNDateTimePicker (3.0.8):
+    - React-Core
+  - RNGestureHandler (1.9.0):
+    - React-Core
   - RNImageCropPicker (0.34.1):
     - React-Core
     - React-RCTImage
@@ -439,10 +443,10 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNReanimated (1.13.0):
-    - React
-  - RNScreens (2.10.1):
-    - React
+  - RNReanimated (1.13.2):
+    - React-Core
+  - RNScreens (2.15.0):
+    - React-Core
   - RNVectorIcons (6.7.0):
     - React
   - SSZipArchive (2.2.3)
@@ -494,11 +498,13 @@ DEPENDENCIES:
   - react-native-amap3d (from `../node_modules/react-native-amap3d/lib/ios`)
   - react-native-ble-manager (from `../node_modules/react-native-ble-manager`)
   - react-native-camera/BarcodeDetectorMLKit (from `../node_modules/react-native-camera`)
+  - react-native-esptouch (from `../node_modules/react-native-esptouch`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-network-info (from `../node_modules/react-native-network-info`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-smartconfig-quan (from `../node_modules/react-native-smartconfig-quan`)
   - react-native-update (from `../node_modules/react-native-update`)
   - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -597,6 +603,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-ble-manager"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  react-native-esptouch:
+    :path: "../node_modules/react-native-esptouch"
   react-native-geolocation:
     :path: "../node_modules/@react-native-community/geolocation"
   react-native-image-picker:
@@ -607,6 +615,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-network-info"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-smartconfig-quan:
+    :path: "../node_modules/react-native-smartconfig-quan"
   react-native-update:
     :path: "../node_modules/react-native-update"
   react-native-viewpager:
@@ -701,16 +711,18 @@ SPEC CHECKSUMS:
   React-jsi: b6dc94a6a12ff98e8877287a0b7620d365201161
   React-jsiexecutor: 1540d1c01bb493ae3124ed83351b1b6a155db7da
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
-  react-native-amap3d: 26abcffc0fa7cd9f757cd9afe9bf7addb95105b0
-  react-native-ble-manager: 73a2c5d7ca510866d2bdf67d56bec42bd76c004f
-  react-native-camera: 8016138a8348b889e22c95b23f668a234f124335
+  react-native-amap3d: 6f2d5a4af6f4e654c76b1bba0579b76be7ec80a4
+  react-native-ble-manager: a0d0ee16185d281d55dfeb76dab387541eed201e
+  react-native-camera: 35854c4f764a4a6cf61c1c3525888b92f0fe4b31
+  react-native-esptouch: c254067d77f5d8f3a8729dcb60686959b1859b9e
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
-  react-native-image-picker: 3d3f85baabca60a00b75fb8facc1376db7bbdafa
-  react-native-netinfo: 38a1e0b3e89b48e4b5833ed475d8df5f049f6f90
+  react-native-image-picker: c6d75c4ab2cf46f9289f341242b219cb3c1180d3
+  react-native-netinfo: 0212ce8604e88edf686f1481b925b17a42a52449
   react-native-network-info: d1290ffc0bd0709e11436f5b8d7f605dcc5c4530
-  react-native-safe-area-context: 4fb3cdeb4a405ec19f18aca80ef2144381ffc761
-  react-native-update: 4761028996bab8a6191d5303a04ec74cb93ab725
-  react-native-viewpager: f44c9e21c37d4cb76d38841c8a450e3891923461
+  react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
+  react-native-smartconfig-quan: 55646ba21ec1cd63a956850f8b3782a9acf0712a
+  react-native-update: 8a64d7a603880325db5f34dd147f1b3bcf7891fb
+  react-native-viewpager: 40876e00dbd7bcee4c627cf5a9640e6593a019b4
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
   React-RCTBlob: a332773f0ebc413a0ce85942a55b064471587a71
@@ -722,14 +734,14 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
-  RNCAsyncStorage: 2a692bcb9b69b76a2f1a95f33db057129700af64
+  RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNCPushNotificationIOS: c145c6253ea016e5efeff604f2720736b4a596f7
-  RNDateTimePicker: 6f62fd42ac8b58bcc30c43ac3620e5097e8a227f
-  RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
+  RNCPushNotificationIOS: 61a7c72bd1ebad3568025957d001e0f0e7b32191
+  RNDateTimePicker: 8eba76de1afd556bc00c874f4d0c0616e30e32f1
+  RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
   RNImageCropPicker: 39ec170dc53c227ea352b706c76f7960070309a8
-  RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
-  RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
+  RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
+  RNScreens: 2ad555d4d9fa10b91bb765ca07fe9b29d59573f0
   RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   TOCropViewController: 2a1ae1242600b1f2d996fd91a5268b2309a33b5c
@@ -737,6 +749,6 @@ SPEC CHECKSUMS:
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c4e0f627f9a56ca5c4924f460990f0925df0654d
+PODFILE CHECKSUM: 811e5ab84937c39069f58f0ab458ee80fa145856
 
 COCOAPODS: 1.9.3

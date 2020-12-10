@@ -174,7 +174,7 @@ function HomePage(props) {
     }
     array.push({ text: "取消" })
     const options = array.map((item) => {
-    return {component: <Text style={{fontSize: 16, paddingHorizontal: 10, color: '#5C8BFF'}}>{item.text}</Text>, height: 60}
+      return { component: <Text style={{ fontSize: 16, paddingHorizontal: 10, color: '#5C8BFF' }}>{item.text}</Text>, height: 60 }
     })
     setActionSheetConfig({
       CANCEL_INDEX: array.length - 1,
@@ -183,21 +183,6 @@ function HomePage(props) {
     setTimeout(() => {
       ActionSheetRef.current.show()
     })
-    // if (actionSheet !== null) {
-    //   actionSheet._root.showActionSheet(
-    //     {
-    //       options: array,
-    //       cancelButtonIndex: array.length - 1,
-    //       title: "请选择房源"
-    //     },
-    //     buttonIndex => {
-    //       if (houseList[buttonIndex]) {
-    //         props.setHomeHouse(houseList[buttonIndex].houseId)
-    //         setSelectHouse(houseList[buttonIndex])
-    //       }
-    //     }
-    //   )
-    // }
   }
   return (
     <Root>

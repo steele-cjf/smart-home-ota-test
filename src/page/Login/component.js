@@ -128,11 +128,11 @@ function LoginPage(props) {
     EasyLoading.show('发送中...');
     props.getVerifyCode(data, res => {
       EasyLoading.dismis();
-      console.log('code', res);
-      if (!res.code) {
+      console.log('code', res.code);
+      if (res && res.code == 0) {
         showToast('验证码已发送，请注意查收！');
         startTimer(count);
-      } else {
+      } else if (res && res.code) {
         showToast(res.message);
       }
     });
@@ -148,73 +148,73 @@ function LoginPage(props) {
   let times = 60;
   const [count, setCount] = useState(times);
 
-  return ( 
-    <ScrollView bounces={false} style={{backgroundColor: Theme.background}}>
-    <Content bounces={false} style={styles.container}>
-      <Loading></Loading>
-      <Text style={styles.loginTitle}>登录</Text>
-      <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
-      <Input
-        inputStyle={styles.inputPhone}
-        ref={refMobile}
-        keyboardType="numeric"
-        placeholder="请输入中国大陆手机号"
-        placeholderTextColor={Theme.textMuted}
-        leftIcon={
-          <Icomoon name="shouji" color='#527BDF' style={{marginRight: 8}} /> 
-        }
-        value={mobile} 
-        onChangeText={setMobile}
-        onBlur={() => validateField('mobile')}
-      />
-      <View>
+  return (
+    <ScrollView bounces={false} style={{ backgroundColor: Theme.background }}>
+      <Content bounces={false} style={styles.container}>
+        <Loading></Loading>
+        <Text style={styles.loginTitle}>登录</Text>
+        <Text style={styles.subtitle}>欢迎使用慧眼居</Text>
         <Input
-          inputStyle={styles.verCodeInput}
-          ref={refVerifyCode}
+          inputStyle={styles.inputPhone}
+          ref={refMobile}
           keyboardType="numeric"
-          placeholder="请输入验证码"
+          placeholder="请输入中国大陆手机号"
           placeholderTextColor={Theme.textMuted}
           leftIcon={
-            <Icomoon name="mima" color='#527BDF' style={{marginRight: 8}} /> 
+            <Icomoon name="shouji" color='#527BDF' style={{ marginRight: 8 }} />
           }
-          value={verifyCode}
-          //errorMessage={verifyCodeError}
-          // onSubmitEditing={() => refVerifyCode.current.focus()}
-          onChangeText={setVerifyCode}
+          value={mobile}
+          onChangeText={setMobile}
+          onBlur={() => validateField('mobile')}
         />
-        <Button
-          containerStyle={styles.codeBtnPosition}
-          buttonStyle={styles.verCodeBtn}
-          titleStyle={styles.verCodeTitle}
-          title={isSend ? "剩余" + count + "秒" : "发送短信验证码"}
-          disabled={isSend}
-          type="solid"
-          onPress={handleGetCode}
-        />
-      </View>
-      <View>
-        <CheckBox
-          containerStyle={styles.checkBoxContainer}
-          titleStyle={styles.checkBoxTitle}
-          title="同意"
-          // checkedIcon="dot-circle-o"
-          // uncheckedIcon="circle-o"
-          checkedColor={Theme.primary}
-          uncheckedColor={Theme.primary}
-          checked={checked}
-          onPress={() => setChecked(!checked)}
-        />
-        <Button
-          containerStyle={styles.protocolContainer}
-          titleStyle={styles.protocolTitle}
-          type="clear"
-          title="《用户服务协议》"
-          onPress={() => { props.navigation.navigate(AppRoute.AGREEMENT); }}
-        />
-      </View>
-      <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
-      <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户</Text>
-    </Content>
+        <View>
+          <Input
+            inputStyle={styles.verCodeInput}
+            ref={refVerifyCode}
+            keyboardType="numeric"
+            placeholder="请输入验证码"
+            placeholderTextColor={Theme.textMuted}
+            leftIcon={
+              <Icomoon name="mima" color='#527BDF' style={{ marginRight: 8 }} />
+            }
+            value={verifyCode}
+            //errorMessage={verifyCodeError}
+            // onSubmitEditing={() => refVerifyCode.current.focus()}
+            onChangeText={setVerifyCode}
+          />
+          <Button
+            containerStyle={styles.codeBtnPosition}
+            buttonStyle={styles.verCodeBtn}
+            titleStyle={styles.verCodeTitle}
+            title={isSend ? "剩余" + count + "秒" : "发送短信验证码"}
+            disabled={isSend}
+            type="solid"
+            onPress={handleGetCode}
+          />
+        </View>
+        <View>
+          <CheckBox
+            containerStyle={styles.checkBoxContainer}
+            titleStyle={styles.checkBoxTitle}
+            title="同意"
+            // checkedIcon="dot-circle-o"
+            // uncheckedIcon="circle-o"
+            checkedColor={Theme.primary}
+            uncheckedColor={Theme.primary}
+            checked={checked}
+            onPress={() => setChecked(!checked)}
+          />
+          <Button
+            containerStyle={styles.protocolContainer}
+            titleStyle={styles.protocolTitle}
+            type="clear"
+            title="《用户服务协议》"
+            onPress={() => { props.navigation.navigate(AppRoute.AGREEMENT); }}
+          />
+        </View>
+        <Button buttonStyle={styles.logBtn} title="登录" onPress={handleSubmit} />
+        <Text style={styles.tipTitle}>若手机号未注册将自动注册为新用户</Text>
+      </Content>
     </ScrollView>
   );
 }

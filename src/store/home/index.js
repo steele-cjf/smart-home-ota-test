@@ -5,6 +5,9 @@ export function getUserInfo(callback) {
     successConfig: {
       callback,
     },
+    failConfig: {
+      callback
+    }
   });
 }
 
