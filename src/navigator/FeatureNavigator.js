@@ -19,6 +19,10 @@ import PersonalInfo from '../page/My/PersonalInfo';
 import UserPassedPage from '../page/Home/VertifyDetails/UserPassedPage';
 import IdCardVertify from '../page/Home/IdCardVertify';
 import PassportVertify from '../page/Home/PassportVertify';
+import HouseDevice from '../page/Feature/DeviceConfig/HouseDevice'; 
+import ScanAddDevice from '../page/Feature/DeviceConfig/ScanAddDevice';
+import DeviceBegin from '../page/Feature/DeviceConfig/DeviceBegin';
+
 const FeatureStack = createStackNavigator();
 
 export const FeatureStackComponent = () => {
@@ -133,6 +137,27 @@ export const FeatureStackComponent = () => {
       <FeatureStack.Screen
         name={AppRoute.PASSPORTVERTIFY}
         component={PassportVertify}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.HOUSEDEVICE}
+        component={HouseDevice}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.SCANADDDEVICE}
+        component={ScanAddDevice}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <FeatureStack.Screen
+        name={AppRoute.DEVICEBEGIN}
+        component={DeviceBegin}
         options={{
           headerShown: false,
         }}

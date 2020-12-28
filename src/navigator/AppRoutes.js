@@ -33,5 +33,8 @@ export const AppRoute = {
   TENANTHOUSELIST: 'TenantHouseList',
   TENANTLIST: 'TenantList',
   HOUSECOLLECTIONLIST: 'HouseCollectionList',
+  HOUSEDEVICE: 'HouseDevice',
+  SCANADDDEVICE: 'ScanAddDevice',
+  DEVICEBEGIN: 'DeviceBegin',
 };
 Object.freeze(AppRoute);

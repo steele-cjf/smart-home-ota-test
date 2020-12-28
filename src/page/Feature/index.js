@@ -126,7 +126,8 @@ function FeaturePage(props) {
         RouteName = 'Record';
         break;
       case MORE_MENU.Declare:
-        RouteName = 'Declare';
+        //RouteName = 'Declare';
+        NavigatorService.navigate(AppRoute.HOUSEDEVICE);
         break;
       case MORE_MENU.ComponentTest:
         RouteName = 'ComponentTest';
